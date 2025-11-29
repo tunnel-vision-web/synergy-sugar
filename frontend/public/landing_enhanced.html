@@ -150,25 +150,26 @@
       visibility: visible;
     }
     
-    /* Box Grid Overlay - Creates diagonal cascading box reveal effect */
+    /* Box Grid Overlay - Solid boxes masking the image */
     .box-grid-overlay {
       position: absolute;
       inset: 0;
       z-index: 2;
       pointer-events: none;
+      background-color: #f6dd0d;
       background-image:
         repeating-linear-gradient(
           0deg,
-          #686fb4 0px,
-          #686fb4 3px,
-          transparent 3px,
+          rgba(0, 0, 0, 0.15) 0px,
+          rgba(0, 0, 0, 0.15) 2px,
+          transparent 2px,
           transparent 16.66%
         ),
         repeating-linear-gradient(
           90deg,
-          #686fb4 0px,
-          #686fb4 3px,
-          transparent 3px,
+          rgba(0, 0, 0, 0.15) 0px,
+          rgba(0, 0, 0, 0.15) 2px,
+          transparent 2px,
           transparent 16.66%
         );
       background-size: 100% 100%;
@@ -179,51 +180,67 @@
       animation: boxGridDiagonalReveal 2.5s ease-out forwards;
     }
 
-    /* Diagonal reveal from top-left to bottom-right */
+    /* Diagonal reveal - boxes slide away from top-left to bottom-right */
     @keyframes boxGridDiagonalReveal {
       0% {
         opacity: 1;
-        clip-path: polygon(0% 0%, 0% 0%, 0% 0%);
+        clip-path: polygon(
+          0% 0%, 100% 0%, 100% 100%, 0% 100%
+        );
       }
-      10% {
+      12% {
         opacity: 1;
-        clip-path: polygon(0% 0%, 20% 0%, 0% 20%);
+        clip-path: polygon(
+          16.66% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 16.66%
+        );
       }
-      20% {
+      24% {
         opacity: 1;
-        clip-path: polygon(0% 0%, 40% 0%, 0% 40%);
+        clip-path: polygon(
+          33.33% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 33.33%
+        );
       }
-      30% {
+      36% {
         opacity: 1;
-        clip-path: polygon(0% 0%, 60% 0%, 0% 60%);
+        clip-path: polygon(
+          50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%
+        );
       }
-      40% {
+      48% {
         opacity: 1;
-        clip-path: polygon(0% 0%, 80% 0%, 0% 80%);
-      }
-      50% {
-        opacity: 1;
-        clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+        clip-path: polygon(
+          66.66% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 66.66%
+        );
       }
       60% {
         opacity: 1;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 20% 100%, 0% 100%);
+        clip-path: polygon(
+          83.33% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 83.33%
+        );
       }
-      70% {
+      72% {
         opacity: 1;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 40%, 40% 100%, 0% 100%);
+        clip-path: polygon(
+          100% 0%, 100% 16.66%, 100% 100%, 16.66% 100%, 0% 100%
+        );
       }
-      80% {
+      84% {
         opacity: 1;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 60% 100%, 0% 100%);
+        clip-path: polygon(
+          100% 33.33%, 100% 100%, 33.33% 100%
+        );
       }
-      90% {
-        opacity: 0.7;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 80% 100%, 0% 100%);
+      92% {
+        opacity: 1;
+        clip-path: polygon(
+          100% 66.66%, 100% 100%, 66.66% 100%
+        );
       }
       100% {
         opacity: 0;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%);
+        clip-path: polygon(
+          100% 100%, 100% 100%, 100% 100%
+        );
       }
     }
 
