@@ -150,97 +150,66 @@
       visibility: visible;
     }
     
-    /* Box Grid Overlay - Solid boxes masking the image */
+    /* Box Grid Overlay - Grid acts as a mask revealing the image */
     .box-grid-overlay {
       position: absolute;
       inset: 0;
       z-index: 2;
       pointer-events: none;
       background-color: #f6dd0d;
-      background-image:
-        repeating-linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.15) 0px,
-          rgba(0, 0, 0, 0.15) 2px,
-          transparent 2px,
-          transparent 16.66%
-        ),
-        repeating-linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 0.15) 0px,
-          rgba(0, 0, 0, 0.15) 2px,
-          transparent 2px,
-          transparent 16.66%
-        );
-      background-size: 100% 100%;
       opacity: 0;
     }
     
     .hero-slide.active .box-grid-overlay {
-      animation: boxGridDiagonalReveal 2.5s ease-out forwards;
+      animation: gridMaskReveal 2.5s ease-out forwards;
     }
 
-    /* Diagonal reveal - boxes slide away from top-left to bottom-right */
-    @keyframes boxGridDiagonalReveal {
+    /* Grid mask reveal - image shows through disappearing grid squares */
+    @keyframes gridMaskReveal {
       0% {
         opacity: 1;
-        clip-path: polygon(
-          0% 0%, 100% 0%, 100% 100%, 0% 100%
-        );
+        background-image: 
+          linear-gradient(to right, #f6dd0d 0%, #f6dd0d 16.5%, transparent 16.5%, transparent 16.7%, #f6dd0d 16.7%, #f6dd0d 33.2%, transparent 33.2%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
+          linear-gradient(to bottom, #f6dd0d 0%, #f6dd0d 16.5%, transparent 16.5%, transparent 16.7%, #f6dd0d 16.7%, #f6dd0d 33.2%, transparent 33.2%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
       }
-      12% {
+      15% {
         opacity: 1;
-        clip-path: polygon(
-          16.66% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 16.66%
-        );
+        background-image: 
+          linear-gradient(to right, transparent 0%, transparent 16.7%, #f6dd0d 16.7%, #f6dd0d 33.2%, transparent 33.2%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
+          linear-gradient(to bottom, transparent 0%, transparent 16.7%, #f6dd0d 16.7%, #f6dd0d 33.2%, transparent 33.2%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
       }
-      24% {
+      30% {
         opacity: 1;
-        clip-path: polygon(
-          33.33% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 33.33%
-        );
+        background-image: 
+          linear-gradient(to right, transparent 0%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
+          linear-gradient(to bottom, transparent 0%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
       }
-      36% {
+      45% {
         opacity: 1;
-        clip-path: polygon(
-          50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%
-        );
-      }
-      48% {
-        opacity: 1;
-        clip-path: polygon(
-          66.66% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 66.66%
-        );
+        background-image: 
+          linear-gradient(to right, transparent 0%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
+          linear-gradient(to bottom, transparent 0%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
       }
       60% {
         opacity: 1;
-        clip-path: polygon(
-          83.33% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 83.33%
-        );
+        background-image: 
+          linear-gradient(to right, transparent 0%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
+          linear-gradient(to bottom, transparent 0%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
       }
-      72% {
+      75% {
         opacity: 1;
-        clip-path: polygon(
-          100% 0%, 100% 16.66%, 100% 100%, 16.66% 100%, 0% 100%
-        );
+        background-image: 
+          linear-gradient(to right, transparent 0%, transparent 83.4%, #f6dd0d 83.4%),
+          linear-gradient(to bottom, transparent 0%, transparent 83.4%, #f6dd0d 83.4%);
       }
-      84% {
-        opacity: 1;
-        clip-path: polygon(
-          100% 33.33%, 100% 100%, 33.33% 100%
-        );
-      }
-      92% {
-        opacity: 1;
-        clip-path: polygon(
-          100% 66.66%, 100% 100%, 66.66% 100%
-        );
+      90% {
+        opacity: 0.5;
+        background-image: 
+          linear-gradient(to right, transparent 0%, transparent 100%),
+          linear-gradient(to bottom, transparent 0%, transparent 100%);
       }
       100% {
         opacity: 0;
-        clip-path: polygon(
-          100% 100%, 100% 100%, 100% 100%
-        );
       }
     }
 
