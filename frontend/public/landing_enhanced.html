@@ -149,101 +149,11 @@
       opacity: 1;
       visibility: visible;
     }
-    
-    /* Box Grid Overlay - Solid gold boxes covering the image */
-    .box-grid-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      pointer-events: none;
-      background-color: #f6dd0d;
-      background-image: 
-        repeating-linear-gradient(
-          0deg,
-          transparent 0%,
-          transparent calc(16.66% - 2px),
-          rgba(0, 0, 0, 0.3) calc(16.66% - 2px),
-          rgba(0, 0, 0, 0.3) 16.66%
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent 0%,
-          transparent calc(16.66% - 2px),
-          rgba(0, 0, 0, 0.3) calc(16.66% - 2px),
-          rgba(0, 0, 0, 0.3) 16.66%
-        );
-      opacity: 0;
-    }
-    
-    .hero-slide.active .box-grid-overlay {
-      animation: gridBoxReveal 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    /* Cascading box reveal from top-left to bottom-right */
-    @keyframes gridBoxReveal {
-      0% {
-        opacity: 1;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-      }
-      8% {
-        opacity: 1;
-        clip-path: polygon(16.66% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 16.66%);
-      }
-      16% {
-        opacity: 1;
-        clip-path: polygon(33.33% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 33.33%);
-      }
-      24% {
-        opacity: 1;
-        clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%);
-      }
-      32% {
-        opacity: 1;
-        clip-path: polygon(66.66% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 66.66%);
-      }
-      40% {
-        opacity: 1;
-        clip-path: polygon(83.33% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 83.33%);
-      }
-      48% {
-        opacity: 1;
-        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 100%);
-      }
-      56% {
-        opacity: 1;
-        clip-path: polygon(100% 16.66%, 100% 100%, 16.66% 100%, 0% 100%);
-      }
-      64% {
-        opacity: 1;
-        clip-path: polygon(100% 33.33%, 100% 100%, 33.33% 100%);
-      }
-      72% {
-        opacity: 1;
-        clip-path: polygon(100% 50%, 100% 100%, 50% 100%);
-      }
-      80% {
-        opacity: 1;
-        clip-path: polygon(100% 66.66%, 100% 100%, 66.66% 100%);
-      }
-      88% {
-        opacity: 1;
-        clip-path: polygon(100% 83.33%, 100% 100%, 83.33% 100%);
-      }
-      96% {
-        opacity: 0.3;
-        clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
-      }
-      100% {
-        opacity: 0;
-        clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
-      }
-    }
 
     .hero-overlay{
       position: absolute;
       inset: 0;
       background: rgba(0,0,0,0.35); /* helps white text */
-      z-index: 1;
     }
 
     .hero-content{
@@ -255,7 +165,6 @@
       padding: 0 24px;
       color: #fff;
       font-family: 'Sansation', 'Roboto', sans-serif;
-      z-index: 10;
     }
 
     .hero-titles{
