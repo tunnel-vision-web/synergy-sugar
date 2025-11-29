@@ -154,9 +154,23 @@
     .box-grid-overlay {
       position: absolute;
       inset: 0;
-      z-index: 2;
+      z-index: 1;
       pointer-events: none;
-      background-color: #f6dd0d;
+      background: 
+        repeating-linear-gradient(
+          0deg,
+          #f6dd0d 0px,
+          #f6dd0d calc(16.66% - 1px),
+          transparent calc(16.66% - 1px),
+          transparent 16.66%
+        ),
+        repeating-linear-gradient(
+          90deg,
+          #f6dd0d 0px,
+          #f6dd0d calc(16.66% - 1px),
+          transparent calc(16.66% - 1px),
+          transparent 16.66%
+        );
       opacity: 0;
     }
     
@@ -164,52 +178,47 @@
       animation: gridMaskReveal 2.5s ease-out forwards;
     }
 
-    /* Grid mask reveal - image shows through disappearing grid squares */
+    /* Grid mask reveal - boxes disappear diagonally from top-left to bottom-right */
     @keyframes gridMaskReveal {
       0% {
         opacity: 1;
-        background-image: 
-          linear-gradient(to right, #f6dd0d 0%, #f6dd0d 16.5%, transparent 16.5%, transparent 16.7%, #f6dd0d 16.7%, #f6dd0d 33.2%, transparent 33.2%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
-          linear-gradient(to bottom, #f6dd0d 0%, #f6dd0d 16.5%, transparent 16.5%, transparent 16.7%, #f6dd0d 16.7%, #f6dd0d 33.2%, transparent 33.2%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
       }
-      15% {
+      12% {
         opacity: 1;
-        background-image: 
-          linear-gradient(to right, transparent 0%, transparent 16.7%, #f6dd0d 16.7%, #f6dd0d 33.2%, transparent 33.2%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
-          linear-gradient(to bottom, transparent 0%, transparent 16.7%, #f6dd0d 16.7%, #f6dd0d 33.2%, transparent 33.2%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
+        clip-path: polygon(16.66% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 16.66%);
       }
-      30% {
+      24% {
         opacity: 1;
-        background-image: 
-          linear-gradient(to right, transparent 0%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
-          linear-gradient(to bottom, transparent 0%, transparent 33.4%, #f6dd0d 33.4%, #f6dd0d 49.9%, transparent 49.9%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
+        clip-path: polygon(33.33% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 33.33%);
       }
-      45% {
+      36% {
         opacity: 1;
-        background-image: 
-          linear-gradient(to right, transparent 0%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
-          linear-gradient(to bottom, transparent 0%, transparent 50.1%, #f6dd0d 50.1%, #f6dd0d 66.5%, transparent 66.5%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
+        clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%);
+      }
+      48% {
+        opacity: 1;
+        clip-path: polygon(66.66% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 66.66%);
       }
       60% {
         opacity: 1;
-        background-image: 
-          linear-gradient(to right, transparent 0%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%),
-          linear-gradient(to bottom, transparent 0%, transparent 66.7%, #f6dd0d 66.7%, #f6dd0d 83.2%, transparent 83.2%, transparent 83.4%, #f6dd0d 83.4%);
+        clip-path: polygon(83.33% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 83.33%);
       }
-      75% {
+      72% {
         opacity: 1;
-        background-image: 
-          linear-gradient(to right, transparent 0%, transparent 83.4%, #f6dd0d 83.4%),
-          linear-gradient(to bottom, transparent 0%, transparent 83.4%, #f6dd0d 83.4%);
+        clip-path: polygon(100% 0%, 100% 16.66%, 100% 100%, 16.66% 100%, 0% 100%);
       }
-      90% {
-        opacity: 0.5;
-        background-image: 
-          linear-gradient(to right, transparent 0%, transparent 100%),
-          linear-gradient(to bottom, transparent 0%, transparent 100%);
+      84% {
+        opacity: 1;
+        clip-path: polygon(100% 33.33%, 100% 100%, 33.33% 100%);
+      }
+      92% {
+        opacity: 1;
+        clip-path: polygon(100% 66.66%, 100% 100%, 66.66% 100%);
       }
       100% {
         opacity: 0;
+        clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
       }
     }
 
@@ -217,6 +226,7 @@
       position: absolute;
       inset: 0;
       background: rgba(0,0,0,0.35); /* helps white text */
+      z-index: 2;
     }
 
     .hero-content{
@@ -228,6 +238,7 @@
       padding: 0 24px;
       color: #fff;
       font-family: 'Sansation', 'Roboto', sans-serif;
+      z-index: 3;
     }
 
     .hero-titles{
