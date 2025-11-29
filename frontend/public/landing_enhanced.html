@@ -150,31 +150,59 @@
       visibility: visible;
     }
     
-    /* Box Grid Reveal Effect */
-    .hero-slide::before {
-      content: '';
+    /* Box Grid Overlay - Creates cascading box reveal effect */
+    .box-grid-overlay {
       position: absolute;
       inset: 0;
-      background: 
-        linear-gradient(90deg, transparent 0%, transparent 20%, #000 20%, #000 20.5%, transparent 20.5%, transparent 40%, #000 40%, #000 40.5%, transparent 40.5%, transparent 60%, #000 60%, #000 60.5%, transparent 60.5%, transparent 80%, #000 80%, #000 80.5%, transparent 80.5%),
-        linear-gradient(0deg, transparent 0%, transparent 20%, #000 20%, #000 20.5%, transparent 20.5%, transparent 40%, #000 40%, #000 40.5%, transparent 40.5%, transparent 60%, #000 60%, #000 60.5%, transparent 60.5%, transparent 80%, #000 80%, #000 80.5%, transparent 80.5%);
-      opacity: 0;
+      z-index: 2;
       pointer-events: none;
-      z-index: 1;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.8) 0px,
+          rgba(0, 0, 0, 0.8) 2px,
+          transparent 2px,
+          transparent 20%
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.8) 0px,
+          rgba(0, 0, 0, 0.8) 2px,
+          transparent 2px,
+          transparent 20%
+        );
+      background-size: 100% 100%;
+      opacity: 0;
     }
     
-    .hero-slide.active::before {
-      animation: boxGridReveal 1.2s ease-out;
+    .hero-slide.active .box-grid-overlay {
+      animation: boxGridFadeOut 1.2s ease-out forwards;
     }
 
-    @keyframes boxGridReveal {
+    @keyframes boxGridFadeOut {
       0% {
         opacity: 1;
-        transform: scale(1);
+        clip-path: inset(0 0 0 0);
+      }
+      20% {
+        opacity: 1;
+        clip-path: inset(0 80% 80% 0);
+      }
+      40% {
+        opacity: 0.8;
+        clip-path: inset(0 60% 60% 0);
+      }
+      60% {
+        opacity: 0.6;
+        clip-path: inset(0 40% 40% 0);
+      }
+      80% {
+        opacity: 0.3;
+        clip-path: inset(0 20% 20% 0);
       }
       100% {
         opacity: 0;
-        transform: scale(1.1);
+        clip-path: inset(0 0 0 0);
       }
     }
 
