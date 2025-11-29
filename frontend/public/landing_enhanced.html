@@ -1260,8 +1260,9 @@
           const isActive = idx===index;
           s.classList.toggle(activeClass, isActive);
           
-          // Restart title animations for hero slides
+          // Restart animations for hero slides
           if(isActive && containerSel === '#heroCarousel'){
+            // Restart title animations
             const titles = s.querySelectorAll('.hero-title-1, .hero-title-2, .hero-title-3');
             titles.forEach(title => {
               // Force animation restart by removing and re-adding
@@ -1269,6 +1270,14 @@
               title.offsetHeight; // Trigger reflow
               title.style.animation = '';
             });
+            
+            // Restart curtain animation
+            const curtain = s.querySelector('.curtain-overlay');
+            if(curtain){
+              curtain.style.animation = 'none';
+              curtain.offsetHeight; // Trigger reflow
+              curtain.style.animation = '';
+            }
           }
         });
         if(dots.length){
