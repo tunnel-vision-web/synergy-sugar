@@ -159,24 +159,24 @@
       background-image:
         repeating-linear-gradient(
           0deg,
-          rgba(0, 0, 0, 0.8) 0px,
-          rgba(0, 0, 0, 0.8) 2px,
-          transparent 2px,
-          transparent 20%
+          rgba(0, 0, 0, 0.95) 0px,
+          rgba(0, 0, 0, 0.95) 3px,
+          transparent 3px,
+          transparent 16.66%
         ),
         repeating-linear-gradient(
           90deg,
-          rgba(0, 0, 0, 0.8) 0px,
-          rgba(0, 0, 0, 0.8) 2px,
-          transparent 2px,
-          transparent 20%
+          rgba(0, 0, 0, 0.95) 0px,
+          rgba(0, 0, 0, 0.95) 3px,
+          transparent 3px,
+          transparent 16.66%
         );
       background-size: 100% 100%;
       opacity: 0;
     }
     
     .hero-slide.active .box-grid-overlay {
-      animation: boxGridFadeOut 1.2s ease-out forwards;
+      animation: boxGridFadeOut 2.5s ease-in-out forwards;
     }
 
     @keyframes boxGridFadeOut {
@@ -184,21 +184,29 @@
         opacity: 1;
         clip-path: inset(0 0 0 0);
       }
-      20% {
+      15% {
         opacity: 1;
-        clip-path: inset(0 80% 80% 0);
+        clip-path: inset(0 83% 83% 0);
       }
-      40% {
-        opacity: 0.8;
-        clip-path: inset(0 60% 60% 0);
+      30% {
+        opacity: 1;
+        clip-path: inset(0 66% 66% 0);
+      }
+      45% {
+        opacity: 0.95;
+        clip-path: inset(0 50% 50% 0);
       }
       60% {
-        opacity: 0.6;
-        clip-path: inset(0 40% 40% 0);
+        opacity: 0.8;
+        clip-path: inset(0 33% 33% 0);
       }
-      80% {
-        opacity: 0.3;
-        clip-path: inset(0 20% 20% 0);
+      75% {
+        opacity: 0.5;
+        clip-path: inset(0 16% 16% 0);
+      }
+      90% {
+        opacity: 0.2;
+        clip-path: inset(0 5% 5% 0);
       }
       100% {
         opacity: 0;
