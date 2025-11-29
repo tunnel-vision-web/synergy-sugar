@@ -150,51 +150,10 @@
       visibility: visible;
     }
 
-    /* Curtain effect overlay */
-    .curtain-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(
-        to right,
-        rgba(246, 221, 13, 0.8) 0%,
-        rgba(246, 221, 13, 0.6) 20%,
-        rgba(246, 221, 13, 0.3) 50%,
-        rgba(246, 221, 13, 0) 100%
-      );
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-
-    .hero-slide.active .curtain-overlay {
-      animation: curtainSweep 2.5s ease-out forwards;
-    }
-
-    @keyframes curtainSweep {
-      0% {
-        transform: translateX(-100%);
-        opacity: 1;
-      }
-      40% {
-        transform: translateX(0%);
-        opacity: 1;
-      }
-      70% {
-        transform: translateX(50%);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-    }
-
     .hero-overlay{
       position: absolute;
       inset: 0;
       background: rgba(0,0,0,0.35); /* helps white text */
-      z-index: 2;
     }
 
     .hero-content{
