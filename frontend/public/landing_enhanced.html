@@ -1212,7 +1212,21 @@
 
       function show(i){
         index = (i + slides.length) % slides.length;
-        slides.forEach((s,idx)=> s.classList.toggle(activeClass, idx===index));
+        slides.forEach((s,idx)=> {
+          const isActive = idx===index;
+          s.classList.toggle(activeClass, isActive);
+          
+          // Restart title animations for hero slides
+          if(isActive && containerSel === '#heroCarousel'){
+            const titles = s.querySelectorAll('.hero-title-1, .hero-title-2, .hero-title-3');
+            titles.forEach(title => {
+              // Force animation restart by removing and re-adding
+              title.style.animation = 'none';
+              title.offsetHeight; // Trigger reflow
+              title.style.animation = '';
+            });
+          }
+        });
         if(dots.length){
           dots.forEach((d,idx)=> d.classList.toggle('active', idx===index));
         }
