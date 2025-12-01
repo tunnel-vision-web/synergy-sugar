@@ -1645,29 +1645,69 @@
         }
       };
       
-      // Initialize - show all cards
-      function initializeCards(){
-        appCards.forEach((card, idx) => {
+      // Show specific page
+      function showPage(pageNum){
+        currentPage = (pageNum + totalPages) % totalPages;
+        
+        // Hide all cards
+        appCards.forEach(card => {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.9) translateY(20px)';
+        });
+        
+        // Show cards for current page with animation
+        const currentCards = document.querySelectorAll(`.app-card[data-page="${currentPage}"]`);
+        currentCards.forEach((card, idx) => {
           card.style.display = 'flex';
           setTimeout(() => {
             card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             card.style.opacity = '1';
             card.style.transform = 'scale(1) translateY(0)';
-          }, idx * 50);
+          }, idx * 100);
         });
+        
+        // Update dots
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentPage);
+        });
+      }
+      
+      function nextPage(){
+        showPage(currentPage + 1);
+      }
+      
+      function prevPage(){
+        showPage(currentPage - 1);
       }
       
       // Search functionality
       function filterApps(searchTerm){
         const term = searchTerm.toLowerCase().trim();
+        isSearchActive = term !== '';
         let visibleCount = 0;
         
+        if(!isSearchActive){
+          // Return to pagination mode
+          showPage(currentPage);
+          if(prevBtn) prevBtn.style.display = '';
+          if(nextBtn) nextBtn.style.display = '';
+          document.getElementById('appsPagination').style.display = '';
+          return;
+        }
+        
+        // Hide navigation in search mode
+        if(prevBtn) prevBtn.style.display = 'none';
+        if(nextBtn) nextBtn.style.display = 'none';
+        document.getElementById('appsPagination').style.display = 'none';
+        
+        // Filter cards
         appCards.forEach(card => {
           const name = card.getAttribute('data-name').toLowerCase();
           const tags = card.getAttribute('data-tags').toLowerCase();
           const matches = name.includes(term) || tags.includes(term);
           
-          if(term === '' || matches){
+          if(matches){
             card.style.display = 'flex';
             card.style.opacity = '1';
             card.style.transform = 'scale(1) translateY(0)';
@@ -1678,9 +1718,20 @@
           }
         });
         
-        // Show/hide navigation based on results
+        // Show no results message
         if(visibleCount === 0){
-          appsSlider.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text);"><p style="font-size: 1.1rem; margin-bottom: 8px;">No apps found</p><p style="font-size: 0.9rem; opacity: 0.7;">Try a different search term</p></div>';
+          const noResults = document.createElement('div');
+          noResults.id = 'no-results';
+          noResults.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text);';
+          noResults.innerHTML = '<p style="font-size: 1.1rem; margin-bottom: 8px;">No apps found</p><p style="font-size: 0.9rem; opacity: 0.7;">Try a different search term</p>';
+          
+          const existing = document.getElementById('no-results');
+          if(!existing){
+            appsSlider.appendChild(noResults);
+          }
+        } else {
+          const existing = document.getElementById('no-results');
+          if(existing) existing.remove();
         }
       }
       
@@ -1690,6 +1741,14 @@
           filterApps(e.target.value);
         });
       }
+      
+      // Navigation event listeners
+      if(prevBtn) prevBtn.addEventListener('click', prevPage);
+      if(nextBtn) nextBtn.addEventListener('click', nextPage);
+      
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => showPage(idx));
+      });
       
       // Features button click handler
       document.querySelectorAll('.app-features-btn').forEach(btn => {
