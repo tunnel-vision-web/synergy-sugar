@@ -367,7 +367,7 @@
       position: relative;
       border: 2px solid rgba(246, 221, 13, 0.3);
       border-radius: 3px;
-      padding: 30px 20px;
+      padding: 24px 16px;
       text-align: center;
       background: linear-gradient(135deg, #ffffff 0%, #f9f9fb 100%);
       box-shadow: 0 6px 20px rgba(0,0,0,0.06);
@@ -387,6 +387,7 @@
       background: linear-gradient(135deg, rgba(246, 221, 13, 0.05) 0%, rgba(104, 111, 180, 0.05) 100%);
       opacity: 0;
       transition: opacity 0.4s ease;
+      pointer-events: none;
     }
     .app-card:hover{
       transform: translateY(-8px) scale(1.02);
@@ -397,15 +398,15 @@
       opacity: 1;
     }
     .app-card-icon{
-      width: 70px;
-      height: 70px;
-      margin: 0 auto 16px;
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 12px;
       border-radius: 3px;
       background: linear-gradient(135deg, var(--primary) 0%, #ffeaa7 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 38px;
+      font-size: 32px;
       box-shadow: 0 8px 16px rgba(246, 221, 13, 0.3);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -413,7 +414,7 @@
       transform: rotateY(360deg) scale(1.1);
     }
     .app-card-name{
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-dark);
       margin-bottom: 0;
@@ -427,18 +428,17 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, rgba(246, 221, 13, 0.95) 0%, rgba(255, 234, 167, 0.95) 100%);
-      border-radius: 3px;
+      background: linear-gradient(135deg, rgba(246, 221, 13, 0.96) 0%, rgba(255, 234, 167, 0.96) 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 20px;
+      gap: 8px;
+      padding: 16px;
       opacity: 0;
       visibility: hidden;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 2;
+      z-index: 3;
     }
     .app-card:hover .app-card-buttons{
       opacity: 1;
@@ -453,21 +453,22 @@
       color: #fff;
       border: none;
       border-radius: 3px;
-      padding: 10px 20px;
-      font-size: 0.85rem;
+      padding: 8px 16px;
+      font-size: 0.8rem;
       font-weight: 600;
       text-decoration: none;
       display: inline-block;
-      width: 140px;
+      width: 120px;
       text-align: center;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 12px rgba(104, 111, 180, 0.3);
-      transform: translateY(10px);
+      box-shadow: 0 3px 10px rgba(104, 111, 180, 0.3);
+      transform: translateY(8px);
       opacity: 0;
+      flex-shrink: 0;
     }
     .app-btn:hover{
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(104, 111, 180, 0.4);
+      box-shadow: 0 6px 16px rgba(104, 111, 180, 0.4);
       background: linear-gradient(135deg, #8b92d4 0%, var(--secondary) 100%);
       color: var(--primary);
     }
