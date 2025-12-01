@@ -334,6 +334,31 @@
     .f-dot.active{ background:#6b8f6b; }
 
     /* App Sorting Feature - Modern Icon Boxes */
+    .apps-search-wrapper {
+      margin-bottom: 24px;
+    }
+    .apps-search-label {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .apps-search-input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 2px solid rgba(246, 221, 13, 0.3);
+      border-radius: 3px;
+      font-size: 1rem;
+      color: var(--text-dark);
+      background: #fff;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    .apps-search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(246, 221, 13, 0.2);
+    }
     .apps-carousel-wrapper {
       position: relative;
       padding: 0 60px;
@@ -341,14 +366,15 @@
     .apps-slider{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
       gap: 20px;
-      min-height: 420px;
+      min-height: 500px;
     }
     .app-card{
       position: relative;
       border: 2px solid rgba(246, 221, 13, 0.3);
-      border-radius: 16px;
-      padding: 40px 24px;
+      border-radius: 3px;
+      padding: 30px 20px;
       text-align: center;
       background: linear-gradient(135deg, #ffffff 0%, #f9f9fb 100%);
       box-shadow: 0 6px 20px rgba(0,0,0,0.06);
