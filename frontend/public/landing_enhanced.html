@@ -1785,12 +1785,8 @@
         });
       });
       
-      // Hide navigation arrows since we show all 9 apps at once
-      if(prevBtn) prevBtn.style.display = 'none';
-      if(nextBtn) nextBtn.style.display = 'none';
-      
       // Initialize
-      initializeCards();
+      showPage(0);
     })();
 
     // Make Features and Apps columns equal height on wide screens
