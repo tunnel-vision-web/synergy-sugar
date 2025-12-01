@@ -1520,14 +1520,18 @@
       auto: true
     });
 
-    // APPS SORTING WITH SEARCH AND FEATURES
+    // APPS SORTING WITH SEARCH, PAGINATION AND FEATURES
     (function(){
+      let currentPage = 0;
+      const totalPages = 3;
       const appsSlider = document.getElementById('appsSlider');
       const appCards = document.querySelectorAll('.app-card');
       const searchInput = document.getElementById('appsSearch');
       const prevBtn = document.getElementById('appsNavPrev');
       const nextBtn = document.getElementById('appsNavNext');
+      const dots = document.querySelectorAll('.app-dot');
       const featuresCarousel = document.getElementById('featuresCarousel');
+      let isSearchActive = false;
       
       // App-specific features data
       const appFeatures = {
