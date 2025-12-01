@@ -1081,80 +1081,158 @@
             </div>
           </div>
         </div>
-        <!-- Apps panel -->
+        <!-- Apps panel with modern sorting feature -->
         <div class="col-lg-8" id="apps">
           <div class="panel-card h-100">
-            <div class="panel-header">Our Apps</div>
+            <div class="panel-header">Sugar Farming Industry Apps</div>
             <div class="panel-body">
-              <div class="apps-grid">
-                <!-- 16 icons; replace with real asset files -->
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-01.png" alt="Icon">
-                  <div class="label">Website</div>
+              <div class="apps-carousel-wrapper">
+                <!-- Navigation Arrows -->
+                <button class="apps-nav-arrow prev" id="appsNavPrev" aria-label="Previous apps">
+                  <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <button class="apps-nav-arrow next" id="appsNavNext" aria-label="Next apps">
+                  <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+                </button>
+                
+                <!-- Apps Slider Container -->
+                <div class="apps-slider" id="appsSlider">
+                  <!-- Page 1 Apps (Initially Visible) -->
+                  <div class="app-card" data-page="0">
+                    <div class="app-card-icon">🌾</div>
+                    <div class="app-card-name">Crop Management</div>
+                    <div class="app-card-desc">Track planting, growth & harvest cycles</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0">
+                    <div class="app-card-icon">📊</div>
+                    <div class="app-card-name">Yield Analytics</div>
+                    <div class="app-card-desc">Monitor production & optimize output</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0">
+                    <div class="app-card-icon">💰</div>
+                    <div class="app-card-name">Financial Hub</div>
+                    <div class="app-card-desc">Manage expenses, revenue & payroll</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  
+                  <!-- Page 2 Apps (Hidden Initially) -->
+                  <div class="app-card" data-page="1" style="display: none;">
+                    <div class="app-card-icon">🚜</div>
+                    <div class="app-card-name">Equipment Tracker</div>
+                    <div class="app-card-desc">Maintenance schedules & asset logs</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="1" style="display: none;">
+                    <div class="app-card-icon">🌤️</div>
+                    <div class="app-card-name">Weather Station</div>
+                    <div class="app-card-desc">Real-time weather & forecasting</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="1" style="display: none;">
+                    <div class="app-card-icon">🧪</div>
+                    <div class="app-card-name">Soil Analysis</div>
+                    <div class="app-card-desc">Test results & nutrient tracking</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  
+                  <!-- Page 3 Apps -->
+                  <div class="app-card" data-page="2" style="display: none;">
+                    <div class="app-card-icon">👥</div>
+                    <div class="app-card-name">Worker Management</div>
+                    <div class="app-card-desc">Scheduling, attendance & payroll</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="2" style="display: none;">
+                    <div class="app-card-icon">📦</div>
+                    <div class="app-card-name">Inventory Control</div>
+                    <div class="app-card-desc">Stock levels, supplies & ordering</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="2" style="display: none;">
+                    <div class="app-card-icon">🚚</div>
+                    <div class="app-card-name">Logistics Pro</div>
+                    <div class="app-card-desc">Transportation & distribution</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  
+                  <!-- Page 4 Apps -->
+                  <div class="app-card" data-page="3" style="display: none;">
+                    <div class="app-card-icon">🛡️</div>
+                    <div class="app-card-name">Compliance Manager</div>
+                    <div class="app-card-desc">Regulations & certifications</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="3" style="display: none;">
+                    <div class="app-card-icon">📱</div>
+                    <div class="app-card-name">Mobile Field App</div>
+                    <div class="app-card-desc">On-site data collection</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="3" style="display: none;">
+                    <div class="app-card-icon">🔔</div>
+                    <div class="app-card-name">Alert System</div>
+                    <div class="app-card-desc">Notifications & reminders</div>
+                    <div class="app-card-buttons">
+                      <a href="#try" class="app-btn">Try Free</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
                 </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-02.png" alt="Icon">
-                  <div class="label">CRM</div>
+                
+                <!-- Pagination Dots -->
+                <div class="apps-pagination" id="appsPagination">
+                  <span class="app-dot active" data-page="0"></span>
+                  <span class="app-dot" data-page="1"></span>
+                  <span class="app-dot" data-page="2"></span>
+                  <span class="app-dot" data-page="3"></span>
                 </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-03.png" alt="Icon">
-                  <div class="label">SMS</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-04.png" alt="Icon">
-                  <div class="label">Email</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-05.png" alt="Icon">
-                  <div class="label">Fundraising</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-06.png" alt="Icon">
-                  <div class="label">Finance</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-07.png" alt="Icon">
-                  <div class="label">Events</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-08.png" alt="Icon">
-                  <div class="label">Canvassing</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-09.png" alt="Icon">
-                  <div class="label">Analytics</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-10.png" alt="Icon">
-                  <div class="label">Automation</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-11.png" alt="Icon">
-                  <div class="label">Surveys</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-12.png" alt="Icon">
-                  <div class="label">A/B Testing</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-13.png" alt="Icon">
-                  <div class="label">Social</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-14.png" alt="Icon">
-                  <div class="label">Docs</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-15.png" alt="Icon">
-                  <div class="label">Helpdesk</div>
-                </div>
-                <div class="app-icon">
-                  <img src="assets/images/app-icon-16.png" alt="Icon">
-                  <div class="label">Security</div>
-                </div>
-              </div>
-              <div class="text-center mt-3">
-                <a href="apps.html" style="text-decoration:none; color:var(--primary); font-weight:600;">View all apps</a>
               </div>
             </div>
           </div>
