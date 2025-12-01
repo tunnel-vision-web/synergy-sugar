@@ -447,7 +447,6 @@
       visibility: visible;
     }
     .app-card:hover .app-card-name,
-    .app-card:hover .app-card-desc,
     .app-card:hover .app-card-icon{
       opacity: 0;
     }
@@ -456,15 +455,23 @@
       color: #fff;
       border: none;
       border-radius: 3px;
-      padding: 10px 24px;
+      padding: 10px 20px;
       font-size: 0.85rem;
       font-weight: 600;
       text-decoration: none;
       display: inline-block;
+      width: 140px;
+      text-align: center;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 4px 12px rgba(104, 111, 180, 0.3);
       transform: translateY(10px);
       opacity: 0;
+    }
+    .app-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(104, 111, 180, 0.4);
+      background: linear-gradient(135deg, #8b92d4 0%, var(--secondary) 100%);
+      color: var(--primary);
     }
     .app-card:hover .app-btn{
       transform: translateY(0);
