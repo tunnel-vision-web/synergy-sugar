@@ -1743,13 +1743,6 @@
         dot.addEventListener('click', () => showPage(idx));
       });
       
-      // Hide navigation when only 1 page
-      if(totalPages === 1){
-        if(prevBtn) prevBtn.style.display = 'none';
-        if(nextBtn) nextBtn.style.display = 'none';
-        document.getElementById('appsPagination').style.display = 'none';
-      }
-      
       // Features button click handler
       document.querySelectorAll('.app-features-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
