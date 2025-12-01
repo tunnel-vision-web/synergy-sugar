@@ -398,17 +398,49 @@
       opacity: 1;
     }
     .app-card-icon{
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       margin: 0 auto 12px;
-      border-radius: 3px;
-      background: linear-gradient(135deg, var(--primary) 0%, #ffeaa7 100%);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 32px;
-      box-shadow: 0 8px 16px rgba(246, 221, 13, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .app-card-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+      border-radius: 16px 16px 0 0;
+    }
+    /* Icon specific gradients */
+    .icon-farmers { background: linear-gradient(135deg, #34c759 0%, #30d158 50%, #32d74b 100%); }
+    .icon-nucleus { background: linear-gradient(135deg, #5e5ce6 0%, #007aff 100%); }
+    .icon-harvesting { background: linear-gradient(135deg, #ff9500 0%, #ff6b00 100%); }
+    .icon-weighbridge { background: linear-gradient(135deg, #af52de 0%, #bf5af2 100%); }
+    .icon-fleet { background: linear-gradient(135deg, #0a84ff 0%, #5ac8fa 100%); }
+    .icon-mrp { background: linear-gradient(135deg, #ff453a 0%, #ff375f 100%); }
+    .icon-production { background: linear-gradient(135deg, #64d2ff 0%, #5ac8fa 100%); }
+    .icon-sales { background: linear-gradient(135deg, #bf5af2 0%, #da8fff 100%); }
+    .icon-financial { background: linear-gradient(135deg, #ffd60a 0%, #ffcc00 100%); }
+    .icon-hr { background: linear-gradient(135deg, #ff375f 0%, #ff6482 100%); }
+    
+    /* Icon SVG styling */
+    .app-card-icon svg {
+      width: 36px;
+      height: 36px;
+      fill: white;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      position: relative;
+      z-index: 1;
     }
     .app-card:hover .app-card-icon{
       transform: rotateY(360deg) scale(1.1);
