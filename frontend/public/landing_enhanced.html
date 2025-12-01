@@ -1525,10 +1525,67 @@
       auto: true
     });
 
+    // APPS SORTING CAROUSEL
+    (function(){
+      let currentPage = 0;
+      const totalPages = 4;
+      const appsSlider = document.getElementById('appsSlider');
+      const appCards = document.querySelectorAll('.app-card');
+      const dots = document.querySelectorAll('.app-dot');
+      const prevBtn = document.getElementById('appsNavPrev');
+      const nextBtn = document.getElementById('appsNavNext');
+      
+      function showPage(pageNum){
+        currentPage = (pageNum + totalPages) % totalPages;
+        
+        // Hide all cards
+        appCards.forEach(card => {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.9) translateY(20px)';
+        });
+        
+        // Show cards for current page with animation
+        const currentCards = document.querySelectorAll(`.app-card[data-page="${currentPage}"]`);
+        currentCards.forEach((card, idx) => {
+          card.style.display = 'flex';
+          setTimeout(() => {
+            card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1) translateY(0)';
+          }, idx * 100);
+        });
+        
+        // Update dots
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentPage);
+        });
+      }
+      
+      function nextPage(){
+        showPage(currentPage + 1);
+      }
+      
+      function prevPage(){
+        showPage(currentPage - 1);
+      }
+      
+      // Event listeners
+      if(prevBtn) prevBtn.addEventListener('click', prevPage);
+      if(nextBtn) nextBtn.addEventListener('click', nextPage);
+      
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => showPage(idx));
+      });
+      
+      // Initialize
+      showPage(0);
+    })();
+
     // Make Features and Apps columns equal height on wide screens
     function matchHeights(){
-      const left = document.querySelector('#features .col-lg-8 .panel-card');
-      const right = document.querySelector('#features .col-lg-4 .panel-card');
+      const left = document.querySelector('#features .col-lg-4 .panel-card');
+      const right = document.querySelector('#features .col-lg-8 .panel-card');
       if(!left || !right) return;
       // Reset first
       left.style.height = 'auto';
