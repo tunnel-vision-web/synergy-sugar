@@ -1528,61 +1528,214 @@
       auto: true
     });
 
-    // APPS SORTING CAROUSEL
+    // APPS SORTING WITH SEARCH AND FEATURES
     (function(){
-      let currentPage = 0;
-      const totalPages = 4;
       const appsSlider = document.getElementById('appsSlider');
       const appCards = document.querySelectorAll('.app-card');
-      const dots = document.querySelectorAll('.app-dot');
+      const searchInput = document.getElementById('appsSearch');
       const prevBtn = document.getElementById('appsNavPrev');
       const nextBtn = document.getElementById('appsNavNext');
+      const featuresCarousel = document.getElementById('featuresCarousel');
       
-      function showPage(pageNum){
-        currentPage = (pageNum + totalPages) % totalPages;
-        
-        // Hide all cards
-        appCards.forEach(card => {
-          card.style.display = 'none';
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.9) translateY(20px)';
-        });
-        
-        // Show cards for current page with animation
-        const currentCards = document.querySelectorAll(`.app-card[data-page="${currentPage}"]`);
-        currentCards.forEach((card, idx) => {
+      // App-specific features data
+      const appFeatures = {
+        'crop-management': {
+          title: 'Crop Management Features',
+          features: [
+            'Planting calendar & scheduling',
+            'Growth stage tracking',
+            'Harvest planning & forecasting',
+            'Crop rotation management',
+            'Seed inventory tracking',
+            'Field mapping integration',
+            'Yield predictions'
+          ]
+        },
+        'yield-analytics': {
+          title: 'Yield Analytics Features',
+          features: [
+            'Real-time production monitoring',
+            'Historical yield comparisons',
+            'Performance benchmarking',
+            'Trend analysis & forecasting',
+            'Custom reporting dashboards',
+            'Export data to Excel/PDF',
+            'Multi-season analytics'
+          ]
+        },
+        'financial-hub': {
+          title: 'Financial Hub Features',
+          features: [
+            'Expense tracking & categorization',
+            'Revenue & profit analysis',
+            'Automated payroll processing',
+            'Budget planning tools',
+            'Invoice generation',
+            'Financial reports & statements',
+            'Tax preparation assistance'
+          ]
+        },
+        'equipment-tracker': {
+          title: 'Equipment Tracker Features',
+          features: [
+            'Maintenance scheduling alerts',
+            'Asset depreciation tracking',
+            'Service history logs',
+            'Parts inventory management',
+            'Equipment utilization reports',
+            'Warranty tracking',
+            'Repair cost analysis'
+          ]
+        },
+        'weather-station': {
+          title: 'Weather Station Features',
+          features: [
+            '7-day weather forecasts',
+            'Real-time temperature & humidity',
+            'Rainfall tracking & alerts',
+            'Frost warnings',
+            'Growing degree days',
+            'Historical weather data',
+            'Custom alert notifications'
+          ]
+        },
+        'soil-analysis': {
+          title: 'Soil Analysis Features',
+          features: [
+            'pH level monitoring',
+            'Nutrient composition tracking',
+            'Soil moisture sensors',
+            'Test result management',
+            'Fertilizer recommendations',
+            'Soil health scoring',
+            'Multi-field comparisons'
+          ]
+        },
+        'worker-management': {
+          title: 'Worker Management Features',
+          features: [
+            'Shift scheduling calendar',
+            'Attendance tracking',
+            'Time clock integration',
+            'Payroll calculation',
+            'Performance reviews',
+            'Task assignment',
+            'Labor cost analysis'
+          ]
+        },
+        'inventory-control': {
+          title: 'Inventory Control Features',
+          features: [
+            'Real-time stock levels',
+            'Automatic reorder alerts',
+            'Supplier management',
+            'Purchase order tracking',
+            'Barcode scanning',
+            'Inventory valuation',
+            'Usage reports'
+          ]
+        },
+        'logistics-pro': {
+          title: 'Logistics Pro Features',
+          features: [
+            'Route optimization',
+            'Delivery scheduling',
+            'Fleet management',
+            'GPS tracking',
+            'Load planning',
+            'Shipping documentation',
+            'Delivery confirmation'
+          ]
+        }
+      };
+      
+      // Initialize - show all cards
+      function initializeCards(){
+        appCards.forEach((card, idx) => {
           card.style.display = 'flex';
           setTimeout(() => {
             card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             card.style.opacity = '1';
             card.style.transform = 'scale(1) translateY(0)';
-          }, idx * 100);
+          }, idx * 50);
+        });
+      }
+      
+      // Search functionality
+      function filterApps(searchTerm){
+        const term = searchTerm.toLowerCase().trim();
+        let visibleCount = 0;
+        
+        appCards.forEach(card => {
+          const name = card.getAttribute('data-name').toLowerCase();
+          const tags = card.getAttribute('data-tags').toLowerCase();
+          const matches = name.includes(term) || tags.includes(term);
+          
+          if(term === '' || matches){
+            card.style.display = 'flex';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1) translateY(0)';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+          }
         });
         
-        // Update dots
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('active', idx === currentPage);
+        // Show/hide navigation based on results
+        if(visibleCount === 0){
+          appsSlider.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text);"><p style="font-size: 1.1rem; margin-bottom: 8px;">No apps found</p><p style="font-size: 0.9rem; opacity: 0.7;">Try a different search term</p></div>';
+        }
+      }
+      
+      // Search input event
+      if(searchInput){
+        searchInput.addEventListener('input', (e) => {
+          filterApps(e.target.value);
         });
       }
       
-      function nextPage(){
-        showPage(currentPage + 1);
-      }
-      
-      function prevPage(){
-        showPage(currentPage - 1);
-      }
-      
-      // Event listeners
-      if(prevBtn) prevBtn.addEventListener('click', prevPage);
-      if(nextBtn) nextBtn.addEventListener('click', nextPage);
-      
-      dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => showPage(idx));
+      // Features button click handler
+      document.querySelectorAll('.app-features-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const appId = btn.getAttribute('data-app');
+          const appData = appFeatures[appId];
+          
+          if(appData && featuresCarousel){
+            // Update features section
+            const featuresSlides = featuresCarousel.querySelectorAll('.features-slide');
+            if(featuresSlides.length > 0){
+              const firstSlide = featuresSlides[0];
+              
+              // Update content
+              firstSlide.innerHTML = `
+                <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">${appData.title}</h5>
+                <ul class="features-list">
+                  ${appData.features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+              `;
+              
+              // Show first slide
+              featuresSlides.forEach(s => s.classList.remove('active'));
+              firstSlide.classList.add('active');
+              
+              // Scroll to features section smoothly
+              const featuresSection = document.getElementById('features');
+              if(featuresSection){
+                featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }
+          }
+        });
       });
       
+      // Hide navigation arrows since we show all 9 apps at once
+      if(prevBtn) prevBtn.style.display = 'none';
+      if(nextBtn) nextBtn.style.display = 'none';
+      
       // Initialize
-      showPage(0);
+      initializeCards();
     })();
 
     // Make Features and Apps columns equal height on wide screens
