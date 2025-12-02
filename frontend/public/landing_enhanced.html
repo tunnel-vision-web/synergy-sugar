@@ -406,10 +406,11 @@
       align-items: center;
       justify-content: center;
       font-size: 32px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+      box-shadow: none;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      overflow: visible;
+      overflow: hidden;
+      background: transparent;
     }
     /* Icons now use inline SVG with solid color backgrounds */
     
@@ -417,10 +418,11 @@
     .app-card-icon svg {
       width: 64px;
       height: 64px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+      filter: none;
       position: relative;
       z-index: 1;
       border-radius: 3px;
+      display: block;
     }
     .app-card:hover .app-card-icon{
       transform: rotateY(360deg) scale(1.1);
