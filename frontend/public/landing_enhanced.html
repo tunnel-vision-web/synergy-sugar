@@ -423,6 +423,13 @@
       z-index: 1;
       border-radius: 3px;
       display: block;
+      shape-rendering: crispEdges;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+    .app-card-icon svg rect {
+      shape-rendering: crispEdges;
     }
     .app-card:hover .app-card-icon{
       transform: rotateY(360deg) scale(1.1);
