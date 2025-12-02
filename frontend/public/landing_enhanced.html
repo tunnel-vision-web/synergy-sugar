@@ -1327,22 +1327,22 @@
         <svg viewBox="0 0 800 600" style="max-width: 100%; height: auto;">
           <!-- Curved arrows connecting in a circle -->
           <defs>
-            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-              <polygon points="0 0, 10 3, 0 6" fill="#686fb4" />
+            <marker id="arrowhead-landing" markerWidth="5" markerHeight="5" refX="4.5" refY="1.5" orient="auto">
+              <polygon points="0 0, 5 1.5, 0 3" fill="#059669" />
             </marker>
           </defs>
           
-          <!-- Arrow 1: Cane to Transport (top center to right center) -->
-          <path d="M 500 75 Q 625 125, 600 280" stroke="#686fb4" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.7"/>
+          <!-- Arrow 1: Cane to Transport (top center to right center, with gap) -->
+          <path d="M 515 75 Q 615 125, 585 280" stroke="#059669" stroke-width="4" fill="none" marker-end="url(#arrowhead-landing)"/>
           
-          <!-- Arrow 2: Transport to Weighbridge (right center to bottom center) -->
-          <path d="M 690 320 Q 625 425, 500 525" stroke="#686fb4" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.7"/>
+          <!-- Arrow 2: Transport to Weighbridge (right center to bottom center, with gap) -->
+          <path d="M 675 325 Q 615 415, 515 510" stroke="#059669" stroke-width="4" fill="none" marker-end="url(#arrowhead-landing)"/>
           
-          <!-- Arrow 3: Weighbridge to Labor (bottom center to left center) -->
-          <path d="M 300 525 Q 175 425, 200 280" stroke="#686fb4" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.7"/>
+          <!-- Arrow 3: Weighbridge to Labor (bottom center to left center, with gap) -->
+          <path d="M 285 510 Q 185 415, 215 280" stroke="#059669" stroke-width="4" fill="none" marker-end="url(#arrowhead-landing)"/>
           
-          <!-- Arrow 4: Labor to Cane (left center to top center) -->
-          <path d="M 110 240 Q 175 125, 300 75" stroke="#686fb4" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0.7"/>
+          <!-- Arrow 4: Labor to Cane (left center to top center, with gap) -->
+          <path d="M 125 240 Q 185 135, 285 90" stroke="#059669" stroke-width="4" fill="none" marker-end="url(#arrowhead-landing)"/>
           
           <!-- Card 1: Cane Sourcing (Top) -->
           <g>
