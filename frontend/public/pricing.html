@@ -258,6 +258,42 @@
   visibility: visible;
 }
 
+/* Mobile dropdown - inside sidebar */
+@media (max-width: 768px) {
+  .simple-dropdown {
+    position: static;
+    transform: none;
+    background: rgba(246, 221, 13, 0.05);
+    border-radius: 8px;
+    box-shadow: none;
+    padding: 8px 0;
+    min-width: auto;
+    width: 100%;
+    margin: 8px 0;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    transition: max-height 0.3s ease;
+  }
+  
+  .nav-item.active .simple-dropdown {
+    max-height: 300px;
+  }
+  
+  .simple-dropdown a {
+    padding: 10px 16px;
+    text-align: left;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .simple-dropdown a:last-child {
+    border-bottom: none;
+  }
+}
+
 /* Mobile nav adjustments */
 
     /* Hero */
