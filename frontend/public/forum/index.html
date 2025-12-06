@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Community Forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html"><img class="black" src="assets/election-pro-logo-web-black.png" alt="Logo"></a>
+    <nav class="nav">
+      <a href="index.html" class="active">Help</a>
+      <a href="#" onclick="navigateTo('questions')">Questions</a>
+      <a href="users.html">Users</a>
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="header-cta">
+      <a class="auth-signin" href="#" onclick="showLoginDialog()">Sign in</a>
+      <a class="btn" href="ask-question.html">Ask Question</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Community Forum</h1>
+    <a href="../landing.html" class="btn btn-light">← Back to Site</a>
+  </div>
+</section>
+
+<div class="page">
+  <section class="apps-area">     
+    
+    <!-- Search Bar -->
+    <div class="forum-search">
+      <div class="search-container">
+        <input type="text" placeholder="Search for answers..." id="searchInput"/>
+        <span class="search-icon">🔍</span>
+      </div>
+    </div>
+    
+    <!-- Filter Tabs -->
+    <div class="forum-tabs">
+      <button class="active" onclick="filterQuestions('all')">All</button>
+      <button onclick="filterQuestions('unanswered')">Unanswered</button>
+      <button onclick="filterQuestions('following')">Following</button>
+    </div>
+    
+    <!-- Forum Content -->
+    <div class="forum-content">
+      
+      <!-- Main Content -->
+      <div class="main-content">
+        
+        <!-- Sort Controls -->
+        <div class="sort-controls">
+          <span class="question-count">15 questions</span>
+          <div class="sort-buttons">
+            <button class="active" onclick="sortQuestions('active')">Active</button>
+            <button onclick="sortQuestions('newest')">Newest</button>
+            <button onclick="sortQuestions('votes')">Most Voted</button>
+          </div>
+        </div>
+        
+        <!-- Question List -->
+        <div class="question-list" id="questionList">
+          
+          <!-- Question Item 1 -->
+          <div class="question-item" data-category="configuration" data-answers="2">
+            <div class="question-wrapper">
+              <div class="question-stats">
+                <div class="question-stat">
+                  <div class="question-stat-number">3</div>
+                  <div class="question-stat-label">votes</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number answered">2</div>
+                  <div class="question-stat-label">answers</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number">45</div>
+                  <div class="question-stat-label">views</div>
+                </div>
+              </div>
+              <div class="question-content">
+                <h3 class="question-title">
+                  <a href="question-detail.html?id=1">How to configure email settings for notifications?</a>
+                </h3>
+                <p class="question-excerpt">I'm trying to set up email notifications but can't find the right configuration options...</p>
+                <div class="question-meta">
+                  <div class="question-tags">
+                    <span class="question-tag tag-blue">configuration</span>
+                    <span class="question-tag tag-green">email</span>
+                  </div>
+                  <div class="question-author">
+                    <div>asked 2 hours ago</div>
+                    <div class="author-name">john_doe</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Question Item 2 -->
+          <div class="question-item" data-category="database" data-answers="0">
+            <div class="question-wrapper">
+              <div class="question-stats">
+                <div class="question-stat">
+                  <div class="question-stat-number">1</div>
+                  <div class="question-stat-label">votes</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number unanswered">0</div>
+                  <div class="question-stat-label">answers</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number">12</div>
+                  <div class="question-stat-label">views</div>
+                </div>
+              </div>
+              <div class="question-content">
+                <h3 class="question-title">
+                  <a href="question-detail.html?id=2">Database backup process failing</a>
+                </h3>
+                <p class="question-excerpt">The automated backup process has been failing with error code 500...</p>
+                <div class="question-meta">
+                  <div class="question-tags">
+                    <span class="question-tag tag-yellow">database</span>
+                    <span class="question-tag tag-red">backup</span>
+                  </div>
+                  <div class="question-author">
+                    <div>asked 5 hours ago</div>
+                    <div class="author-name">admin_user</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Question Item 3 -->
+          <div class="question-item" data-category="permissions" data-answers="3">
+            <div class="question-wrapper">
+              <div class="question-stats">
+                <div class="question-stat">
+                  <div class="question-stat-number">7</div>
+                  <div class="question-stat-label">votes</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number answered">3</div>
+                  <div class="question-stat-label">answers</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number">89</div>
+                  <div class="question-stat-label">views</div>
+                </div>
+              </div>
+              <div class="question-content">
+                <h3 class="question-title">
+                  <a href="question-detail.html?id=3">Best practices for user permissions setup</a>
+                </h3>
+                <p class="question-excerpt">What are the recommended approaches for setting up user permissions in a multi-department organization?</p>
+                <div class="question-meta">
+                  <div class="question-tags">
+                    <span class="question-tag tag-blue">permissions</span>
+                    <span class="question-tag tag-purple">security</span>
+                    <span class="question-tag tag-green">users</span>
+                  </div>
+                  <div class="question-author">
+                    <div>asked 1 day ago</div>
+                    <div class="author-name">sarah_m</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Question Item 4 -->
+          <div class="question-item" data-category="integration" data-answers="1">
+            <div class="question-wrapper">
+              <div class="question-stats">
+                <div class="question-stat">
+                  <div class="question-stat-number">5</div>
+                  <div class="question-stat-label">votes</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number answered">1</div>
+                  <div class="question-stat-label">answers</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number">67</div>
+                  <div class="question-stat-label">views</div>
+                </div>
+              </div>
+              <div class="question-content">
+                <h3 class="question-title">
+                  <a href="question-detail.html?id=4">API integration with third-party services</a>
+                </h3>
+                <p class="question-excerpt">Having trouble connecting our system with external APIs. Authentication keeps failing...</p>
+                <div class="question-meta">
+                  <div class="question-tags">
+                    <span class="question-tag tag-purple">api</span>
+                    <span class="question-tag tag-blue">integration</span>
+                    <span class="question-tag tag-yellow">authentication</span>
+                  </div>
+                  <div class="question-author">
+                    <div>asked 2 days ago</div>
+                    <div class="author-name">dev_mike</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Question Item 5 -->
+          <div class="question-item" data-category="performance" data-answers="0">
+            <div class="question-wrapper">
+              <div class="question-stats">
+                <div class="question-stat">
+                  <div class="question-stat-number">2</div>
+                  <div class="question-stat-label">votes</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number unanswered">0</div>
+                  <div class="question-stat-label">answers</div>
+                </div>
+                <div class="question-stat">
+                  <div class="question-stat-number">28</div>
+                  <div class="question-stat-label">views</div>
+                </div>
+              </div>
+              <div class="question-content">
+                <h3 class="question-title">
+                  <a href="question-detail.html?id=5">System running slow after recent update</a>
+                </h3>
+                <p class="question-excerpt">Performance has degraded significantly since the latest version update. Pages take forever to load...</p>
+                <div class="question-meta">
+                  <div class="question-tags">
+                    <span class="question-tag tag-red">performance</span>
+                    <span class="question-tag tag-yellow">update</span>
+                  </div>
+                  <div class="question-author">
+                    <div>asked 3 days ago</div>
+                    <div class="author-name">tech_support</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+          <button onclick="changePage(-1)">← Prev</button>
+          <button class="active">1</button>
+          <button onclick="changePage(2)">2</button>
+          <button onclick="changePage(3)">3</button>
+          <button onclick="changePage(1)">Next →</button>
+        </div>
+        
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="sidebar">
+        
+        <!-- Stats Card -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Community Stats</h3>
+          <div class="stat-row">
+            <span>Questions</span>
+            <span class="stat-value">1,247</span>
+          </div>
+          <div class="stat-row">
+            <span>Answers</span>
+            <span class="stat-value">3,891</span>
+          </div>
+          <div class="stat-row">
+            <span>Users</span>
+            <span class="stat-value">892</span>
+          </div>
+          <div class="stat-row">
+            <span>Online Now</span>
+            <span class="stat-value online">23</span>
+          </div>
+        </div>
+        
+        <!-- Popular Tags -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Popular Tags</h3>
+          <div class="tag-cloud">
+            <span class="tag-item tag-blue" onclick="filterByTag('configuration')">configuration</span>
+            <span class="tag-item tag-green" onclick="filterByTag('email')">email</span>
+            <span class="tag-item tag-yellow" onclick="filterByTag('database')">database</span>
+            <span class="tag-item tag-purple" onclick="filterByTag('security')">security</span>
+            <span class="tag-item tag-green" onclick="filterByTag('users')">users</span>
+            <span class="tag-item tag-blue" onclick="filterByTag('modules')">modules</span>
+          </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Recent Activity</h3>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-text">New answer posted</div>
+              <div class="activity-meta">on "Email configuration issue" • 30 min ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-text">Question updated</div>
+              <div class="activity-meta">"Database backup process" • 1 hour ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-text">New user joined</div>
+              <div class="activity-meta">welcome_newbie • 2 hours ago</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Ask Question CTA -->
+        <div class="sidebar-section cta-section">
+          <h3 class="sidebar-title">Have a Question?</h3>
+          <p>Can't find what you're looking for? Ask the community!</p>
+          <a href="ask-question.html" class="btn btn-full">Ask Your Question</a>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-logo">
+    <img src="assets/election-pro-logo-web-white.png" alt="Logo">
+  </div>
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Documentation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with us</h4>
+      <p>Follow us on social media</p>
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">🦋</a>
+        <a href="#">💼</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

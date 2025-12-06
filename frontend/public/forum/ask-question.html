@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ask a Question - Community Forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html"><img class="black" src="assets/election-pro-logo-web-black.png" alt="Logo"></a>
+    <nav class="nav">
+      <a href="index.html">Help</a>
+      <a href="#" onclick="navigateTo('questions')">Questions</a>
+      <a href="users.html">Users</a>
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="header-cta">
+      <a class="auth-signin" href="#" onclick="showLoginDialog()">Sign in</a>
+      <a class="btn btn-light" href="index.html">← Back to Forum</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Ask a Question</h1>
+  </div>
+</section>
+
+<div class="page">
+  <section class="apps-area">
+    
+    <div class="form-container">
+      
+      <!-- Guidelines -->
+      <div style="background: #e8f5e8; border: 1px solid #28a745; border-radius: 6px; padding: 20px; margin-bottom: 30px;">
+        <h3 style="margin-top: 0; color: #155724;">✅ How to Ask a Good Question</h3>
+        <ul style="margin-bottom: 0; color: #155724;">
+          <li>Be specific and clear in your title</li>
+          <li>Describe your problem in detail</li>
+          <li>Include what you've already tried</li>
+          <li>Add relevant tags to help others find your question</li>
+          <li>Provide system information when relevant</li>
+        </ul>
+      </div>
+      
+      <form onsubmit="handleAskQuestion(event)">
+        
+        <!-- Title -->
+        <div class="form-group">
+          <label class="form-label" for="questionTitle">
+            Title <span style="color: #dc3545;">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="questionTitle" 
+            class="form-input" 
+            placeholder="Be specific and imagine you're asking a question to another person"
+            maxlength="150"
+            required
+          />
+          <div class="form-help">
+            Be descriptive. Include what you're trying to achieve and what's going wrong.
+          </div>
+        </div>
+        
+        <!-- Body -->
+        <div class="form-group">
+          <label class="form-label" for="questionBody">
+            Question Details <span style="color: #dc3545;">*</span>
+          </label>
+          <textarea 
+            id="questionBody" 
+            class="form-textarea" 
+            placeholder="Include all the information someone would need to answer your question:
+
+• What are you trying to achieve?
+• What have you tried so far?
+• What error messages are you seeing?
+• What is your current setup/environment?"
+            required
+          ></textarea>
+          <div class="form-help">
+            The more details you provide, the better answers you'll receive. Include code, error messages, and steps you've already taken.
+          </div>
+        </div>
+        
+        <!-- Tags -->
+        <div class="form-group">
+          <label class="form-label" for="questionTags">
+            Tags <span style="color: #dc3545;">*</span>
+          </label>
+          <div class="tag-input-container">
+            <input 
+              type="text" 
+              id="questionTags" 
+              class="form-input" 
+              placeholder="e.g. configuration, email, database (comma-separated)"
+              required
+            />
+          </div>
+          <div class="form-help">
+            Add up to 5 tags to describe what your question is about. Start typing for suggestions.
+          </div>
+        </div>
+        
+        <!-- Preview Section -->
+        <div class="form-group">
+          <button type="button" class="btn btn-secondary" onclick="previewQuestion()">
+            Preview Question
+          </button>
+        </div>
+        
+        <!-- Submit Actions -->
+        <div class="form-actions">
+          <button type="submit" class="btn">Post Your Question</button>
+          <a href="index.html" class="btn btn-secondary">Cancel</a>
+        </div>
+        
+      </form>
+      
+      <!-- Tips Sidebar -->
+      <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 300px; gap: 30px;">
+        <div>
+          <!-- Additional tips can go here -->
+        </div>
+        
+        <div>
+          <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px;">
+            <h4 style="margin-top: 0; color: #333;">💡 Quick Tips</h4>
+            
+            <div style="margin-bottom: 15px;">
+              <strong style="color: #333;">Search first</strong>
+              <p style="font-size: 0.9rem; color: #666; margin: 5px 0 0;">Your question might already be answered. Use the search bar to check existing questions.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <strong style="color: #333;">Be patient</strong>
+              <p style="font-size: 0.9rem; color: #666; margin: 5px 0 0;">Good answers take time. Check back periodically and be ready to provide more details if needed.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <strong style="color: #333;">Accept answers</strong>
+              <p style="font-size: 0.9rem; color: #666; margin: 5px 0 0;">When someone solves your problem, accept their answer to help future users with similar issues.</p>
+            </div>
+            
+            <div>
+              <strong style="color: #333;">Vote and comment</strong>
+              <p style="font-size: 0.9rem; color: #666; margin: 5px 0 0;">Show appreciation for helpful answers by voting up and leaving comments.</p>
+            </div>
+          </div>
+          
+          <!-- Popular Tags -->
+          <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin-top: 20px;">
+            <h4 style="margin-top: 0; color: #333;">Popular Tags</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span class="question-tag tag-blue" onclick="addTag('configuration')">configuration</span>
+              <span class="question-tag tag-green" onclick="addTag('email')">email</span>
+              <span class="question-tag tag-yellow" onclick="addTag('database')">database</span>
+              <span class="question-tag tag-purple" onclick="addTag('security')">security</span>
+              <span class="question-tag tag-green" onclick="addTag('users')">users</span>
+              <span class="question-tag tag-red" onclick="addTag('backup')">backup</span>
+              <span class="question-tag tag-blue" onclick="addTag('api')">api</span>
+              <span class="question-tag tag-yellow" onclick="addTag('performance')">performance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-logo">
+    <img src="assets/election-pro-logo-web-white.png" alt="Logo">
+  </div>
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Documentation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with us</h4>
+      <p>Follow us on social media</p>
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">🦋</a>
+        <a href="#">💼</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+<script>
+// Add tag functionality
+function addTag(tagName) {
+  const tagInput = document.getElementById('questionTags');
+  const currentTags = tagInput.value.split(',').map(t => t.trim()).filter(t => t);
+  
+  if (!currentTags.includes(tagName) && currentTags.length < 5) {
+    currentTags.push(tagName);
+    tagInput.value = currentTags.join(', ');
+    
+    if (currentTags.length < 5) {
+      tagInput.value += ', ';
+    }
+    
+    tagInput.focus();
+  }
+}
+
+// Enhanced form submission
+function handleAskQuestion(event) {
+  event.preventDefault();
+  
+  if (!validateAskQuestionForm()) {
+    return;
+  }
+  
+  const formData = {
+    title: document.getElementById('questionTitle').value,
+    body: document.getElementById('questionBody').value,
+    tags: document.getElementById('questionTags').value
+  };
+  
+  // Simulate API submission
+  simulateApiCall(() => {
+    clearDraft(); // Clear saved draft
+    alert('Question submitted successfully! Redirecting to forum...');
+    window.location.href = 'index.html';
+  });
+}
+</script>
+
+</body>
+</html>

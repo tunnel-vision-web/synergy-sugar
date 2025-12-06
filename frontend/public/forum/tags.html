@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tags - Community Forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html"><img class="black" src="assets/election-pro-logo-web-black.png" alt="Logo"></a>
+    <nav class="nav">
+      <a href="index.html">Help</a>
+      <a href="#" onclick="navigateTo('questions')">Questions</a>
+      <a href="users.html">Users</a>
+      <a href="tags.html" class="active">Tags</a>
+    </nav>
+    <div class="header-cta">
+      <a class="auth-signin" href="#" onclick="showLoginDialog()">Sign in</a>
+      <a class="btn" href="ask-question.html">Ask Question</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Browse Tags</h1>
+    <a href="index.html" class="btn btn-light">← Back to Forum</a>
+  </div>
+</section>
+
+<div class="page">
+  <section class="apps-area">
+    
+    <!-- Search Tags -->
+    <div class="forum-search">
+      <div class="search-container">
+        <input type="text" placeholder="Search tags..." id="tagSearch" oninput="searchTags()"/>
+        <span class="search-icon">🔍</span>
+      </div>
+    </div>
+    
+    <!-- Tag Stats -->
+    <div style="background: #f8f9fa; border-radius: 6px; padding: 20px; margin-bottom: 30px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">
+        <div>
+          <div style="font-size: 2rem; font-weight: 600; color: var(--secondary);">156</div>
+          <div style="color: #666;">Total Tags</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 600; color: #28a745;">23</div>
+          <div style="color: #666;">Popular Tags</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 600; color: var(--primary);">8</div>
+          <div style="color: #666;">New This Week</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 600; color: #7b1fa2;">1,247</div>
+          <div style="color: #666;">Total Questions</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Filter Tabs -->
+    <div class="forum-tabs">
+      <button class="active" onclick="filterTags('all')">All Tags</button>
+      <button onclick="filterTags('popular')">Popular</button>
+      <button onclick="filterTags('recent')">Recent</button>
+      <button onclick="filterTags('name')">A-Z</button>
+    </div>
+    
+    <!-- Tags Grid -->
+    <div class="tag-grid">
+      
+      <!-- Tag Card 1 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">configuration</div>
+        <div class="tag-description">Questions about system configuration, setup, and settings management</div>
+        <div class="tag-stats">
+          <span>45 questions</span>
+          <span>23 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 2 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">email</div>
+        <div class="tag-description">Email-related issues, SMTP configuration, and notification settings</div>
+        <div class="tag-stats">
+          <span>32 questions</span>
+          <span>18 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 3 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">database</div>
+        <div class="tag-description">Database management, queries, backup, and troubleshooting</div>
+        <div class="tag-stats">
+          <span>67 questions</span>
+          <span>45 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 4 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">security</div>
+        <div class="tag-description">Security, permissions, authentication, and access control</div>
+        <div class="tag-stats">
+          <span>29 questions</span>
+          <span>34 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 5 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">api</div>
+        <div class="tag-description">API integration, development, and third-party connections</div>
+        <div class="tag-stats">
+          <span>38 questions</span>
+          <span>27 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 6 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">performance</div>
+        <div class="tag-description">Performance optimization, troubleshooting, and system efficiency</div>
+        <div class="tag-stats">
+          <span>22 questions</span>
+          <span>31 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 7 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">backup</div>
+        <div class="tag-description">Backup procedures, data recovery, and archival processes</div>
+        <div class="tag-stats">
+          <span>19 questions</span>
+          <span>15 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 8 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">users</div>
+        <div class="tag-description">User management, accounts, profiles, and permissions</div>
+        <div class="tag-stats">
+          <span>41 questions</span>
+          <span>29 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 9 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">modules</div>
+        <div class="tag-description">Module installation, configuration, and customization</div>
+        <div class="tag-stats">
+          <span>26 questions</span>
+          <span>19 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 10 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">integration</div>
+        <div class="tag-description">System integrations, connectors, and workflow automation</div>
+        <div class="tag-stats">
+          <span>33 questions</span>
+          <span>22 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 11 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">authentication</div>
+        <div class="tag-description">Login systems, SSO, OAuth, and user authentication methods</div>
+        <div class="tag-stats">
+          <span>17 questions</span>
+          <span>24 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 12 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">reporting</div>
+        <div class="tag-description">Reports, analytics, dashboards, and data visualization</div>
+        <div class="tag-stats">
+          <span>28 questions</span>
+          <span>16 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 13 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">mobile</div>
+        <div class="tag-description">Mobile applications, responsive design, and mobile-specific issues</div>
+        <div class="tag-stats">
+          <span>14 questions</span>
+          <span>12 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 14 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">customization</div>
+        <div class="tag-description">Custom development, themes, and platform modifications</div>
+        <div class="tag-stats">
+          <span>31 questions</span>
+          <span>25 followers</span>
+        </div>
+      </div>
+      
+      <!-- Tag Card 15 -->
+      <div class="tag-card" onclick="window.location.href='index.html'">
+        <div class="tag-name">deployment</div>
+        <div class="tag-description">Deployment strategies, server setup, and production environments</div>
+        <div class="tag-stats">
+          <span>21 questions</span>
+          <span>18 followers</span>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Popular Tags Cloud -->
+    <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 30px; margin-top: 40px;">
+      <h3 style="margin-top: 0; color: #333; text-align: center;">Tag Cloud</h3>
+      <div style="text-align: center; line-height: 2;">
+        <span style="font-size: 1.8rem; color: var(--secondary); margin: 0 10px; cursor: pointer;" onclick="filterByTag('database')">database</span>
+        <span style="font-size: 1.4rem; color: var(--primary); margin: 0 8px; cursor: pointer;" onclick="filterByTag('configuration')">configuration</span>
+        <span style="font-size: 1.6rem; color: #7b1fa2; margin: 0 8px; cursor: pointer;" onclick="filterByTag('users')">users</span>
+        <span style="font-size: 1.2rem; color: #28a745; margin: 0 6px; cursor: pointer;" onclick="filterByTag('api')">api</span>
+        <span style="font-size: 1.3rem; color: #856404; margin: 0 6px; cursor: pointer;" onclick="filterByTag('email')">email</span>
+        <span style="font-size: 1.1rem; color: #dc3545; margin: 0 5px; cursor: pointer;" onclick="filterByTag('security')">security</span>
+        <span style="font-size: 1.5rem; color: #17a2b8; margin: 0 8px; cursor: pointer;" onclick="filterByTag('integration')">integration</span>
+        <span style="font-size: 1.0rem; color: #6c757d; margin: 0 5px; cursor: pointer;" onclick="filterByTag('performance')">performance</span>
+        <span style="font-size: 1.25rem; color: #ffc107; margin: 0 6px; cursor: pointer;" onclick="filterByTag('customization')">customization</span>
+        <span style="font-size: 0.9rem; color: #20c997; margin: 0 4px; cursor: pointer;" onclick="filterByTag('backup')">backup</span>
+        <span style="font-size: 1.1rem; color: #fd7e14; margin: 0 5px; cursor: pointer;" onclick="filterByTag('modules')">modules</span>
+        <span style="font-size: 0.8rem; color: #e83e8c; margin: 0 4px; cursor: pointer;" onclick="filterByTag('mobile')">mobile</span>
+        <span style="font-size: 1.0rem; color: #6f42c1; margin: 0 5px; cursor: pointer;" onclick="filterByTag('reporting')">reporting</span>
+        <span style="font-size: 0.9rem; color: #198754; margin: 0 4px; cursor: pointer;" onclick="filterByTag('deployment')">deployment</span>
+        <span style="font-size: 1.15rem; color: #0d6efd; margin: 0 5px; cursor: pointer;" onclick="filterByTag('authentication')">authentication</span>
+      </div>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="pagination">
+      <button onclick="changePage(-1)">← Prev</button>
+      <button class="active">1</button>
+      <button onclick="changePage(2)">2</button>
+      <button onclick="changePage(3)">3</button>
+      <button onclick="changePage(1)">Next →</button>
+    </div>
+    
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-logo">
+    <img src="assets/election-pro-logo-web-white.png" alt="Logo">
+  </div>
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Documentation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with us</h4>
+      <p>Follow us on social media</p>
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">🦋</a>
+        <a href="#">💼</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+<script>
+function filterTags(type) {
+  const tabs = document.querySelectorAll('.forum-tabs button');
+  const tagCards = document.querySelectorAll('.tag-card');
+  
+  // Update active tab
+  tabs.forEach(tab => tab.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // Convert NodeList to Array for sorting
+  const cardsArray = Array.from(tagCards);
+  
+  switch(type) {
+    case 'popular':
+      cardsArray.sort((a, b) => {
+        const aQuestions = parseInt(a.querySelector('.tag-stats span').textContent);
+        const bQuestions = parseInt(b.querySelector('.tag-stats span').textContent);
+        return bQuestions - aQuestions;
+      });
+      break;
+    case 'recent':
+      // Mock recent sorting - in real app would use actual dates
+      cardsArray.sort(() => Math.random() - 0.5);
+      break;
+    case 'name':
+      cardsArray.sort((a, b) => {
+        const aName = a.querySelector('.tag-name').textContent;
+        const bName = b.querySelector('.tag-name').textContent;
+        return aName.localeCompare(bName);
+      });
+      break;
+    case 'all':
+    default:
+      // Show all in original order
+      break;
+  }
+  
+  // Re-append sorted cards if needed
+  if (type !== 'all') {
+    const container = document.querySelector('.tag-grid');
+    cardsArray.forEach(card => container.appendChild(card));
+  }
+  
+  // Show all cards
+  cardsArray.forEach(card => card.style.display = 'block');
+}
+
+function filterByTag(tagName) {
+  // Redirect to main forum with tag filter
+  window.location.href = `index.html?tag=${encodeURIComponent(tagName)}`;
+}
+</script>
+
+</body>
+</html>

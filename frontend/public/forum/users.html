@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Users - Community Forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html"><img class="black" src="assets/election-pro-logo-web-black.png" alt="Logo"></a>
+    <nav class="nav">
+      <a href="index.html">Help</a>
+      <a href="#" onclick="navigateTo('questions')">Questions</a>
+      <a href="users.html" class="active">Users</a>
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="header-cta">
+      <a class="auth-signin" href="#" onclick="showLoginDialog()">Sign in</a>
+      <a class="btn" href="ask-question.html">Ask Question</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Community Users</h1>
+    <a href="index.html" class="btn btn-light">← Back to Forum</a>
+  </div>
+</section>
+
+<div class="page">
+  <section class="apps-area">
+    
+    <!-- Search Users -->
+    <div class="forum-search">
+      <div class="search-container">
+        <input type="text" placeholder="Search users..." id="userSearch" oninput="searchUsers()"/>
+        <span class="search-icon">🔍</span>
+      </div>
+    </div>
+    
+    <!-- User Stats -->
+    <div style="background: #f8f9fa; border-radius: 6px; padding: 20px; margin-bottom: 30px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">
+        <div>
+          <div style="font-size: 2rem; font-weight: 600; color: var(--secondary);">892</div>
+          <div style="color: #666;">Total Users</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 600; color: #28a745;">23</div>
+          <div style="color: #666;">Online Now</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 600; color: var(--primary);">156</div>
+          <div style="color: #666;">New This Month</div>
+        </div>
+        <div>
+          <div style="font-size: 2rem; font-weight: 600; color: #7b1fa2;">45</div>
+          <div style="color: #666;">Top Contributors</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Filter Tabs -->
+    <div class="forum-tabs">
+      <button class="active" onclick="filterUsers('all')">All Users</button>
+      <button onclick="filterUsers('moderators')">Moderators</button>
+      <button onclick="filterUsers('new')">New Users</button>
+      <button onclick="filterUsers('reputation')">Top Reputation</button>
+    </div>
+    
+    <!-- Users Grid -->
+    <div class="user-grid">
+      
+      <!-- User Card 1 -->
+      <div class="user-card">
+        <div class="user-avatar">AU</div>
+        <div class="user-name">Admin User</div>
+        <div class="user-title">Platform Administrator</div>
+        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+          Member since January 2020
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <span class="user-stat-number">5</span>
+            <span class="user-stat-label">Questions</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">123</span>
+            <span class="user-stat-label">Answers</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">3500</span>
+            <span class="user-stat-label">Reputation</span>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">Moderator</span>
+        </div>
+      </div>
+      
+      <!-- User Card 2 -->
+      <div class="user-card">
+        <div class="user-avatar">SM</div>
+        <div class="user-name">Sarah Miller</div>
+        <div class="user-title">System Administrator</div>
+        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+          Member since March 2021
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <span class="user-stat-number">8</span>
+            <span class="user-stat-label">Questions</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">67</span>
+            <span class="user-stat-label">Answers</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">2100</span>
+            <span class="user-stat-label">Reputation</span>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <span style="background: var(--secondary); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">Active</span>
+        </div>
+      </div>
+      
+      <!-- User Card 3 -->
+      <div class="user-card">
+        <div class="user-avatar">JD</div>
+        <div class="user-name">John Doe</div>
+        <div class="user-title">Senior Developer</div>
+        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+          Member since June 2022
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <span class="user-stat-number">15</span>
+            <span class="user-stat-label">Questions</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">42</span>
+            <span class="user-stat-label">Answers</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">1250</span>
+            <span class="user-stat-label">Reputation</span>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <span style="background: var(--primary); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">Regular</span>
+        </div>
+      </div>
+      
+      <!-- User Card 4 -->
+      <div class="user-card">
+        <div class="user-avatar">DM</div>
+        <div class="user-name">Mike Johnson</div>
+        <div class="user-title">Full Stack Developer</div>
+        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+          Member since September 2022
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <span class="user-stat-number">23</span>
+            <span class="user-stat-label">Questions</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">31</span>
+            <span class="user-stat-label">Answers</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">890</span>
+            <span class="user-stat-label">Reputation</span>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <span style="background: #6c757d; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">Member</span>
+        </div>
+      </div>
+      
+      <!-- User Card 5 -->
+      <div class="user-card">
+        <div class="user-avatar">LW</div>
+        <div class="user-name">Lisa Wang</div>
+        <div class="user-title">Database Specialist</div>
+        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+          Member since November 2023
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <span class="user-stat-number">6</span>
+            <span class="user-stat-label">Questions</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">28</span>
+            <span class="user-stat-label">Answers</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">645</span>
+            <span class="user-stat-label">Reputation</span>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <span style="background: #ffc107; color: #333; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">Rising Star</span>
+        </div>
+      </div>
+      
+      <!-- User Card 6 -->
+      <div class="user-card">
+        <div class="user-avatar">RG</div>
+        <div class="user-name">Robert Garcia</div>
+        <div class="user-title">Security Analyst</div>
+        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+          Member since February 2024
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <span class="user-stat-number">12</span>
+            <span class="user-stat-label">Questions</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">19</span>
+            <span class="user-stat-label">Answers</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">420</span>
+            <span class="user-stat-label">Reputation</span>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <span style="background: #17a2b8; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">Contributor</span>
+        </div>
+      </div>
+      
+      <!-- User Card 7 -->
+      <div class="user-card">
+        <div class="user-avatar">EN</div>
+        <div class="user-name">Emma Thompson</div>
+        <div class="user-title">UX Designer</div>
+        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+          Member since August 2024
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <span class="user-stat-number">4</span>
+            <span class="user-stat-label">Questions</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">7</span>
+            <span class="user-stat-label">Answers</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">125</span>
+            <span class="user-stat-label">Reputation</span>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">New</span>
+        </div>
+      </div>
+      
+      <!-- User Card 8 -->
+      <div class="user-card">
+        <div class="user-avatar">TS</div>
+        <div class="user-name">Tech Support</div>
+        <div class="user-title">Support Specialist</div>
+        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+          Member since December 2023
+        </div>
+        <div class="user-stats">
+          <div class="user-stat">
+            <span class="user-stat-number">18</span>
+            <span class="user-stat-label">Questions</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">89</span>
+            <span class="user-stat-label">Answers</span>
+          </div>
+          <div class="user-stat">
+            <span class="user-stat-number">1680</span>
+            <span class="user-stat-label">Reputation</span>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <span style="background: #dc3545; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">Support</span>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Pagination -->
+    <div class="pagination">
+      <button onclick="changePage(-1)">← Prev</button>
+      <button class="active">1</button>
+      <button onclick="changePage(2)">2</button>
+      <button onclick="changePage(3)">3</button>
+      <button onclick="changePage(1)">Next →</button>
+    </div>
+    
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-logo">
+    <img src="assets/election-pro-logo-web-white.png" alt="Logo">
+  </div>
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Documentation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with us</h4>
+      <p>Follow us on social media</p>
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">🦋</a>
+        <a href="#">💼</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+<script>
+function filterUsers(type) {
+  const tabs = document.querySelectorAll('.forum-tabs button');
+  const userCards = document.querySelectorAll('.user-card');
+  
+  // Update active tab
+  tabs.forEach(tab => tab.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // Filter users based on type
+  userCards.forEach(card => {
+    const badge = card.querySelector('span[style*="background"]');
+    const badgeText = badge ? badge.textContent.toLowerCase() : '';
+    
+    switch(type) {
+      case 'all':
+        card.style.display = 'block';
+        break;
+      case 'moderators':
+        card.style.display = badgeText.includes('moderator') ? 'block' : 'none';
+        break;
+      case 'new':
+        card.style.display = badgeText.includes('new') || badgeText.includes('rising') ? 'block' : 'none';
+        break;
+      case 'reputation':
+        const reputation = parseInt(card.querySelector('.user-stat:last-child .user-stat-number').textContent);
+        card.style.display = reputation > 1000 ? 'block' : 'none';
+        break;
+    }
+  });
+}
+</script>
+
+</body>
+</html>
