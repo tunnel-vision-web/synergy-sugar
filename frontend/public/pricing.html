@@ -1730,10 +1730,16 @@ document.querySelectorAll('.faq-question').forEach(question => {
       document.body.style.overflow = '';
     });
     
-    // Close menu when clicking nav links
+    // Close menu when clicking nav links (except Industries dropdown toggle)
     const navLinks = mainNav.querySelectorAll('a');
     navLinks.forEach(link => {
-      link.addEventListener('click', function() {
+      link.addEventListener('click', function(e) {
+        // Don't close menu if clicking Industries toggle or dropdown items
+        if (link.closest('.nav-item.has-dropdown') && !link.closest('.simple-dropdown')) {
+          return; // Let Industries toggle handle it
+        }
+        
+        // Close menu for other links
         hamburgerBtn.classList.remove('active');
         mainNav.classList.remove('active');
         authActions.classList.remove('active');
