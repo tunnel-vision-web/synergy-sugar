@@ -843,6 +843,10 @@ document.getElementById('booking-form').addEventListener('submit', (e) => {
   document.getElementById('confirm-location').textContent = bookingState.location === 'online' ? 'Online' : 'In-Person';
   document.getElementById('confirm-duration').textContent = bookingState.duration;
   
+  // Update requested appointment box on confirmation page
+  document.getElementById('requested-apt-title-confirm').textContent = bookingState.appointmentTitle;
+  document.getElementById('requested-apt-duration-confirm').textContent = bookingState.duration;
+  
   const options = { month: 'short', day: 'numeric', year: 'numeric' };
   document.getElementById('confirm-date').textContent = 
     bookingState.selectedDate.toLocaleDateString('en-US', options);
@@ -856,7 +860,25 @@ document.getElementById('booking-form').addEventListener('submit', (e) => {
   document.getElementById('confirm-name').textContent = bookingState.userInfo.name;
   document.getElementById('confirm-email').textContent = bookingState.userInfo.email;
   
-  // TODO: Send booking data to backend/Google Calendar
+  // Prepare booking data for email/CRM integration
+  const bookingData = {
+    appointmentType: bookingState.appointmentType,
+    appointmentTitle: bookingState.appointmentTitle,
+    duration: bookingState.duration,
+    location: bookingState.location === 'online' ? 'Online' : 'In-Person',
+    date: bookingState.selectedDate.toLocaleDateString('en-US', options),
+    time: `${displayHour}:${minutes} ${ampm}`,
+    customerInfo: {
+      name: bookingState.userInfo.name,
+      email: bookingState.userInfo.email,
+      phone: bookingState.userInfo.phone,
+      organization: bookingState.userInfo.organization,
+      notes: bookingState.userInfo.notes
+    }
+  };
+  
+  // TODO: Send booking data to backend/Google Calendar/CRM
+  console.log('Booking Data for CRM/Email:', bookingData);
   
   showPage('confirmation');
 });
