@@ -1230,31 +1230,16 @@ document.querySelectorAll('.faq-question').forEach(question => {
       onScroll();
     })();
 
-    // Mega menu functionality - click to open/close
-(function(){
-  const industriesLink = document.querySelector('.nav-item.has-dropdown a');
-  const megaMenu = document.getElementById('industriesMenu');
-
-  if (industriesLink && megaMenu) {
-    industriesLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      megaMenu.classList.toggle('active');
-    });
-
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.mega-menu') && !e.target.closest('.nav-item.has-dropdown')) {
-        megaMenu.classList.remove('active');
+    // Simple dropdown - hover based, no JavaScript needed for desktop
+    // On mobile, prevent link navigation when clicking Industries
+    (function(){
+      const industriesLink = document.querySelector('.nav-item.has-dropdown > a');
+      if (industriesLink && window.innerWidth <= 768) {
+        industriesLink.addEventListener('click', function(e) {
+          e.preventDefault();
+        });
       }
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        megaMenu.classList.remove('active');
-      }
-    });
-  }
-})();
+    })();
 
     // Basic carousel helper (no external deps).
     function makeCarousel(containerSel, options){
