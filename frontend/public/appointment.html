@@ -129,11 +129,11 @@
     .calendar-nav button:hover{background:#f6dd0d;color:#3b3b3b}
 
     .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:24px}
-    .calendar-day{padding:12px;text-align:center;border-radius:6px;cursor:pointer;font-size:0.9rem;color:var(--text);border:1px solid transparent;transition:all 0.2s}
+    .calendar-day{padding:12px;text-align:center;border-radius:3px;cursor:pointer;font-size:0.9rem;color:var(--text);border:1px solid transparent;transition:all 0.2s}
     .calendar-day.disabled{opacity:0.3;cursor:not-allowed}
-    .calendar-day:not(.disabled):hover{background:var(--primary);color:var(--text-strong);border-color:var(--primary)}
-    .calendar-day.selected{background:var(--secondary);color:#fff;font-weight:600}
-    .calendar-day.today{border-color:var(--primary);font-weight:600}
+    .calendar-day:not(.disabled):hover{background:#f6dd0d;color:#3b3b3b;border-color:#f6dd0d}
+    .calendar-day.selected{background:#686fb4;color:#fff;font-weight:600}
+    .calendar-day.today{border-color:#f6dd0d;font-weight:600}
 
     .time-slots{margin-top:24px}
     .time-slots h3{font-size:1rem;font-weight:600;color:var(--text-strong);margin-bottom:12px}
