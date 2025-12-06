@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Standard Plan — Configure & Buy</title>
+
+  <!-- Sansation font -->
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary:#ff7a00;
+      --secondary:#99ad8a;
+      --gray:#e0e0e0;
+      --text:#777;
+      --text-strong:#555;
+      --header-gray:#999;
+      --bg:#fafafa;
+      --border:#ddd;
+      --radius:10px;
+      --shadow-hover:0 4px 12px rgba(0,0,0,.08);
+      --headerH:72px;
+    }
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    *,*::before,*::after{box-sizing:border-box}
+
+    /* HEADER */
+    .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;width:min(1200px,92vw);margin:0 auto;height:var(--headerH);padding:8px 0}
+    .logo img.black{display:block;height:44px}
+    .nav{display:flex;gap:22px;font-size:.95rem;font-weight:500}
+    .nav a{color:#444;text-decoration:none;transition:color .2s}
+    .nav a:hover{color:var(--secondary)}
+    .header-cta{display:flex;gap:10px;align-items:center}
+
+    .btn{border:none;border-radius:6px;font-weight:600;cursor:pointer;transition:all .2s ease;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;color:#fff;background:var(--primary);padding:9px 18px;font-size:.9rem}
+    .btn:hover{background:var(--secondary);color:#fff}
+    .btn-light{background:#fff;color:#444}
+    .btn-light:hover{background:var(--secondary);color:#fff}
+
+    /* HERO */
+    .hero{padding-top:calc(var(--headerH) + 20px);padding-bottom:18px;text-align:left}
+    .hero-content{width:min(1200px,92vw);margin:0 auto}
+    .hero-content h1{
+      margin:18px 0 6px;
+      font-size:3rem; /* 20% smaller */
+      font-weight:700;
+      color:#bbb;
+      font-family:'Sansation', sans-serif;
+    }
+
+    /* PAGE */
+    .page{width:min(1200px,92vw);margin:0 auto}
+    .apps-area{margin:16px 0 40px}
+    .config-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+    @media(max-width:960px){.config-grid{grid-template-columns:1fr}}
+
+    .card{background:#fff;border-radius:var(--radius);padding:18px}
+    .card h3{margin:0 0 12px;font-size:1rem;font-weight:600;color:var(--header-gray)}
+
+    /* Divider */
+    .divider{height:1px;background:var(--border);width:95%;margin:16px auto}
+
+    /* Radio choices */
+    .choices{display:flex;flex-direction:column;gap:8px;width:100%}
+    .choice{display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;color:var(--text);transition:.2s, box-shadow .2s;border-radius:6px}
+    .choice:hover{background:#f1f1f1;transform:translateY(-1px);box-shadow:var(--shadow-hover)}
+    .choice input[type="radio"]{accent-color:var(--primary);width:16px;height:16px;cursor:pointer}
+    .choice.active{font-weight:600;color:var(--text-strong)}
+
+    /* Users input inline */
+    .user-row{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .user-row label{font-size:1rem;font-weight:600;color:var(--header-gray)}
+    .user-input input{
+      width:120px;height:40px;
+      border:2px solid var(--primary);border-radius:6px;
+      font-size:.95rem; /* 1px smaller */
+      font-weight:600;
+      color:#888;
+      text-align:center;
+      outline:none;-moz-appearance:textfield;
+    }
+    .user-input input::-webkit-inner-spin-button,
+    .user-input input::-webkit-outer-spin-button{opacity:1;width:20px;height:40px;cursor:pointer}
+
+    /* Reveal panel */
+    .reveal{overflow:hidden;max-height:0;opacity:0;transition:max-height .3s ease,opacity .25s ease;margin-top:0}
+    .reveal.show{max-height:300px;opacity:1;margin-top:8px}
+
+    /* Partner dropdown */
+    #partnerReveal{margin-top:10px}
+    #partnerReveal select{
+      width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;
+      font-size:.95rem;color:var(--text);background:#fff;cursor:pointer;
+    }
+
+    /* Summary */
+    .summary .line{display:flex;justify-content:space-between;margin:6px 0;color:var(--text-strong);font-size:.95rem}
+    .summary .total{font-weight:800;font-size:1.4rem;margin-top:10px;color:var(--text-strong)}
+    .toggle{display:inline-flex;border:2px solid var(--primary);border-radius:999px;overflow:hidden}
+    .toggle button{border:0;padding:8px 14px;cursor:pointer;font-weight:600;font-size:.9rem}
+    .toggle button[data-mode="monthly"]{background:var(--gray);color:#222}
+    .toggle button[data-mode="yearly"]{background:#fff;color:#222}
+    .toggle button.active[data-mode="yearly"]{background:var(--primary);color:#fff}
+    .toggle button:hover{background:var(--secondary);color:#fff}
+    .hr{height:1px;background:var(--border);margin:10px 0}
+    .muted{color:#aaa;font-size:.85rem}
+
+    /* Footer */
+    .site-footer{background:#444;color:#fff;margin-top:56px;padding:40px 20px}
+    .footer-logo{text-align:center;margin-bottom:24px}
+    .footer-logo img{height:40px}
+    .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto;text-align:left}
+    .footer-col h4{font-size:1rem;margin-bottom:12px;color:#fff}
+    .footer-col ul{list-style:none;padding:0;margin:0}
+    .footer-col ul li{margin-bottom:8px}
+    .footer-col ul li a{color:#fff;text-decoration:none;font-size:0.9rem;opacity:0.9}
+    .footer-col ul li a:hover{opacity:1;text-decoration:underline}
+    .footer-social{display:flex;gap:12px;margin-top:12px}
+    .footer-social a{color:#fff;font-size:1.2rem;opacity:0.9}
+    .footer-social a:hover{opacity:1}
+    @media(max-width:720px){.footer-columns{grid-template-columns:1fr;text-align:center}}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html"><img class="black" src="assets/images/election-pro-logo-web-black.png" alt="Election Pro AI"></a>
+    <nav class="nav">
+      <a href="pricing.html">Pricing</a>
+      <a href="help.html">Help</a>
+      <a href="signup.html">Trial</a>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-light" href="pricing.html">Back to Pricing</a>
+      <a class="btn" href="signup.html">Try it free</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Standard Plan</h1>
+    <p style="color:#aaa">Configure users, hosting, and installation. Prices in KES.</p>
+  </div>
+</section>
+
+<div class="page">
+  <section class="apps-area">
+    <div class="config-grid">
+
+      <!-- Left panel -->
+      <div class="card">
+        <h3>User Type</h3>
+        <div class="choices" id="userTypeChoices">
+          <label class="choice"><input type="radio" name="userType" value="standard" checked> Standard User (KES 700/mo)</label>
+          <label class="choice"><input type="radio" name="userType" value="customer"> Customer User (KES 1000/mo)</label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="user-row">
+          <label for="numUsers">Number of Users</label>
+          <div class="user-input">
+            <input id="numUsers" type="number" min="1" value="1">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>Hosting</h3>
+        <div class="choices" id="hostingChoices">
+          <label class="choice"><input type="radio" name="hosting" value="own" checked> Own Servers (no cost)</label>
+          <label class="choice"><input type="radio" name="hosting" value="ep"> Election Pro Hosting</label>
+        </div>
+
+        <div id="serverReveal" class="reveal">
+          <div class="divider"></div>
+          <h3>Server Type</h3>
+          <div class="choices" id="serverChoices">
+            <label class="choice"><input type="radio" name="server" value="basic" data-cost="5000" checked> Basic Server (KES 5,000/mo)</label>
+            <label class="choice"><input type="radio" name="server" value="pro" data-cost="12000"> Pro Server (KES 12,000/mo)</label>
+            <label class="choice"><input type="radio" name="server" value="enterprise" data-cost="25000"> Enterprise Server (KES 25,000/mo)</label>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>Installation</h3>
+        <div class="choices" id="installChoices">
+          <label class="choice"><input type="radio" name="install" value="self" data-cost="0" checked> Self Install (KES 0)</label>
+          <label class="choice"><input type="radio" name="install" value="assisted" data-cost="10000"> Assisted Install (KES 10,000)</label>
+          <label class="choice"><input type="radio" name="install" value="partner" data-cost="20000"> Partner Install (KES 20,000)</label>
+        </div>
+
+        <!-- Partner dropdown reveal -->
+        <div id="partnerReveal" class="reveal">
+          <label for="partnerSelect" style="display:block;margin-bottom:6px;color:var(--header-gray);font-weight:600;">Select a Partner</label>
+          <select id="partnerSelect">
+            <option value="">-- Choose a Partner --</option>
+            <option value="Partner One Ltd">Partner One Ltd</option>
+            <option value="Partner Two Inc">Partner Two Inc</option>
+            <option value="Partner Three Solutions">Partner Three Solutions</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Right panel -->
+      <aside class="card summary">
+        <div style="text-align:right">
+          <div class="toggle" id="priceToggle">
+            <button data-mode="monthly" class="active">Monthly</button>
+            <button data-mode="yearly">Yearly <span class="muted">save 15%</span></button>
+          </div>
+        </div>
+        <h3>Summary</h3>
+        <div class="line"><span>User type</span><span id="sumType">Standard</span></div>
+        <div class="line"><span>Billing</span><span id="sumBilling">Monthly</span></div>
+        <div class="line"><span>Users</span><span id="sumUsers">1</span></div>
+        <div class="line"><span>Per user</span><span id="sumPerUser">KES 700</span></div>
+        <div class="hr"></div>
+        <div class="line"><span>Users total</span><span id="sumUsersTotal">KES 700</span></div>
+        <div class="line"><span>Hosting</span><span id="sumHosting">KES 0</span></div>
+        <div class="line"><span>Installation</span><span id="sumInstall">KES 0</span></div>
+        <!-- Partner line (conditionally shown) -->
+        <div class="line" id="sumPartnerLine" style="display:none;">
+          <span>Partner</span><span id="sumPartner">--</span>
+        </div>
+        <div class="hr"></div>
+        <div class="total" id="sumTotal">KES 700</div>
+        <div class="muted" id="sumNote">Billed monthly</div>
+        <a href="#" class="btn" style="margin-top:16px">Buy Now</a>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-logo">
+    <img src="assets/images/election-pro-logo-web-white.png" alt="Election Pro AI">
+  </div>
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Documentation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with us</h4>
+      <p>Follow us on social media</p>
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">🦜</a>
+        <a href="#">💼</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const PRICING={perUser:{standard:700,customer:1000},server:{basic:5000,pro:12000,enterprise:25000},install:{self:0,assisted:10000,partner:20000},yearlyDiscount:0.15};
+const state={mode:'monthly',type:'standard',users:1,hosting:'own',server:'basic',install:'self',partner:''};
+
+function fmt(n){return 'KES '+Math.round(n).toLocaleString('en-KE');}
+function render(){
+  const perUser=PRICING.perUser[state.type];
+  let usersCost=perUser*state.users;
+  let hostCost=state.hosting==='ep'?PRICING.server[state.server]:0;
+  let instCost=PRICING.install[state.install];
+  if(state.mode==='yearly'){
+    usersCost*=12*(1-PRICING.yearlyDiscount);
+    hostCost*=12*(1-PRICING.yearlyDiscount);
+    instCost*=12*(1-PRICING.yearlyDiscount);
+  }
+  const total=usersCost+hostCost+instCost;
+
+  document.getElementById('sumType').textContent=state.type;
+  document.getElementById('sumBilling').textContent=state.mode==='yearly'?'Yearly':'Monthly';
+  document.getElementById('sumUsers').textContent=state.users;
+  document.getElementById('sumPerUser').textContent=fmt(perUser);
+  document.getElementById('sumUsersTotal').textContent=fmt(usersCost);
+  document.getElementById('sumHosting').textContent=fmt(hostCost);
+  document.getElementById('sumInstall').textContent=fmt(instCost);
+  document.getElementById('sumTotal').textContent=fmt(total);
+  document.getElementById('sumNote').textContent=state.mode==='yearly'?'Billed yearly (15% off)':'Billed monthly';
+
+  document.getElementById("serverReveal").classList.toggle('show',state.hosting==='ep');
+  document.getElementById("partnerReveal").classList.toggle('show',state.install==='partner');
+
+  if(state.install==='partner'){
+    document.getElementById("sumPartnerLine").style.display="flex";
+    document.getElementById("sumPartner").textContent=state.partner?state.partner:"--";
+  } else {
+    document.getElementById("sumPartnerLine").style.display="none";
+  }
+}
+
+// Billing toggle
+document.getElementById('priceToggle').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  state.mode=b.dataset.mode;
+  [...document.getElementById('priceToggle').querySelectorAll('button')].forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  render();
+});
+// User type radios
+document.querySelectorAll('input[name="userType"]').forEach(r=>r.addEventListener('change',e=>{state.type=e.target.value;render();}));
+// Users
+document.getElementById('numUsers').oninput=()=>{let v=parseInt(document.getElementById('numUsers').value)||1;if(v<1)v=1;state.users=v;document.getElementById('numUsers').value=v;render();};
+// Hosting radios
+document.querySelectorAll('input[name="hosting"]').forEach(r=>r.addEventListener('change',e=>{state.hosting=e.target.value;render();}));
+// Server radios
+document.querySelectorAll('input[name="server"]').forEach(r=>r.addEventListener('change',e=>{state.server=e.target.value;render();}));
+// Installation radios
+document.querySelectorAll('input[name="install"]').forEach(r=>r.addEventListener('change',e=>{state.install=e.target.value;render();}));
+// Partner dropdown
+document.getElementById('partnerSelect').addEventListener('change',e=>{
+  state.partner=e.target.value;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
