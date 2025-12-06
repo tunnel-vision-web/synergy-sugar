@@ -424,72 +424,92 @@
     .trace-card{
       position:absolute;
       border-radius:3px;
-      padding:12px;
+      padding:8px 12px;
       text-align:center;
       font-family:'Roboto',sans-serif;
       border:2px solid;
       box-shadow:0 2px 8px rgba(0,0,0,0.1);
+      box-sizing:border-box;
+      overflow:hidden;
     }
     
     .trace-card-title{
-      font-size:11px;
+      font-size:10px;
       font-weight:700;
-      line-height:1.3;
+      line-height:1.2;
+      margin:0;
     }
     
     .trace-card-subtitle{
-      font-size:11px;
+      font-size:10px;
       font-weight:700;
-      margin-top:2px;
+      margin:2px 0 0 0;
+      line-height:1.2;
     }
     
     .trace-card-title-ai{
       font-size:18px;
       font-weight:700;
       font-family:'Sansation','Roboto',sans-serif;
+      line-height:1;
     }
     
     .card-cane{
       top:24px;
       left:180px;
       width:120px;
-      height:42px;
+      height:44px;
       background:#A7F3D0;
       border-color:#059669;
       color:#059669;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
     }
     
     .card-transport{
       top:144px;
       right:20px;
       width:108px;
-      height:48px;
+      height:50px;
       background:#FED7AA;
       border-color:#EA580C;
       color:#EA580C;
-      padding:6px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
     }
-    .card-transport .trace-card-title{font-size:10px;margin-bottom:0}
-    .card-transport .trace-card-subtitle{font-size:10px}
+    .card-transport .trace-card-title{font-size:9px}
+    .card-transport .trace-card-subtitle{font-size:9px}
     
     .card-weighbridge{
       bottom:24px;
       left:180px;
       width:120px;
-      height:42px;
+      height:44px;
       background:#DDD6FE;
       border-color:#7C3AED;
       color:#7C3AED;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
     }
     
     .card-labor{
       top:144px;
       left:20px;
       width:108px;
-      height:48px;
+      height:50px;
       background:#FBCFE8;
       border-color:#DB2777;
       color:#DB2777;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
     }
     
     .card-ai{
@@ -497,7 +517,7 @@
       left:50%;
       transform:translate(-50%,-50%);
       width:60px;
-      height:42px;
+      height:44px;
       background:#f6dd0d;
       border-color:#686fb4;
       color:#3b3b3b;
@@ -506,63 +526,69 @@
       justify-content:center;
     }
     
+    /* Bidirectional Arrows with gaps from boxes */
     .trace-arrow{
       position:absolute;
-      width:3px;
+      height:3px;
       background:#059669;
-      transform-origin:top left;
+      transform-origin:center;
     }
     
+    /* Arrowheads on both ends */
+    .trace-arrow::before,
     .trace-arrow::after{
       content:'';
       position:absolute;
-      right:-4px;
-      bottom:-2px;
       width:0;
       height:0;
-      border-left:6px solid #059669;
-      border-top:3px solid transparent;
-      border-bottom:3px solid transparent;
+      border-top:5px solid transparent;
+      border-bottom:5px solid transparent;
     }
     
+    .trace-arrow::before{
+      left:-5px;
+      border-right:8px solid #059669;
+    }
+    
+    .trace-arrow::after{
+      right:-5px;
+      border-left:8px solid #059669;
+    }
+    
+    /* Arrow 1: Cane to Transport (top-right arc) */
     .arrow-1{
-      top:54px;
-      left:315px;
-      width:130px;
-      height:3px;
-      border-radius:0 0 60px 0;
-      transform:rotate(32deg);
-      transform-origin:left center;
+      top:52px;
+      left:312px;
+      width:105px;
+      border-radius:0 50px 50px 0;
+      transform:rotate(35deg);
     }
     
+    /* Arrow 2: Transport to Weighbridge (right-bottom arc) */
     .arrow-2{
-      top:206px;
-      right:85px;
-      width:130px;
-      height:3px;
-      border-radius:0 60px 0 0;
-      transform:rotate(122deg);
-      transform-origin:left center;
+      bottom:52px;
+      right:115px;
+      width:105px;
+      border-radius:50px 0 0 50px;
+      transform:rotate(35deg);
     }
     
+    /* Arrow 3: Weighbridge to Labor (bottom-left arc) */
     .arrow-3{
-      bottom:54px;
-      left:165px;
-      width:130px;
-      height:3px;
-      border-radius:60px 0 0 0;
-      transform:rotate(212deg);
-      transform-origin:left center;
+      bottom:52px;
+      left:115px;
+      width:105px;
+      border-radius:50px 50px 0 0;
+      transform:rotate(-35deg);
     }
     
+    /* Arrow 4: Labor to Cane (left-top arc) */
     .arrow-4{
-      top:206px;
-      left:85px;
-      width:130px;
-      height:3px;
-      border-radius:0 0 0 60px;
-      transform:rotate(302deg);
-      transform-origin:left center;
+      top:52px;
+      left:115px;
+      width:105px;
+      border-radius:0 0 50px 50px;
+      transform:rotate(-35deg);
     }
     
     @media(max-width:768px){
@@ -570,11 +596,18 @@
         width:320px;
         height:240px;
       }
-      .card-cane,.card-weighbridge{width:80px;height:32px;font-size:9px}
-      .card-transport,.card-labor{width:72px;height:36px;font-size:8px}
+      .card-cane,.card-weighbridge{width:80px;height:32px}
+      .card-cane .trace-card-title,.card-weighbridge .trace-card-title{font-size:8px}
+      .card-cane .trace-card-subtitle,.card-weighbridge .trace-card-subtitle{font-size:8px}
+      .card-transport,.card-labor{width:72px;height:36px}
+      .card-transport .trace-card-title,.card-labor .trace-card-title{font-size:7px}
+      .card-transport .trace-card-subtitle,.card-labor .trace-card-subtitle{font-size:7px}
       .card-ai{width:40px;height:32px;font-size:14px}
-      .trace-arrow{width:2px}
-      .arrow-1,.arrow-2,.arrow-3,.arrow-4{width:90px}
+      .trace-arrow{height:2px}
+      .trace-arrow::before,.trace-arrow::after{border-top:3px solid transparent;border-bottom:3px solid transparent}
+      .trace-arrow::before{left:-3px;border-right:5px solid #059669}
+      .trace-arrow::after{right:-3px;border-left:5px solid #059669}
+      .arrow-1,.arrow-2,.arrow-3,.arrow-4{width:70px}
     }
 
     /* Icons now use inline SVG with solid color backgrounds */
