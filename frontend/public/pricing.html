@@ -1377,22 +1377,41 @@ document.querySelectorAll('.faq-question').forEach(question => {
       onScroll();
     })();
 
-    // Simple dropdown functionality
+    // Mega menu functionality - click to open/close
     (function(){
-      const industriesItem = document.querySelector('.nav-item.has-dropdown');
       const industriesLink = document.querySelector('.nav-item.has-dropdown > a');
-      
-      if (industriesLink && industriesItem) {
+      const industriesItem = document.querySelector('.nav-item.has-dropdown');
+      const megaMenu = document.getElementById('industriesMenu');
+
+      if (industriesLink && megaMenu) {
         industriesLink.addEventListener('click', function(e) {
-          // On mobile (inside sidebar), toggle dropdown
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // On mobile, toggle within sidebar
           if (window.innerWidth <= 768) {
-            e.preventDefault();
-            e.stopPropagation();
             industriesItem.classList.toggle('active');
-          }
-          // On desktop, default behavior (link navigation) is prevented by CSS hover
+          } 
+          // On desktop, toggle full mega menu
           else {
-            e.preventDefault();
+            megaMenu.classList.toggle('active');
+          }
+        });
+
+        // Close mega menu when clicking outside (desktop only)
+        document.addEventListener('click', function(e) {
+          if (window.innerWidth > 768) {
+            if (!e.target.closest('.mega-menu') && !e.target.closest('.nav-item.has-dropdown')) {
+              megaMenu.classList.remove('active');
+            }
+          }
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            megaMenu.classList.remove('active');
+            industriesItem.classList.remove('active');
           }
         });
       }
