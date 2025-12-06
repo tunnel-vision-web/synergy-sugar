@@ -554,14 +554,15 @@ function renderAppointmentCards(filter = 'all') {
         <h3 class="appointment-title">${apt.title}</h3>
         <div class="appointment-meta">
           <div class="meta-item">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="2"/>
+              <path d="M16.24 7.76A6 6 0 0 1 19.07 16H5a6 6 0 1 1 11.24-8.24z"/>
             </svg>
             ${apt.duration}
           </div>
           <div class="meta-item online">
-            <svg viewBox="0 0 24 24">
-              <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
             </svg>
             Online/In-Person
           </div>
