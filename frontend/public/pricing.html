@@ -1093,9 +1093,9 @@ function setBilling(mode) {
     const yearly = parseFloat(priceEl.getAttribute('data-yearly'));
 
     if (mode === 'yearly' && yearly > 0) {
-      priceEl.innerHTML = `$${yearly}<span style="font-size:1rem;">/year</span>`;
+      priceEl.innerHTML = `KSH ${yearly}<span style="font-size:1rem;">/year</span>`;
     } else if (monthly > 0) {
-      priceEl.innerHTML = `$${monthly}<span style="font-size:1rem;">/month</span>`;
+      priceEl.innerHTML = `KSH ${monthly}<span style="font-size:1rem;">/month</span>`;
     } else {
       priceEl.innerHTML = 'Free';
     }
