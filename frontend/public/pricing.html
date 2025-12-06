@@ -1411,13 +1411,24 @@ document.querySelectorAll('.faq-question').forEach(question => {
           e.preventDefault();
           e.stopPropagation();
           
-          // On mobile, toggle within sidebar
+          // On mobile, slide out to the left
           if (window.innerWidth <= 768) {
             industriesItem.classList.toggle('active');
           } 
           // On desktop, toggle full mega menu
           else {
             megaMenu.classList.toggle('active');
+          }
+        });
+
+        // Handle back button click on mobile (clicking the ::before pseudo-element area)
+        megaMenu.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            const rect = megaMenu.getBoundingClientRect();
+            // If click is in the top-left area (where back button is)
+            if (e.clientY < rect.top + 60 && e.clientX < rect.left + 120) {
+              industriesItem.classList.remove('active');
+            }
           }
         });
 
