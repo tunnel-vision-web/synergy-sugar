@@ -559,93 +559,129 @@
     }
     
     /* Outer Ring Arrows */
-    /* Arrow 1: Cane to Transport (top-right) */
+    /* Arrow 1: Cane to Transport (top-right) - moved down 40px, right 30px */
     .arrow-1{
-      top:45px;
-      left:310px;
+      top:85px;
+      left:340px;
       width:85px;
       transform:rotate(40deg);
       border-radius:0 50px 50px 0;
     }
     
-    /* Arrow 2: Transport to Weighbridge (right-bottom) */
+    /* Arrow 2: Transport to Weighbridge (right-bottom) - moved up 40px, left 30px */
     .arrow-2{
-      bottom:45px;
-      right:110px;
+      bottom:85px;
+      right:140px;
       width:85px;
       transform:rotate(-40deg);
       border-radius:50px 0 0 50px;
     }
     
-    /* Arrow 3: Weighbridge to Labor (bottom-left) */
+    /* Arrow 3: Weighbridge to Labor (bottom-left) - moved up 40px, right 30px */
     .arrow-3{
-      bottom:45px;
-      left:110px;
+      bottom:85px;
+      left:140px;
       width:85px;
       transform:rotate(-140deg);
       border-radius:50px 0 0 50px;
     }
     
-    /* Arrow 4: Labor to Cane (left-top) */
+    /* Arrow 4: Labor to Cane (left-top) - moved down 40px, left 30px */
     .arrow-4{
-      top:45px;
-      left:110px;
+      top:85px;
+      left:80px;
       width:85px;
       transform:rotate(140deg);
       border-radius:50px 0 0 50px;
     }
     
-    /* Inner Arrows - AI to All Boxes */
+    /* Inner Arrows - AI to All Boxes (Same design as outer) */
     .trace-arrow-inner{
       position:absolute;
-      height:2px;
       background:#686fb4;
     }
     
+    /* Same arrowhead design as outer arrows */
+    .trace-arrow-inner::before,
     .trace-arrow-inner::after{
       content:'';
       position:absolute;
+      width:8px;
+      height:8px;
+      border:solid #686fb4;
+      border-width:0 3px 3px 0;
+    }
+    
+    /* Arrow from AI to Cane (vertical - up) */
+    .arrow-ai-1{
+      top:114px;
+      left:237px;
+      width:3px;
+      height:40px;
+    }
+    .arrow-ai-1::before{
+      top:-2px;
+      left:50%;
+      transform:translateX(-50%) rotate(-135deg);
+    }
+    .arrow-ai-1::after{
+      bottom:-2px;
+      left:50%;
+      transform:translateX(-50%) rotate(45deg);
+    }
+    
+    /* Arrow from AI to Transport (horizontal - right) */
+    .arrow-ai-2{
+      top:176px;
+      left:270px;
+      width:60px;
+      height:3px;
+    }
+    .arrow-ai-2::before{
+      left:-2px;
+      top:50%;
+      transform:translateY(-50%) rotate(135deg);
+    }
+    .arrow-ai-2::after{
       right:-2px;
       top:50%;
-      width:6px;
-      height:6px;
-      border:solid #686fb4;
-      border-width:0 2px 2px 0;
       transform:translateY(-50%) rotate(-45deg);
     }
     
-    /* Arrow from AI to Cane (up) */
-    .arrow-ai-1{
-      top:114px;
-      left:238px;
-      width:2px;
-      height:40px;
-      transform:rotate(90deg);
-      transform-origin:top left;
-    }
-    
-    /* Arrow from AI to Transport (right) */
-    .arrow-ai-2{
-      top:178px;
-      left:270px;
-      width:60px;
-    }
-    
-    /* Arrow from AI to Weighbridge (down) */
+    /* Arrow from AI to Weighbridge (vertical - down) */
     .arrow-ai-3{
       top:202px;
-      left:238px;
-      width:2px;
+      left:237px;
+      width:3px;
       height:40px;
-      transform:rotate(90deg);
-      transform-origin:top left;
+    }
+    .arrow-ai-3::before{
+      top:-2px;
+      left:50%;
+      transform:translateX(-50%) rotate(-135deg);
+    }
+    .arrow-ai-3::after{
+      bottom:-2px;
+      left:50%;
+      transform:translateX(-50%) rotate(45deg);
     }
     
-    /* Arrow from AI to Labor (left) */
+    /* Arrow from AI to Labor (horizontal - left) */
     .arrow-ai-4{
-      top:178px;
+      top:176px;
       left:150px;
       width:60px;
+      height:3px;
+    }
+    .arrow-ai-4::before{
+      left:-2px;
+      top:50%;
+      transform:translateY(-50%) rotate(135deg);
+    }
+    .arrow-ai-4::after{
+      right:-2px;
+      top:50%;
+      transform:translateY(-50%) rotate(-45deg);
     }
     
     @media(max-width:768px){
