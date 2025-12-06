@@ -209,102 +209,125 @@
       .main-nav { display: none; }
     }
 
-/* Simple Dropdown */
-.simple-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+/* Mega Menu */
+.mega-menu {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 12px 0;
-  min-width: 600px;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
-  transition: all 0.2s ease;
-  z-index: 1000;
-  display: flex;
-  flex-direction: row;
-  gap: 0;
+  transform: translateY(-10px);
+  transition: all 200ms ease;
+  z-index: 900;
+  overflow-y: auto;
 }
 
-.simple-dropdown a {
-  flex: 1;
-  padding: 12px 16px;
-  text-decoration: none;
+.mega-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mega-menu-content {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 40px 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.mega-menu-section h4 {
   color: var(--text-dark);
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  border-right: 1px solid #e0e0e0;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-family: 'Sansation', 'Roboto', sans-serif;
 }
 
-.simple-dropdown a:last-child {
-  border-right: none;
+.mega-menu-item {
+  display: block;
+  padding: 12px 0;
+  text-decoration: none;
+  color: var(--text);
+  transition: color 180ms ease;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.simple-dropdown a:hover {
-  background: rgba(246, 221, 13, 0.1);
+.mega-menu-item:hover {
   color: var(--primary);
 }
 
-/* Desktop: show on hover */
-.nav-item.has-dropdown:hover .simple-dropdown {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+.mega-menu-item:last-child {
+  border-bottom: none;
 }
 
-/* Mobile dropdown - slides from left */
+.mega-menu-item .item-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.mega-menu-item .item-desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.4;
+}
+
+/* Mobile: mega menu inside sidebar */
 @media (max-width: 768px) {
-  .simple-dropdown {
+  .mega-menu {
     position: static;
-    transform: none;
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 0;
-    min-width: auto;
     width: 100%;
-    margin: 0;
-    flex-direction: column;
-    overflow: hidden;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     opacity: 1;
     visibility: visible;
-    pointer-events: auto;
+    transform: none;
+    overflow: visible;
+    max-height: 0;
+    transition: max-height 0.4s ease;
   }
   
-  .simple-dropdown a {
-    padding: 12px 16px;
-    text-align: left;
-    border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  .nav-item.active .mega-menu {
+    max-height: 800px;
+  }
+  
+  .mega-menu-content {
+    padding: 8px 0;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .mega-menu-section h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--primary);
+    padding-left: 16px;
+  }
+  
+  .mega-menu-item {
+    padding: 10px 16px;
     background: rgba(246, 221, 13, 0.05);
-    transform: translateX(-100%);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 2px 0;
   }
   
-  .simple-dropdown a:last-child {
-    border-bottom: none;
+  .mega-menu-item .item-title {
+    font-size: 14px;
   }
   
-  /* Slide in from left when parent is active */
-  .nav-item.active .simple-dropdown a {
-    transform: translateX(0);
-    opacity: 1;
+  .mega-menu-item .item-desc {
+    font-size: 12px;
+    color: #666;
   }
-  
-  /* Stagger the animation */
-  .nav-item.active .simple-dropdown a:nth-child(1) { transition-delay: 0.05s; }
-  .nav-item.active .simple-dropdown a:nth-child(2) { transition-delay: 0.1s; }
-  .nav-item.active .simple-dropdown a:nth-child(3) { transition-delay: 0.15s; }
-  .nav-item.active .simple-dropdown a:nth-child(4) { transition-delay: 0.2s; }
-  .nav-item.active .simple-dropdown a:nth-child(5) { transition-delay: 0.25s; }
 }
 
 @media (max-width: 768px) {
