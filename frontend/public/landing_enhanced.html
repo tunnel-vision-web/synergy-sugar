@@ -789,8 +789,8 @@
   top: 72px;   /* adjust to match header height */
   left: 0;
   right: 0;
-  bottom: 0;
   width: 100vw;
+  max-height: calc(100vh - 72px);
   background: #fff;
   border-top: 1px solid #e0e0e0;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
@@ -798,25 +798,7 @@
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 200ms ease;
-  z-index: 900; /* below header (999) */
-  overflow-y: auto;
-}
-
-.nav-item.active .mega-menu {
-  position: fixed;
-  top: 72px;   /* adjust to match header height */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  background: #fff;
-  border-top: 1px solid #e0e0e0;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 200ms ease;
-  z-index: 900; /* below header (999) */
+  z-index: 900; /* below header (998) */
   overflow-y: auto;
 }
 
