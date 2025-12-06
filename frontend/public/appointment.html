@@ -633,6 +633,10 @@ function renderAppointmentCards(filter = 'all') {
       document.getElementById('summary-duration').textContent = apt.duration;
       document.getElementById('calendar-title').textContent = apt.title;
       
+      // Update requested appointment boxes
+      document.getElementById('requested-apt-title').textContent = apt.title;
+      document.getElementById('requested-apt-duration').textContent = apt.duration;
+      
       showPage('calendar');
       renderCalendar();
     });
