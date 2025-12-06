@@ -810,6 +810,10 @@ document.getElementById('back-to-selection').addEventListener('click', (e) => {
 });
 
 document.getElementById('btn-next-to-form').addEventListener('click', () => {
+  // Update form page requested appointment box
+  document.getElementById('requested-apt-title-form').textContent = bookingState.appointmentTitle;
+  document.getElementById('requested-apt-duration-form').textContent = bookingState.duration;
+  
   showPage('form');
 });
 
