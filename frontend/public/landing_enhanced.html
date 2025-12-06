@@ -526,69 +526,126 @@
       justify-content:center;
     }
     
-    /* Bidirectional Arrows with gaps from boxes */
+    /* Circular Arrows - Outer Ring */
     .trace-arrow{
       position:absolute;
       height:3px;
       background:#059669;
-      transform-origin:center;
     }
     
-    /* Arrowheads on both ends */
+    /* Simple clean arrowheads */
     .trace-arrow::before,
     .trace-arrow::after{
       content:'';
       position:absolute;
-      width:0;
-      height:0;
-      border-top:5px solid transparent;
-      border-bottom:5px solid transparent;
+      top:50%;
+      width:8px;
+      height:8px;
+      border:solid #059669;
+      border-width:0 3px 3px 0;
+      transform:translateY(-50%);
     }
     
+    /* Left arrowhead points left */
     .trace-arrow::before{
-      left:-5px;
-      border-right:8px solid #059669;
+      left:-2px;
+      transform:translateY(-50%) rotate(135deg);
     }
     
+    /* Right arrowhead points right */
     .trace-arrow::after{
-      right:-5px;
-      border-left:8px solid #059669;
+      right:-2px;
+      transform:translateY(-50%) rotate(-45deg);
     }
     
-    /* Arrow 1: Cane to Transport (top-right arc) */
+    /* Outer Ring Arrows */
+    /* Arrow 1: Cane to Transport (top-right) */
     .arrow-1{
-      top:52px;
-      left:312px;
-      width:105px;
+      top:45px;
+      left:310px;
+      width:85px;
+      transform:rotate(40deg);
       border-radius:0 50px 50px 0;
-      transform:rotate(35deg);
     }
     
-    /* Arrow 2: Transport to Weighbridge (right-bottom arc) */
+    /* Arrow 2: Transport to Weighbridge (right-bottom) */
     .arrow-2{
-      bottom:52px;
-      right:115px;
-      width:105px;
+      bottom:45px;
+      right:110px;
+      width:85px;
+      transform:rotate(-40deg);
       border-radius:50px 0 0 50px;
-      transform:rotate(35deg);
     }
     
-    /* Arrow 3: Weighbridge to Labor (bottom-left arc) */
+    /* Arrow 3: Weighbridge to Labor (bottom-left) */
     .arrow-3{
-      bottom:52px;
-      left:115px;
-      width:105px;
-      border-radius:50px 50px 0 0;
-      transform:rotate(-35deg);
+      bottom:45px;
+      left:110px;
+      width:85px;
+      transform:rotate(-140deg);
+      border-radius:50px 0 0 50px;
     }
     
-    /* Arrow 4: Labor to Cane (left-top arc) */
+    /* Arrow 4: Labor to Cane (left-top) */
     .arrow-4{
-      top:52px;
-      left:115px;
-      width:105px;
-      border-radius:0 0 50px 50px;
-      transform:rotate(-35deg);
+      top:45px;
+      left:110px;
+      width:85px;
+      transform:rotate(140deg);
+      border-radius:50px 0 0 50px;
+    }
+    
+    /* Inner Arrows - AI to All Boxes */
+    .trace-arrow-inner{
+      position:absolute;
+      height:2px;
+      background:#686fb4;
+    }
+    
+    .trace-arrow-inner::after{
+      content:'';
+      position:absolute;
+      right:-2px;
+      top:50%;
+      width:6px;
+      height:6px;
+      border:solid #686fb4;
+      border-width:0 2px 2px 0;
+      transform:translateY(-50%) rotate(-45deg);
+    }
+    
+    /* Arrow from AI to Cane (up) */
+    .arrow-ai-1{
+      top:114px;
+      left:238px;
+      width:2px;
+      height:40px;
+      transform:rotate(90deg);
+      transform-origin:top left;
+    }
+    
+    /* Arrow from AI to Transport (right) */
+    .arrow-ai-2{
+      top:178px;
+      left:270px;
+      width:60px;
+    }
+    
+    /* Arrow from AI to Weighbridge (down) */
+    .arrow-ai-3{
+      top:202px;
+      left:238px;
+      width:2px;
+      height:40px;
+      transform:rotate(90deg);
+      transform-origin:top left;
+    }
+    
+    /* Arrow from AI to Labor (left) */
+    .arrow-ai-4{
+      top:178px;
+      left:150px;
+      width:60px;
     }
     
     @media(max-width:768px){
