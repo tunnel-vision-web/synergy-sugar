@@ -1270,13 +1270,23 @@ document.querySelectorAll('.faq-question').forEach(question => {
       onScroll();
     })();
 
-    // Simple dropdown - hover based, no JavaScript needed for desktop
-    // On mobile, prevent link navigation when clicking Industries
+    // Simple dropdown functionality
     (function(){
+      const industriesItem = document.querySelector('.nav-item.has-dropdown');
       const industriesLink = document.querySelector('.nav-item.has-dropdown > a');
-      if (industriesLink && window.innerWidth <= 768) {
+      
+      if (industriesLink && industriesItem) {
         industriesLink.addEventListener('click', function(e) {
-          e.preventDefault();
+          // On mobile (inside sidebar), toggle dropdown
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            e.stopPropagation();
+            industriesItem.classList.toggle('active');
+          }
+          // On desktop, default behavior (link navigation) is prevented by CSS hover
+          else {
+            e.preventDefault();
+          }
         });
       }
     })();
