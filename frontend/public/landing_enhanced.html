@@ -661,10 +661,12 @@
       .card-transport .trace-card-subtitle,.card-labor .trace-card-subtitle{font-size:7px}
       .card-ai{width:40px;height:32px;font-size:14px}
       .trace-arrow{height:2px}
-      .trace-arrow::before,.trace-arrow::after{border-top:3px solid transparent;border-bottom:3px solid transparent}
-      .trace-arrow::before{left:-3px;border-right:5px solid #059669}
-      .trace-arrow::after{right:-3px;border-left:5px solid #059669}
-      .arrow-1,.arrow-2,.arrow-3,.arrow-4{width:70px}
+      .trace-arrow::before,.trace-arrow::after{width:6px;height:6px;border-width:0 2px 2px 0}
+      .arrow-1,.arrow-2,.arrow-3,.arrow-4{width:60px}
+      .trace-arrow-inner{height:1.5px}
+      .trace-arrow-inner::after{width:5px;height:5px;border-width:0 1.5px 1.5px 0}
+      .arrow-ai-1,.arrow-ai-3{height:28px}
+      .arrow-ai-2,.arrow-ai-4{width:40px}
     }
 
     /* Icons now use inline SVG with solid color backgrounds */
