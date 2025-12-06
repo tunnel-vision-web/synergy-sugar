@@ -158,7 +158,7 @@
   </style>
   <style>
     :root {
-      --hero-bg: url('assets/images/background/parallax-bg.jpg');
+      --hero-bg: url('parallax-bg.jpg');
       --primary: #f6dd0d; /* orange */
       --secondary: #686fb4; /* teal */
       --radius: 7px;
@@ -171,34 +171,124 @@
     *, *::before, *::after { box-sizing: border-box; }
     body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: var(--bg); }
 
-    /* Header */
+    
+    /* Header - Matching Landing Page */
+    :root {
+      --container-max: 1200px;
+      --header-pad-y: 16px;
+      --header-pad-x: 18px;
+      --box-border: 3px;
+      --text: #5a5a5a;
+      --text-dark: #3b3b3b;
+    }
+    
     .site-header {
-      position: fixed; top:0; left:0; right:0; z-index:1000;
-      transition: background .3s ease, border-bottom-color .3s ease;
+      position: fixed;
+      left: 0; right: 0; top: 0;
+      z-index: 999;
+      transition: background 260ms ease, backdrop-filter 260ms ease, padding 260ms ease;
+      background: transparent;
     }
-    .header-inner {
-      display:flex; align-items:center; justify-content:space-between;
-      width:min(1200px,92vw); margin:0 auto; height: var(--headerH);
-      padding: 8px 0;
+    
+    .site-header .inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--header-pad-y) var(--header-pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
-    .site-header .logo img { height: 52px; transition: height .3s ease; }
-    .site-header .logo img.black { display:none; height: 40px; }
-    .site-header.scrolled { background: rgba(255,255,255,0.8); border-bottom: 1px solid var(--border); backdrop-filter: blur(6px); }
-    .site-header.scrolled .logo img.white { display:none; }
-    .site-header.scrolled .logo img.black { display:inline; }
-
-    .nav { display:flex; gap:22px; font-size:.95rem; font-weight:500; }
-    .nav a { color:#fff; text-decoration:none; transition: color .3s ease, border-bottom .3s ease; padding-bottom:2px; }
-    .nav a:hover { border-bottom:2px solid var(--secondary); }
-    .site-header.scrolled .nav a { color:#333; }
-
-    .auth { display:flex; gap:12px; align-items:center; }
-    .auth a { text-decoration:none; font-size:.95rem; font-weight:500; }
-    .auth .signin { color:#fff; }
-    .auth .signin:hover { text-decoration:underline; }
-    .auth .try { padding:6px 14px; border-radius:var(--radius); background:var(--primary); color:#fff; transition: background .3s ease, box-shadow .3s ease; }
-    .auth .try:hover { background:#e56d00; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
-    .site-header.scrolled .auth .signin { color:#333; }
+    
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .brand img {
+      height: 66px;
+      transition: transform 260ms ease, height 260ms ease;
+    }
+    
+    .main-nav {
+      display: flex;
+      gap: 0;
+    }
+    
+    .nav-item {
+      position: relative;
+    }
+    
+    .main-nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      margin: 0 10px;
+      transition: color 180ms ease;
+    }
+    
+    .main-nav a:hover {
+      color: var(--secondary);
+    }
+    
+    .auth-actions {
+      display: flex;
+      align-items: center;
+    }
+    
+    .auth-actions a {
+      text-decoration: none;
+      margin-left: 14px;
+      font-weight: 500;
+      transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+    
+    .auth-signin {
+      color: #fff;
+    }
+    
+    .auth-signin:hover {
+      color: var(--primary);
+    }
+    
+    .btn-request-demo {
+      border: var(--box-border) solid #f6dd0d;
+      padding: 6px 14px;
+      border-radius: 3px;
+      background: #f6dd0d;
+      color: #3b3b3b;
+      font-size: 0.92rem;
+    }
+    
+    .btn-request-demo:hover {
+      background: #686fb4;
+      border-color: #686fb4;
+      color: #fff;
+    }
+    
+    /* Header on scroll */
+    .site-header.scrolled {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+    
+    .site-header.scrolled .brand img {
+      height: 32px;
+    }
+    
+    .site-header.scrolled .main-nav a {
+      color: var(--text);
+    }
+    
+    .site-header.scrolled .auth-signin {
+      color: var(--text);
+    }
+    
+    /* Responsive */
+    @media(max-width: 768px) {
+      .main-nav { display: none; }
+    }
 
     /* Hero */
     .hero {
@@ -208,8 +298,8 @@
     }
     .hero::before { content:""; position:absolute; inset:0; background:rgba(0,0,0,0.5); }
     .hero-content { position:relative; z-index:1; }
-    .hero h1 { font-size:2.4rem; margin:0 0 10px; }
-    .hero p { font-size:1.2rem; margin:0; }
+    .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
+    .hero p { font-size: 1.2rem; margin: 0; }
 
     /* Layout */
     .page { width:min(1200px,92vw); margin:100px auto 0; display:flex; gap:24px; position:relative; z-index:2; }
@@ -266,7 +356,8 @@
     /* Footer */
     .site-footer { margin-top:56px; padding:22px 0; border-top:1px solid var(--border); text-align:center; color:#666; }
   </style>
-<link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/sansation" rel="stylesheet">
 <style id="live-overrides">
   :root {
     --secondary: #686fb4; /* greener sage */
@@ -280,8 +371,8 @@
   .site-header.scrolled .auth .signin { color:#777 !important; }
   .auth .try { font-size: .8rem !important; }
   /* Hero title playful Sour Gummy */
-  .hero h1 { font-family: 'Sour Gummy', cursive !important; font-size: 4.8rem !important; color:#fff !important; letter-spacing:1px; line-height:1.1; }
-  .hero p { color:#ddd !important; }
+  .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
+  .hero p { font-size: 1.2rem; margin: 0; }
   /* Footer styling */
   .site-footer { background:#444; color:#fff; margin-top:56px; padding:40px 20px; }
   .footer-logo { text-align:center; margin-bottom:24px; }
@@ -300,10 +391,10 @@
 
 <style id="live-overrides-v2">
   /* Hero title only 60% bigger than subtitle (1.2rem -> 2rem) */
-  .hero h1 { font-family: 'Sour Gummy', cursive !important; font-size:2rem !important; color:#fff !important; letter-spacing:0.5px; line-height:1.2; }
+  .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
 
   /* Subtitle stays 1.2rem */
-  .hero p { font-size:1.2rem !important; color:#ddd !important; }
+  .hero p { font-size: 1.2rem; margin: 0; }
 
   /* Try it free button smaller radius + hover to secondary */
   .auth .try { border-radius:3px !important; }
@@ -322,7 +413,7 @@
 
 <style id="live-overrides-v3">
   /* Page title bigger (30% bigger than current 2rem -> 2.6rem) and wider span */
-  .hero h1 { font-size:2.6rem !important; display:inline-block; padding:0 12px; }
+  .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
 
   /* Panel transition smoother */
   .panel-shell, .selected-apps-panel { transition: all .6s ease !important; }
@@ -338,7 +429,7 @@
 
 <style id="live-overrides-v4">
   /* Page title another 30% bigger (2.6rem -> ~3.4rem) */
-  .hero h1 { font-size:3.4rem !important; display:inline-block; padding:0 12px; }
+  .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
 </style>
 
 
@@ -612,28 +703,43 @@
 
 </head>
 <body>
-  <header class="site-header" id="siteHeader">
-    <div class="header-inner">
-      <a href="landing_enhanced.html" class="logo">
-        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" class="white">
-        <img src="assets/images/Synergy-logo-sugar-web-black.png" alt="Synergy Bravo ERP" class="black">
-      </a>
-      <nav class="nav">
-        <a href="landing_enhanced.html">Home</a>
-        <a href="landing_enhanced.html#features">Features</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="help.html">Help</a>
+    <header class="site-header" id="siteHeader">
+    <div class="inner">
+      <div class="brand">
+        <a href="landing_enhanced.html">
+          <img id="brandLogo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP">
+        </a>
+      </div>
+      <nav class="main-nav">
+        <div class="nav-item">
+          <a href="landing_enhanced.html#apps">Apps</a>
+        </div>
+        <div class="nav-item">
+          <a href="landing_enhanced.html#features">Features</a>
+        </div>
+        <div class="nav-item">
+          <a href="landing_enhanced.html#industries">Industries</a>
+        </div>
+        <div class="nav-item">
+          <a href="forum/index.html">Community</a>
+        </div>
+        <div class="nav-item">
+          <a href="pricing.html">Pricing</a>
+        </div>
+        <div class="nav-item">
+          <a href="help.html">Help</a>
+        </div>
       </nav>
-      <div class="auth">
-        <a href="#" class="signin">Sign in</a>
-        <a href="appointment.html" class="try">Request Demo</a>
+      <div class="auth-actions">
+        <a class="auth-signin" href="#signin">Sign in</a>
+        <a class="btn-request-demo" href="appointment.html">Request Demo</a>
       </div>
     </div>
   </header>
-  <section class="hero">
+    <section class="hero">
     <div class="hero-content">
       <h1>Need Help?</h1>
-      
+      <p>Browse documentation, tutorials, and community answers</p>
     </div>
   </section>
   <div class="page">
