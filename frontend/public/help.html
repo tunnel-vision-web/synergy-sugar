@@ -170,7 +170,81 @@
   flex: 0 0 auto;
 }
 
-    /* Hamburger Menu */
+    /* Mega Menu */
+.mega-menu {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 200ms ease;
+  z-index: 900;
+  overflow-y: auto;
+}
+
+.mega-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mega-menu-content {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 40px 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.mega-menu-section h4 {
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-family: 'Sansation', 'Roboto', sans-serif;
+}
+
+.mega-menu-item {
+  display: block;
+  padding: 12px 0;
+  text-decoration: none;
+  color: var(--text);
+  transition: color 180ms ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mega-menu-item:hover {
+  color: var(--primary);
+}
+
+.mega-menu-item:last-child {
+  border-bottom: none;
+}
+
+.mega-menu-item .item-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.mega-menu-item .item-desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.4;
+}
+
+/* Mobile: mega menu slides from left */
+
+
+/* Hamburger Menu */
     .hamburger-menu {
       display: none;
       flex-direction: column;
@@ -1024,71 +1098,6 @@
         <div class="nav-item has-dropdown">
           <a href="#industries">Industries</a>
         </div>
-        <div class="nav-item">
-          <a href="forum/index.html">Community</a>
-        </div>
-        <div class="nav-item">
-          <a href="pricing.html">Pricing</a>
-        </div>
-        <div class="nav-item">
-          <a href="help.html">Help</a>
-        </div>
-      </nav>
-      <div class="auth-actions">
-        <a class="auth-signin" href="#signin">Sign in</a>
-        <a class="btn-request-demo" href="appointment.html">Request Demo</a>
-      </div>
-      <!-- Hamburger Menu Button -->
-      <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </header>
-
-<!-- Moved mega menu OUTSIDE header -->
-<div class="mega-menu" id="industriesMenu">
-  <div class="mega-menu-content">
-    <div class="mega-menu-section">
-      <h4>Campaign Types</h4>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Local Elections</div>
-        <div class="item-desc">City council, mayor, school board campaigns</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">State Legislature</div>
-        <div class="item-desc">Assembly, senate, and gubernatorial races</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Federal Campaigns</div>
-        <div class="item-desc">Congressional and presidential campaigns</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Ballot Measures</div>
-        <div class="item-desc">Issue advocacy and referendum campaigns</div>
-      </a>
-    </div>
-    <div class="mega-menu-section">
-      <h4>Organizations</h4>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Political Parties</div>
-        <div class="item-desc">Democratic, Republican, and third-party organizations</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">PACs & Super PACs</div>
-        <div class="item-desc">Political action committees and advocacy groups</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Nonprofits</div>
-        <div class="item-desc">501(c)(3) and 501(c)(4) advocacy organizations</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Consulting Firms</div>
-        <div class="item-desc">Political consultants and campaign agencies</div>
-      </a>
-    </div>
-  </div>
 </div>
     <section class="hero">
     <div class="hero-content">
@@ -1429,16 +1438,25 @@ document.querySelectorAll('.faq-question').forEach(question => {
     })();
 
     // Mega menu functionality - click to open/close
-(function(){
-  const industriesLink = document.querySelector('.nav-item.has-dropdown a');
-  const megaMenu = document.getElementById('industriesMenu');
+    (function(){
+      const industriesLink = document.querySelector('.nav-item.has-dropdown > a');
+      const industriesItem = document.querySelector('.nav-item.has-dropdown');
+      const megaMenu = document.getElementById('industriesMenu');
 
-  if (industriesLink && megaMenu) {
-    industriesLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      megaMenu.classList.toggle('active');
-    });
+      if (industriesLink && megaMenu) {
+        industriesLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // On mobile, slide out to the left
+          if (window.innerWidth <= 768) {
+            industriesItem.classList.toggle('active');
+          } 
+          // On desktop, toggle full mega menu
+          else {
+            megaMenu.classList.toggle('active');
+          }
+        });
 
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.mega-menu') && !e.target.closest('.nav-item.has-dropdown')) {
