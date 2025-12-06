@@ -280,53 +280,78 @@
   line-height: 1.4;
 }
 
-/* Mobile: mega menu inside sidebar */
+/* Mobile: mega menu slides from left */
 @media (max-width: 768px) {
   .mega-menu {
-    position: static;
-    width: 100%;
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    padding: 80px 20px 20px;
+    z-index: 1003;
+    overflow-y: auto;
     opacity: 1;
     visibility: visible;
     transform: none;
-    overflow: visible;
-    max-height: 0;
-    transition: max-height 0.4s ease;
+    transition: left 0.3s ease;
   }
   
   .nav-item.active .mega-menu {
-    max-height: 800px;
+    left: 0;
   }
   
   .mega-menu-content {
-    padding: 8px 0;
+    padding: 0;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 20px;
   }
   
   .mega-menu-section h4 {
-    font-size: 14px;
-    margin-bottom: 8px;
+    font-size: 16px;
+    margin-bottom: 12px;
     color: var(--primary);
-    padding-left: 16px;
+    padding-left: 0;
+    font-weight: 700;
   }
   
   .mega-menu-item {
-    padding: 10px 16px;
+    padding: 12px 0;
+    background: transparent;
+    border-bottom: 1px solid #f0f0f0;
+    margin: 0;
+  }
+  
+  .mega-menu-item:hover {
     background: rgba(246, 221, 13, 0.05);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    margin: 2px 0;
+    padding-left: 8px;
   }
   
   .mega-menu-item .item-title {
     font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
   }
   
   .mega-menu-item .item-desc {
     font-size: 12px;
-    color: #666;
+    color: #888;
+    line-height: 1.4;
+  }
+  
+  /* Back button in mega menu */
+  .mega-menu::before {
+    content: '← Back';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 8px 0;
   }
 }
 
