@@ -1582,6 +1582,44 @@
   <!-- Bootstrap + minimal JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
+
+  <!-- Sign In Modal -->
+  <div id="signInModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeSignInModal()">&times;</span>
+      <div class="modal-header">
+        <img src="assets/images/Synergy-logo-sugar-web-black.png" alt="Synergy Bravo ERP" style="height: 50px; margin-bottom: 20px;">
+        <h2 style="margin: 0 0 8px; font-size: 1.8rem; color: #333;">Welcome Back</h2>
+        <p style="color: #777; margin: 0 0 30px;">Sign in to your Synergy Bravo ERP account</p>
+      </div>
+      <form class="modal-form" onsubmit="return false;">
+        <div class="form-group">
+          <label for="signin-email">Email Address</label>
+          <input type="email" id="signin-email" placeholder="you@company.com" required>
+        </div>
+        <div class="form-group">
+          <label for="signin-password">Password</label>
+          <div style="position: relative;">
+            <input type="password" id="signin-password" placeholder="Enter your password" required>
+            <span class="toggle-password" onclick="toggleModalPassword('signin-password', this)" style="position: absolute; right: 12px; top: 12px; cursor: pointer; font-size: 1.1rem;">👁</span>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 0;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+            <input type="checkbox" style="width: 16px; height: 16px;">
+            <span>Remember me</span>
+          </label>
+          <a href="#" style="color: var(--secondary); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Forgot password?</a>
+        </div>
+        <button type="submit" class="modal-btn">Sign In</button>
+        <div style="text-align: center; margin-top: 20px; font-size: 0.95rem; color: #666;">
+          Don't have an account? <a href="signup.html" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Sign Up</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
   <script>
     // Header behavior: transparent -> white .8, and logo swap if you like
     (function(){
