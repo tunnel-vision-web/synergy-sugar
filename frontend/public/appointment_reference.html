@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Appointment - Election Pro AI</title>
+
+  <!-- Sansation font -->
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary:#ff7a00;
+      --secondary:#99ad8a;
+      --gray:#e0e0e0;
+      --text:#777;
+      --text-strong:#555;
+      --header-gray:#999;
+      --bg:#fafafa;
+      --border:#ddd;
+      --radius:10px;
+      --shadow-hover:0 4px 12px rgba(0,0,0,.08);
+      --headerH:72px;
+    }
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    *,*::before,*::after{box-sizing:border-box}
+
+    /* HEADER */
+    .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;width:min(1200px,92vw);margin:0 auto;height:var(--headerH);padding:8px 0}
+    .logo img.black{display:block;height:44px}
+    .nav{display:flex;gap:22px;font-size:.95rem;font-weight:500}
+    .nav a{color:#444;text-decoration:none;transition:color .2s}
+    .nav a:hover{color:var(--secondary)}
+    .header-cta{display:flex;gap:10px;align-items:center}
+
+    .btn{border:none;border-radius:6px;font-weight:600;cursor:pointer;transition:all .2s ease;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;color:#fff;background:var(--primary);padding:9px 18px;font-size:.9rem}
+    .btn:hover{background:var(--secondary);color:#fff}
+    .btn-light{background:#fff;color:#444}
+    .btn-light:hover{background:var(--secondary);color:#fff}
+
+    /* HERO */
+    .hero{padding-top:calc(var(--headerH) + 20px);padding-bottom:18px;text-align:left}
+    .hero-content{width:min(1200px,92vw);margin:0 auto}
+    .hero-content h1{
+      margin:18px 0 6px;
+      font-size:3rem;
+      font-weight:700;
+      color:#bbb;
+      font-family:'Sansation', sans-serif;
+    }
+
+    /* PAGE */
+    .page{width:min(1200px,92vw);margin:0 auto}
+    .apps-area{margin:16px 0 40px}
+
+    .card{background:#fff;border-radius:var(--radius);padding:18px}
+    .card h3{margin:0 0 12px;font-size:1rem;font-weight:600;color:var(--header-gray)}
+
+    /* Divider */
+    .divider{height:1px;background:var(--border);width:95%;margin:16px auto}
+
+    .site-footer{background:#444;color:#fff;margin-top:56px;padding:40px 20px}
+    .footer-logo{text-align:center;margin-bottom:24px}
+    .footer-logo img{height:40px}
+    .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto;text-align:left}
+    .footer-col h4{font-size:1rem;margin-bottom:12px;color:#fff}
+    .footer-col ul{list-style:none;padding:0;margin:0}
+    .footer-col ul li{margin-bottom:8px}
+    .footer-col ul li a{color:#fff;text-decoration:none;font-size:0.9rem;opacity:0.9}
+    .footer-col ul li a:hover{opacity:1;text-decoration:underline}
+    .footer-social{display:flex;gap:12px;margin-top:12px}
+    .footer-social a{color:#fff;font-size:1.2rem;opacity:0.9}
+    .footer-social a:hover{opacity:1}
+    @media(max-width:720px){.footer-columns{grid-template-columns:1fr;text-align:center}}
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      justify-content: flex-start;
+    }
+    
+    @media(max-width:720px) {
+      .footer-social {
+        justify-content: center;
+      }
+    }
+
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 18px;
+    }
+
+    .footer-social a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .footer-social a.facebook:hover {
+      background: #1877F2;
+    }
+
+    .footer-social a.twitter:hover {
+      background: #000;
+    }
+
+    .footer-social a.youtube:hover {
+      background: #FF0000;
+    }
+
+    .footer-social a.instagram:hover {
+      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+    }
+
+    .footer-social a.tiktok:hover {
+      background: #000;
+    }
+
+    .footer-social svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* ============================================
+       NEW STYLES FOR APPOINTMENT BOOKING SYSTEM
+       ============================================ */
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0;
+    }
+
+    .filter-tab {
+      background: transparent;
+      border: none;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .filter-tab:hover {
+      color: var(--text-strong);
+      background: #f5f5f5;
+    }
+
+    .filter-tab.active {
+      color: var(--primary);
+    }
+
+    .filter-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    /* Appointment Type Cards */
+    .appointment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .appointment-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .appointment-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      border-color: var(--primary);
+    }
+
+    .appointment-card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .appointment-card h3 {
+      color: var(--text-strong);
+      font-size: 1.2rem;
+      margin: 0 0 8px;
+      font-weight: 600;
+    }
+
+    .appointment-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+
+    .meta-item svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--text);
+    }
+
+    .meta-item.online {
+      color: #00a04a;
+      font-weight: 600;
+    }
+
+    .meta-item.online svg {
+      fill: #00a04a;
+    }
+
+    .appointment-card-body {
+      padding: 20px 24px;
+    }
+
+    .appointment-card .description {
+      color: var(--text);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      min-height: 60px;
+    }
+
+    .appointment-card .book-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .appointment-card .book-btn:hover {
+      background: var(--secondary);
+    }
+
+    .appointment-card.hidden {
+      display: none;
+    }
+
+    /* Calendar Page Styles */
+    .booking-container {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    @media(max-width: 960px) {
+      .booking-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calendar-section {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-header h2 {
+      margin: 0;
+      color: var(--text-strong);
+      font-size: 1.4rem;
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .calendar-nav button {
+      background: var(--gray);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .calendar-nav button:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      font-weight: 600;
+      color: var(--header-gray);
+      padding: 8px;
+      font-size: 0.85rem;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      color: var(--text-strong);
+      border: 2px solid transparent;
+    }
+
+    .calendar-day:hover {
+      background: var(--gray);
+    }
+
+    .calendar-day.today {
+      border-color: var(--primary);
+    }
+
+    .calendar-day.selected {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .calendar-day.disabled {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .calendar-day.disabled:hover {
+      background: transparent;
+    }
+
+    .calendar-day.empty {
+      cursor: default;
+    }
+
+    /* Time Slots */
+    .time-slots {
+      margin-top: 24px;
+    }
+
+    .time-slots h3 {
+      color: var(--text-strong);
+      margin-bottom: 16px;
+    }
+
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+    }
+
+    .time-slot {
+      background: #fff;
+      border: 2px solid var(--border);
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 600;
+      color: var(--text-strong);
+    }
+
+    .time-slot:hover {
+      border-color: var(--primary);
+      background: #fff5ed;
+    }
+
+    .time-slot.selected {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .time-slot.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* Booking Summary Sidebar */
+    .booking-summary {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 24px;
+      height: fit-content;
+      position: sticky;
+      top: 92px;
+    }
+
+    .booking-summary h3 {
+      color: var(--text-strong);
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    .summary-item {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      color: var(--header-gray);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .summary-value {
+      color: var(--text-strong);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .btn-confirm {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 16px;
+    }
+
+    .btn-confirm:hover {
+      background: var(--secondary);
+    }
+
+    .btn-confirm:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Form Page Styles */
+    .form-container {
+      max-width: 700px;
+      margin: 24px auto;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--text-strong);
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: var(--text-strong);
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .required {
+      color: var(--primary);
+    }
+
+    /* Confirmation Page */
+    .confirmation-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: #4CAF50;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: #fff;
+      font-size: 48px;
+    }
+
+    .confirmation-container h2 {
+      color: var(--text-strong);
+      margin-bottom: 16px;
+    }
+
+    .confirmation-details {
+      background: var(--bg);
+      padding: 24px;
+      border-radius: 8px;
+      margin: 24px 0;
+      text-align: left;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .detail-label {
+      color: var(--header-gray);
+      font-weight: 600;
+    }
+
+    .detail-value {
+      color: var(--text-strong);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb span {
+      color: var(--text);
+    }
+
+    /* Page visibility control */
+    .page-view {
+      display: none;
+    }
+
+    .page-view.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="#"><img class="black" src="assets/images/election-pro-logo-web-black.png" alt="Election Pro AI" style="height:44px;background:#ddd;"></a>
+    <nav class="nav">
+      <a href="#">Pricing</a>
+      <a href="#">Help</a>
+      <a href="#">Trial</a>
+    </nav>
+    <div class="header-cta">
+      <a class="auth-signin" href="#" style="font-size:0.98rem;">Sign in</a>
+      <a class="btn" href="#">Try it free</a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE 1: Appointment Type Selection -->
+<div id="page-selection" class="page-view active">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Book an Appointment</h1>
+    </div>
+  </section>
+
+  <div class="page">
+    <section class="apps-area">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All Appointments</button>
+        <button class="filter-tab" data-filter="small">Small Company (1-50)</button>
+        <button class="filter-tab" data-filter="medium">Medium Company (51-250)</button>
+        <button class="filter-tab" data-filter="large">Large Company (250+)</button>
+      </div>
+
+      <div class="appointment-grid">
+        <div class="appointment-card" data-type="demo" data-size="small,medium">
+          <div class="appointment-card-header">
+            <h3>Product Demo</h3>
+            <div class="appointment-meta">
+              <div class="meta-item">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                45 min
+              </div>
+              <div class="meta-item online">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+                </svg>
+                Online
+              </div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description">
+              Get a comprehensive walkthrough of Election Pro AI. Perfect for small to medium teams looking to understand the platform's core capabilities and features.
+            </div>
+            <button class="book-btn">Schedule Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-card" data-type="consultation" data-size="medium,large">
+          <div class="appointment-card-header">
+            <h3>Strategy Consultation</h3>
+            <div class="appointment-meta">
+              <div class="meta-item">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                60 min
+              </div>
+              <div class="meta-item online">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+                </svg>
+                Online
+              </div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description">
+              One-on-one consultation with our election strategy experts. Ideal for medium to large organizations planning comprehensive election management strategies.
+            </div>
+            <button class="book-btn">Schedule Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-card" data-type="technical" data-size="small,medium,large">
+          <div class="appointment-card-header">
+            <h3>Technical Setup Session</h3>
+            <div class="appointment-meta">
+              <div class="meta-item">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                30 min
+              </div>
+              <div class="meta-item online">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+                </svg>
+                Online
+              </div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description">
+              Work with our technical team to plan your implementation. Review system requirements, integration options, and get technical questions answered.
+            </div>
+            <button class="book-btn">Schedule Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-card" data-type="training" data-size="medium,large">
+          <div class="appointment-card-header">
+            <h3>Team Training Workshop</h3>
+            <div class="appointment-meta">
+              <div class="meta-item">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                90 min
+              </div>
+              <div class="meta-item online">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+                </svg>
+                Online
+              </div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description">
+              Comprehensive training session for your team. Best suited for medium to large organizations with multiple users requiring platform training.
+            </div>
+            <button class="book-btn">Schedule Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-card" data-type="enterprise" data-size="large">
+          <div class="appointment-card-header">
+            <h3>Enterprise Solution Design</h3>
+            <div class="appointment-meta">
+              <div class="meta-item">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                120 min
+              </div>
+              <div class="meta-item online">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+                </svg>
+                Online
+              </div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description">
+              Deep-dive session for large organizations. Discuss custom integrations, enterprise security requirements, and scalability planning with our solution architects.
+            </div>
+            <button class="book-btn">Schedule Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-card" data-type="quickstart" data-size="small">
+          <div class="appointment-card-header">
+            <h3>Quick Start Session</h3>
+            <div class="appointment-meta">
+              <div class="meta-item">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                20 min
+              </div>
+              <div class="meta-item online">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+                </svg>
+                Online
+              </div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description">
+              Fast-track introduction for small teams. Get up and running quickly with essential features and immediate answers to your first questions.
+            </div>
+            <button class="book-btn">Schedule Appointment</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- PAGE 2: Calendar & Time Selection -->
+<div id="page-calendar" class="page-view">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="breadcrumb">
+        <a href="#" id="back-to-selection">← Appointments</a>
+        <span>/</span>
+        <span id="appointment-type-title">Select Date & Time</span>
+      </div>
+      <h1 id="calendar-title">Product Demo</h1>
+    </div>
+  </section>
+
+  <div class="page">
+    <section class="apps-area">
+      <div class="booking-container">
+        <div class="calendar-section">
+          <div class="calendar-header">
+            <h2 id="current-month">December 2024</h2>
+            <div class="calendar-nav">
+              <button id="prev-month">←</button>
+              <button id="next-month">→</button>
+            </div>
+          </div>
+
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Calendar will be generated by JavaScript -->
+          </div>
+
+          <div class="time-slots" id="time-slots-container" style="display:none;">
+            <h3>Available Times</h3>
+            <div class="slots-grid" id="time-slots">
+              <!-- Time slots will be generated by JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-summary">
+          <h3>Booking Summary</h3>
+          <div class="summary-item">
+            <div class="summary-label">Appointment Type</div>
+            <div class="summary-value" id="summary-type">Product Demo</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Duration</div>
+            <div class="summary-value" id="summary-duration">45 minutes</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Date</div>
+            <div class="summary-value" id="summary-date">Select a date</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Time</div>
+            <div class="summary-value" id="summary-time">Select a time</div>
+          </div>
+          <button class="btn-confirm" id="btn-next-to-form" disabled>Continue to Details</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- PAGE 3: Contact Information Form -->
+<div id="page-form" class="page-view">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="breadcrumb">
+        <a href="#" id="back-to-calendar">← Back</a>
+        <span>/</span>
+        <span>Your Information</span>
+      </div>
+      <h1>Complete Your Booking</h1>
+    </div>
+  </section>
+
+  <div class="page">
+    <section class="apps-area">
+      <div class="form-container">
+        <form id="booking-form">
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" id="form-name" required placeholder="John Doe">
+          </div>
+
+          <div class="form-group">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" id="form-email" required placeholder="john@example.com">
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number <span class="required">*</span></label>
+            <input type="tel" id="form-phone" required placeholder="+254 700 000 000">
+          </div>
+
+          <div class="form-group">
+            <label>Organization</label>
+            <input type="text" id="form-organization" placeholder="Your Organization">
+          </div>
+
+          <div class="form-group">
+            <label>What would you like to discuss?</label>
+            <textarea id="form-notes" placeholder="Share any specific topics or questions you'd like to cover..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-confirm">Confirm Booking</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- PAGE 4: Confirmation -->
+<div id="page-confirmation" class="page-view">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Booking Confirmed!</h1>
+    </div>
+  </section>
+
+  <div class="page">
+    <section class="apps-area">
+      <div class="confirmation-container">
+        <div class="success-icon">✓</div>
+        <h2>Your appointment has been confirmed</h2>
+        <p style="color:var(--text);">A confirmation email has been sent to your inbox with calendar invite and meeting details.</p>
+
+        <div class="confirmation-details">
+          <div class="detail-row">
+            <span class="detail-label">Appointment:</span>
+            <span class="detail-value" id="confirm-type">Product Demo</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Date:</span>
+            <span class="detail-value" id="confirm-date">Dec 15, 2024</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Time:</span>
+            <span class="detail-value" id="confirm-time">10:00 AM</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Duration:</span>
+            <span class="detail-value" id="confirm-duration">45 minutes</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Name:</span>
+            <span class="detail-value" id="confirm-name">John Doe</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Email:</span>
+            <span class="detail-value" id="confirm-email">john@example.com</span>
+          </div>
+        </div>
+
+        <button class="btn-confirm" id="btn-book-another">Book Another Appointment</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-logo">
+    <img src="assets/images/election-pro-logo-web-white-footer.png" alt="Election Pro AI" style="height:40px;background:#666;">
+  </div>
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Documentation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Security</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">     
+      <h4>Connect with us</h4>
+      <div class="footer-social">
+        <a href="#" class="facebook" title="Facebook">
+          <svg viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+        <a href="#" class="twitter" title="X (Twitter)">
+          <svg viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="#" class="youtube" title="YouTube">
+          <svg viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+        <a href="#" class="instagram" title="Instagram">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <a href="#" class="tiktok" title="TikTok">
+          <svg viewBox="0 0 24 24">
+            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================
+     NEW JAVASCRIPT FOR APPOINTMENT BOOKING
+     ============================================ -->
+<script>
+// ========== STATE MANAGEMENT ==========
+const bookingState = {
+  appointmentType: '',
+  appointmentTitle: '',
+  duration: '',
+  selectedDate: null,
+  selectedTime: null,
+  currentMonth: new Date().getMonth(),
+  currentYear: new Date().getFullYear(),
+  userInfo: {}
+};
+
+const appointmentTypes = {
+  demo: { title: 'Product Demo', duration: '45 minutes' },
+  consultation: { title: 'Strategy Consultation', duration: '60 minutes' },
+  technical: { title: 'Technical Setup Session', duration: '30 minutes' },
+  training: { title: 'Team Training Workshop', duration: '90 minutes' },
+  enterprise: { title: 'Enterprise Solution Design', duration: '120 minutes' },
+  quickstart: { title: 'Quick Start Session', duration: '20 minutes' }
+};
+
+// Available time slots (in 24-hour format)
+const timeSlots = [
+  '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+  '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
+  '15:00', '15:30', '16:00', '16:30', '17:00'
+];
+
+// ========== PAGE NAVIGATION ==========
+function showPage(pageName) {
+  document.querySelectorAll('.page-view').forEach(page => {
+    page.classList.remove('active');
+  });
+  document.getElementById(`page-${pageName}`).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ========== PAGE 1: APPOINTMENT TYPE SELECTION WITH FILTERS ==========
+
+// Filter functionality
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    // Update active tab
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    
+    const filter = this.getAttribute('data-filter');
+    
+    // Filter cards
+    document.querySelectorAll('.appointment-card').forEach(card => {
+      const sizes = card.getAttribute('data-size').split(',');
+      
+      if (filter === 'all' || sizes.includes(filter)) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+
+// Card click functionality
+document.querySelectorAll('.appointment-card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    if (e.target.classList.contains('book-btn') || e.target.closest('.book-btn')) {
+      const type = this.getAttribute('data-type');
+      bookingState.appointmentType = type;
+      bookingState.appointmentTitle = appointmentTypes[type].title;
+      bookingState.duration = appointmentTypes[type].duration;
+      
+      // Update calendar page
+      document.getElementById('calendar-title').textContent = bookingState.appointmentTitle;
+      document.getElementById('summary-type').textContent = bookingState.appointmentTitle;
+      document.getElementById('summary-duration').textContent = bookingState.duration;
+      
+      // Reset selections
+      bookingState.selectedDate = null;
+      bookingState.selectedTime = null;
+      document.getElementById('summary-date').textContent = 'Select a date';
+      document.getElementById('summary-time').textContent = 'Select a time';
+      document.getElementById('btn-next-to-form').disabled = true;
+      
+      showPage('calendar');
+      renderCalendar();
+    }
+  });
+});
+
+// ========== PAGE 2: CALENDAR & TIME SELECTION ==========
+function renderCalendar() {
+  const grid = document.getElementById('calendar-grid');
+  grid.innerHTML = '';
+  
+  // Day headers
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  days.forEach(day => {
+    const header = document.createElement('div');
+    header.className = 'calendar-day-header';
+    header.textContent = day;
+    grid.appendChild(header);
+  });
+  
+  // Get first day of month and total days
+  const firstDay = new Date(bookingState.currentYear, bookingState.currentMonth, 1).getDay();
+  const daysInMonth = new Date(bookingState.currentYear, bookingState.currentMonth + 1, 0).getDate();
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  // Empty cells before first day
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement('div');
+    empty.className = 'calendar-day empty';
+    grid.appendChild(empty);
+  }
+  
+  // Day cells
+  for (let day = 1; day <= daysInMonth; day++) {
+    const cell = document.createElement('div');
+    cell.className = 'calendar-day';
+    cell.textContent = day;
+    
+    const cellDate = new Date(bookingState.currentYear, bookingState.currentMonth, day);
+    cellDate.setHours(0, 0, 0, 0);
+    
+    // Mark today
+    if (cellDate.getTime() === today.getTime()) {
+      cell.classList.add('today');
+    }
+    
+    // Disable past dates
+    if (cellDate < today) {
+      cell.classList.add('disabled');
+    } else {
+      cell.addEventListener('click', function() {
+        selectDate(cellDate, this);
+      });
+    }
+    
+    // Mark selected date
+    if (bookingState.selectedDate && cellDate.getTime() === bookingState.selectedDate.getTime()) {
+      cell.classList.add('selected');
+    }
+    
+    grid.appendChild(cell);
+  }
+  
+  // Update month display
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+  document.getElementById('current-month').textContent = 
+    `${monthNames[bookingState.currentMonth]} ${bookingState.currentYear}`;
+}
+
+function selectDate(date, element) {
+  bookingState.selectedDate = date;
+  bookingState.selectedTime = null;
+  
+  // Update UI
+  document.querySelectorAll('.calendar-day').forEach(day => {
+    day.classList.remove('selected');
+  });
+  element.classList.add('selected');
+  
+  // Update summary
+  const options = { month: 'short', day: 'numeric', year: 'numeric' };
+  document.getElementById('summary-date').textContent = date.toLocaleDateString('en-US', options);
+  document.getElementById('summary-time').textContent = 'Select a time';
+  
+  // Show time slots
+  renderTimeSlots();
+  document.getElementById('time-slots-container').style.display = 'block';
+  document.getElementById('btn-next-to-form').disabled = true;
+}
+
+function renderTimeSlots() {
+  const container = document.getElementById('time-slots');
+  container.innerHTML = '';
+  
+  timeSlots.forEach(time => {
+    const slot = document.createElement('div');
+    slot.className = 'time-slot';
+    
+    // Convert to 12-hour format
+    const [hours, minutes] = time.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12;
+    slot.textContent = `${displayHour}:${minutes} ${ampm}`;
+    
+    // Randomly disable some slots for realism
+    if (Math.random() > 0.7) {
+      slot.classList.add('disabled');
+    } else {
+      slot.addEventListener('click', function() {
+        selectTime(time, this);
+      });
+    }
+    
+    container.appendChild(slot);
+  });
+}
+
+function selectTime(time, element) {
+  bookingState.selectedTime = time;
+  
+  // Update UI
+  document.querySelectorAll('.time-slot').forEach(slot => {
+    slot.classList.remove('selected');
+  });
+  element.classList.add('selected');
+  
+  // Update summary
+  const [hours, minutes] = time.split(':');
+  const hour = parseInt(hours);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const displayHour = hour % 12 || 12;
+  document.getElementById('summary-time').textContent = `${displayHour}:${minutes} ${ampm}`;
+  
+  // Enable next button
+  document.getElementById('btn-next-to-form').disabled = false;
+}
+
+// Calendar navigation
+document.getElementById('prev-month').addEventListener('click', () => {
+  bookingState.currentMonth--;
+  if (bookingState.currentMonth < 0) {
+    bookingState.currentMonth = 11;
+    bookingState.currentYear--;
+  }
+  renderCalendar();
+});
+
+document.getElementById('next-month').addEventListener('click', () => {
+  bookingState.currentMonth++;
+  if (bookingState.currentMonth > 11) {
+    bookingState.currentMonth = 0;
+    bookingState.currentYear++;
+  }
+  renderCalendar();
+});
+
+// Back to selection
+document.getElementById('back-to-selection').addEventListener('click', (e) => {
+  e.preventDefault();
+  showPage('selection');
+});
+
+// Next to form
+document.getElementById('btn-next-to-form').addEventListener('click', () => {
+  showPage('form');
+});
+
+// ========== PAGE 3: CONTACT FORM ==========
+document.getElementById('back-to-calendar').addEventListener('click', (e) => {
+  e.preventDefault();
+  showPage('calendar');
+});
+
+document.getElementById('booking-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  // Collect form data
+  bookingState.userInfo = {
+    name: document.getElementById('form-name').value,
+    email: document.getElementById('form-email').value,
+    phone: document.getElementById('form-phone').value,
+    organization: document.getElementById('form-organization').value,
+    notes: document.getElementById('form-notes').value
+  };
+  
+  // Update confirmation page
+  document.getElementById('confirm-type').textContent = bookingState.appointmentTitle;
+  document.getElementById('confirm-duration').textContent = bookingState.duration;
+  
+  const options = { month: 'short', day: 'numeric', year: 'numeric' };
+  document.getElementById('confirm-date').textContent = 
+    bookingState.selectedDate.toLocaleDateString('en-US', options);
+  
+  const [hours, minutes] = bookingState.selectedTime.split(':');
+  const hour = parseInt(hours);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const displayHour = hour % 12 || 12;
+  document.getElementById('confirm-time').textContent = `${displayHour}:${minutes} ${ampm}`;
+  
+  document.getElementById('confirm-name').textContent = bookingState.userInfo.name;
+  document.getElementById('confirm-email').textContent = bookingState.userInfo.email;
+  
+  showPage('confirmation');
+});
+
+// ========== PAGE 4: CONFIRMATION ==========
+document.getElementById('btn-book-another').addEventListener('click', () => {
+  // Reset form
+  document.getElementById('booking-form').reset();
+  
+  // Reset state
+  bookingState.selectedDate = null;
+  bookingState.selectedTime = null;
+  bookingState.currentMonth = new Date().getMonth();
+  bookingState.currentYear = new Date().getFullYear();
+  
+  showPage('selection');
+});
+
+// Initialize calendar on load
+renderCalendar();
+</script>
+
+</body>
+</html>

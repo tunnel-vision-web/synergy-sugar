@@ -1,0 +1,55 @@
+<svg viewBox="0 0 1600 1200" width="1600" height="1200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Curved arrows connecting in a circle -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#059669" />
+    </marker>
+  </defs>
+  
+  <!-- Arrow 1: Cane to Transport (perfect circular arc - top to right) -->
+  <path d="M 1050 180 Q 1450 200, 1450 450" stroke="#059669" stroke-width="8" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow 2: Transport to Weighbridge (perfect circular arc - right to bottom) -->
+  <path d="M 1420 670 Q 1400 1000, 1050 1020" stroke="#059669" stroke-width="8" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow 3: Weighbridge to Labor (perfect circular arc - bottom to left) -->
+  <path d="M 550 1020 Q 150 1000, 150 670" stroke="#059669" stroke-width="8" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow 4: Labor to Cane (perfect circular arc - left to top) -->
+  <path d="M 180 450 Q 150 200, 550 180" stroke="#059669" stroke-width="8" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Card 1: Cane Sourcing (Top) -->
+  <g>
+    <rect x="600" y="80" width="400" height="140" rx="6" fill="#A7F3D0" stroke="#059669" stroke-width="4"/>
+    <text x="800" y="140" text-anchor="middle" font-size="32" font-weight="700" fill="#059669" font-family="'Roboto', Arial, sans-serif">Cane Sourcing</text>
+    <text x="800" y="185" text-anchor="middle" font-size="32" font-weight="700" fill="#059669" font-family="'Roboto', Arial, sans-serif">Traceability</text>
+  </g>
+  
+  <!-- Card 2: Transport & Workshop (Right) -->
+  <g>
+    <rect x="1200" y="480" width="360" height="160" rx="6" fill="#FED7AA" stroke="#EA580C" stroke-width="4"/>
+    <text x="1380" y="540" text-anchor="middle" font-size="30" font-weight="700" fill="#EA580C" font-family="'Roboto', Arial, sans-serif">Transport &amp;</text>
+    <text x="1380" y="580" text-anchor="middle" font-size="30" font-weight="700" fill="#EA580C" font-family="'Roboto', Arial, sans-serif">Workshop</text>
+    <text x="1380" y="620" text-anchor="middle" font-size="30" font-weight="700" fill="#EA580C" font-family="'Roboto', Arial, sans-serif">Traceability</text>
+  </g>
+  
+  <!-- Card 3: Weighbridge (Bottom) -->
+  <g>
+    <rect x="600" y="980" width="400" height="140" rx="6" fill="#DDD6FE" stroke="#7C3AED" stroke-width="4"/>
+    <text x="800" y="1040" text-anchor="middle" font-size="32" font-weight="700" fill="#7C3AED" font-family="'Roboto', Arial, sans-serif">Weighbridge</text>
+    <text x="800" y="1085" text-anchor="middle" font-size="32" font-weight="700" fill="#7C3AED" font-family="'Roboto', Arial, sans-serif">Traceability</text>
+  </g>
+  
+  <!-- Card 4: Labor (Left) -->
+  <g>
+    <rect x="40" y="480" width="360" height="160" rx="6" fill="#FBCFE8" stroke="#DB2777" stroke-width="4"/>
+    <text x="220" y="555" text-anchor="middle" font-size="32" font-weight="700" fill="#DB2777" font-family="'Roboto', Arial, sans-serif">Labor</text>
+    <text x="220" y="600" text-anchor="middle" font-size="32" font-weight="700" fill="#DB2777" font-family="'Roboto', Arial, sans-serif">Traceability</text>
+  </g>
+  
+  <!-- Center Box - AI (Same style as others) -->
+  <g>
+    <rect x="700" y="530" width="200" height="140" rx="6" fill="#f6dd0d" stroke="#686fb4" stroke-width="4"/>
+    <text x="800" y="620" text-anchor="middle" font-size="52" font-weight="700" fill="#3b3b3b" font-family="'Sansation', 'Roboto', Arial, sans-serif">AI</text>
+  </g>
+</svg>

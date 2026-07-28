@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download AI Traceability Diagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    h1 {
+      color: #3b3b3b;
+      margin-bottom: 20px;
+      font-size: 32px;
+    }
+    
+    .preview {
+      width: 100%;
+      border: 3px solid #e0e0e0;
+      border-radius: 8px;
+      margin: 20px 0;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    
+    .preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .download-section {
+      margin-top: 30px;
+    }
+    
+    .download-btn {
+      display: inline-block;
+      background: #059669;
+      color: white;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      margin: 10px 10px 10px 0;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .download-btn:hover {
+      background: #047857;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+    }
+    
+    .download-btn.secondary {
+      background: #686fb4;
+    }
+    
+    .download-btn.secondary:hover {
+      background: #5a5f9e;
+    }
+    
+    .info {
+      background: #f0fdf4;
+      border-left: 4px solid #059669;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .info p {
+      color: #3b3b3b;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    
+    .file-info {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    
+    .file-card {
+      flex: 1;
+      min-width: 200px;
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+    }
+    
+    .file-card h3 {
+      color: #059669;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    
+    .file-card p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 AI Traceability Network Diagram</h1>
+    
+    <div class="info">
+      <p><strong>Ready to Download!</strong></p>
+      <p>Your high-quality AI Traceability diagram is ready. Choose your preferred format below.</p>
+    </div>
+    
+    <div class="preview">
+      <img src="ai-traceability-network.svg" alt="AI Traceability Network Diagram">
+    </div>
+    
+    <div class="file-info">
+      <div class="file-card">
+        <h3>📐 SVG Format</h3>
+        <p>Vector format - scales to any size without quality loss. Perfect for presentations, print, and web.</p>
+        <p><strong>Size:</strong> 3.5KB</p>
+      </div>
+      
+      <div class="file-card">
+        <h3>✨ Features</h3>
+        <p>• Perfect circular flow<br>
+        • Green arrows (#059669)<br>
+        • Pastel color scheme<br>
+        • Bold Roboto font</p>
+      </div>
+    </div>
+    
+    <div class="download-section">
+      <h2 style="margin-bottom: 15px; color: #3b3b3b; font-size: 20px;">Download Options:</h2>
+      
+      <a href="ai-traceability-network.svg" download="ai-traceability-network.svg" class="download-btn">
+        ⬇️ Download SVG (Vector)
+      </a>
+      
+      <button onclick="downloadAsPNG()" class="download-btn secondary">
+        ⬇️ Download as PNG
+      </button>
+      
+      <a href="ai-traceability-diagram.html" target="_blank" class="download-btn secondary">
+        👁️ View Full Size
+      </a>
+    </div>
+    
+    <div class="info" style="margin-top: 30px; background: #eff6ff; border-left-color: #686fb4;">
+      <p><strong>💡 Tip:</strong> SVG format is recommended for the best quality. It can be opened in any modern browser, design software (Adobe Illustrator, Figma, etc.), or converted to PNG/JPG at any resolution.</p>
+    </div>
+  </div>
+  
+  <script>
+    async function downloadAsPNG() {
+      try {
+        // Create a canvas and render the SVG
+        const img = new Image();
+        const svg = document.querySelector('.preview img');
+        
+        // Get the SVG content
+        const response = await fetch('ai-traceability-network.svg');
+        const svgText = await response.text();
+        const blob = new Blob([svgText], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          canvas.width = 3200;  // 4K resolution
+          canvas.height = 2400;
+          
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = 'white';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          
+          canvas.toBlob(function(blob) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'ai-traceability-network-4k.png';
+            link.click();
+            URL.revokeObjectURL(url);
+          }, 'image/png');
+        };
+        
+        img.src = url;
+      } catch (error) {
+        alert('PNG download feature requires a modern browser. Please download the SVG instead and convert it using your preferred tool.');
+      }
+    }
+  </script>
+</body>
+</html>

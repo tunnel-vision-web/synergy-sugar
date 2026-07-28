@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy - Synergy Bravo ERP</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2" />
+  <link rel="apple-touch-icon" href="favicon.png?v=2" />
+  <link rel="shortcut icon" type="image/png" href="favicon.png?v=2" />
+
+  <!-- Sansation font -->
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary:#f6dd0d;
+      --secondary:#686fb4;
+      --gray:#e0e0e0;
+      --text:#777;
+      --text-strong:#555;
+      --header-gray:#999;
+      --bg:#fafafa;
+      --border:#ddd;
+      --radius:10px;
+      --shadow-hover:0 4px 12px rgba(0,0,0,.08);
+      --headerH:72px;
+    }
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    *,*::before,*::after{box-sizing:border-box}
+
+    /* HEADER */
+    .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;width:min(1200px,92vw);margin:0 auto;height:var(--headerH);padding:8px 0}
+    .logo img.black{display:block;height:66px}
+    .nav{display:flex;gap:22px;font-size:.95rem;font-weight:500}
+    .nav a{color:#444;text-decoration:none;transition:color .2s}
+    .nav a:hover{color:var(--secondary)}
+    .header-cta{display:flex;gap:10px;align-items:center}
+
+    .btn{border:none;border-radius:6px;font-weight:600;cursor:pointer;transition:all .2s ease;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;color:#fff;background:var(--primary);padding:9px 18px;font-size:.9rem}
+    .btn:hover{background:var(--secondary);color:#fff}
+    .btn-light{background:#fff;color:#444}
+    .btn-light:hover{background:var(--secondary);color:#fff}
+
+    /* HERO */
+    .hero{padding-top:calc(var(--headerH) + 20px);padding-bottom:18px;text-align:left}
+    .hero-content{width:min(1200px,92vw);margin:0 auto}
+    .hero-content h1{
+      margin:18px 0 6px;
+      font-size:3rem; /* 20% smaller */
+      font-weight:700;
+      color:#bbb;
+      font-family:'Sansation', sans-serif;
+    }
+
+    /* PAGE */
+    .page{width:min(1200px,92vw);margin:0 auto}
+    .apps-area{margin:16px 0 40px}
+    .config-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+    @media(max-width:960px){.config-grid{grid-template-columns:1fr}}
+
+    .card{background:#fff;border-radius:var(--radius);padding:18px}
+    .card h3{margin:0 0 12px;font-size:1rem;font-weight:600;color:var(--header-gray)}
+
+    /* Divider */
+    .divider{height:1px;background:var(--border);width:95%;margin:16px auto}
+
+    /* Radio choices */
+    .choices{display:flex;flex-direction:column;gap:8px;width:100%}
+    .choice{display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;color:var(--text);transition:.2s, box-shadow .2s;border-radius:6px}
+    .choice:hover{background:#f1f1f1;transform:translateY(-1px);box-shadow:var(--shadow-hover)}
+    .choice input[type="radio"]{accent-color:var(--primary);width:16px;height:16px;cursor:pointer}
+    .choice.active{font-weight:600;color:var(--text-strong)}
+
+    /* Users input inline */
+    .user-row{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .user-row label{font-size:1rem;font-weight:600;color:var(--header-gray)}
+    .user-input input{
+      width:120px;height:40px;
+      border:2px solid var(--primary);border-radius:6px;
+      font-size:.95rem; /* 1px smaller */
+      font-weight:600;
+      color:#888;
+      text-align:center;
+      outline:none;-moz-appearance:textfield;
+    }
+    .user-input input::-webkit-inner-spin-button,
+    .user-input input::-webkit-outer-spin-button{opacity:1;width:20px;height:40px;cursor:pointer}
+
+    /* Reveal panel */
+    .reveal{overflow:hidden;max-height:0;opacity:0;transition:max-height .3s ease,opacity .25s ease;margin-top:0}
+    .reveal.show{max-height:300px;opacity:1;margin-top:8px}
+
+    /* Partner dropdown */
+    #partnerReveal{margin-top:10px}
+    #partnerReveal select{
+      width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;
+      font-size:.95rem;color:var(--text);background:#fff;cursor:pointer;
+    }
+
+    /* Summary */
+    .summary .line{display:flex;justify-content:space-between;margin:6px 0;color:var(--text-strong);font-size:.95rem}
+    .summary .total{font-weight:800;font-size:1.4rem;margin-top:10px;color:var(--text-strong)}
+    .toggle{display:inline-flex;border:2px solid var(--primary);border-radius:999px;overflow:hidden}
+    .toggle button{border:0;padding:8px 14px;cursor:pointer;font-weight:600;font-size:.9rem}
+    .toggle button[data-mode="monthly"]{background:var(--gray);color:#222}
+    .toggle button[data-mode="yearly"]{background:#fff;color:#222}
+    .toggle button.active[data-mode="yearly"]{background:var(--primary);color:#fff}
+    .toggle button:hover{background:var(--secondary);color:#fff}
+    .hr{height:1px;background:var(--border);margin:10px 0}
+    .muted{color:#aaa;font-size:.85rem}
+
+    /* Footer */
+    
+    @media(max-width:720px){.footer-columns{grid-template-columns:1fr;text-align:center}}
+  /* Footer */
+    /* FOOTER - Matching Appointment System */
+    .site-footer{background:#2f2f2f;color:#fff;margin-top:56px;padding:40px 20px}
+    .footer-logo{text-align:center;margin-bottom:24px}
+    .footer-logo img{height:54px}
+    .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto;text-align:left}
+    .footer-col h4{font-size:1rem;margin-bottom:12px;color:#fff}
+    .footer-col ul{list-style:none;padding:0;margin:0}
+    .footer-col ul li{margin-bottom:8px}
+    .footer-col ul li a{color:#fff;text-decoration:none;font-size:0.9rem;opacity:0.9}
+    .footer-col ul li a:hover{opacity:1;text-decoration:underline}
+    .footer-social{display:flex;gap:16px;margin-top:16px;justify-content:flex-start}
+    @media(max-width:720px){
+      .footer-columns{grid-template-columns:1fr;text-align:center}
+      .footer-social{justify-content:center}
+    }
+
+    .footer-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;transition:all 0.3s ease;font-size:18px}
+    .footer-social a:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+    .footer-social a.facebook:hover{background:#1877F2}
+    .footer-social a.twitter:hover{background:#000}
+    .footer-social a.youtube:hover{background:#FF0000}
+    .footer-social a.instagram:hover{background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF,#515BD4)}
+    .footer-social a.tiktok:hover{background:#000}
+    .footer-social svg{width:20px;height:20px;fill:currentColor}
+  
+    /* Hamburger Menu */
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+    
+    .hamburger-menu span {
+      width: 100%;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    .site-header.scrolled .hamburger-menu span {
+      background-color: var(--text);
+    }
+    
+    .hamburger-menu.active span:nth-child(1) {
+      transform: translateY(10.5px) rotate(45deg);
+    }
+    
+    .hamburger-menu.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger-menu.active span:nth-child(3) {
+      transform: translateY(-10.5px) rotate(-45deg);
+    }
+    
+    /* Mobile Navigation */
+    @media (max-width: 768px) {
+      .hamburger-menu {
+        display: flex;
+      }
+      
+      .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #fff;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        padding: 80px 20px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+      }
+      
+      .main-nav.active {
+        right: 0;
+      }
+      
+      .nav-item {
+        width: 100%;
+        margin: 8px 0;
+      }
+      
+      .nav-item > a {
+        color: var(--text-dark);
+        padding: 12px 16px;
+        width: 100%;
+        border-radius: 8px;
+      }
+      
+      .nav-item > a:hover {
+        background: rgba(246, 221, 13, 0.1);
+        color: var(--primary);
+      }
+      
+      .auth-actions {
+        position: fixed;
+        bottom: 20px;
+        right: -100%;
+        width: 280px;
+        padding: 20px;
+        background: #fff;
+        flex-direction: column;
+        gap: 12px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      }
+      
+      .auth-actions.active {
+        right: 0;
+      }
+      
+      .auth-actions a {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        margin: 0;
+      }
+      
+      .auth-signin {
+        color: var(--text-dark) !important;
+      }
+      
+      /* Mobile menu overlay */
+      .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+      }
+      
+      .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="landing_enhanced.html"><img class="black" src="assets/images/Synergy-logo-sugar-web-black.png" alt="Synergy Bravo ERP"></a>
+    <nav class="nav">
+      <a href="landing_enhanced.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="help.html">Help</a>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-light" href="pricing.html">Back to Pricing</a>
+      <a class="btn" href="appointment.html">Request Demo</a>
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Standard Plan</h1>
+    <p style="color:#aaa">Configure users, hosting, and installation. Prices in KES.</p>
+  </div>
+</section>
+
+<div class="page">
+  <section class="apps-area">
+    <div class="config-grid">
+
+      <!-- Left panel -->
+      <div class="card">
+        <h3>User Type</h3>
+        <div class="choices" id="userTypeChoices">
+          <label class="choice"><input type="radio" name="userType" value="standard" checked> Standard User (KES 700/mo)</label>
+          <label class="choice"><input type="radio" name="userType" value="customer"> Customer User (KES 1000/mo)</label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="user-row">
+          <label for="numUsers">Number of Users</label>
+          <div class="user-input">
+            <input id="numUsers" type="number" min="1" value="1">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>Hosting</h3>
+        <div class="choices" id="hostingChoices">
+          <label class="choice"><input type="radio" name="hosting" value="own" checked> Own Servers (no cost)</label>
+          <label class="choice"><input type="radio" name="hosting" value="ep"> Election Pro Hosting</label>
+        </div>
+
+        <div id="serverReveal" class="reveal">
+          <div class="divider"></div>
+          <h3>Server Type</h3>
+          <div class="choices" id="serverChoices">
+            <label class="choice"><input type="radio" name="server" value="basic" data-cost="5000" checked> Basic Server (KES 5,000/mo)</label>
+            <label class="choice"><input type="radio" name="server" value="pro" data-cost="12000"> Pro Server (KES 12,000/mo)</label>
+            <label class="choice"><input type="radio" name="server" value="enterprise" data-cost="25000"> Enterprise Server (KES 25,000/mo)</label>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>Installation</h3>
+        <div class="choices" id="installChoices">
+          <label class="choice"><input type="radio" name="install" value="self" data-cost="0" checked> Self Install (KES 0)</label>
+          <label class="choice"><input type="radio" name="install" value="assisted" data-cost="10000"> Assisted Install (KES 10,000)</label>
+          <label class="choice"><input type="radio" name="install" value="partner" data-cost="20000"> Partner Install (KES 20,000)</label>
+        </div>
+
+        <!-- Partner dropdown reveal -->
+        <div id="partnerReveal" class="reveal">
+          <label for="partnerSelect" style="display:block;margin-bottom:6px;color:var(--header-gray);font-weight:600;">Select a Partner</label>
+          <select id="partnerSelect">
+            <option value="">-- Choose a Partner --</option>
+            <option value="Partner One Ltd">Partner One Ltd</option>
+            <option value="Partner Two Inc">Partner Two Inc</option>
+            <option value="Partner Three Solutions">Partner Three Solutions</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Right panel -->
+      <aside class="card summary">
+        <div style="text-align:right">
+          <div class="toggle" id="priceToggle">
+            <button data-mode="monthly" class="active">Monthly</button>
+            <button data-mode="yearly">Yearly <span class="muted">save 15%</span></button>
+          </div>
+        </div>
+        <h3>Summary</h3>
+        <div class="line"><span>User type</span><span id="sumType">Standard</span></div>
+        <div class="line"><span>Billing</span><span id="sumBilling">Monthly</span></div>
+        <div class="line"><span>Users</span><span id="sumUsers">1</span></div>
+        <div class="line"><span>Per user</span><span id="sumPerUser">KES 700</span></div>
+        <div class="hr"></div>
+        <div class="line"><span>Users total</span><span id="sumUsersTotal">KES 700</span></div>
+        <div class="line"><span>Hosting</span><span id="sumHosting">KES 0</span></div>
+        <div class="line"><span>Installation</span><span id="sumInstall">KES 0</span></div>
+        <!-- Partner line (conditionally shown) -->
+        <div class="line" id="sumPartnerLine" style="display:none;">
+          <span>Partner</span><span id="sumPartner">--</span>
+        </div>
+        <div class="hr"></div>
+        <div class="total" id="sumTotal">KES 700</div>
+        <div class="muted" id="sumNote">Billed monthly</div>
+        <a href="buy2.html" class="btn" style="margin-top:16px">Buy Now</a>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER - Matching Appointment System -->
+  <footer class="site-footer">
+    <div class="footer-logo">
+      <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP">
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="forum/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">     
+        <h4>Connect with us</h4>
+        <div class="footer-social">
+          <a href="http://facebook.com/synergysugar" target="_blank" class="facebook" title="Facebook">
+            <svg viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="http://twitter.com/synergysugar" target="_blank" class="twitter" title="X (Twitter)">
+            <svg viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="http://youtube.com/@synergysugar" target="_blank" class="youtube" title="YouTube">
+            <svg viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="http://instagram.com/synergysugar" target="_blank" class="instagram" title="Instagram">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href="http://tiktok.com/@synergysugar" target="_blank" class="tiktok" title="TikTok">
+            <svg viewBox="0 0 24 24">
+              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+const PRICING={perUser:{standard:700,customer:1000},server:{basic:5000,pro:12000,enterprise:25000},install:{self:0,assisted:10000,partner:20000},yearlyDiscount:0.15};
+const state={mode:'monthly',type:'standard',users:1,hosting:'own',server:'basic',install:'self',partner:''};
+
+function fmt(n){return 'KES '+Math.round(n).toLocaleString('en-KE');}
+function render(){
+  const perUser=PRICING.perUser[state.type];
+  let usersCost=perUser*state.users;
+  let hostCost=state.hosting==='ep'?PRICING.server[state.server]:0;
+  let instCost=PRICING.install[state.install];
+  if(state.mode==='yearly'){
+    usersCost*=12*(1-PRICING.yearlyDiscount);
+    hostCost*=12*(1-PRICING.yearlyDiscount);
+    instCost*=12*(1-PRICING.yearlyDiscount);
+  }
+  const total=usersCost+hostCost+instCost;
+
+  document.getElementById('sumType').textContent=state.type;
+  document.getElementById('sumBilling').textContent=state.mode==='yearly'?'Yearly':'Monthly';
+  document.getElementById('sumUsers').textContent=state.users;
+  document.getElementById('sumPerUser').textContent=fmt(perUser);
+  document.getElementById('sumUsersTotal').textContent=fmt(usersCost);
+  document.getElementById('sumHosting').textContent=fmt(hostCost);
+  document.getElementById('sumInstall').textContent=fmt(instCost);
+  document.getElementById('sumTotal').textContent=fmt(total);
+  document.getElementById('sumNote').textContent=state.mode==='yearly'?'Billed yearly (15% off)':'Billed monthly';
+
+  document.getElementById("serverReveal").classList.toggle('show',state.hosting==='ep');
+  document.getElementById("partnerReveal").classList.toggle('show',state.install==='partner');
+
+  if(state.install==='partner'){
+    document.getElementById("sumPartnerLine").style.display="flex";
+    document.getElementById("sumPartner").textContent=state.partner?state.partner:"--";
+  } else {
+    document.getElementById("sumPartnerLine").style.display="none";
+  }
+}
+
+// Billing toggle
+document.getElementById('priceToggle').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  state.mode=b.dataset.mode;
+  [...document.getElementById('priceToggle').querySelectorAll('button')].forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  render();
+});
+// User type radios
+document.querySelectorAll('input[name="userType"]').forEach(r=>r.addEventListener('change',e=>{state.type=e.target.value;render();}));
+// Users
+document.getElementById('numUsers').oninput=()=>{let v=parseInt(document.getElementById('numUsers').value)||1;if(v<1)v=1;state.users=v;document.getElementById('numUsers').value=v;render();};
+// Hosting radios
+document.querySelectorAll('input[name="hosting"]').forEach(r=>r.addEventListener('change',e=>{state.hosting=e.target.value;render();}));
+// Server radios
+document.querySelectorAll('input[name="server"]').forEach(r=>r.addEventListener('change',e=>{state.server=e.target.value;render();}));
+// Installation radios
+document.querySelectorAll('input[name="install"]').forEach(r=>r.addEventListener('change',e=>{state.install=e.target.value;render();}));
+// Partner dropdown
+document.getElementById('partnerSelect').addEventListener('change',e=>{
+  state.partner=e.target.value;
+  render();
+});
+
+render();
+
+  // Hamburger menu toggle
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mainNav = document.querySelector('.main-nav');
+  const authActions = document.querySelector('.auth-actions');
+  
+  if (hamburgerBtn) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-menu-overlay';
+    document.body.appendChild(overlay);
+    
+    hamburgerBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      hamburgerBtn.classList.toggle('active');
+      mainNav.classList.toggle('active');
+      authActions.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = hamburgerBtn.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', function() {
+      hamburgerBtn.classList.remove('active');
+      mainNav.classList.remove('active');
+      authActions.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    
+    // Close menu when clicking nav links
+    const navLinks = mainNav.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        hamburgerBtn.classList.remove('active');
+        mainNav.classList.remove('active');
+        authActions.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  </script>
+</body>
+</html>

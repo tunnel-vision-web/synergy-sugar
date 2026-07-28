@@ -1,0 +1,1329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Synergy Bravo ERP: Comprehensive Management Platform for Sugar Farmers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap 5.2 (no conflicts) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts: Roboto + Sansation (Sansation via fonts.cdnfonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/sansation" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary: #f6dd0d;           /* Goldish orange */
+      --secondary: #686fb4;         /* Light sage (slightly greener) */
+      --text: #5a5a5a;              /* Gentle gray text */
+      --text-dark: #3b3b3b;         /* Slightly darker for headings */
+      --footer-bg: #2f2f2f;         /* Medium-dark footer */
+      --hero-arrow-bg: rgba(255,255,255,0.85);
+      --hero-dot: rgba(255,255,255,0.6);
+      --hero-dot-active: #ffffff;
+      --container-max: 1200px;
+      --header-pad-y: 16px;
+      --header-pad-x: 18px;
+      --slide-height: 82vh;         /* full-screen-ish; we tuck under header */
+      --slide-arrow-offset: 60px;   /* inward arrow offset */
+      --card-br: 14px;              /* rounded corners */
+      --card-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --box-border: 3px;            /* requested border weight */
+      --panel-border: 2px;
+    }
+
+    html, body{
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background: #fff;
+      scroll-behavior: smooth;
+    }
+
+    /* Header */
+    .site-header{
+      position: fixed;
+      left: 0; right: 0; top: 0;
+      z-index: 999;
+      transition: background 260ms ease, backdrop-filter 260ms ease, padding 260ms ease, transform 260ms ease;
+      background: transparent;
+    }
+    .site-header .inner{
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--header-pad-y) var(--header-pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand img{
+      height: 66px;
+      transition: transform 260ms ease, height 260ms ease;
+    }
+    .main-nav a{
+      text-decoration: none;
+      color: #fff; /* start white over hero */
+      font-weight: 500;
+      margin: 0 10px;
+      transition: color 180ms ease, opacity 180ms ease;
+    }
+    .main-nav a:hover{ color: var(--secondary); }
+
+    .auth-actions a{
+      text-decoration: none;
+      margin-left: 14px;
+      font-weight: 500;
+      transition: color 180ms ease, background 180ms ease, border-color 180ms ease, opacity 180ms ease;
+    }
+    .auth-signin{
+      color: #fff;                   /* white before scroll */
+    }
+    .auth-signin:hover{ color: var(--primary); }
+
+    .btn-try{
+      border: var(--box-border) solid var(--primary);
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.95rem;           /* 1px smaller than Sign In */
+      box-shadow: 0 3px 10px rgba(245,154,35,0.25);
+    }
+    .btn-try:hover{
+      background: var(--secondary);
+      border-color: var(--secondary);
+      color: #fff;
+    }
+
+    /* Header on scroll */
+    .site-header.scrolled{
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+    .site-header.scrolled .brand img{
+      height: 32px; /* ~20% smaller than 40px */
+    }
+    .site-header.scrolled .main-nav a{
+      color: var(--text); /* gray after scroll */
+    }
+    .site-header.scrolled .auth-signin{
+      color: var(--text);
+    }
+    .site-header.scrolled .auth-signin:hover{
+      color: var(--primary);
+    }
+
+    /* Keep header content aligned to page width (not edges), except hero image stretches full */
+    .page-wrap{
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 0; /* sits under the transparent header */
+      position: relative;
+      z-index: 1;
+    }
+    .hero-carousel{
+      position: relative;
+      height: var(--slide-height);
+      overflow: hidden;
+    }
+    .hero-slide{
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
+    }
+    .hero-slide.active{ 
+      opacity: 1;
+      visibility: visible;
+      animation: boxGridFade 1.2s ease-in-out;
+    }
+
+    /* Box Grid Transition Effect */
+    @keyframes boxGridFade {
+      0% {
+        clip-path: polygon(
+          0% 0%, 33% 0%, 33% 33%, 0% 33%,
+          0% 33%, 33% 33%, 33% 66%, 0% 66%,
+          0% 66%, 33% 66%, 33% 100%, 0% 100%,
+          33% 0%, 66% 0%, 66% 33%, 33% 33%,
+          33% 33%, 66% 33%, 66% 66%, 33% 66%,
+          33% 66%, 66% 66%, 66% 100%, 33% 100%,
+          66% 0%, 100% 0%, 100% 33%, 66% 33%,
+          66% 33%, 100% 33%, 100% 66%, 66% 66%,
+          66% 66%, 100% 66%, 100% 100%, 66% 100%
+        );
+        opacity: 0;
+      }
+      50% {
+        clip-path: polygon(
+          0% 0%, 50% 0%, 50% 50%, 0% 50%,
+          0% 50%, 50% 50%, 50% 100%, 0% 100%,
+          50% 0%, 100% 0%, 100% 50%, 50% 50%,
+          50% 50%, 100% 50%, 100% 100%, 50% 100%
+        );
+        opacity: 0.5;
+      }
+      100% {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        opacity: 1;
+      }
+    }
+
+    .hero-overlay{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35); /* helps white text */
+    }
+
+    .hero-content{
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 0 24px;
+      color: #fff;
+      font-family: 'Sansation', 'Roboto', sans-serif;
+    }
+
+    .hero-titles{
+      display: grid;
+      gap: 6px;
+      transform: translateY(-4%);
+    }
+    .hero-title-1, .hero-title-2, .hero-title-3{
+      opacity: 0;
+      transform: translateX(60px);
+      animation: slideInRight 900ms ease forwards;
+      color: #fff;
+      text-shadow: 0 10px 22px rgba(0,0,0,0.35);
+      line-height: 1.1;
+      letter-spacing: 0.2px;
+    }
+    .hero-title-1{ font-size: clamp(28px, 3.3vw, 44px); animation-delay: 200ms; }
+    .hero-title-2{ font-size: clamp(22px, 2.6vw, 34px); animation-delay: 520ms; }
+    .hero-title-3{ font-size: clamp(18px, 2.1vw, 26px); animation-delay: 820ms; }
+
+    @keyframes slideInRight{
+      to{ opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-cta{
+      position: absolute;
+      bottom: 54px; /* close to dots */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .btn-start{
+      border: var(--box-border) solid #fff;
+      background: transparent;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .btn-start:hover{
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+    }
+
+    /* Hero Dots */
+    .hero-dots{
+      position: absolute;
+      bottom: 22px;
+      left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px;
+      z-index: 2;
+    }
+    .hero-dot{
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hero-dot);
+      transition: transform 160ms ease, background 160ms ease;
+      cursor: pointer;
+    }
+    .hero-dot.active{ background: var(--hero-dot-active); transform: scale(1.05); }
+
+    /* Hero Arrows */
+    .hero-arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--hero-arrow-bg);
+      display: grid; place-items: center;
+      border: var(--box-border) solid #fff;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+      cursor: pointer;
+      user-select: none;
+      z-index: 3;
+    }
+    .hero-arrow svg{
+      width: 16px; height: 16px; fill: #000; /* arrow is black for contrast */
+    }
+    .hero-arrow.prev{ left: var(--slide-arrow-offset); }
+    .hero-arrow.next{ right: var(--slide-arrow-offset); }
+
+    /* Section shells (subtle gradients for contrast) */
+    .section{
+      padding: 40px 0 50px;
+    }
+    .section-1{
+      background: linear-gradient(180deg, #f7f9f6 0%, #edf3ee 100%);
+      padding-top: 20px; /* tighten top per your request */
+    }
+    .section-2{
+      background: linear-gradient(180deg, #fff 0%, #f7f7fb 100%);
+    }
+    .section-3{
+      background: linear-gradient(180deg, #f6f7ff 0%, #eef1ff 100%);
+    }
+    .section-4{
+      background: linear-gradient(180deg, #fbfbfd 0%, #f2f2f7 100%);
+    }
+
+    .section .section-inner{
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .section h2{
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 18px;
+      transition: color 160ms ease;
+      font-size: clamp(22px, 2.2vw, 30px);
+    }
+    .section h2:hover{ color: var(--secondary); }
+
+    /* Features + Apps panel (same heights) */
+    .panel-card{
+      border: var(--box-border) solid var(--primary);
+      border-radius: var(--card-br);
+      box-shadow: var(--card-shadow);
+      background: #fff;
+      height: 100%;
+      overflow: hidden;
+    }
+    .panel-header{
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 1px dashed rgba(0,0,0,0.08);
+      color: var(--text-dark);
+    }
+    .panel-body{
+      padding: 14px 16px;
+    }
+
+    /* Features carousel */
+    .features-carousel{
+      position: relative;
+      min-height: 280px;
+    }
+    .features-slide{ display: none; }
+    .features-slide.active{ display: block; animation: fadeIn 380ms ease; }
+    @keyframes fadeIn{ from{opacity:0; transform: translateY(6px)} to{opacity:1; transform:none;} }
+
+    .features-list{
+      margin: 0; padding-left: 18px;
+    }
+    .features-list li{
+      margin: 6px 0;
+    }
+    .features-arrows{
+      display:flex; align-items:center; gap:10px; margin-top:12px;
+    }
+    .f-arrow{
+      width: 38px; height: 38px; border-radius:50%;
+      border: var(--box-border) solid var(--secondary);
+      display:grid; place-items:center; background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .f-arrow svg{ width: 14px; height: 14px; fill: #000; }
+    .f-dots{ display:flex; gap:8px; margin-left:auto; }
+    .f-dot{ width:9px; height:9px; border-radius:50%; background:#cfd8cf; cursor: pointer; }
+    .f-dot.active{ background:#6b8f6b; }
+
+    /* Apps icon grid */
+    .apps-grid{
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 14px;
+    }
+    .app-icon{
+      border: var(--box-border) solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+      height: 100%;
+    }
+    .app-icon:hover{
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+    }
+    .app-icon img{ max-width: 56px; height: 56px; object-fit: contain; display: block; margin: 0 auto 8px; }
+    .app-icon .label{ font-size: 0.9rem; color: var(--text-dark); }
+
+    /* Testimonials */
+    .testi-wrap{
+      border: var(--box-border) solid rgba(0,0,0,0.08);
+      border-radius: var(--card-br);
+      background: #fff;
+      box-shadow: var(--card-shadow);
+      padding: 22px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .testi-carousel{ position: relative; min-height: 180px; }
+    .testi-slide{ display:none; text-align:center; }
+    .testi-slide.active{ display:block; animation: fadeIn 380ms ease; }
+    .testi-quote{ font-size: 1.05rem; color: var(--text-dark); margin-bottom: 10px; }
+    .testi-meta{ font-size: 0.95rem; opacity: 0.8; }
+
+    .t-arrows{ display:flex; align-items:center; gap:10px; justify-content:center; margin-top: 12px;}
+    .t-arrow{
+      width: 38px; height: 38px; border-radius:50%;
+      border: var(--box-border) solid var(--secondary);
+      display:grid; place-items:center; background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .t-arrow svg{ width: 14px; height: 14px; fill: #000; }
+    .t-dots{ display:flex; gap:8px; margin-left: 12px; }
+    .t-dot{ width:9px; height:9px; border-radius:50%; background:#cfd8cf; cursor: pointer; }
+    .t-dot.active{ background:#6b8f6b; }
+
+    /* Enterprise cards */
+    .enterprise-grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .ent-card{
+      border: var(--box-border) solid var(--primary);
+      border-radius: var(--card-br);
+      background: #fff;
+      box-shadow: var(--card-shadow);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      min-height: 160px;
+    }
+    .ent-card h4{
+      color: var(--secondary);
+      font-weight: 800;
+      margin-bottom: 8px;
+      font-family: 'Sansation', 'Roboto', sans-serif;
+    }
+    .ent-card p{ margin:0; }
+
+    /* Footer */
+    .site-footer{
+      background: var(--footer-bg);
+      color: #cfcfcf;
+      padding: 28px 0 40px;
+    }
+    .footer-inner{ max-width: var(--container-max); margin: 0 auto; padding: 0 18px; }
+    .footer-logo{
+      display: grid; place-items: center;
+      margin-bottom: 16px;
+    }
+    .footer-logo img{ height: 40px; opacity: 0.95; }
+    .footer-cols{
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
+    }
+    .footer-cols h6{
+      color: #fff; margin-bottom: 8px; font-weight: 700; font-size: 0.95rem;
+    }
+    .footer-cols a{
+      display:block; color: #cfcfcf; text-decoration: none; margin: 4px 0;
+    }
+    .footer-cols a:hover{ color: #fff; }
+
+    .socials{
+      display:flex; gap: 10px; align-items:center; flex-wrap: wrap;
+      margin: 8px 0 0;
+    }
+    .socials img{ width: 20px; height: 20px; filter: invert(92%); opacity: 0.9; }
+
+    /* Utilities & tweaks */
+    .mt-tight{ margin-top: 6px !important; }
+    .mb-tight{ margin-bottom: 6px !important; }
+
+    
+.site-header .brand {
+  flex: 0 0 auto;
+}
+
+.site-header .main-nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.site-header .auth-actions {
+  flex: 0 0 auto;
+}
+
+
+    /* Responsive */
+    @media (max-width: 991.98px){
+      .apps-grid{ grid-template-columns: repeat(3,1fr); }
+      .enterprise-grid{ grid-template-columns: repeat(2,1fr); }
+      .hero-arrow{ width: 42px; height: 42px; }
+    }
+    @media (max-width: 575.98px){
+      .apps-grid{ grid-template-columns: repeat(2,1fr); }
+      .hero-title-1{ font-size: 26px; }
+      .hero-title-2{ font-size: 20px; }
+      .hero-title-3{ font-size: 17px; }
+      .hero-arrow{ width: 38px; height: 38px; }
+    }
+
+    /* Try it free */
+.btn-try{
+  border: 3px solid var(--primary) !important;   /* enforce 3px border */
+  bborder-width: 3px !important;
+  border-radius: 8px !important;   /* smaller, still rounded */
+  box-sizing: border-box;                        /* keep sizing consistent */
+  padding: 6px 14px;  
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.95rem;
+  box-shadow: 0 3px 10px rgba(245,154,35,0.25);
+}
+.btn-try:hover{
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: #fff;
+}
+
+/* Start Today */
+.btn-start{
+  border: 2px solid var(--primary) !important;   /* enforce 2px border */
+  border-width: 3px !important;
+  border-radius: 8px !important;   /* smaller, still rounded */
+  box-sizing: border-box;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-start:hover{
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: #fff;
+}
+
+
+.btn-start {
+  border-width: 2px !important;
+  box-sizing: border-box !important;
+}
+
+.panel, 
+.card, 
+.section-box {
+  border-width: 2px !important;   /* slim down borders */
+  border-style: solid;
+  border-color: var(--border, #ddd); /* use your theme border gray */
+  box-sizing: border-box;
+}
+
+/* Mega Menu Styles */
+.main-nav {
+  position: relative;
+}
+
+.nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-item > a {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 180ms ease;
+  cursor: pointer;
+}
+
+.nav-item > a::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid currentColor;
+  margin-left: 6px;
+  transition: transform 180ms ease;
+}
+
+.nav-item.has-dropdown > a::after {
+  opacity: 1;
+}
+
+.nav-item:not(.has-dropdown) > a::after {
+  display: none;
+}
+
+.nav-item.active > a::after {
+  transform: rotate(180deg);
+}
+
+.site-header.scrolled .nav-item > a {
+  color: var(--text);
+}
+
+.site-header.scrolled .nav-item > a:hover {
+  color: var(--primary);
+}
+
+.mega-menu {
+  position: fixed;
+  top: 72px;   /* adjust to match header height */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 200ms ease;
+  z-index: 900; /* below header (999) */
+  overflow-y: auto;
+}
+
+.nav-item.active .mega-menu {
+  position: fixed;
+  top: 72px;   /* adjust to match header height */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 200ms ease;
+  z-index: 900; /* below header (999) */
+  overflow-y: auto;
+}
+
+.mega-menu-content {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 40px 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.mega-menu-section h4 {
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-family: 'Sansation', 'Roboto', sans-serif;
+}
+
+.mega-menu-item {
+  display: block;
+  padding: 12px 0;
+  text-decoration: none;
+  color: var(--text);
+  transition: color 180ms ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mega-menu-item:hover {
+  color: var(--primary);
+}
+
+.mega-menu-item:last-child {
+  border-bottom: none;
+}
+
+.mega-menu-item .item-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.mega-menu-item .item-desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.4;
+}
+
+.mega-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Mobile nav adjustments */
+@media (max-width: 991.98px) {
+  .main-nav {
+    display: none !important;
+  }
+}
+
+/* Header layout fix: logo left, nav centered (absolute), auth right */
+.site-header .inner {
+  position: relative; /* allow absolute positioning */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--header-pad-y) var(--header-pad-x);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.site-header .brand {
+  flex: 0 0 auto;
+}
+
+.site-header .main-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.site-header .auth-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="inner">
+        <div class="brand">
+          <img id="brandLogo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Election Pro">
+        </div>
+        <nav class="main-nav d-none d-md-block">
+          <div class="nav-item">
+            <a href="apps.html">Apps</a>
+          </div>
+           <div class="nav-item">
+            <a href="features.html">Features</a>
+          </div>
+          <div class="nav-item has-dropdown">
+            <a href="#industries">Industries</a>
+          </div>         
+          <div class="nav-item">
+           <a href="forum/index.html">Community</a>
+          </div>
+          <div class="nav-item">
+            <a href="pricing.html">Pricing</a>
+          </div>
+          <div class="nav-item">
+           <a href="help.html">Help</a>
+          </div>
+        </nav>
+      <div class="auth-actions">
+        <a class="auth-signin" href="#signin" style="font-size:0.98rem;">Sign in</a>
+        <a class="btn-try" href="#try" style="font-size:0.92rem;">Try it free</a>
+      </div>
+    </div>
+  </header>
+
+<!-- Moved mega menu OUTSIDE header -->
+<div class="mega-menu" id="industriesMenu">
+  <div class="mega-menu-content">
+    <div class="mega-menu-section">
+      <h4>Campaign Types</h4>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Local Elections</div>
+        <div class="item-desc">City council, mayor, school board campaigns</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">State Legislature</div>
+        <div class="item-desc">Assembly, senate, and gubernatorial races</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Federal Campaigns</div>
+        <div class="item-desc">Congressional and presidential campaigns</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Ballot Measures</div>
+        <div class="item-desc">Issue advocacy and referendum campaigns</div>
+      </a>
+    </div>
+    <div class="mega-menu-section">
+      <h4>Organizations</h4>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Political Parties</div>
+        <div class="item-desc">Democratic, Republican, and third-party organizations</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">PACs & Super PACs</div>
+        <div class="item-desc">Political action committees and advocacy groups</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Nonprofits</div>
+        <div class="item-desc">501(c)(3) and 501(c)(4) advocacy organizations</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Consulting Firms</div>
+        <div class="item-desc">Political consultants and campaign agencies</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-carousel" id="heroCarousel">
+      <!-- Slide 1 -->
+      <div class="hero-slide active" style="background-image:url('assets/images/slides/home-bg-3.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-titles">
+            <div class="hero-title-1">Intelligent</div>
+            <div class="hero-title-2">Cohesive</div>
+            <div class="hero-title-3">Integrated</div>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="#features" class="btn-start">Start Today</a>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="hero-slide" style="background-image:url('assets/images/slides/home-bg-2.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-titles">
+            <div class="hero-title-1">A comprehensive platform</div>
+            <div class="hero-title-2">Seamlessly connecting...</div>
+            <div class="hero-title-3">procurement, accounting, sales, and analytics</div>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="#features" class="btn-start">Start Today</a>
+        </div>
+      </div>
+      <!-- Slide 3 - EASILY COPY THIS BLOCK TO ADD MORE SLIDES -->
+      <div class="hero-slide" style="background-image:url('assets/images/slides/home-bg-1.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-titles">
+            <div class="hero-title-1">Empowering Growth</div>
+            <div class="hero-title-2">With Data-Driven Insights</div>
+            <div class="hero-title-3">Transform your business operations</div>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="#features" class="btn-start">Start Today</a>
+        </div>
+      </div>
+      <!-- END SLIDE 3 - Copy the above block and change data-i in dots below to add more -->
+
+
+
+
+      <!-- Arrows -->
+      <button class="hero-arrow prev" id="heroPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <button class="hero-arrow next" id="heroNext" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+      </button>
+
+      <!-- Dots - Add a new span with incremented data-i for each new slide -->
+      <div class="hero-dots" id="heroDots">
+        <span class="hero-dot active" data-i="0"></span>
+        <span class="hero-dot" data-i="1"></span>
+        <span class="hero-dot" data-i="2"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Features + Apps -->
+  <section class="section section-1" id="features">
+    <div class="section-inner">
+      <h2>Features</h2>
+      <div class="row g-3 align-items-stretch">
+        <!-- Features panel -->
+        <div class="col-lg-8">
+          <div class="panel-card h-100">
+            <div class="panel-header">Why Sugar Farmers choose Synergy Bravo ERP</div>
+            <div class="panel-body">
+              <div class="features-carousel" id="featuresCarousel">
+                <div class="features-slide active">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Outreach & Engagement</h5>
+                  <ul class="features-list">
+                    <li>Targeted voter messaging</li>
+                    <li>Event planning & RSVPs</li>
+                    <li>Canvassing mobile tools</li>
+                    <li>Volunteer onboarding</li>
+                    <li>SMS & email campaigns</li>
+                    <li>Real-time response tracking</li>
+                    <li>Analytics you can trust</li>
+                  </ul>
+                </div>
+                <div class="features-slide">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Finance & Compliance</h5>
+                  <ul class="features-list">
+                    <li>Donor CRM & receipts</li>
+                    <li>Recurring donations</li>
+                    <li>Contribution limits alerts</li>
+                    <li>Expense approvals</li>
+                    <li>Automated reports</li>
+                    <li>Bank sync & exports</li>
+                    <li>Audit-ready records</li>
+                  </ul>
+                </div>
+                <div class="features-slide">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Operations & Data</h5>
+                  <ul class="features-list">
+                    <li>Centralized data hub</li>
+                    <li>Role-based permissions</li>
+                    <li>Task & workflow boards</li>
+                    <li>Integrations & API</li>
+                    <li>Granular dashboards</li>
+                    <li>Automations builder</li>
+                    <li>99.99% platform uptime</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="features-arrows">
+                <button class="f-arrow" id="featPrev" aria-label="Previous">
+                  <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <button class="f-arrow" id="featNext" aria-label="Next">
+                  <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+                </button>
+                <div class="f-dots" id="featDots">
+                  <span class="f-dot active" data-i="0"></span>
+                  <span class="f-dot" data-i="1"></span>
+                  <span class="f-dot" data-i="2"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Apps panel -->
+        <div class="col-lg-4" id="apps">
+          <div class="panel-card h-100">
+            <div class="panel-header">Our Apps</div>
+            <div class="panel-body">
+              <div class="apps-grid">
+                <!-- 16 icons; replace with real asset files -->
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-01.png" alt="Icon">
+                  <div class="label">Website</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-02.png" alt="Icon">
+                  <div class="label">CRM</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-03.png" alt="Icon">
+                  <div class="label">SMS</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-04.png" alt="Icon">
+                  <div class="label">Email</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-05.png" alt="Icon">
+                  <div class="label">Fundraising</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-06.png" alt="Icon">
+                  <div class="label">Finance</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-07.png" alt="Icon">
+                  <div class="label">Events</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-08.png" alt="Icon">
+                  <div class="label">Canvassing</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-09.png" alt="Icon">
+                  <div class="label">Analytics</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-10.png" alt="Icon">
+                  <div class="label">Automation</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-11.png" alt="Icon">
+                  <div class="label">Surveys</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-12.png" alt="Icon">
+                  <div class="label">A/B Testing</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-13.png" alt="Icon">
+                  <div class="label">Social</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-14.png" alt="Icon">
+                  <div class="label">Docs</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-15.png" alt="Icon">
+                  <div class="label">Helpdesk</div>
+                </div>
+                <div class="app-icon">
+                  <img src="assets/images/app-icon-16.png" alt="Icon">
+                  <div class="label">Security</div>
+                </div>
+              </div>
+              <div class="text-center mt-3">
+                <a href="apps.html" style="text-decoration:none; color:var(--primary); font-weight:600;">View all apps</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- row -->
+    </div>
+  </section>
+
+  <!-- Section 2: Testimonials -->
+  <section class="section section-2" id="testimonials" style="padding-top:25px;">
+    <div class="section-inner">
+      <h2>What People Say</h2>
+      <div class="testi-wrap" style="margin-top: 5px;">
+        <div class="testi-carousel" id="testiCarousel">
+          <div class="testi-slide active">
+            <div class="testi-quote">"Election Pro streamlined our entire operation. We moved faster and smarter."</div>
+            <div class="testi-meta">Jane M — Campaign Director, City of Hope</div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-quote">"Our team actually enjoys the tools. Fundraising went from chaos to clarity."</div>
+            <div class="testi-meta">Samuel A — Finance Lead, Forward Together</div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-quote">"From volunteers to compliance, it just works. Highly recommended."</div>
+            <div class="testi-meta">Ruqayya K — Field Ops, Open Future</div>
+          </div>
+        </div>
+        <div class="t-arrows">
+          <button class="t-arrow" id="testiPrev" aria-label="Previous">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <button class="t-arrow" id="testiNext" aria-label="Next">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+          </button>
+          <div class="t-dots" id="testiDots">
+            <span class="t-dot active" data-i="0"></span>
+            <span class="t-dot" data-i="1"></span>
+            <span class="t-dot" data-i="2"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Access from all devices -->
+  <section class="section section-3" id="access">
+    <div class="section-inner">
+      <h2>Access from All Devices</h2>
+      <div class="row g-3 align-items-center">
+        <div class="col-md-6">
+          <p class="mb-2">Stay connected across web, tablet, and mobile with a secure, unified experience. Your data follows you and your team — anywhere.</p>
+          <ul class="mb-0">
+            <li>Real-time sync</li>
+            <li>Optimized UI per device</li>
+            <li>Offline-first workflows</li>
+            <li>Enterprise SSO options</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <img class="img-fluid rounded-3 shadow-sm" src="assets/images/client-img-5.png" alt="Devices connectivity">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Enterprise Campaign Apps Done Right -->
+  <section class="section section-4" id="enterprise">
+    <div class="section-inner">
+      <h2>Enterprise Campaign Apps Done Right</h2>
+      <div class="enterprise-grid">
+        <div class="ent-card">
+          <h4>Reliability</h4>
+          <p>99.99% uptime and robust SLAs your team can depend on.</p>
+        </div>
+        <div class="ent-card">
+          <h4>Security</h4>
+          <p>Encryption, audit trails, and fine-grained permissions by default.</p>
+        </div>
+        <div class="ent-card">
+          <h4>Scale</h4>
+          <p>From local races to national coalitions — without friction.</p>
+        </div>
+        <div class="ent-card">
+          <h4>Support</h4>
+          <p>White-glove onboarding and success partners, every step.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Election Pro"><br><br>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h6>Legal</h6>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Data Processing</a>
+          <a href="#">Security</a>
+        </div>
+        <div>
+          <h6>Company</h6>
+          <a href="#">About</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+          <a href="#">Contact</a>
+        </div>
+        <div>
+          <h6>Resources</h6>
+          <a href="#">Help Center</a>
+          <a href="#">API Docs</a>
+          <a href="#">Guides</a>
+          <a href="#">Status</a>
+        </div>
+        <div>
+          <h6>Connect</h6>
+          <div class="socials">
+            <img src="assets/images/social-x.png" alt="X">
+            <img src="assets/images/social-fb.png" alt="Facebook">
+            <img src="assets/images/social-ig.png" alt="Instagram">
+            <img src="assets/images/social-li.png" alt="LinkedIn">
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap + minimal JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Header behavior: transparent -> white .8, and logo swap if you like
+    (function(){
+      const header = document.getElementById('siteHeader');
+      const brandLogo = document.getElementById('brandLogo');
+      const whiteSrc = 'assets/images/Synergy-logo-sugar-web-white.png';
+      const blackSrc = 'assets/images/Synergy-logo-sugar-web-black.png';
+
+      function onScroll(){
+        const y = window.pageYOffset || document.documentElement.scrollTop;
+        if(y > 10){
+          header.classList.add('scrolled');
+          brandLogo.src = blackSrc;
+        } else {
+          header.classList.remove('scrolled');
+          brandLogo.src = whiteSrc;
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // Mega menu functionality - click to open/close
+(function(){
+  const industriesLink = document.querySelector('.nav-item.has-dropdown a');
+  const megaMenu = document.getElementById('industriesMenu');
+
+  if (industriesLink && megaMenu) {
+    industriesLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      megaMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.mega-menu') && !e.target.closest('.nav-item.has-dropdown')) {
+        megaMenu.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        megaMenu.classList.remove('active');
+      }
+    });
+  }
+})();
+
+    // Basic carousel helper (no external deps).
+    function makeCarousel(containerSel, options){
+      const root = document.querySelector(containerSel);
+      if(!root) return;
+      
+      // Fixed selector logic - now looks for direct children of specific carousels
+      let slides;
+      if (containerSel === '#heroCarousel') {
+        slides = Array.from(root.querySelectorAll('.hero-slide'));
+      } else if (containerSel === '#featuresCarousel') {
+        slides = Array.from(root.querySelectorAll('.features-slide'));
+      } else if (containerSel === '#testiCarousel') {
+        slides = Array.from(root.querySelectorAll('.testi-slide'));
+      } else {
+        // Fallback for any other carousels
+        slides = Array.from(root.querySelectorAll('.slide, .hero-slide, .features-slide, .testi-slide'))
+                      .filter(el => el.parentElement === root);
+      }
+      
+      if(slides.length === 0) return;
+
+      let index = 0;
+      const {
+        prevSel, nextSel, dotsSel, activeClass='active',
+        interval=6000, auto=true
+      } = options;
+
+      const prevBtn = prevSel ? document.querySelector(prevSel) : null;
+      const nextBtn = nextSel ? document.querySelector(nextSel) : null;
+      const dotsWrap = dotsSel ? document.querySelector(dotsSel) : null;
+      const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+
+      function show(i){
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s,idx)=> s.classList.toggle(activeClass, idx===index));
+        if(dots.length){
+          dots.forEach((d,idx)=> d.classList.toggle('active', idx===index));
+        }
+      }
+      function next(){ show(index+1); }
+      function prev(){ show(index-1); }
+
+      if(prevBtn) prevBtn.addEventListener('click', prev);
+      if(nextBtn) nextBtn.addEventListener('click', next);
+      if(dots.length){
+        dots.forEach((dot, i)=> dot.addEventListener('click', ()=> show(i)));
+      }
+
+      let timer=null;
+      function start(){
+        if(auto){
+          stop();
+          timer = setInterval(next, interval);
+        }
+      }
+      function stop(){
+        if(timer){ clearInterval(timer); timer=null; }
+      }
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+
+      show(0);
+      start();
+      return { next, prev, show, stop, start };
+    }
+
+    // HERO carousel
+    makeCarousel('#heroCarousel', {
+      prevSel: '#heroPrev',
+      nextSel: '#heroNext',
+      dotsSel: '#heroDots',
+      activeClass: 'active',
+      interval: 6500,
+      auto: true
+    });
+
+    // FEATURES carousel
+    makeCarousel('#featuresCarousel', {
+      prevSel: '#featPrev',
+      nextSel: '#featNext',
+      dotsSel: '#featDots',
+      activeClass: 'active',
+      interval: 6000,
+      auto: true
+    });
+
+    // TESTIMONIALS carousel
+    makeCarousel('#testiCarousel', {
+      prevSel: '#testiPrev',
+      nextSel: '#testiNext',
+      dotsSel: '#testiDots',
+      activeClass: 'active',
+      interval: 6000,
+      auto: true
+    });
+
+    // Make Features and Apps columns equal height on wide screens
+    function matchHeights(){
+      const left = document.querySelector('#features .col-lg-8 .panel-card');
+      const right = document.querySelector('#features .col-lg-4 .panel-card');
+      if(!left || !right) return;
+      // Reset first
+      left.style.height = 'auto';
+      right.style.height = 'auto';
+      if(window.innerWidth >= 992){
+        const h = Math.max(left.offsetHeight, right.offsetHeight);
+        left.style.height = h + 'px';
+        right.style.height = h + 'px';
+      }
+    }
+    window.addEventListener('load', matchHeights);
+    window.addEventListener('resize', matchHeights);
+    setTimeout(matchHeights, 350);
+
+  </script>
+</body>
+</html>

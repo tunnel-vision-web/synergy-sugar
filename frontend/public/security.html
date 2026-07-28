@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Security - Synergy Bravo ERP</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2" />
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f6dd0d;
+      --secondary: #686fb4;
+      --text: #555;
+      --text-light: #777;
+      --border: #ddd;
+      --bg: #fafafa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .header-inner {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo img { height: 50px; }
+    .btn {
+      background: var(--primary);
+      color: #222;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: var(--secondary);
+      color: #fff;
+    }
+    .content {
+      width: min(900px, 92vw);
+      margin: 60px auto;
+      background: #fff;
+      padding: 60px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    h1 {
+      font-family: 'Sansation', sans-serif;
+      font-size: 2.5rem;
+      color: #333;
+      margin: 0 0 10px;
+    }
+    .last-updated {
+      color: #999;
+      font-size: 0.9rem;
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      color: #444;
+      margin: 40px 0 20px;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 10px;
+    }
+    p { margin: 16px 0; }
+    ul, ol { margin: 16px 0; padding-left: 30px; }
+    li { margin: 8px 0; }
+    strong { color: #333; }
+    .security-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 4px 8px 4px 0;
+    }
+    @media (max-width: 768px) {
+      .content { padding: 30px 20px; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="landing_enhanced.html">
+        <img src="assets/images/Synergy-logo-sugar-web-black.png" alt="Synergy Bravo ERP">
+      </a>
+      <a class="btn" href="landing_enhanced.html">Back to Home</a>
+    </div>
+  </header>
+
+  <div class="content">
+    <h1>Security</h1>
+    <p class="last-updated">Last Updated: December 6, 2024</p>
+
+    <p>At Synergy Bravo ERP, security is our top priority. We implement industry-leading security measures to protect your business data and ensure the confidentiality, integrity, and availability of our services.</p>
+
+    <div style="margin: 30px 0;">
+      <span class="security-badge">SOC 2 Type II Certified</span>
+      <span class="security-badge">ISO 27001 Compliant</span>
+      <span class="security-badge">GDPR Compliant</span>
+      <span class="security-badge">99.9% Uptime SLA</span>
+    </div>
+
+    <h2>1. Data Encryption</h2>
+    <p><strong>Encryption in Transit:</strong> All data transmitted between your device and our servers is encrypted using TLS 1.3 with 256-bit encryption.</p>
+    <p><strong>Encryption at Rest:</strong> All stored data is encrypted using AES-256 encryption, including databases, backups, and file storage.</p>
+    <p><strong>Key Management:</strong> Encryption keys are managed using industry-standard key management services with regular rotation policies.</p>
+
+    <h2>2. Access Controls</h2>
+    <ul>
+      <li><strong>Multi-Factor Authentication (MFA):</strong> Available for all users with support for authenticator apps and hardware tokens</li>
+      <li><strong>Role-Based Access Control (RBAC):</strong> Granular permissions to control who can access specific data and features</li>
+      <li><strong>Single Sign-On (SSO):</strong> Enterprise plans support SAML 2.0 and OAuth 2.0 for seamless integration</li>
+      <li><strong>IP Whitelisting:</strong> Restrict access to your account from specific IP addresses</li>
+      <li><strong>Session Management:</strong> Automatic timeout and forced logout for inactive sessions</li>
+    </ul>
+
+    <h2>3. Infrastructure Security</h2>
+    <p><strong>Cloud Infrastructure:</strong> Hosted on enterprise-grade cloud platforms with built-in security features:</p>
+    <ul>
+      <li>Redundant data centers across multiple geographic regions</li>
+      <li>DDoS protection and web application firewall (WAF)</li>
+      <li>Network segmentation and isolation</li>
+      <li>Intrusion detection and prevention systems (IDS/IPS)</li>
+    </ul>
+    <p><strong>Continuous Monitoring:</strong> 24/7 security monitoring and alerting for suspicious activities</p>
+
+    <h2>4. Application Security</h2>
+    <ul>
+      <li><strong>Secure Development:</strong> Following OWASP guidelines and secure coding practices</li>
+      <li><strong>Code Reviews:</strong> Mandatory security-focused code reviews before deployment</li>
+      <li><strong>Vulnerability Scanning:</strong> Automated scanning for security vulnerabilities</li>
+      <li><strong>Penetration Testing:</strong> Regular third-party security audits and penetration tests</li>
+      <li><strong>Dependency Management:</strong> Continuous monitoring and patching of third-party libraries</li>
+    </ul>
+
+    <h2>5. Data Backup and Recovery</h2>
+    <p><strong>Automated Backups:</strong> Daily incremental backups and weekly full backups</p>
+    <p><strong>Geo-Redundancy:</strong> Backups stored in multiple geographic locations</p>
+    <p><strong>Recovery Testing:</strong> Regular disaster recovery drills to ensure data recoverability</p>
+    <p><strong>Point-in-Time Recovery:</strong> Ability to restore data to any point within the last 30 days</p>
+    <p><strong>Retention Policy:</strong> Backups retained for 90 days with option for extended retention on enterprise plans</p>
+
+    <h2>6. Compliance and Certifications</h2>
+    <p>We maintain compliance with major security and privacy standards:</p>
+    <ul>
+      <li><strong>SOC 2 Type II:</strong> Annual audits covering security, availability, and confidentiality</li>
+      <li><strong>ISO 27001:</strong> Information security management system certification</li>
+      <li><strong>GDPR:</strong> Full compliance with EU data protection regulations</li>
+      <li><strong>HIPAA:</strong> Available for healthcare customers requiring PHI protection</li>
+      <li><strong>PCI DSS:</strong> Level 1 compliance for payment card data handling</li>
+    </ul>
+
+    <h2>7. Employee Security</h2>
+    <ul>
+      <li><strong>Background Checks:</strong> All employees undergo comprehensive background verification</li>
+      <li><strong>Security Training:</strong> Mandatory annual security awareness training</li>
+      <li><strong>Access Principles:</strong> Least privilege and need-to-know access policies</li>
+      <li><strong>Confidentiality Agreements:</strong> All staff sign NDAs and security policies</li>
+    </ul>
+
+    <h2>8. Incident Response</h2>
+    <p><strong>24/7 Security Team:</strong> Dedicated security operations center monitoring for threats</p>
+    <p><strong>Incident Response Plan:</strong> Documented procedures for identifying, containing, and resolving security incidents</p>
+    <p><strong>Notification:</strong> We will notify affected customers within 72 hours of discovering a data breach</p>
+    <p><strong>Forensics:</strong> Post-incident analysis to prevent future occurrences</p>
+
+    <h2>9. Third-Party Security</h2>
+    <p>We carefully vet all third-party vendors and service providers:</p>
+    <ul>
+      <li>Security assessments before integration</li>
+      <li>Contractual security requirements</li>
+      <li>Regular security reviews of vendors</li>
+      <li>Vendor access monitoring and logging</li>
+    </ul>
+
+    <h2>10. Your Responsibilities</h2>
+    <p>Security is a shared responsibility. We recommend you:</p>
+    <ul>
+      <li>Use strong, unique passwords for your account</li>
+      <li>Enable multi-factor authentication</li>
+      <li>Keep your login credentials confidential</li>
+      <li>Regularly review user access and permissions</li>
+      <li>Report suspicious activity immediately</li>
+      <li>Keep your devices and software up to date</li>
+    </ul>
+
+    <h2>11. Transparency and Trust</h2>
+    <p><strong>Security Updates:</strong> We maintain a public security changelog for transparency</p>
+    <p><strong>Bug Bounty Program:</strong> We reward security researchers who responsibly disclose vulnerabilities</p>
+    <p><strong>Status Page:</strong> Real-time system status and incident history at status.synergyerp.com</p>
+
+    <h2>12. Contact Security Team</h2>
+    <p>If you have security concerns or wish to report a vulnerability, please contact our security team:</p>
+    <p>
+      <strong>Security Team</strong><br>
+      Email: security@synergyerp.com<br>
+      PGP Key: Available at synergyerp.com/pgp<br>
+      Response Time: Within 24 hours
+    </p>
+
+    <p style="margin-top: 40px; padding-top: 40px; border-top: 1px solid #ddd; color: #999; font-size: 0.9rem;">
+      For detailed security documentation or to request our SOC 2 report, please contact our sales or compliance team.
+    </p>
+  </div>
+</body>
+</html>
