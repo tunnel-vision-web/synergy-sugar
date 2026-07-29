@@ -2641,9 +2641,15 @@ a.btn-request-demo:hover {
           <div class="panel-card h-100">
             <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between;">
                 <span>Sugar Farming Industry Apps</span>
-                <button id="clearSelectionsBtn" class="btn-clear-selections" style="display: none;">
-                  Clear Selections (<span id="selectCount">0</span>)
-                </button>
+                <div class="clear-selections-wrapper">
+                  <button id="clearSelectionsBtn" class="btn-clear-selections" style="display: none;">
+                    Clear Selections (<span id="selectCount">0</span>)
+                  </button>
+                  <div id="clearTooltip" class="clear-selections-tooltip">
+                    <div class="tooltip-title">Selected Modules:</div>
+                    <ul id="tooltipModulesList" class="tooltip-modules-list"></ul>
+                  </div>
+                </div>
               </div>
             <div class="panel-body">
               <!-- Search Field -->
