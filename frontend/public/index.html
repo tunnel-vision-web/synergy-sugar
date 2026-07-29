@@ -1344,16 +1344,26 @@
     color: var(--text) !important;
   }
 
-  /* Header Dark Theme */
+  
+  /* Header Background: Transparent before scroll, 0.8 opacity after scroll */
   .site-header {
-    background: rgba(22, 32, 28, 0.85) !important;
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 998 !important;
+    transition: background 260ms ease, backdrop-filter 260ms ease, border-color 260ms ease !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-bottom: none !important;
+  }
+
+  .site-header.scrolled {
+    background: rgba(22, 32, 28, 0.8) !important;
     backdrop-filter: saturate(140%) blur(8px) !important;
     border-bottom: 1px solid rgba(54, 77, 66, 0.4) !important;
   }
-  .site-header.scrolled {
-    background: rgba(26, 38, 33, 0.96) !important;
-    border-bottom: 1px solid #364d42 !important;
-  }
+
   .main-nav a, .nav-item > a, .auth-signin {
     color: #f1f5f9 !important;
   }
@@ -1869,48 +1879,54 @@
     </div>
   </section>
 
-  <!-- Section 2: Testimonials -->
-  <section class="section section-2" id="testimonials" style="padding-top:25px;">
+  <!-- Section 2: Testimonials (What People Say) -->
+  <section class="section section-2" id="testimonials" style="padding: 50px 0; background: linear-gradient(180deg, #18241f 0%, #21332a 100%) !important;">
     <div class="section-inner">
-      <h2>What People Say</h2>
-      <div class="testi-wrap" style="margin-top: 5px;">
+      <h2 style="color: #f8fafc !important; text-align: center; margin-bottom: 30px;">What People Say</h2>
+      <div class="testi-wrap" style="margin: 0 auto; max-width: 900px; background: #253930 !important; border: 1px solid #3b5648 !important; border-radius: 3px !important; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.35);">
         <div class="testi-carousel" id="testiCarousel">
           <div class="testi-slide active">
-            <div class="testi-quote">"Election Pro streamlined our entire operation. We moved faster and smarter."</div>
-            <div class="testi-meta">Jane M — Campaign Director, City of Hope</div>
+            <div style="color: #f6dd0d; font-size: 1.3rem; margin-bottom: 12px; text-align: center;">★★★★★</div>
+            <div class="testi-quote" style="color: #f8fafc !important; font-size: 1.15rem; font-style: italic; line-height: 1.6; text-align: center;">"Synergy Sugar streamlined our entire cane harvesting and weighbridge operations across 4,000+ farmers. We moved faster, eliminated queue delays, and cut leakages."</div>
+            <div class="testi-meta" style="color: #94a3b8 !important; margin-top: 20px; font-weight: 600; text-align: center; font-size: 0.95rem;">David O. — Operations Director, Nyanza Sugar Mills</div>
           </div>
           <div class="testi-slide">
-            <div class="testi-quote">"Our team actually enjoys the tools. Fundraising went from chaos to clarity."</div>
-            <div class="testi-meta">Samuel A — Finance Lead, Forward Together</div>
+            <div style="color: #f6dd0d; font-size: 1.3rem; margin-bottom: 12px; text-align: center;">★★★★★</div>
+            <div class="testi-quote" style="color: #f8fafc !important; font-size: 1.15rem; font-style: italic; line-height: 1.6; text-align: center;">"Our field teams and contracted farmers actually enjoy the digital contracting & payment tools. Farmer recruitment went from paper chaos to digital clarity."</div>
+            <div class="testi-meta" style="color: #94a3b8 !important; margin-top: 20px; font-weight: 600; text-align: center; font-size: 0.95rem;">Emmanuel K. — Field Logistics Lead, Western Kenya Sugar Co.</div>
           </div>
           <div class="testi-slide">
-            <div class="testi-quote">"From volunteers to compliance, it just works. Highly recommended."</div>
-            <div class="testi-meta">Ruqayya K — Field Ops, Open Future</div>
+            <div style="color: #f6dd0d; font-size: 1.3rem; margin-bottom: 12px; text-align: center;">★★★★★</div>
+            <div class="testi-quote" style="color: #f8fafc !important; font-size: 1.15rem; font-style: italic; line-height: 1.6; text-align: center;">"From Nucleus farm operations to automated mill invoicing, the platform is reliable and built specifically for East African sugar companies."</div>
+            <div class="testi-meta" style="color: #94a3b8 !important; margin-top: 20px; font-weight: 600; text-align: center; font-size: 0.95rem;">Grace M. — Financial Controller, Rift Valley Sugar Syndicate</div>
           </div>
         </div>
-        <div class="t-arrows">
-          <button class="t-arrow" id="testiPrev" aria-label="Previous">
-            <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        <div class="t-arrows" style="margin-top: 24px; display: flex; justify-content: center; align-items: center; gap: 16px;">
+          <button class="t-arrow" id="testiPrev" aria-label="Previous" style="background: #1c2b24; border: 1px solid #3b5648; color: #fff; border-radius: 3px !important; width: 38px; height: 38px; cursor: pointer; display: grid; place-items: center;">
+            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: #fff;"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
           </button>
-          <button class="t-arrow" id="testiNext" aria-label="Next">
-            <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
-          </button>
-          <div class="t-dots" id="testiDots">
-            <span class="t-dot active" data-i="0"></span>
-            <span class="t-dot" data-i="1"></span>
-            <span class="t-dot" data-i="2"></span>
+          <div class="t-dots" id="testiDots" style="display: flex; gap: 8px;">
+            <span class="t-dot active" data-i="0" style="width: 10px; height: 10px; border-radius: 50%; background: #f6dd0d; cursor: pointer;"></span>
+            <span class="t-dot" data-i="1" style="width: 10px; height: 10px; border-radius: 50%; background: #475569; cursor: pointer;"></span>
+            <span class="t-dot" data-i="2" style="width: 10px; height: 10px; border-radius: 50%; background: #475569; cursor: pointer;"></span>
           </div>
+          <button class="t-arrow" id="testiNext" aria-label="Next" style="background: #1c2b24; border: 1px solid #3b5648; color: #fff; border-radius: 3px !important; width: 38px; height: 38px; cursor: pointer; display: grid; place-items: center;">
+            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: #fff;"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+          </button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2.5: AI Traceability Circle -->
-  <section class="section section-ai-circle" id="ai-traceability" style="padding: 60px 0; background: #fff;">
+  <!-- Section 2.5: AI-Powered Traceability Network -->
+  <section class="section section-ai-circle" id="ai-traceability" style="padding: 60px 0; background: linear-gradient(180deg, #21332a 0%, #17231e 100%) !important;">
     <div class="section-inner">
-      <h2 style="text-align: center; margin-bottom: 40px;">AI-Powered Traceability Network</h2>
-      <div style="display: flex; justify-content: center; align-items: center;">
-        <img src="assets/images/connected.png" alt="AI-Powered Traceability Network" style="width: 480px; height: 360px; max-width: 100%;">
+      <div style="text-align: center; max-width: 840px; margin: 0 auto 36px auto;">
+        <h2 style="color: #f8fafc !important; font-size: 2rem; margin-bottom: 12px; font-family: 'Sansation', 'Roboto', sans-serif;">AI-Powered Traceability Network</h2>
+        <p style="color: #cbd5e1 !important; font-size: 1.05rem; line-height: 1.6;">End-to-end digital twin intelligence connecting farmer registration, nucleus field operations, harvesting logistics, weighbridges, and factory processing in real time.</p>
+      </div>
+      <div style="display: flex; justify-content: center; align-items: center; border-radius: 3px; overflow: hidden; border: 1px solid #3b5648; box-shadow: 0 20px 50px rgba(0,0,0,0.6); background: #1c2b24; max-width: 1100px; margin: 0 auto;">
+        <img src="assets/images/ai_traceability_network.jpg" alt="AI-Powered Traceability Network Infographic" style="width: 100%; height: auto; display: block; border-radius: 3px;">
       </div>
     </div>
   </section>
