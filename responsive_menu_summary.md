@@ -122,3 +122,4 @@ All pages now have responsive menu:
 - Overlay: Appears and closes menu
 - Links: Close menu when clicked
 - Responsive: Works across all breakpoints
+ 

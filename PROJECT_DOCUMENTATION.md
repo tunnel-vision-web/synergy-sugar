@@ -741,3 +741,4 @@ cd frontend && yarn lint
 ---
 
 *Documentation created for Synergy Bravo ERP - Kenya's Sugar Industry Digital Transformation Partner*
+ 

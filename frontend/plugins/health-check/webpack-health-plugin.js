@@ -118,3 +118,4 @@ class WebpackHealthPlugin {
 }
 
 module.exports = WebpackHealthPlugin;
+ 

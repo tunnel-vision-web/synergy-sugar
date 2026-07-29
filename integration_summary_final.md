@@ -125,3 +125,4 @@ Help → Community Forum Button → Forum
 - Currency changed to KSH (Kenya Shillings)
 - Forum accessible from menu (Community) and footer (Blog)
 - Help page has dedicated Community Forum button
+ 

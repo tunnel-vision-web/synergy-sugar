@@ -284,3 +284,4 @@ Content Ideas:
 ---
 
 *Strategy created to position you as a full-service brand designer, communication strategist, and frontend developer*
+ 

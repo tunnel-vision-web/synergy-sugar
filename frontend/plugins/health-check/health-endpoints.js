@@ -211,3 +211,4 @@ function formatDuration(ms) {
 }
 
 module.exports = setupHealthEndpoints;
+ 

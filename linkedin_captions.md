@@ -417,3 +417,4 @@ Technical decisions enable design decisions. Architecture enables experience.
 ---
 
 *Captions crafted to showcase YOUR complete creative and technical ownership of the Synergy Bravo ERP project*
+ 
