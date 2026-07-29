@@ -2768,6 +2768,104 @@
   }
 
   </script>
+<script>
+
+  window.openAuthModal = function(mode) {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      if (typeof window.switchAuthTab === 'function') {
+        window.switchAuthTab(mode || 'signin');
+      }
+    }
+  };
+  window.openSignInModal = window.openAuthModal;
+
+  window.closeSignInModal = function() {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.switchAuthTab = function(mode) {
+    const signInForm = document.getElementById('signInForm');
+    const registerForm = document.getElementById('registerForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const authMessage = document.getElementById('authMessage');
+
+    if (authMessage) authMessage.style.display = 'none';
+
+    if (mode === 'register') {
+      if (signInForm) signInForm.style.display = 'none';
+      if (registerForm) registerForm.style.display = 'block';
+      if (modalTitle) modalTitle.textContent = 'Create an Account';
+      if (modalSubtitle) modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
+    } else {
+      if (signInForm) signInForm.style.display = 'block';
+      if (registerForm) registerForm.style.display = 'none';
+      if (modalTitle) modalTitle.textContent = 'Welcome Back';
+      if (modalSubtitle) modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
+    }
+  };
+
+  window.toggleModalPassword = function(inputId, iconEl) {
+    const input = document.getElementById(inputId);
+    if (input) {
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (iconEl) iconEl.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        if (iconEl) iconEl.textContent = '👁';
+      }
+    }
+  };
+
+  window.handleSignIn = function(e) {
+    e.preventDefault();
+    const authMessage = document.getElementById('authMessage');
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#166534';
+    authMessage.style.color = '#f8fafc';
+    authMessage.style.border = '1px solid #22c55e';
+    authMessage.textContent = 'Signed in successfully! Redirecting...';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1200);
+  };
+
+  window.handleRegister = function(e) {
+    e.preventDefault();
+    const password = document.getElementById('reg-password').value;
+    const confirm = document.getElementById('reg-confirm-password').value;
+    const authMessage = document.getElementById('authMessage');
+    
+    if (password !== confirm) {
+      authMessage.style.display = 'block';
+      authMessage.style.background = '#991b1b';
+      authMessage.style.color = '#f8fafc';
+      authMessage.style.border = '1px solid #ef4444';
+      authMessage.textContent = 'Passwords do not match. Please verify and try again.';
+      return;
+    }
+
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#166534';
+    authMessage.style.color = '#f8fafc';
+    authMessage.style.border = '1px solid #22c55e';
+    authMessage.textContent = 'Account created successfully! Welcome to Synergy Bravo ERP.';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1500);
+  };
+
+</script>
 </body>
 </html>
  
