@@ -13,35 +13,97 @@
   <link href="https://fonts.cdnfonts.com/css/sansation" rel="stylesheet">
 
   <style>
-    :root{
-      --primary:#f6dd0d;
-      --secondary:#686fb4;
-      --gray:#e0e0e0;
-      --text:#5a5a5a;
-      --text-strong:#3b3b3b;
-      --header-gray:#777;
-      --bg:#fafafa;
-      --border:#ddd;
-      --radius:10px;
-      --shadow-hover:0 4px 12px rgba(0,0,0,.08);
-      --headerH:72px;
+    :root {
+      --primary: #f6dd0d;
+      --secondary: #686fb4;
+      --gray: #64748b;
+      --text: #94a3b8;
+      --text-strong: #f8fafc;
+      --header-gray: #cbd5e1;
+      --bg: #101915;
+      --surface: #16221c;
+      --card-bg: #18251f;
+      --border: #283a31;
+      --radius: 8px;
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.4);
+      --headerH: 84px;
     }
-    body{margin:0;background:var(--bg);color:var(--text);font-family:'Roboto',system-ui,-apple-system,Segoe UI,Helvetica,Arial}
-    *,*::before,*::after{box-sizing:border-box}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
 
     /* HEADER */
-    .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:#fff;border-bottom:1px solid var(--border)}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;width:min(1200px,92vw);margin:0 auto;height:var(--headerH);padding:8px 0}
-    .logo img.black{display:block;height:54px}
-    .nav{display:flex;gap:22px;font-size:.95rem;font-weight:500}
-    .nav a{color:#444;text-decoration:none;transition:color .2s}
-    .nav a:hover{color:var(--secondary)}
-    .header-cta{display:flex;gap:10px;align-items:center}
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: #16221c;
+      border-bottom: 1px solid #283a31;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      height: var(--headerH);
+      padding: 8px 0;
+    }
+    .logo img {
+      height: 66px;
+      display: block;
+      transition: height 0.3s ease;
+    }
+    .nav {
+      display: flex;
+      gap: 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .nav a {
+      color: #e2e8f0;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav a:hover {
+      color: var(--primary);
+    }
+    .header-cta { display: flex; gap: 12px; align-items: center; }
 
-    .btn{border:none;border-radius:3px;font-weight:600;cursor:pointer;transition:all .2s ease;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;color:#fff;background:#f6dd0d;padding:9px 18px;font-size:.9rem}
-    .btn:hover{background:#686fb4;color:#fff}
-    .btn-light{background:#fff;color:#444;border-radius:3px}
-    .btn-light:hover{background:#686fb4;color:#fff}
+    .btn {
+      border: none;
+      border-radius: 3px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #16201c;
+      background: var(--primary);
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+    .btn:hover {
+      background: #ffe436;
+      box-shadow: 0 4px 14px rgba(246, 221, 13, 0.4);
+    }
+    .btn-light {
+      background: rgba(255,255,255,0.08);
+      color: #f8fafc;
+      border: 1px solid #283a31;
+      border-radius: 3px;
+    }
+    .btn-light:hover {
+      background: var(--primary);
+      color: #16201c;
+    }
 
     /* HERO */
     .hero{padding-top:calc(var(--headerH) + 20px);padding-bottom:18px;text-align:left}
@@ -399,737 +461,61 @@
     object-fit: contain !important;
   }
 
+
+    /* DARK THEME OVERRIDES */
+    .hero-content h1 { color: #f8fafc !important; }
+    .card, .appointment-card, .calendar-section, .booking-summary, .form-container {
+      background: #18251f !important;
+      border: 1px solid #283a31 !important;
+      color: #f8fafc !important;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25) !important;
+    }
+    .card h3, .calendar-header h2, .summary-value, .form-group label {
+      color: #f8fafc !important;
+    }
+    .appointment-card-header {
+      background: #1f3129 !important;
+      border-bottom: 2px solid var(--primary) !important;
+    }
+    .appointment-title {
+      color: var(--primary) !important;
+    }
+    .appointment-card-body, .description, .meta-item, .summary-label, .breadcrumb {
+      color: #94a3b8 !important;
+    }
+    .breadcrumb a { color: var(--primary) !important; }
+    .calendar-day, .time-slot {
+      background: #101915 !important;
+      border-color: #283a31 !important;
+      color: #f8fafc !important;
+    }
+    .calendar-day:not(.disabled):hover, .time-slot:hover {
+      background: var(--primary) !important;
+      color: #16201c !important;
+    }
+    .calendar-day.selected, .time-slot.selected {
+      background: var(--secondary) !important;
+      color: #ffffff !important;
+    }
+    .calendar-day.today {
+      border-color: var(--primary) !important;
+      color: var(--primary) !important;
+    }
+    .filter-tab { color: #94a3b8 !important; }
+    .filter-tab:hover { color: #f8fafc !important; background: rgba(255,255,255,0.05) !important; }
+    .filter-tab.active { color: var(--primary) !important; }
+    .form-group input, .form-group textarea, .form-group select {
+      background: #101915 !important;
+      border: 1px solid #283a31 !important;
+      color: #f8fafc !important;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 3px rgba(246, 221, 13, 0.2) !important;
+    }
+    .site-footer {
+      background: #0c1310 !important;
+      border-top: 1px solid #1c2b24 !important;
+    }
+
 </style>
-</head>
-<body>
-
-<!-- HEADER -->
-<header class="site-header">
-  <div class="header-inner">
-    <div class="logo">
-      <img src="assets/images/Synergy-logo-sugar-web-black.png" alt="Synergy Bravo ERP" class="black">
-    </div>
-    <nav class="nav">
-      <a href="landing_enhanced.html">Home</a>
-      <a href="landing_enhanced.html#features">Apps</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="help.html">Help</a>
-    </nav>
-    <div class="header-cta">
-      <a href="landing_enhanced.html" class="btn btn-light">Back to Home</a>
-      <!-- Hamburger Menu Button -->
-      <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </header>
-
-<!-- PAGE 1: APPOINTMENT TYPE SELECTION -->
-<div id="page-selection" class="page-view active">
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Request a Demo</h1>
-      <p style="font-size:1.1rem;color:var(--text);margin-top:8px;">Choose the type of appointment that best fits your needs</p>
-    </div>
-  </section>
-
-  <div class="page">
-    <section class="apps-area">
-      <div class="filter-tabs">
-        <button class="filter-tab active" data-filter="all">All Appointments</button>
-        <button class="filter-tab" data-filter="demo">Demos</button>
-        <button class="filter-tab" data-filter="consultation">Consultations</button>
-        <button class="filter-tab" data-filter="technical">Technical</button>
-      </div>
-
-      <div class="appointment-grid" id="appointmentGrid">
-        <!-- Cards will be generated by JavaScript -->
-      </div>
-    </section>
-  </div>
-</div>
-
-<!-- PAGE 2: Calendar & Time Selection -->
-<div id="page-calendar" class="page-view">
-  <section class="hero">
-    <div class="hero-content">
-      <div class="breadcrumb">
-        <a href="#" id="back-to-selection">← Appointments</a>
-        <span>/</span>
-        <span id="appointment-type-title">Select Date & Time</span>
-      </div>
-      <h1 id="calendar-title">Select Date & Time</h1>
-    </div>
-  </section>
-
-  <div class="page">
-    <section class="apps-area">
-      <!-- Requested Appointment Box -->
-      <div class="requested-appointment-box" style="max-width:800px;margin:0 auto 24px;">
-        <div class="requested-appointment-label">Requested Appointment:</div>
-        <div class="requested-appointment-value" id="requested-apt-title">-</div>
-        <div class="requested-appointment-duration" id="requested-apt-duration">-</div>
-      </div>
-      
-      <div class="booking-container">
-        <div class="calendar-section">
-          <!-- Location Toggle -->
-          <div class="location-toggle">
-            <button class="location-option active" data-location="online">
-              <svg viewBox="0 0 24 24" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:4px;fill:currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-              </svg>
-              Online
-            </button>
-            <button class="location-option" data-location="in-person">
-              <svg viewBox="0 0 24 24" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:4px;fill:currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              In-Person
-            </button>
-          </div>
-
-          <div class="calendar-header">
-            <h2 id="current-month">December 2024</h2>
-            <div class="calendar-nav">
-              <button id="prev-month">←</button>
-              <button id="next-month">→</button>
-            </div>
-          </div>
-
-          <div class="calendar-grid" id="calendar-grid">
-            <!-- Calendar will be generated by JavaScript -->
-          </div>
-
-          <div class="time-slots" id="time-slots-container" style="display:none;">
-            <h3>Available Times</h3>
-            <div class="slots-grid" id="time-slots">
-              <!-- Time slots will be generated by JavaScript -->
-            </div>
-          </div>
-        </div>
-
-        <div class="booking-summary">
-          <h3>Booking Summary</h3>
-          <div class="summary-item">
-            <div class="summary-label">Appointment Type</div>
-            <div class="summary-value" id="summary-type">-</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Location</div>
-            <div class="summary-value" id="summary-location">Online</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Duration</div>
-            <div class="summary-value" id="summary-duration">-</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Date</div>
-            <div class="summary-value" id="summary-date">Select a date</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Time</div>
-            <div class="summary-value" id="summary-time">Select a time</div>
-          </div>
-          <button class="btn-confirm" id="btn-next-to-form" disabled>Continue to Details</button>
-        </div>
-      </div>
-    </section>
-  </div>
-</div>
-
-<!-- PAGE 3: Contact Information Form -->
-<div id="page-form" class="page-view">
-  <section class="hero">
-    <div class="hero-content">
-      <div class="breadcrumb">
-        <a href="#" id="back-to-calendar">← Back</a>
-        <span>/</span>
-        <span>Your Information</span>
-      </div>
-      <h1>Complete Your Booking</h1>
-    </div>
-  </section>
-
-  <div class="page">
-    <section class="apps-area">
-      <!-- Requested Appointment Box -->
-      <div class="requested-appointment-box" style="max-width:600px;margin:0 auto 24px;">
-        <div class="requested-appointment-label">Requested Appointment:</div>
-        <div class="requested-appointment-value" id="requested-apt-title-form">-</div>
-        <div class="requested-appointment-duration" id="requested-apt-duration-form">-</div>
-      </div>
-      
-      <div class="form-container">
-        <form id="booking-form">
-          <div class="form-group">
-            <label for="form-name">Full Name *</label>
-            <input type="text" id="form-name" required placeholder="John Doe">
-          </div>
-          <div class="form-group">
-            <label for="form-email">Email Address *</label>
-            <input type="email" id="form-email" required placeholder="john@example.com">
-          </div>
-          <div class="form-group">
-            <label for="form-phone">Phone Number</label>
-            <input type="tel" id="form-phone" placeholder="+1 (555) 123-4567">
-          </div>
-          <div class="form-group">
-            <label for="form-organization">Organization</label>
-            <input type="text" id="form-organization" placeholder="Your Company Name">
-          </div>
-          <div class="form-group">
-            <label for="form-notes">Additional Notes</label>
-            <textarea id="form-notes" placeholder="Tell us more about your needs..."></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-back" id="back-to-calendar-btn">Back</button>
-            <button type="submit" class="btn btn-submit">Confirm Booking</button>
-          </div>
-        </form>
-      </div>
-    </section>
-  </div>
-</div>
-
-<!-- PAGE 4: Confirmation -->
-<div id="page-confirmation" class="page-view">
-  <section class="hero">
-    <div class="hero-content">
-      <h1 style="text-align:center;">Booking Confirmed!</h1>
-    </div>
-  </section>
-
-  <div class="page">
-    <section class="apps-area">
-      <div class="confirmation-container">
-        <div class="confirmation-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-          </svg>
-        </div>
-        <h2 class="confirmation-title">Thank You!</h2>
-        <p class="confirmation-message">Your appointment has been successfully booked. You will receive a confirmation email shortly with the meeting details and calendar invite.</p>
-        
-        <!-- Requested Appointment Box -->
-        <div class="requested-appointment-box" style="margin:24px 0;">
-          <div class="requested-appointment-label">Requested Appointment:</div>
-          <div class="requested-appointment-value" id="requested-apt-title-confirm">-</div>
-          <div class="requested-appointment-duration" id="requested-apt-duration-confirm">-</div>
-        </div>
-        
-        <div class="confirmation-details">
-          <div class="detail-row">
-            <span class="detail-label">Appointment:</span>
-            <span class="detail-value" id="confirm-type">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Location:</span>
-            <span class="detail-value" id="confirm-location">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Duration:</span>
-            <span class="detail-value" id="confirm-duration">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Date:</span>
-            <span class="detail-value" id="confirm-date">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Time:</span>
-            <span class="detail-value" id="confirm-time">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Name:</span>
-            <span class="detail-value" id="confirm-name">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Email:</span>
-            <span class="detail-value" id="confirm-email">-</span>
-          </div>
-        </div>
-
-        <button class="btn" id="btn-book-another">Book Another Appointment</button>
-      </div>
-    </section>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="footer-logo" style="display: flex !important; justify-content: center !important; align-items: center !important; margin: 0 auto 28px auto !important; width: 100% !important; text-align: center !important;"><img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" style="height: 54px !important; margin: 0 auto !important; display: block !important;"></div>
-  <div class="footer-columns">
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="landing_enhanced.html">Home</a></li>
-        <li><a href="landing_enhanced.html#features">Features</a></li>
-        <li><a href="pricing.html">Pricing</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul>
-        <li><a href="help.html">Help Center</a></li>
-        <li><a href="appointment.html">Contact</a></li>
-        <li><a href="help.html">Documentation</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-        <li><a href="#">Security</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">     
-      <h4>Connect with us</h4>
-      <div class="footer-social">
-        <a href="#" class="facebook" title="Facebook">
-          <svg viewBox="0 0 24 24">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-          </svg>
-        </a>
-        <a href="#" class="twitter" title="X (Twitter)">
-          <svg viewBox="0 0 24 24">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-        </a>
-        <a href="#" class="youtube" title="YouTube">
-          <svg viewBox="0 0 24 24">
-            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-          </svg>
-        </a>
-        <a href="#" class="instagram" title="Instagram">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-          </svg>
-        </a>
-        <a href="#" class="tiktok" title="TikTok">
-          <svg viewBox="0 0 24 24">
-            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-// ========== CONFIGURATION ==========
-// Add your Google Calendar API credentials and technician emails here
-const GOOGLE_CALENDAR_CONFIG = {
-  apiKey: 'YOUR_API_KEY_HERE', // Replace with your Google API key
-  clientId: 'YOUR_CLIENT_ID_HERE', // Replace with your OAuth client ID
-  technicians: [
-    'technician1@yourdomain.com',
-    'technician2@yourdomain.com',
-    'technician3@yourdomain.com'
-  ]
-};
-
-// ========== STATE MANAGEMENT ==========
-const bookingState = {
-  appointmentType: '',
-  appointmentTitle: '',
-  duration: '',
-  location: 'online', // 'online' or 'in-person'
-  selectedDate: null,
-  selectedTime: null,
-  currentMonth: new Date().getMonth(),
-  currentYear: new Date().getFullYear(),
-  userInfo: {}
-};
-
-const appointmentTypes = {
-  demo: { title: 'Product Demo', duration: '45 minutes', category: 'demo', description: 'See our platform in action. Perfect for understanding how Synergy Bravo ERP can transform your sugar farming operations.' },
-  consultation: { title: 'Strategy Consultation', duration: '60 minutes', category: 'consultation', description: 'Deep dive into your specific needs. We will explore how our solutions align with your business goals and challenges.' },
-  technical: { title: 'Technical Setup Session', duration: '30 minutes', category: 'technical', description: 'Get technical guidance for implementation. Perfect for IT teams ready to integrate our system.' },
-  training: { title: 'Team Training Workshop', duration: '90 minutes', category: 'demo', description: 'Comprehensive training for your team. Learn best practices and advanced features to maximize productivity.' },
-  enterprise: { title: 'Enterprise Solution Design', duration: '120 minutes', category: 'consultation', description: 'Custom solution architecture for large-scale operations. Tailored to your enterprise requirements.' },
-  quickstart: { title: 'Quick Start Session', duration: '20 minutes', category: 'demo', description: 'Fast-track introduction for small teams. Get up and running quickly with essential features.' }
-};
-
-// Available time slots (24-hour format)
-const timeSlots = [
-  '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-  '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-  '15:00', '15:30', '16:00', '16:30', '17:00'
-];
-
-// ========== GOOGLE CALENDAR INTEGRATION ==========
-// NOTE: For production, you will need to implement OAuth2 flow
-// This is a placeholder function - implement actual Google Calendar API calls
-async function fetchAvailableTimes(date, location) {
-  // TODO: Implement Google Calendar API integration
-  // For now, return mock available times (exclude random slots)
-  
-  const available = timeSlots.filter(() => Math.random() > 0.3);
-  return available;
-}
-
-// ========== PAGE NAVIGATION ==========
-function showPage(pageName) {
-  document.querySelectorAll('.page-view').forEach(page => {
-    page.classList.remove('active');
-  });
-  document.getElementById(`page-${pageName}`).classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-// ========== PAGE 1: APPOINTMENT TYPE SELECTION ==========
-function renderAppointmentCards(filter = 'all') {
-  const grid = document.getElementById('appointmentGrid');
-  grid.innerHTML = '';
-  
-  Object.entries(appointmentTypes).forEach(([key, apt]) => {
-    if (filter !== 'all' && apt.category !== filter) return;
-    
-    const card = document.createElement('div');
-    card.className = 'appointment-card';
-    card.innerHTML = `
-      <div class="appointment-card-header">
-        <h3 class="appointment-title">${apt.title}</h3>
-        <div class="appointment-meta">
-          <div class="meta-item">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="12" r="2"/>
-              <path d="M16.24 7.76A6 6 0 0 1 19.07 16H5a6 6 0 1 1 11.24-8.24z"/>
-            </svg>
-            ${apt.duration}
-          </div>
-          <div class="meta-item online">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-            </svg>
-            Online/In-Person
-          </div>
-        </div>
-      </div>
-      <div class="appointment-card-body">
-        <div class="description">${apt.description}</div>
-        <button class="book-btn">Schedule Appointment</button>
-      </div>
-    `;
-    
-    card.querySelector('.book-btn').addEventListener('click', () => {
-      bookingState.appointmentType = key;
-      bookingState.appointmentTitle = apt.title;
-      bookingState.duration = apt.duration;
-      
-      document.getElementById('summary-type').textContent = apt.title;
-      document.getElementById('summary-duration').textContent = apt.duration;
-      document.getElementById('calendar-title').textContent = apt.title;
-      
-      // Update requested appointment boxes
-      document.getElementById('requested-apt-title').textContent = apt.title;
-      document.getElementById('requested-apt-duration').textContent = apt.duration;
-      
-      showPage('calendar');
-      renderCalendar();
-    });
-    
-    grid.appendChild(card);
-  });
-}
-
-// Filter tabs
-document.querySelectorAll('.filter-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    renderAppointmentCards(tab.dataset.filter);
-  });
-});
-
-// ========== PAGE 2: CALENDAR ==========
-function renderCalendar() {
-  const grid = document.getElementById('calendar-grid');
-  grid.innerHTML = '';
-  
-  const firstDay = new Date(bookingState.currentYear, bookingState.currentMonth, 1).getDay();
-  const daysInMonth = new Date(bookingState.currentYear, bookingState.currentMonth + 1, 0).getDate();
-  const today = new Date();
-  
-  // Empty cells before first day
-  for (let i = 0; i < firstDay; i++) {
-    const empty = document.createElement('div');
-    empty.className = 'calendar-day disabled';
-    grid.appendChild(empty);
-  }
-  
-  // Days
-  for (let day = 1; day <= daysInMonth; day++) {
-    const date = new Date(bookingState.currentYear, bookingState.currentMonth, day);
-    const dayElement = document.createElement('div');
-    dayElement.className = 'calendar-day';
-    dayElement.textContent = day;
-    
-    // Disable past dates
-    if (date < today.setHours(0,0,0,0)) {
-      dayElement.classList.add('disabled');
-    } else {
-      if (date.toDateString() === new Date().toDateString()) {
-        dayElement.classList.add('today');
-      }
-      dayElement.addEventListener('click', function() {
-        selectDate(date, this);
-      });
-    }
-    
-    grid.appendChild(dayElement);
-  }
-  
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                      'July', 'August', 'September', 'October', 'November', 'December'];
-  document.getElementById('current-month').textContent = 
-    `${monthNames[bookingState.currentMonth]} ${bookingState.currentYear}`;
-}
-
-async function selectDate(date, element) {
-  bookingState.selectedDate = date;
-  bookingState.selectedTime = null;
-  
-  document.querySelectorAll('.calendar-day').forEach(day => {
-    day.classList.remove('selected');
-  });
-  element.classList.add('selected');
-  
-  const options = { month: 'short', day: 'numeric', year: 'numeric' };
-  document.getElementById('summary-date').textContent = date.toLocaleDateString('en-US', options);
-  document.getElementById('summary-time').textContent = 'Select a time';
-  
-  // Fetch and render available times
-  await renderTimeSlots();
-  document.getElementById('time-slots-container').style.display = 'block';
-  document.getElementById('btn-next-to-form').disabled = true;
-}
-
-async function renderTimeSlots() {
-  const container = document.getElementById('time-slots');
-  container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text);">Loading available times...</div>';
-  
-  // Fetch available times from Google Calendar
-  const availableTimes = await fetchAvailableTimes(bookingState.selectedDate, bookingState.location);
-  
-  container.innerHTML = '';
-  
-  timeSlots.forEach(time => {
-    const slot = document.createElement('div');
-    slot.className = 'time-slot';
-    
-    // Convert to 12-hour format
-    const [hours, minutes] = time.split(':');
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const displayHour = hour % 12 || 12;
-    slot.textContent = `${displayHour}:${minutes} ${ampm}`;
-    
-    // Check if time is available
-    if (!availableTimes.includes(time)) {
-      slot.classList.add('disabled');
-    } else {
-      slot.addEventListener('click', function() {
-        selectTime(time, this);
-      });
-    }
-    
-    container.appendChild(slot);
-  });
-}
-
-function selectTime(time, element) {
-  bookingState.selectedTime = time;
-  
-  document.querySelectorAll('.time-slot').forEach(slot => {
-    slot.classList.remove('selected');
-  });
-  element.classList.add('selected');
-  
-  const [hours, minutes] = time.split(':');
-  const hour = parseInt(hours);
-  const ampm = hour >= 12 ? 'PM' : 'AM';
-  const displayHour = hour % 12 || 12;
-  document.getElementById('summary-time').textContent = `${displayHour}:${minutes} ${ampm}`;
-  
-  document.getElementById('btn-next-to-form').disabled = false;
-}
-
-// Location toggle
-document.querySelectorAll('.location-option').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.location-option').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    bookingState.location = this.dataset.location;
-    
-    const locationText = bookingState.location === 'online' ? 'Online' : 'In-Person';
-    document.getElementById('summary-location').textContent = locationText;
-    
-    // Refresh time slots with new location
-    if (bookingState.selectedDate) {
-      renderTimeSlots();
-    }
-  });
-});
-
-// Calendar navigation
-document.getElementById('prev-month').addEventListener('click', () => {
-  bookingState.currentMonth--;
-  if (bookingState.currentMonth < 0) {
-    bookingState.currentMonth = 11;
-    bookingState.currentYear--;
-  }
-  renderCalendar();
-});
-
-document.getElementById('next-month').addEventListener('click', () => {
-  bookingState.currentMonth++;
-  if (bookingState.currentMonth > 11) {
-    bookingState.currentMonth = 0;
-    bookingState.currentYear++;
-  }
-  renderCalendar();
-});
-
-// Navigation buttons
-document.getElementById('back-to-selection').addEventListener('click', (e) => {
-  e.preventDefault();
-  showPage('selection');
-});
-
-document.getElementById('btn-next-to-form').addEventListener('click', () => {
-  // Update form page requested appointment box
-  document.getElementById('requested-apt-title-form').textContent = bookingState.appointmentTitle;
-  document.getElementById('requested-apt-duration-form').textContent = bookingState.duration;
-  
-  showPage('form');
-});
-
-// ========== PAGE 3: CONTACT FORM ==========
-document.getElementById('back-to-calendar').addEventListener('click', (e) => {
-  e.preventDefault();
-  showPage('calendar');
-});
-
-document.getElementById('back-to-calendar-btn').addEventListener('click', () => {
-  showPage('calendar');
-});
-
-document.getElementById('booking-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  
-  bookingState.userInfo = {
-    name: document.getElementById('form-name').value,
-    email: document.getElementById('form-email').value,
-    phone: document.getElementById('form-phone').value,
-    organization: document.getElementById('form-organization').value,
-    notes: document.getElementById('form-notes').value
-  };
-  
-  // Update confirmation page
-  document.getElementById('confirm-type').textContent = bookingState.appointmentTitle;
-  document.getElementById('confirm-location').textContent = bookingState.location === 'online' ? 'Online' : 'In-Person';
-  document.getElementById('confirm-duration').textContent = bookingState.duration;
-  
-  // Update requested appointment box on confirmation page
-  document.getElementById('requested-apt-title-confirm').textContent = bookingState.appointmentTitle;
-  document.getElementById('requested-apt-duration-confirm').textContent = bookingState.duration;
-  
-  const options = { month: 'short', day: 'numeric', year: 'numeric' };
-  document.getElementById('confirm-date').textContent = 
-    bookingState.selectedDate.toLocaleDateString('en-US', options);
-  
-  const [hours, minutes] = bookingState.selectedTime.split(':');
-  const hour = parseInt(hours);
-  const ampm = hour >= 12 ? 'PM' : 'AM';
-  const displayHour = hour % 12 || 12;
-  document.getElementById('confirm-time').textContent = `${displayHour}:${minutes} ${ampm}`;
-  
-  document.getElementById('confirm-name').textContent = bookingState.userInfo.name;
-  document.getElementById('confirm-email').textContent = bookingState.userInfo.email;
-  
-  // Prepare booking data for email/CRM integration
-  const bookingData = {
-    appointmentType: bookingState.appointmentType,
-    appointmentTitle: bookingState.appointmentTitle,
-    duration: bookingState.duration,
-    location: bookingState.location === 'online' ? 'Online' : 'In-Person',
-    date: bookingState.selectedDate.toLocaleDateString('en-US', options),
-    time: `${displayHour}:${minutes} ${ampm}`,
-    customerInfo: {
-      name: bookingState.userInfo.name,
-      email: bookingState.userInfo.email,
-      phone: bookingState.userInfo.phone,
-      organization: bookingState.userInfo.organization,
-      notes: bookingState.userInfo.notes
-    }
-  };
-  
-  // TODO: Send booking data to backend/Google Calendar/CRM
-  console.log('Booking Data for CRM/Email:', bookingData);
-  
-  showPage('confirmation');
-});
-
-// ========== PAGE 4: CONFIRMATION ==========
-document.getElementById('btn-book-another').addEventListener('click', () => {
-  document.getElementById('booking-form').reset();
-  bookingState.selectedDate = null;
-  bookingState.selectedTime = null;
-  bookingState.currentMonth = new Date().getMonth();
-  bookingState.currentYear = new Date().getFullYear();
-  showPage('selection');
-});
-
-// Initialize
-renderAppointmentCards();
-
-  // Hamburger menu toggle
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mainNav = document.querySelector('.main-nav');
-  const authActions = document.querySelector('.auth-actions');
-  
-  if (hamburgerBtn) {
-    // Create overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'mobile-menu-overlay';
-    document.body.appendChild(overlay);
-    
-    hamburgerBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      hamburgerBtn.classList.toggle('active');
-      mainNav.classList.toggle('active');
-      authActions.classList.toggle('active');
-      overlay.classList.toggle('active');
-      document.body.style.overflow = hamburgerBtn.classList.contains('active') ? 'hidden' : '';
-    });
-    
-    // Close menu when clicking overlay
-    overlay.addEventListener('click', function() {
-      hamburgerBtn.classList.remove('active');
-      mainNav.classList.remove('active');
-      authActions.classList.remove('active');
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-    
-    // Close menu when clicking nav links
-    const navLinks = mainNav.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        hamburgerBtn.classList.remove('active');
-        mainNav.classList.remove('active');
-        authActions.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    });
-  }
-
-  </script>
-</body>
-</html>
- 

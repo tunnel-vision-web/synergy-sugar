@@ -516,6 +516,26 @@
     .app-card:hover .app-btn:nth-child(4){ transition-delay: 0.4s; }
     
 
+
+    /* Clear Selections Button */
+    .btn-clear-selections {
+      background: rgba(246, 221, 13, 0.12) !important;
+      border: 1px solid #f6dd0d !important;
+      color: #f6dd0d !important;
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      border-radius: 4px !important;
+      padding: 4px 12px !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      outline: none !important;
+    }
+    .btn-clear-selections:hover {
+      background: #f6dd0d !important;
+      color: #16201c !important;
+      box-shadow: 0 0 12px rgba(246, 221, 13, 0.4) !important;
+    }
+
     /* Top-Left Select Checkbox in App Cards */
     .app-select-wrapper {
       position: absolute;
@@ -2619,7 +2639,12 @@ a.btn-request-demo:hover {
         <!-- Apps panel with modern sorting feature -->
         <div class="col-lg-8" id="apps">
           <div class="panel-card h-100">
-            <div class="panel-header">Sugar Farming Industry Apps</div>
+            <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between;">
+                <span>Sugar Farming Industry Apps</span>
+                <button id="clearSelectionsBtn" class="btn-clear-selections" style="display: none;">
+                  Clear Selections (<span id="selectCount">0</span>)
+                </button>
+              </div>
             <div class="panel-body">
               <!-- Search Field -->
               <div class="apps-search-wrapper">
@@ -3790,22 +3815,86 @@ a.btn-request-demo:hover {
   });
 
 
-  // Top-Left App Select Checkbox Handler
+
+  // ==========================================================================
+  // TOP-LEFT APP SELECT CHECKBOX & DATA PASSING TO APPOINTMENT PAGE
+  // ==========================================================================
   document.addEventListener('DOMContentLoaded', function() {
     const selectCheckboxes = document.querySelectorAll('.app-select-checkbox');
-    selectCheckboxes.forEach(cb => {
-      cb.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const card = this.closest('.app-card');
+    const clearSelectionsBtn = document.getElementById('clearSelectionsBtn');
+    const selectCountEl = document.getElementById('selectCount');
+
+    function updateSelectedModules() {
+      const selected = [];
+      selectCheckboxes.forEach(cb => {
+        const card = cb.closest('.app-card');
         if (card) {
-          if (this.checked) {
+          const appName = card.getAttribute('data-name');
+          if (cb.checked) {
             card.classList.add('selected');
+            if (appName) selected.push(appName);
           } else {
             card.classList.remove('selected');
           }
         }
       });
+
+      // Update UI Count & Clear Button
+      if (selectCountEl) selectCountEl.textContent = selected.length;
+      if (clearSelectionsBtn) {
+        clearSelectionsBtn.style.display = selected.length > 0 ? 'inline-block' : 'none';
+      }
+
+      // Save to localStorage
+      localStorage.setItem('synergy_selected_modules', JSON.stringify(selected));
+
+      # Update all "Request Demo" links on the page to pass modules parameter
+      const demoLinks = document.querySelectorAll('a[href*="appointment.html"]');
+      demoLinks.forEach(link => {
+        if (selected.length > 0) {
+          const encodedModules = encodeURIComponent(selected.join(','));
+          link.href = 'appointment.html?modules=' + encodedModules;
+        } else {
+          link.href = 'appointment.html';
+        }
+      });
+    }
+
+    // Checkbox Click Listeners
+    selectCheckboxes.forEach(cb => {
+      cb.addEventListener('click', function(e) {
+        e.stopPropagation();
+        updateSelectedModules();
+      });
     });
+
+    // Clear Selections Button Listener
+    if (clearSelectionsBtn) {
+      clearSelectionsBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectCheckboxes.forEach(cb => {
+          cb.checked = false;
+          const card = cb.closest('.app-card');
+          if (card) card.classList.remove('selected');
+        });
+        updateSelectedModules();
+      });
+    }
+
+    // Restore any existing selections from localStorage on page load
+    try {
+      const saved = JSON.parse(localStorage.getItem('synergy_selected_modules') || '[]');
+      if (Array.isArray(saved) && saved.length > 0) {
+        selectCheckboxes.forEach(cb => {
+          const card = cb.closest('.app-card');
+          if (card && saved.includes(card.getAttribute('data-name'))) {
+            cb.checked = true;
+          }
+        });
+        updateSelectedModules();
+      }
+    } catch(err) {}
   });
+
 
 </script>
