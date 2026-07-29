@@ -129,18 +129,30 @@
       height: var(--slide-height);
       overflow: hidden;
     }
-    .hero-slide{
+    .hero-slide {
       position: absolute;
       inset: 0;
       background-size: cover;
       background-position: center;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 2.5s ease-in-out, visibility 2.5s ease-in-out;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
+      z-index: 1;
     }
-    .hero-slide.active{ 
+    .hero-slide.active { 
       opacity: 1;
       visibility: visible;
+      z-index: 2;
+    }
+    .hero-arrow {
+      z-index: 10 !important;
+      cursor: pointer !important;
+    }
+    .hero-dots {
+      z-index: 10 !important;
+    }
+    .hero-dot {
+      cursor: pointer !important;
     }
 
     .hero-overlay{
@@ -369,15 +381,15 @@
       gap: 20px;
       min-height: 500px;
     }
-    .app-card{
+    .app-card {
       position: relative;
-      border: 2px solid rgba(246, 221, 13, 0.3);
-      border-radius: 3px;
+      border: 1px solid #2d4239 !important;
+      border-radius: 8px !important;
       padding: 24px 16px;
       text-align: center;
-      background: linear-gradient(135deg, #ffffff 0%, #f9f9fb 100%);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: #18251f !important; /* Dark sage container - NO white box */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
       overflow: hidden;
       cursor: pointer;
       height: 100%;
@@ -385,6 +397,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+    }
+    .app-card:hover {
+      background: #1f3129 !important;
+      border-color: #f6dd0d !important;
+      transform: translateY(-6px) !important;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4) !important;
+    }
+    .app-card-name {
+      color: #f8fafc !important; /* White crisp label */
     }
     .app-card::before{
       content: '';
@@ -3615,6 +3636,102 @@ a.btn-request-demo:hover {
         }
       });
     });
+  });
+
+
+  // ==========================================================================
+  // HERO CAROUSEL CONTROLLER (AUTO-PLAY, PREV/NEXT ARROWS, DOTS)
+  // ==========================================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    const heroCarousel = document.getElementById('heroCarousel');
+    const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+    const heroPrev = document.getElementById('heroPrev');
+    const heroNext = document.getElementById('heroNext');
+    const heroDots = Array.from(document.querySelectorAll('.hero-dot'));
+
+    if (heroSlides.length === 0) return;
+
+    let currentHeroIdx = 0;
+    let heroTimer = null;
+    const AUTO_PLAY_DELAY = 5000; // 5 seconds per slide
+
+    function gotoHeroSlide(idx) {
+      currentHeroIdx = (idx + heroSlides.length) % heroSlides.length;
+
+      heroSlides.forEach((slide, i) => {
+        if (i === currentHeroIdx) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      heroDots.forEach((dot, i) => {
+        if (i === currentHeroIdx) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    function nextHeroSlide() {
+      gotoHeroSlide(currentHeroIdx + 1);
+    }
+
+    function prevHeroSlide() {
+      gotoHeroSlide(currentHeroIdx - 1);
+    }
+
+    function startHeroTimer() {
+      stopHeroTimer();
+      heroTimer = setInterval(nextHeroSlide, AUTO_PLAY_DELAY);
+    }
+
+    function stopHeroTimer() {
+      if (heroTimer) {
+        clearInterval(heroTimer);
+        heroTimer = null;
+      }
+    }
+
+    // Arrow Click Listeners
+    if (heroPrev) {
+      heroPrev.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        prevHeroSlide();
+        startHeroTimer();
+      });
+    }
+
+    if (heroNext) {
+      heroNext.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        nextHeroSlide();
+        startHeroTimer();
+      });
+    }
+
+    // Dot Click Listeners
+    heroDots.forEach(dot => {
+      dot.addEventListener('click', function(e) {
+        e.preventDefault();
+        const i = parseInt(this.getAttribute('data-i') || '0', 10);
+        gotoHeroSlide(i);
+        startHeroTimer();
+      });
+    });
+
+    // Pause auto-play on mouse enter, resume on mouse leave
+    if (heroCarousel) {
+      heroCarousel.addEventListener('mouseenter', stopHeroTimer);
+      heroCarousel.addEventListener('mouseleave', startHeroTimer);
+    }
+
+    // Start auto-play
+    startHeroTimer();
   });
 
 </script>
