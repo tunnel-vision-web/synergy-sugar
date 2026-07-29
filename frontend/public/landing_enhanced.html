@@ -1899,6 +1899,161 @@
     }
   }
 
+
+  /* ==========================================================================
+     HEADER & AUTH ACTIONS & MOBILE MENU SLIDE-IN DRAWER
+     ========================================================================== */
+  .site-header .inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 16px !important;
+    height: 72px !important;
+  }
+
+  .auth-actions,
+  .site-header .auth-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    z-index: 10002 !important;
+  }
+
+  .auth-actions .auth-signin {
+    color: #f8fafc !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+  }
+  .auth-actions .auth-signin:hover {
+    color: #f6dd0d !important;
+  }
+
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    z-index: 10005 !important;
+    margin-left: 12px !important;
+  }
+
+  .hamburger-menu span {
+    width: 100%;
+    height: 2.5px;
+    background-color: #f8fafc !important;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .hamburger-menu.active span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+  }
+  .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+  }
+
+  @media (max-width: 991.98px) {
+    .hamburger-menu {
+      display: flex !important;
+    }
+
+    /* Mobile Drawer: Closed by default (right: -100%), slides in from right when active */
+    .main-nav {
+      position: fixed !important;
+      top: 72px !important;
+      right: -100% !important;
+      left: auto !important;
+      width: 290px !important;
+      max-width: 85vw !important;
+      height: calc(100vh - 72px) !important;
+      background: #18251f !important; /* Solid Dark Sage Background */
+      border-left: 1px solid #364e43 !important;
+      box-shadow: -15px 0 35px rgba(0, 0, 0, 0.75) !important;
+      padding: 24px 18px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      justify-content: flex-start !important;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      z-index: 10000 !important;
+      overflow-y: auto !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+
+    .main-nav.active {
+      right: 0 !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .main-nav .nav-item {
+      display: block !important;
+      width: 100% !important;
+      margin: 4px 0 !important;
+      position: relative !important;
+    }
+
+    /* Crisp High-Contrast Mobile Menu Links */
+    .main-nav a,
+    .main-nav .nav-item > a {
+      color: #f8fafc !important;
+      background: #23342c !important; /* Dark Sage Card Surface */
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      padding: 14px 18px !important;
+      display: block !important;
+      width: 100% !important;
+      border: 1px solid #364e43 !important;
+      border-radius: 3px !important;
+      text-decoration: none !important;
+      text-align: left !important;
+      box-sizing: border-box !important;
+      margin-bottom: 8px !important;
+      transition: all 0.2s ease !important;
+    }
+
+    .main-nav a:hover,
+    .main-nav .nav-item > a:hover {
+      background: #f6dd0d !important; /* Gold Highlight */
+      color: #16201c !important;       /* Dark Text */
+      border-color: #f6dd0d !important;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(0, 0, 0, 0.75) !important;
+      backdrop-filter: blur(4px) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: all 0.3s ease !important;
+      z-index: 9999 !important;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -2448,790 +2603,10 @@
   
 
 
-  <script>
-    // Header behavior: transparent -> white .8, and logo swap if you like
-    (function(){
-      const header = document.getElementById('siteHeader');
-      const brandLogo = document.getElementById('brandLogo');
-      const whiteSrc = 'assets/images/Synergy-logo-sugar-web-white.png';
-      const blackSrc = 'assets/images/Synergy-logo-sugar-web-white.png';
-
-      function onScroll(){
-        const y = window.pageYOffset || document.documentElement.scrollTop;
-        if(y > 10){
-          header.classList.add('scrolled');
-          brandLogo.src = whiteSrc;
-        } else {
-          header.classList.remove('scrolled');
-          brandLogo.src = whiteSrc;
-        }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    })();
-
-    // Mega menu functionality - click to open/close
-    (function(){
-      const industriesLink = document.querySelector('.nav-item.has-dropdown > a');
-      const industriesItem = document.querySelector('.nav-item.has-dropdown');
-      const megaMenu = document.getElementById('industriesMenu');
-
-      if (industriesLink && megaMenu) {
-        industriesLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          // On mobile, slide out to the left
-          if (window.innerWidth <= 768) {
-            industriesItem.classList.toggle('active');
-          } 
-          // On desktop, toggle full mega menu
-          else {
-            megaMenu.classList.toggle('active');
-          }
-        });
-
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.mega-menu') && !e.target.closest('.nav-item.has-dropdown')) {
-        megaMenu.classList.remove('active');
-      }
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        megaMenu.classList.remove('active');
-      }
-    });
-  }
-})();
-
-    // Basic carousel helper (no external deps).
-    function makeCarousel(containerSel, options){
-      const root = document.querySelector(containerSel);
-      if(!root) return;
-      
-      // Fixed selector logic - now looks for direct children of specific carousels
-      let slides;
-      if (containerSel === '#heroCarousel') {
-        slides = Array.from(root.querySelectorAll('.hero-slide'));
-      } else if (containerSel === '#featuresCarousel') {
-        slides = Array.from(root.querySelectorAll('.features-slide'));
-      } else if (containerSel === '#testiCarousel') {
-        slides = Array.from(root.querySelectorAll('.testi-slide'));
-      } else {
-        // Fallback for any other carousels
-        slides = Array.from(root.querySelectorAll('.slide, .hero-slide, .features-slide, .testi-slide'))
-                      .filter(el => el.parentElement === root);
-      }
-      
-      if(slides.length === 0) return;
-
-      let index = 0;
-      const {
-        prevSel, nextSel, dotsSel, activeClass='active',
-        interval=6000, auto=true
-      } = options;
-
-      const prevBtn = prevSel ? document.querySelector(prevSel) : null;
-      const nextBtn = nextSel ? document.querySelector(nextSel) : null;
-      const dotsWrap = dotsSel ? document.querySelector(dotsSel) : null;
-      const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
-
-      function show(i){
-        index = (i + slides.length) % slides.length;
-        slides.forEach((s,idx)=> {
-          const isActive = idx===index;
-          s.classList.toggle(activeClass, isActive);
-          
-          // Restart title animations for hero slides
-          if(isActive && containerSel === '#heroCarousel'){
-            const titles = s.querySelectorAll('.hero-title-1, .hero-title-2, .hero-title-3');
-            titles.forEach(title => {
-              // Force animation restart by removing and re-adding
-              title.style.animation = 'none';
-              title.offsetHeight; // Trigger reflow
-              title.style.animation = '';
-            });
-          }
-        });
-        if(dots.length){
-          dots.forEach((d,idx)=> d.classList.toggle('active', idx===index));
-        }
-      }
-      function next(){ show(index+1); }
-      function prev(){ show(index-1); }
-
-      if(prevBtn) prevBtn.addEventListener('click', prev);
-      if(nextBtn) nextBtn.addEventListener('click', next);
-      if(dots.length){
-        dots.forEach((dot, i)=> dot.addEventListener('click', ()=> show(i)));
-      }
-
-      let timer=null;
-      function start(){
-        if(auto){
-          stop();
-          timer = setInterval(next, interval);
-        }
-      }
-      function stop(){
-        if(timer){ clearInterval(timer); timer=null; }
-      }
-      root.addEventListener('mouseenter', stop);
-      root.addEventListener('mouseleave', start);
-
-      show(0);
-      start();
-      return { next, prev, show, stop, start };
-    }
-
-    // HERO carousel
-    makeCarousel('#heroCarousel', {
-      prevSel: '#heroPrev',
-      nextSel: '#heroNext',
-      dotsSel: '#heroDots',
-      activeClass: 'active',
-      interval: 6500,
-      auto: true
-    });
-
-    // FEATURES carousel
-    makeCarousel('#featuresCarousel', {
-      prevSel: '#featPrev',
-      nextSel: '#featNext',
-      dotsSel: '#featDots',
-      activeClass: 'active',
-      interval: 6000,
-      auto: true
-    });
-
-    // TESTIMONIALS carousel
-    makeCarousel('#testiCarousel', {
-      prevSel: '#testiPrev',
-      nextSel: '#testiNext',
-      dotsSel: '#testiDots',
-      activeClass: 'active',
-      interval: 6000,
-      auto: true
-    });
-
-    // APPS SORTING WITH PAGINATION, SEARCH AND FEATURES (3x3 Grid)
-    (function(){
-      let currentPage = 0;
-      const totalPages = 2; // 2 pages: Page 1 (9 apps) + Page 2 (1 app)
-      const appsSlider = document.getElementById('appsSlider');
-      const appCards = document.querySelectorAll('.app-card');
-      const searchInput = document.getElementById('appsSearch');
-      const prevBtn = document.getElementById('appsNavPrev');
-      const nextBtn = document.getElementById('appsNavNext');
-      const dots = document.querySelectorAll('.app-dot');
-      const featuresCarousel = document.getElementById('featuresCarousel');
-      let isSearchActive = false;
-      
-      // App-specific features data
-      const appFeatures = {
-        'farmers-recruitment': {
-          title: 'Farmers Recruitment & Cane Management',
-          features: [
-            'Farmer registration & profiles',
-            'Cane cultivation tracking',
-            'Contract management',
-            'Payment processing',
-            'Farmer communication portal',
-            'Cane quality assessment',
-            'Harvest scheduling coordination'
-          ]
-        },
-        'nucleus-operations': {
-          title: 'Nucleus & Farm Operations',
-          features: [
-            'Central farm management',
-            'Land allocation tracking',
-            'Irrigation system control',
-            'Equipment deployment',
-            'Labor allocation',
-            'Crop monitoring dashboard',
-            'Operations analytics'
-          ]
-        },
-        'harvesting-transport': {
-          title: 'Harvesting & Transport',
-          features: [
-            'Harvest scheduling',
-            'Cane cutting coordination',
-            'Transport vehicle assignment',
-            'Route optimization',
-            'Load tracking',
-            'Delivery confirmation',
-            'Real-time GPS tracking'
-          ]
-        },
-        'weighbridge': {
-          title: 'Weighbridge Management',
-          features: [
-            'Automated weight capture',
-            'Vehicle registration',
-            'Net weight calculation',
-            'Digital ticket generation',
-            'Quality parameter recording',
-            'Tare weight management',
-            'Historical weight reports'
-          ]
-        },
-        'fleet-management': {
-          title: 'Fleet Management',
-          features: [
-            'Vehicle tracking & monitoring',
-            'Fuel consumption analysis',
-            'Maintenance scheduling',
-            'Driver management',
-            'Trip planning & routing',
-            'Vehicle performance metrics',
-            'Compliance documentation'
-          ]
-        },
-        'mrp-inventory': {
-          title: 'MRP & Inventory Control',
-          features: [
-            'Material requirement planning',
-            'Procurement automation',
-            'Stock level monitoring',
-            'Supplier management',
-            'Purchase order tracking',
-            'Warehouse management',
-            'Inventory valuation reports'
-          ]
-        },
-        'production': {
-          title: 'Production Management',
-          features: [
-            'Production scheduling',
-            'Process monitoring',
-            'Quality control checks',
-            'Equipment efficiency tracking',
-            'Batch management',
-            'Waste reduction analytics',
-            'Output optimization'
-          ]
-        },
-        'sales-invoicing': {
-          title: 'Sales & Invoicing',
-          features: [
-            'Customer order management',
-            'Invoice generation',
-            'Payment tracking',
-            'Credit management',
-            'Sales analytics',
-            'Pricing management',
-            'Tax compliance'
-          ]
-        },
-        'financial-management': {
-          title: 'Financial Management',
-          features: [
-            'General ledger accounting',
-            'Budget planning & control',
-            'Cash flow management',
-            'Financial reporting',
-            'Tax management',
-            'Cost center tracking',
-            'Profit & loss analysis'
-          ]
-        },
-        'hr-payroll': {
-          title: 'HR, Payroll & Attendance',
-          features: [
-            'Employee database management',
-            'Payroll processing',
-            'Time & attendance tracking',
-            'Leave management',
-            'Performance appraisals',
-            'Statutory compliance',
-            'Employee self-service portal'
-          ]
-        }
-      };
-      
-      // Show specific page
-      function showPage(pageNum){
-        currentPage = (pageNum + totalPages) % totalPages;
-        
-        // Hide all cards
-        appCards.forEach(card => {
-          card.style.display = 'none';
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.9) translateY(20px)';
-        });
-        
-        // Show cards for current page with animation
-        const currentCards = document.querySelectorAll(`.app-card[data-page="${currentPage}"]`);
-        currentCards.forEach((card, idx) => {
-          card.style.display = 'flex';
-          setTimeout(() => {
-            card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-            card.style.opacity = '1';
-            card.style.transform = 'scale(1) translateY(0)';
-          }, idx * 100);
-        });
-        
-        // Update dots
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('active', idx === currentPage);
-        });
-      }
-      
-      function nextPage(){
-        showPage(currentPage + 1);
-      }
-      
-      function prevPage(){
-        showPage(currentPage - 1);
-      }
-      
-      // Search functionality
-      function filterApps(searchTerm){
-        const term = searchTerm.toLowerCase().trim();
-        isSearchActive = term !== '';
-        let visibleCount = 0;
-        
-        if(!isSearchActive){
-          // Return to pagination mode
-          showPage(currentPage);
-          if(prevBtn) prevBtn.style.display = '';
-          if(nextBtn) nextBtn.style.display = '';
-          document.getElementById('appsPagination').style.display = '';
-          return;
-        }
-        
-        // Hide navigation in search mode
-        if(prevBtn) prevBtn.style.display = 'none';
-        if(nextBtn) nextBtn.style.display = 'none';
-        document.getElementById('appsPagination').style.display = 'none';
-        
-        // Filter cards
-        appCards.forEach(card => {
-          const name = card.getAttribute('data-name').toLowerCase();
-          const tags = card.getAttribute('data-tags').toLowerCase();
-          const matches = name.includes(term) || tags.includes(term);
-          
-          if(matches){
-            card.style.display = 'flex';
-            card.style.opacity = '1';
-            card.style.transform = 'scale(1) translateY(0)';
-            visibleCount++;
-          } else {
-
-
-  function toggleModalPassword(inputId, toggleElement) {
-    const input = document.getElementById(inputId);
-    if (input.type === "password") {
-      input.type = "text";
-      toggleElement.textContent = "🙈";
-    } else {
-      input.type = "password";
-      toggleElement.textContent = "👁";
-    }
-  }
-
-            card.style.display = 'none';
-            card.style.opacity = '0';
-          }
-        });
-        
-        // Show no results message
-        if(visibleCount === 0){
-          const noResults = document.createElement('div');
-          noResults.id = 'no-results';
-          noResults.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text);';
-          noResults.innerHTML = '<p style="font-size: 1.1rem; margin-bottom: 8px;">No apps found</p><p style="font-size: 0.9rem; opacity: 0.7;">Try a different search term</p>';
-          
-          const existing = document.getElementById('no-results');
-          if(!existing){
-            appsSlider.appendChild(noResults);
-          }
-        } else {
-          const existing = document.getElementById('no-results');
-          if(existing) existing.remove();
-        }
-      }
-      
-      // Search input event
-      if(searchInput){
-        searchInput.addEventListener('input', (e) => {
-          filterApps(e.target.value);
-        });
-      }
-      
-      // Navigation event listeners
-      if(prevBtn) prevBtn.addEventListener('click', prevPage);
-      if(nextBtn) nextBtn.addEventListener('click', nextPage);
-      
-      dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => showPage(idx));
-      });
-      
-      // Features button click handler
-      document.querySelectorAll('.app-features-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const appId = btn.getAttribute('data-app');
-          const appData = appFeatures[appId];
-          
-          if(appData && featuresCarousel){
-            // Update features section
-            const featuresSlides = featuresCarousel.querySelectorAll('.features-slide');
-            if(featuresSlides.length > 0){
-              const firstSlide = featuresSlides[0];
-              
-              // Update content
-              firstSlide.innerHTML = `
-                <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">${appData.title}</h5>
-                <ul class="features-list">
-                  ${appData.features.map(f => `<li>${f}</li>`).join('')}
-                </ul>
-              `;
-              
-              // Show first slide
-              featuresSlides.forEach(s => s.classList.remove('active'));
-              firstSlide.classList.add('active');
-              
-              // Scroll to features section smoothly
-              const featuresSection = document.getElementById('features');
-              if(featuresSection){
-                featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }
-          }
-        });
-      });
-      
-      // Initialize
-      showPage(0);
-    })();
-
-    // Make Features and Apps columns equal height on wide screens
-    function matchHeights(){
-      const left = document.querySelector('#features .col-lg-4 .panel-card');
-      const right = document.querySelector('#features .col-lg-8 .panel-card');
-      if(!left || !right) return;
-      // Reset first
-      left.style.height = 'auto';
-      right.style.height = 'auto';
-      if(window.innerWidth >= 992){
-        const h = Math.max(left.offsetHeight, right.offsetHeight);
-        left.style.height = h + 'px';
-        right.style.height = h + 'px';
-      }
-    }
-    window.addEventListener('load', matchHeights);
-    window.addEventListener('resize', matchHeights);
-    setTimeout(matchHeights, 350);
-
-  // Hamburger menu toggle
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mainNav = document.querySelector('.main-nav');
-  const authActions = document.querySelector('.auth-actions');
   
-  if (hamburgerBtn) {
-    // Create overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'mobile-menu-overlay';
-    document.body.appendChild(overlay);
-    
-    hamburgerBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      hamburgerBtn.classList.toggle('active');
-      mainNav.classList.toggle('active');
-      authActions.classList.toggle('active');
-      overlay.classList.toggle('active');
-      document.body.style.overflow = hamburgerBtn.classList.contains('active') ? 'hidden' : '';
-    });
-    
-    // Close menu when clicking overlay
-    overlay.addEventListener('click', function() {
-      hamburgerBtn.classList.remove('active');
-      mainNav.classList.remove('active');
-      authActions.classList.remove('active');
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-    
-    // Close menu when clicking nav links
-    const navLinks = mainNav.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        hamburgerBtn.classList.remove('active');
-        mainNav.classList.remove('active');
-        authActions.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    });
-  }
-
-
-  
-  window.openAuthModal = function(mode) {
-    const modal = document.getElementById('signInModal');
-    if (modal) {
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      if (typeof switchAuthTab === 'function') {
-        switchAuthTab(mode || 'signin');
-      }
-    }
-  };
-  window.openSignInModal = window.openAuthModal;
-
-  window.closeSignInModal = function() {
-    const modal = document.getElementById('signInModal');
-    if (modal) {
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-    }
-  };
-
-
-  
-  function closeMegaMenu() {
-    const megaMenu = document.getElementById('industriesMenu');
-    const industriesItem = document.querySelector('.nav-item.has-dropdown');
-    if (megaMenu) megaMenu.classList.remove('active');
-    if (industriesItem) industriesItem.classList.remove('active');
-  }
-
-  
-  window.switchAuthTab = function(mode) {
-    const signInForm = document.getElementById('signInForm');
-    const registerForm = document.getElementById('registerForm');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSubtitle = document.getElementById('modalSubtitle');
-    const authMessage = document.getElementById('authMessage');
-
-    if (authMessage) authMessage.style.display = 'none';
-
-    if (mode === 'register') {
-      if (signInForm) signInForm.style.display = 'none';
-      if (registerForm) registerForm.style.display = 'block';
-      if (modalTitle) modalTitle.textContent = 'Create an Account';
-      if (modalSubtitle) modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
-    } else {
-      if (signInForm) signInForm.style.display = 'block';
-      if (registerForm) registerForm.style.display = 'none';
-      if (modalTitle) modalTitle.textContent = 'Welcome Back';
-      if (modalSubtitle) modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
-    }
-  };
-
-  function handleSignIn(e) {
-    e.preventDefault();
-    const authMessage = document.getElementById('authMessage');
-    authMessage.style.display = 'block';
-    authMessage.style.background = '#dcfce7';
-    authMessage.style.color = '#166534';
-    authMessage.style.border = '1px solid #bbf7d0';
-    authMessage.textContent = 'Signed in successfully! Redirecting...';
-    setTimeout(() => {
-      closeSignInModal();
-      authMessage.style.display = 'none';
-    }, 1200);
-  }
-
-  function handleRegister(e) {
-    e.preventDefault();
-    const password = document.getElementById('reg-password').value;
-    const confirm = document.getElementById('reg-confirm-password').value;
-    const authMessage = document.getElementById('authMessage');
-    
-    if (password !== confirm) {
-      authMessage.style.display = 'block';
-      authMessage.style.background = '#fef2f2';
-      authMessage.style.color = '#991b1b';
-      authMessage.style.border = '1px solid #fecaca';
-      authMessage.textContent = 'Passwords do not match. Please verify and try again.';
-      return;
-    }
-
-    authMessage.style.display = 'block';
-    authMessage.style.background = '#dcfce7';
-    authMessage.style.color = '#166534';
-    authMessage.style.border = '1px solid #bbf7d0';
-    authMessage.textContent = 'Account created successfully! Welcome to Synergy Bravo ERP.';
-    setTimeout(() => {
-      closeSignInModal();
-      authMessage.style.display = 'none';
-    }, 1500);
-  }
-
-  function closeSignInModal() {
-    document.getElementById('signInModal').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
-  // Close modal on outside click
-  window.onclick = function(event) {
-    const modal = document.getElementById('signInModal');
-    if (event.target === modal) {
-      closeSignInModal();
-    }
-  }
-
-  </script>
-<script>
-
-  window.openAuthModal = function(mode) {
-    const modal = document.getElementById('signInModal');
-    if (modal) {
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      if (typeof window.switchAuthTab === 'function') {
-        window.switchAuthTab(mode || 'signin');
-      }
-    }
-  };
-  window.openSignInModal = window.openAuthModal;
-
-  window.closeSignInModal = function() {
-    const modal = document.getElementById('signInModal');
-    if (modal) {
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-    }
-  };
-
-  window.switchAuthTab = function(mode) {
-    const signInForm = document.getElementById('signInForm');
-    const registerForm = document.getElementById('registerForm');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSubtitle = document.getElementById('modalSubtitle');
-    const authMessage = document.getElementById('authMessage');
-
-    if (authMessage) authMessage.style.display = 'none';
-
-    if (mode === 'register') {
-      if (signInForm) signInForm.style.display = 'none';
-      if (registerForm) registerForm.style.display = 'block';
-      if (modalTitle) modalTitle.textContent = 'Create an Account';
-      if (modalSubtitle) modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
-    } else {
-      if (signInForm) signInForm.style.display = 'block';
-      if (registerForm) registerForm.style.display = 'none';
-      if (modalTitle) modalTitle.textContent = 'Welcome Back';
-      if (modalSubtitle) modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
-    }
-  };
-
-  window.toggleModalPassword = function(inputId, iconEl) {
-    const input = document.getElementById(inputId);
-    if (input) {
-      if (input.type === 'password') {
-        input.type = 'text';
-        if (iconEl) iconEl.textContent = '🙈';
-      } else {
-        input.type = 'password';
-        if (iconEl) iconEl.textContent = '👁';
-      }
-    }
-  };
-
-  window.handleSignIn = function(e) {
-    e.preventDefault();
-    const authMessage = document.getElementById('authMessage');
-    authMessage.style.display = 'block';
-    authMessage.style.background = '#166534';
-    authMessage.style.color = '#f8fafc';
-    authMessage.style.border = '1px solid #22c55e';
-    authMessage.textContent = 'Signed in successfully! Redirecting...';
-    setTimeout(() => {
-      closeSignInModal();
-      authMessage.style.display = 'none';
-    }, 1200);
-  };
-
-  window.handleRegister = function(e) {
-    e.preventDefault();
-    const password = document.getElementById('reg-password').value;
-    const confirm = document.getElementById('reg-confirm-password').value;
-    const authMessage = document.getElementById('authMessage');
-    
-    if (password !== confirm) {
-      authMessage.style.display = 'block';
-      authMessage.style.background = '#991b1b';
-      authMessage.style.color = '#f8fafc';
-      authMessage.style.border = '1px solid #ef4444';
-      authMessage.textContent = 'Passwords do not match. Please verify and try again.';
-      return;
-    }
-
-    authMessage.style.display = 'block';
-    authMessage.style.background = '#166534';
-    authMessage.style.color = '#f8fafc';
-    authMessage.style.border = '1px solid #22c55e';
-    authMessage.textContent = 'Account created successfully! Welcome to Synergy Bravo ERP.';
-    setTimeout(() => {
-      closeSignInModal();
-      authMessage.style.display = 'none';
-    }, 1500);
-  };
-
-</script>
-
-  <!-- Sign In & Register Modal (Single Instance) -->
-  
-
-<script>
-
-  // Mobile Hamburger Menu Control
-  (function() {
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const mainNav = document.querySelector('.main-nav');
-    
-    if (hamburgerBtn && mainNav) {
-      // Ensure overlay exists
-      let overlay = document.querySelector('.mobile-menu-overlay');
-      if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'mobile-menu-overlay';
-        document.body.appendChild(overlay);
-      }
-
-      function toggleMobileMenu(e) {
-        if (e) e.stopPropagation();
-        const isActive = hamburgerBtn.classList.contains('active');
-        if (isActive) {
-          closeMobileMenu();
-        } else {
-          hamburgerBtn.classList.add('active');
-          mainNav.classList.add('active');
-          overlay.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        }
-      }
-
-      function closeMobileMenu() {
-        hamburgerBtn.classList.remove('active');
-        mainNav.classList.remove('active');
-        if (overlay) overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-
-      hamburgerBtn.onclick = toggleMobileMenu;
-      if (overlay) overlay.onclick = closeMobileMenu;
-
-      // Close mobile menu when clicking nav links
-      const navLinks = mainNav.querySelectorAll('a');
-      navLinks.forEach(link => {
-        link.onclick = function() {
-          closeMobileMenu();
-        };
-      });
-    }
-  })();
-
-</script>
 
   <!-- SINGLE UNIFIED AUTH MODAL -->
-  <div id="signInModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 10000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto;">
+  <div id="signInModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 20000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto;">
     <div class="modal-content" style="position: relative; width: 100%; max-width: 440px; background: #1e2b25; border: 1px solid #364e43; border-radius: 3px !important; padding: 36px 30px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); color: #f8fafc;">
       <span class="modal-close" onclick="closeSignInModal()" style="position: absolute; right: 18px; top: 14px; font-size: 26px; color: #cbd5e1; cursor: pointer; line-height: 1;">&times;</span>
       
@@ -3417,8 +2792,22 @@
     }
   });
 
-  // Hamburger Mobile Menu Toggle
+  // Header Scroll Opacity & Hamburger Mobile Menu Toggle
   document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('siteHeader');
+    const brandLogo = document.getElementById('brandLogo');
+
+    function onScroll() {
+      const y = window.pageYOffset || document.documentElement.scrollTop;
+      if (y > 10) {
+        if (header) header.classList.add('scrolled');
+      } else {
+        if (header) header.classList.remove('scrolled');
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mainNav = document.querySelector('.main-nav');
     
@@ -3435,9 +2824,12 @@
           e.preventDefault();
           e.stopPropagation();
         }
-        const isActive = hamburgerBtn.classList.contains('active');
+        const isActive = mainNav.classList.contains('active');
         if (isActive) {
-          closeMobileMenu();
+          hamburgerBtn.classList.remove('active');
+          mainNav.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
         } else {
           hamburgerBtn.classList.add('active');
           mainNav.classList.add('active');
@@ -3463,7 +2855,3 @@
     }
   });
 </script>
-
-</body>
-</html>
- 
