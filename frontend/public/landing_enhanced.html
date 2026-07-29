@@ -508,34 +508,37 @@
     .app-card:hover .app-btn:nth-child(3){ transition-delay: 0.3s; }
     .app-card:hover .app-btn:nth-child(4){ transition-delay: 0.4s; }
     
-    /* Navigation Arrows */
-    .apps-nav-arrow{
+    /* Navigation Arrows - 100% Fully Visible, No Fade */
+    .apps-nav-arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary) 0%, #ffeaa7 100%);
-      border: 2px solid var(--primary);
+      background: #f6dd0d !important;
+      border: 2px solid #e0c800 !important;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer !important;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
       z-index: 10;
-      box-shadow: 0 6px 16px rgba(246, 221, 13, 0.3);
+      box-shadow: 0 6px 18px rgba(246, 221, 13, 0.45) !important;
+      opacity: 1 !important; /* FULLY VISIBLE AT ALL TIMES - NO FADE */
     }
-    .apps-nav-arrow:hover{
-      transform: translateY(-50%) scale(1.1);
-      box-shadow: 0 8px 24px rgba(246, 221, 13, 0.5);
+    .apps-nav-arrow:hover {
+      background: #ffe436 !important;
+      transform: translateY(-50%) scale(1.1) !important;
+      box-shadow: 0 8px 24px rgba(246, 221, 13, 0.6) !important;
+      opacity: 1 !important;
     }
-    .apps-nav-arrow.prev{ left: 0; }
-    .apps-nav-arrow.next{ right: 0; }
-    .apps-nav-arrow svg{
-      width: 20px;
-      height: 20px;
-      fill: var(--text-dark);
+    .apps-nav-arrow.prev { left: 0; }
+    .apps-nav-arrow.next { right: 0; }
+    .apps-nav-arrow svg {
+      width: 22px;
+      height: 22px;
+      fill: #16201c !important;
     }
     
     /* Pagination Dots */
@@ -3384,10 +3387,10 @@ a.btn-request-demo:hover {
           }
         });
 
-        // Hide pagination dots & disable arrows during active search
+        // Hide pagination dots during active search, keep arrows 100% visible
         if (appsPagination) appsPagination.style.display = 'none';
-        if (appsNavPrev) appsNavPrev.style.opacity = '0.4';
-        if (appsNavNext) appsNavNext.style.opacity = '0.4';
+        if (appsNavPrev) { appsNavPrev.style.opacity = '1'; appsNavPrev.style.cursor = 'pointer'; }
+        if (appsNavNext) { appsNavNext.style.opacity = '1'; appsNavNext.style.cursor = 'pointer'; }
 
         // Check for no matches message
         let noMatchMsg = document.getElementById('appsNoMatchMsg');
@@ -3427,15 +3430,14 @@ a.btn-request-demo:hover {
           }
         });
 
-        // Update Arrow Opacities
+        // Keep Navigation Arrows 100% Fully Visible (No Fade)
         if (appsNavPrev) {
-          appsNavPrev.style.opacity = currentPage === 0 ? '0.4' : '1';
-          appsNavPrev.style.cursor = currentPage === 0 ? 'default' : 'pointer';
+          appsNavPrev.style.opacity = '1';
+          appsNavPrev.style.cursor = 'pointer';
         }
         if (appsNavNext) {
-          const totalPages = Math.ceil(appCards.length / itemsPerPage);
-          appsNavNext.style.opacity = currentPage >= totalPages - 1 ? '0.4' : '1';
-          appsNavNext.style.cursor = currentPage >= totalPages - 1 ? 'default' : 'pointer';
+          appsNavNext.style.opacity = '1';
+          appsNavNext.style.cursor = 'pointer';
         }
       }
     }
@@ -3450,23 +3452,20 @@ a.btn-request-demo:hover {
     if (appsNavPrev) {
       appsNavPrev.addEventListener('click', function(e) {
         e.preventDefault();
-        if (appsSearch && appsSearch.value.trim().length > 0) return; // Disabled during search
-        if (currentPage > 0) {
-          currentPage--;
-          renderApps();
-        }
+        if (appsSearch && appsSearch.value.trim().length > 0) return;
+        const totalPages = Math.ceil(appCards.length / itemsPerPage);
+        currentPage = (currentPage - 1 + totalPages) % totalPages; // Seamless looping
+        renderApps();
       });
     }
 
     if (appsNavNext) {
       appsNavNext.addEventListener('click', function(e) {
         e.preventDefault();
-        if (appsSearch && appsSearch.value.trim().length > 0) return; // Disabled during search
+        if (appsSearch && appsSearch.value.trim().length > 0) return;
         const totalPages = Math.ceil(appCards.length / itemsPerPage);
-        if (currentPage < totalPages - 1) {
-          currentPage++;
-          renderApps();
-        }
+        currentPage = (currentPage + 1) % totalPages; // Seamless looping
+        renderApps();
       });
     }
 
