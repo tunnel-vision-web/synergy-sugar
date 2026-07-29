@@ -1249,12 +1249,7 @@
     position: relative;
   }
   @media (min-width: 769px) {
-    .hamburger-menu:hover + .main-nav,
-    .main-nav:hover {
-      display: flex !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
+    
   }
 
   /* Modal Layout Fix (Top Horizontal Center Logo, Sequential Text below) */
@@ -1646,6 +1641,128 @@
     .main-nav .nav-item > a:hover {
       background: rgba(246, 221, 13, 0.15) !important;
       color: var(--primary) !important;
+      padding-left: 20px !important;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(0, 0, 0, 0.7) !important;
+      backdrop-filter: blur(4px) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: all 0.3s ease !important;
+      z-index: 1999 !important;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+
+
+  /* ==========================================================================
+     CLEAN MOBILE NAVIGATION & SLIDE-IN DRAWER
+     ========================================================================== */
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    z-index: 2005 !important;
+  }
+
+  .hamburger-menu span {
+    width: 100%;
+    height: 2px;
+    background-color: #f8fafc !important;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .hamburger-menu.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+
+  @media (max-width: 991.98px) {
+    .hamburger-menu {
+      display: flex !important;
+    }
+
+    /* Mobile Drawer: Closed by default (right: -100%), slides in from right when active */
+    .main-nav {
+      position: fixed !important;
+      top: 72px !important;
+      right: -100% !important;
+      left: auto !important;
+      width: 280px !important;
+      max-width: 80vw !important;
+      height: calc(100vh - 72px) !important;
+      background: #1e2b25 !important;
+      border-left: 1px solid #364e43 !important;
+      box-shadow: -10px 20px 40px rgba(0, 0, 0, 0.6) !important;
+      padding: 24px 18px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      justify-content: flex-start !important;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      z-index: 2000 !important;
+      overflow-y: auto !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      opacity: 0 !important;
+    }
+
+    .main-nav.active {
+      right: 0 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      opacity: 1 !important;
+    }
+
+    .main-nav .nav-item {
+      display: block !important;
+      width: 100% !important;
+      margin: 4px 0 !important;
+      position: relative !important;
+    }
+
+    .main-nav a,
+    .main-nav .nav-item > a {
+      color: #f8fafc !important;
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      padding: 12px 16px !important;
+      display: block !important;
+      width: 100% !important;
+      border-radius: 3px !important;
+      border-bottom: 1px solid rgba(54, 78, 67, 0.4) !important;
+      text-decoration: none !important;
+      text-align: left !important;
+      box-sizing: border-box !important;
+    }
+
+    .main-nav a:hover,
+    .main-nav .nav-item > a:hover {
+      background: rgba(246, 221, 13, 0.15) !important;
+      color: #f6dd0d !important;
       padding-left: 20px !important;
     }
 
@@ -2215,40 +2332,7 @@
 
 
   <!-- Sign In Modal -->
-  <div id="signInModal" class="modal">
-    <div class="modal-content">
-      <span class="modal-close" onclick="closeSignInModal()">&times;</span>
-      <div class="modal-header">
-        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" style="height: 50px; margin-bottom: 20px;">
-        <h2 style="margin: 0 0 8px; font-size: 1.8rem; color: #333;">Welcome Back</h2>
-        <p style="color: #777; margin: 0 0 30px;">Sign in to your Synergy Bravo ERP account</p>
-      </div>
-      <form class="modal-form" onsubmit="return false;">
-        <div class="form-group">
-          <label for="signin-email">Email Address</label>
-          <input type="email" id="signin-email" placeholder="you@company.com" required>
-        </div>
-        <div class="form-group">
-          <label for="signin-password">Password</label>
-          <div style="position: relative;">
-            <input type="password" id="signin-password" placeholder="Enter your password" required>
-            <span class="toggle-password" onclick="toggleModalPassword('signin-password', this)" style="position: absolute; right: 12px; top: 12px; cursor: pointer; font-size: 1.1rem;">👁</span>
-          </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 0;">
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
-            <input type="checkbox" style="width: 16px; height: 16px;">
-            <span>Remember me</span>
-          </label>
-          <a href="#" style="color: var(--secondary); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Forgot password?</a>
-        </div>
-        <button type="submit" class="modal-btn">Sign In</button>
-        <div style="text-align: center; margin-top: 20px; font-size: 0.95rem; color: #666;">
-          Don't have an account? <a href="#" onclick="openAuthModal('register'); return false;" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Sign Up</a>
-        </div>
-      </form>
-    </div>
-  </div>
+  
 
 
   <script>
@@ -2980,84 +3064,7 @@
 </script>
 
   <!-- Sign In & Register Modal (Single Instance) -->
-  <div id="signInModal" class="modal">
-    <div class="modal-content" style="border-radius: 3px !important; border: 1px solid #364e43; background: #1e2b25; color: #f8fafc; padding: 36px 30px;">
-      <span class="modal-close" onclick="closeSignInModal()" style="position: absolute; right: 18px; top: 14px; font-size: 28px; color: #cbd5e1; cursor: pointer;">&times;</span>
-      
-      <!-- Top Horizontal Centered Logo & Sequential Text Header -->
-      <div class="modal-header" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px;">
-        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" class="modal-logo" style="height: 48px; width: auto; margin: 0 auto 14px auto; display: block; object-fit: contain;">
-        <h2 class="modal-title" id="modalTitle" style="font-size: 1.3rem; font-weight: 700; color: #f8fafc; margin: 0 0 6px 0; text-align: center;">Welcome Back</h2>
-        <p class="modal-subtitle" id="modalSubtitle" style="font-size: 0.875rem; color: #94a3b8; margin: 0; line-height: 1.4; text-align: center;">Sign in to your Synergy Bravo ERP account</p>
-      </div>
-
-      <div id="authMessage" style="display: none; padding: 12px; margin-bottom: 16px; border-radius: 3px; font-size: 0.875rem; text-align: center;"></div>
-
-      <!-- Sign In Form -->
-      <form id="signInForm" class="modal-form" onsubmit="handleSignIn(event);">
-        <div class="form-group" style="margin-bottom: 16px;">
-          <label for="signin-email" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Email Address</label>
-          <input type="email" id="signin-email" placeholder="you@company.com" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem;">
-        </div>
-        <div class="form-group" style="margin-bottom: 16px;">
-          <label for="signin-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Password</label>
-          <div style="position: relative;">
-            <input type="password" id="signin-password" placeholder="Enter your password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem;">
-            <span class="toggle-password" onclick="toggleModalPassword('signin-password', this)" style="position: absolute; right: 12px; top: 10px; cursor: pointer; font-size: 1.1rem; color: #94a3b8;">👁</span>
-          </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 0;">
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #cbd5e1; cursor: pointer;">
-            <input type="checkbox" style="width: 16px; height: 16px;">
-            <span>Remember me</span>
-          </label>
-          <a href="#" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Forgot password?</a>
-        </div>
-        <button type="submit" class="modal-btn" style="width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 3px !important; color: #16201c; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s ease;">Sign In</button>
-        <div style="text-align: center; margin-top: 20px; font-size: 0.875rem; color: #94a3b8;">
-          Don't have an account? <a href="#" onclick="switchAuthTab('register'); return false;" style="color: var(--primary); text-decoration: none; font-weight: 700;">Sign Up</a>
-        </div>
-      </form>
-
-      <!-- Register Form -->
-      <form id="registerForm" class="modal-form" style="display: none;" onsubmit="handleRegister(event);">
-        <div class="form-group" style="margin-bottom: 14px;">
-          <label for="reg-fullname" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Full Name</label>
-          <input type="text" id="reg-fullname" placeholder="Jane Doe" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem;">
-        </div>
-        <div class="form-group" style="margin-bottom: 14px;">
-          <label for="reg-email" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Email Address</label>
-          <input type="email" id="reg-email" placeholder="you@company.com" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem;">
-        </div>
-        <div class="form-group" style="margin-bottom: 14px;">
-          <label for="reg-phone" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Phone Number</label>
-          <input type="tel" id="reg-phone" placeholder="+254 700 000 000" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem;">
-        </div>
-        <div class="form-group" style="margin-bottom: 14px;">
-          <label for="reg-company" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Company / Farm Name</label>
-          <input type="text" id="reg-company" placeholder="e.g. Mumias Sugar / Family Farm" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem;">
-        </div>
-        <div class="form-group" style="margin-bottom: 14px;">
-          <label for="reg-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Password</label>
-          <input type="password" id="reg-password" placeholder="Create password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem;">
-        </div>
-        <div class="form-group" style="margin-bottom: 14px;">
-          <label for="reg-confirm-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Confirm Password</label>
-          <input type="password" id="reg-confirm-password" placeholder="Confirm password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem;">
-        </div>
-        <div style="margin: 14px 0;">
-          <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.82rem; color: #94a3b8; cursor: pointer;">
-            <input type="checkbox" required style="margin-top: 3px;">
-            <span>I agree to the <a href="terms-of-service.html" target="_blank" style="color: var(--primary);">Terms of Service</a> &amp; <a href="privacy-policy.html" target="_blank" style="color: var(--primary);">Privacy Policy</a></span>
-          </label>
-        </div>
-        <button type="submit" class="modal-btn" style="width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 3px !important; color: #16201c; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s ease;">Create Account</button>
-        <div style="text-align: center; margin-top: 20px; font-size: 0.875rem; color: #94a3b8;">
-          Already have an account? <a href="#" onclick="switchAuthTab('signin'); return false;" style="color: var(--primary); text-decoration: none; font-weight: 700;">Sign In</a>
-        </div>
-      </form>
-    </div>
-  </div>
+  
 
 <script>
 
@@ -3109,6 +3116,241 @@
   })();
 
 </script>
+
+  <!-- SINGLE UNIFIED AUTH MODAL -->
+  <div id="signInModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 10000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto;">
+    <div class="modal-content" style="position: relative; width: 100%; max-width: 440px; background: #1e2b25; border: 1px solid #364e43; border-radius: 3px !important; padding: 36px 30px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); color: #f8fafc;">
+      <span class="modal-close" onclick="closeSignInModal()" style="position: absolute; right: 18px; top: 14px; font-size: 26px; color: #cbd5e1; cursor: pointer; line-height: 1;">&times;</span>
+      
+      <!-- Top Horizontal Centered Logo & Header Text -->
+      <div class="modal-header" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px;">
+        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" class="modal-logo" style="height: 46px; width: auto; margin: 0 auto 12px auto; display: block; object-fit: contain;">
+        <h2 class="modal-title" id="modalTitle" style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin: 0 0 6px 0; text-align: center;">Welcome Back</h2>
+        <p class="modal-subtitle" id="modalSubtitle" style="font-size: 0.875rem; color: #94a3b8; margin: 0; line-height: 1.4; text-align: center;">Sign in to your Synergy Bravo ERP account</p>
+      </div>
+
+      <div id="authMessage" style="display: none; padding: 12px; margin-bottom: 16px; border-radius: 3px; font-size: 0.875rem; text-align: center;"></div>
+
+      <!-- Sign In Form -->
+      <form id="signInForm" class="modal-form" onsubmit="handleSignIn(event);">
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="signin-email" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Email Address</label>
+          <input type="email" id="signin-email" placeholder="you@company.com" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="signin-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Password</label>
+          <div style="position: relative;">
+            <input type="password" id="signin-password" placeholder="Enter your password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+            <span class="toggle-password" onclick="toggleModalPassword('signin-password', this)" style="position: absolute; right: 12px; top: 10px; cursor: pointer; font-size: 1.1rem; color: #94a3b8;">👁</span>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 0;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #cbd5e1; cursor: pointer;">
+            <input type="checkbox" style="width: 16px; height: 16px;">
+            <span>Remember me</span>
+          </label>
+          <a href="#" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Forgot password?</a>
+        </div>
+        <button type="submit" class="modal-btn" style="width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 3px !important; color: #16201c; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s ease;">Sign In</button>
+        <div style="text-align: center; margin-top: 20px; font-size: 0.875rem; color: #94a3b8;">
+          Don't have an account? <a href="#" onclick="switchAuthTab('register'); return false;" style="color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer;">Sign Up</a>
+        </div>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" class="modal-form" style="display: none;" onsubmit="handleRegister(event);">
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-fullname" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Full Name</label>
+          <input type="text" id="reg-fullname" placeholder="Jane Doe" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-email" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Email Address</label>
+          <input type="email" id="reg-email" placeholder="you@company.com" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-phone" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Phone Number</label>
+          <input type="tel" id="reg-phone" placeholder="+254 700 000 000" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-company" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Company / Farm Name</label>
+          <input type="text" id="reg-company" placeholder="e.g. Mumias Sugar / Family Farm" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Password</label>
+          <input type="password" id="reg-password" placeholder="Create password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-confirm-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Confirm Password</label>
+          <input type="password" id="reg-confirm-password" placeholder="Confirm password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div style="margin: 14px 0;">
+          <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.82rem; color: #94a3b8; cursor: pointer;">
+            <input type="checkbox" required style="margin-top: 3px;">
+            <span>I agree to the <a href="terms-of-service.html" target="_blank" style="color: var(--primary);">Terms of Service</a> &amp; <a href="privacy-policy.html" target="_blank" style="color: var(--primary);">Privacy Policy</a></span>
+          </label>
+        </div>
+        <button type="submit" class="modal-btn" style="width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 3px !important; color: #16201c; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s ease;">Create Account</button>
+        <div style="text-align: center; margin-top: 20px; font-size: 0.875rem; color: #94a3b8;">
+          Already have an account? <a href="#" onclick="switchAuthTab('signin'); return false;" style="color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer;">Sign In</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+<script>
+  // Global Auth Modal Controls
+  window.openAuthModal = function(mode) {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      window.switchAuthTab(mode || 'signin');
+    }
+  };
+
+  window.openSignInModal = function() {
+    window.openAuthModal('signin');
+  };
+
+  window.closeSignInModal = function() {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.switchAuthTab = function(mode) {
+    const signInForm = document.getElementById('signInForm');
+    const registerForm = document.getElementById('registerForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const authMessage = document.getElementById('authMessage');
+
+    if (authMessage) authMessage.style.display = 'none';
+
+    if (mode === 'register') {
+      if (signInForm) signInForm.style.display = 'none';
+      if (registerForm) registerForm.style.display = 'block';
+      if (modalTitle) modalTitle.textContent = 'Create an Account';
+      if (modalSubtitle) modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
+    } else {
+      if (signInForm) signInForm.style.display = 'block';
+      if (registerForm) registerForm.style.display = 'none';
+      if (modalTitle) modalTitle.textContent = 'Welcome Back';
+      if (modalSubtitle) modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
+    }
+  };
+
+  window.toggleModalPassword = function(inputId, iconEl) {
+    const input = document.getElementById(inputId);
+    if (input) {
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (iconEl) iconEl.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        if (iconEl) iconEl.textContent = '👁';
+      }
+    }
+  };
+
+  window.handleSignIn = function(e) {
+    e.preventDefault();
+    const authMessage = document.getElementById('authMessage');
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#166534';
+    authMessage.style.color = '#f8fafc';
+    authMessage.style.border = '1px solid #22c55e';
+    authMessage.textContent = 'Signed in successfully! Redirecting...';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1200);
+  };
+
+  window.handleRegister = function(e) {
+    e.preventDefault();
+    const password = document.getElementById('reg-password').value;
+    const confirm = document.getElementById('reg-confirm-password').value;
+    const authMessage = document.getElementById('authMessage');
+    
+    if (password !== confirm) {
+      authMessage.style.display = 'block';
+      authMessage.style.background = '#991b1b';
+      authMessage.style.color = '#f8fafc';
+      authMessage.style.border = '1px solid #ef4444';
+      authMessage.textContent = 'Passwords do not match. Please verify and try again.';
+      return;
+    }
+
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#166534';
+    authMessage.style.color = '#f8fafc';
+    authMessage.style.border = '1px solid #22c55e';
+    authMessage.textContent = 'Account created successfully! Welcome to Synergy Bravo ERP.';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1500);
+  };
+
+  // Close modal when clicking outside content card
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('signInModal');
+    if (event.target === modal) {
+      window.closeSignInModal();
+    }
+  });
+
+  // Hamburger Mobile Menu Toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mainNav = document.querySelector('.main-nav');
+    
+    if (hamburgerBtn && mainNav) {
+      let overlay = document.querySelector('.mobile-menu-overlay');
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'mobile-menu-overlay';
+        document.body.appendChild(overlay);
+      }
+
+      function toggleMobileMenu(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        const isActive = hamburgerBtn.classList.contains('active');
+        if (isActive) {
+          closeMobileMenu();
+        } else {
+          hamburgerBtn.classList.add('active');
+          mainNav.classList.add('active');
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeMobileMenu() {
+        hamburgerBtn.classList.remove('active');
+        mainNav.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      hamburgerBtn.onclick = toggleMobileMenu;
+      overlay.onclick = closeMobileMenu;
+
+      const navLinks = mainNav.querySelectorAll('a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
  
