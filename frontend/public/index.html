@@ -425,31 +425,28 @@
       opacity: 1;
     }
     .app-card-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 12px;
-      border-radius: 10px;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 14px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      background: #18251f;
-    }
-    .app-card-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-      display: block;
-      transition: transform 0.4s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .app-card:hover .app-card-icon {
-      transform: scale(1.1) rotate(3deg);
-      box-shadow: 0 8px 24px rgba(246, 221, 13, 0.45);
+      transform: scale(1.12);
     }
+    .badge-gold    { background: rgba(246,221,13,0.15) !important; color: #f6dd0d !important; border: 1px solid rgba(246,221,13,0.35) !important; }
+    .badge-green   { background: rgba(34,197,94,0.15) !important;  color: #22c55e !important; border: 1px solid rgba(34,197,94,0.35) !important; }
+    .badge-blue    { background: rgba(59,130,246,0.15) !important; color: #3b82f6 !important; border: 1px solid rgba(59,130,246,0.35) !important; }
+    .badge-amber   { background: rgba(245,158,11,0.15) !important; color: #f59e0b !important; border: 1px solid rgba(245,158,11,0.35) !important; }
+    .badge-emerald { background: rgba(16,185,129,0.15) !important; color: #10b981 !important; border: 1px solid rgba(16,185,129,0.35) !important; }
+    .badge-purple  { background: rgba(168,85,247,0.15) !important; color: #a855f7 !important; border: 1px solid rgba(168,85,247,0.35) !important; }
+    .badge-indigo  { background: rgba(99,102,241,0.15) !important; color: #818cf8 !important; border: 1px solid rgba(99,102,241,0.35) !important; }
+    .badge-cyan    { background: rgba(6,182,212,0.15) !important;  color: #22d3ee !important; border: 1px solid rgba(6,182,212,0.35) !important; }
+    .badge-pink    { background: rgba(236,72,153,0.15) !important; color: #f472b6 !important; border: 1px solid rgba(236,72,153,0.35) !important; }
+    .badge-shield  { background: rgba(246,221,13,0.18) !important; color: #f6dd0d !important; border: 1.5px solid #f6dd0d !important; box-shadow: 0 0 16px rgba(246,221,13,0.3) !important; }
     .app-card-name{
       font-size: 0.95rem;
       font-weight: 700;
@@ -2598,8 +2595,8 @@ a.btn-request-demo:hover {
                 <div class="apps-slider" id="appsSlider">
                   <!-- Page 1 - 9 apps in 3x3 grid -->
                   <div class="app-card" data-page="0" data-name="Farmers Recruitment & Cane" data-tags="farmers recruitment cane management hiring labor">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_farmers.jpg" alt="Farmers Recruitment & Cane">
+                    <div class="app-card-icon badge-green">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                     </div>
                     <div class="app-card-name">Farmers Recruitment & Cane</div>
                     <div class="app-card-buttons">
@@ -2610,8 +2607,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Nucleus & Farm Operations" data-tags="nucleus farm operations management core">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_nucleus.jpg" alt="Nucleus & Farm Operations">
+                    <div class="app-card-icon badge-indigo">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
                     </div>
                     <div class="app-card-name">Nucleus & Farm Operations</div>
                     <div class="app-card-buttons">
@@ -2622,8 +2619,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Harvesting & Transport" data-tags="harvesting transport logistics delivery trucks">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_harvesting.jpg" alt="Harvesting & Transport">
+                    <div class="app-card-icon badge-amber">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
                     </div>
                     <div class="app-card-name">Harvesting & Transport</div>
                     <div class="app-card-buttons">
@@ -2634,8 +2631,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Weighbridge" data-tags="weighbridge scale weight measurement cargo">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_weighbridge.jpg" alt="Weighbridge">
+                    <div class="app-card-icon badge-gold">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M3 9v6a3 3 0 003 3h12a3 3 0 003-3V9"/></svg>
                     </div>
                     <div class="app-card-name">Weighbridge</div>
                     <div class="app-card-buttons">
@@ -2646,8 +2643,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Fleet Management" data-tags="fleet management vehicles trucks cars tracking gps">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_fleet.jpg" alt="Fleet Management">
+                    <div class="app-card-icon badge-blue">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 00-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 00-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
                     </div>
                     <div class="app-card-name">Fleet Management</div>
                     <div class="app-card-buttons">
@@ -2658,8 +2655,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="MRP & Inventory" data-tags="mrp procurement stores inventory control materials">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_mrp.jpg" alt="MRP & Inventory">
+                    <div class="app-card-icon badge-purple">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
                     </div>
                     <div class="app-card-name">MRP & Inventory</div>
                     <div class="app-card-buttons">
@@ -2670,8 +2667,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Production" data-tags="production manufacturing operations processing plant">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_production.jpg" alt="Production">
+                    <div class="app-card-icon badge-cyan">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
                     </div>
                     <div class="app-card-name">Production</div>
                     <div class="app-card-buttons">
@@ -2682,8 +2679,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Sales & Invoicing" data-tags="sales invoicing billing payments revenue customers">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_sales.jpg" alt="Sales & Invoicing">
+                    <div class="app-card-icon badge-emerald">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     </div>
                     <div class="app-card-name">Sales & Invoicing</div>
                     <div class="app-card-buttons">
@@ -2694,8 +2691,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Financial Management" data-tags="financial management accounting finance money budget">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_financial.jpg" alt="Financial Management">
+                    <div class="app-card-icon badge-shield">
+                      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#f6dd0d" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(246,221,13,0.18)"/></svg>
                     </div>
                     <div class="app-card-name">Financial Management</div>
                     <div class="app-card-buttons">
@@ -2708,8 +2705,8 @@ a.btn-request-demo:hover {
                   
                   <!-- Page 2 - 1 app -->
                   <div class="app-card" data-page="1" style="display: none;" data-name="HR & Payroll" data-tags="hr payroll time attendance human resources employees">
-                    <div class="app-card-icon">
-                      <img src="assets/images/app_hr.jpg" alt="HR & Payroll">
+                    <div class="app-card-icon badge-pink">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
                     </div>
                     <div class="app-card-name">HR & Payroll</div>
                     <div class="app-card-buttons">
