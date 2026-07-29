@@ -1246,6 +1246,72 @@ renderAppointmentCards();
   }
 
   </script>
+
+  <!-- Selected Modules Handler Script -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let modulesList = [];
+
+    // 1. URL query param ?modules=...
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlModulesStr = urlParams.get('modules');
+    if (urlModulesStr) {
+      modulesList = urlModulesStr.split(',').map(m => m.trim()).filter(m => m.length > 0);
+    }
+
+    // 2. Fallback to localStorage
+    if (modulesList.length === 0) {
+      try {
+        const saved = JSON.parse(localStorage.getItem('synergy_selected_modules') || '[]');
+        if (Array.isArray(saved) && saved.length > 0) {
+          modulesList = saved;
+        }
+      } catch(e) {}
+    }
+
+    // 3. Render Banner & Pre-fill Forms
+    if (modulesList.length > 0) {
+      const banner = document.getElementById('selectedModulesContainer');
+      const pillsContainer = document.getElementById('selectedModulesList');
+
+      if (banner) banner.style.display = 'block';
+      if (pillsContainer) {
+        pillsContainer.innerHTML = modulesList.map(m => `
+          <span style="background: rgba(246, 221, 13, 0.2) !important; border: 1px solid #f6dd0d !important; color: #f6dd0d !important; font-size: 0.85rem !important; font-weight: 700 !important; padding: 4px 14px !important; border-radius: 20px !important; display: inline-flex !important; align-items: center !important; gap: 4px !important;">
+            ✓ ${m}
+          </span>
+        `).join('');
+      }
+
+      // Add to Booking Summary if present
+      const summaryBox = document.querySelector('.booking-summary');
+      if (summaryBox && !document.getElementById('summaryModulesItem')) {
+        const modSummaryItem = document.createElement('div');
+        modSummaryItem.id = 'summaryModulesItem';
+        modSummaryItem.className = 'summary-item';
+        modSummaryItem.style.cssText = 'margin-top: 16px; padding-top: 12px; border-top: 1px dashed #283a31;';
+        modSummaryItem.innerHTML = `
+          <div class="summary-label" style="color:#f6dd0d; font-weight:700;">SELECTED DEMO MODULES (${modulesList.length})</div>
+          <div class="summary-value" style="color:#f8fafc; font-size:0.9rem; margin-top:4px;">${modulesList.join(', ')}</div>
+        `;
+        summaryBox.appendChild(modSummaryItem);
+      }
+
+      // Pre-fill hidden & text input fields in forms
+      document.querySelectorAll('form').forEach(form => {
+        let hiddenInput = form.querySelector('input[name="selected_modules"]');
+        if (!hiddenInput) {
+          hiddenInput = document.createElement('input');
+          hiddenInput.type = 'hidden';
+          hiddenInput.name = 'selected_modules';
+          form.appendChild(hiddenInput);
+        }
+        hiddenInput.value = modulesList.join(', ');
+      });
+    }
+  });
+  </script>
+
 </body>
 </html>
  

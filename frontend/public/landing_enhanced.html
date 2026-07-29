@@ -2639,16 +2639,29 @@ a.btn-request-demo:hover {
         <!-- Apps panel with modern sorting feature -->
         <div class="col-lg-8" id="apps">
           <div class="panel-card h-100">
-            <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between;">
-                <span>Sugar Farming Industry Apps</span>
-                <div class="clear-selections-wrapper">
-                  <button id="clearSelectionsBtn" class="btn-clear-selections" style="display: none;">
-                    Clear Selections (<span id="selectCount">0</span>)
-                  </button>
-                  <div id="clearTooltip" class="clear-selections-tooltip">
-                    <div class="tooltip-title">Selected Modules:</div>
-                    <ul id="tooltipModulesList" class="tooltip-modules-list"></ul>
+            <div class="panel-header" style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                  <span style="font-weight: 700; font-size: 1.1rem; color: #f8fafc;">Sugar Farming Industry Apps</span>
+                  <div class="clear-selections-wrapper" style="position: relative; display: inline-block;">
+                    <button id="clearSelectionsBtn" class="btn-clear-selections" style="display: none;">
+                      Clear Selections (<span id="selectCount">0</span>)
+                    </button>
+                    <!-- Hover Tooltip Popover -->
+                    <div id="clearTooltip" class="clear-selections-tooltip">
+                      <div class="tooltip-title">Selected Modules:</div>
+                      <ul id="tooltipModulesList" class="tooltip-modules-list"></ul>
+                    </div>
                   </div>
+                </div>
+                <!-- Selected Modules Bar directly ABOVE App grid / search -->
+                <div id="landingSelectedModulesBar" style="display: none; padding: 10px 14px; background: #101915; border: 1.5px solid #f6dd0d; border-radius: 6px; box-shadow: 0 4px 14px rgba(246, 221, 13, 0.25);">
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px;">
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#f6dd0d" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                      <span style="font-size: 0.75rem; font-weight: 700; color: #f6dd0d; text-transform: uppercase; letter-spacing: 0.5px;">Selected Modules:</span>
+                    </div>
+                  </div>
+                  <div id="landingSelectedPillsList" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
                 </div>
               </div>
             <div class="panel-body">
@@ -3822,13 +3835,18 @@ a.btn-request-demo:hover {
 
 
 
+  
   // ==========================================================================
-  // TOP-LEFT APP SELECT CHECKBOX & DATA PASSING TO APPOINTMENT PAGE
+  // TOP-LEFT APP SELECT CHECKBOX, TOOLTIP HOVER & APPOINTMENT DATA PASSING
   // ==========================================================================
   document.addEventListener('DOMContentLoaded', function() {
     const selectCheckboxes = document.querySelectorAll('.app-select-checkbox');
     const clearSelectionsBtn = document.getElementById('clearSelectionsBtn');
     const selectCountEl = document.getElementById('selectCount');
+    const modulesBar = document.getElementById('landingSelectedModulesBar');
+    const pillsList = document.getElementById('landingSelectedPillsList');
+    const tooltipList = document.getElementById('tooltipModulesList');
+    const clearTooltip = document.getElementById('clearTooltip');
 
     function updateSelectedModules() {
       const selected = [];
@@ -3838,7 +3856,7 @@ a.btn-request-demo:hover {
           const appName = card.getAttribute('data-name');
           if (cb.checked) {
             card.classList.add('selected');
-            if (appName) selected.push(appName);
+            if (appName && !selected.includes(appName)) selected.push(appName);
           } else {
             card.classList.remove('selected');
           }
@@ -3851,10 +3869,31 @@ a.btn-request-demo:hover {
         clearSelectionsBtn.style.display = selected.length > 0 ? 'inline-block' : 'none';
       }
 
-      // Save to localStorage
+      // 1. Update Selected Modules Bar directly ABOVE Clear Selections
+      if (modulesBar) {
+        modulesBar.style.display = selected.length > 0 ? 'block' : 'none';
+      }
+      if (pillsList) {
+        pillsList.innerHTML = selected.map(m => `
+          <span style="background: rgba(246, 221, 13, 0.18); border: 1px solid #f6dd0d; color: #f6dd0d; font-size: 0.8rem; font-weight: 700; padding: 3px 10px; border-radius: 14px; display: inline-flex; align-items: center; gap: 4px;">
+            ✓ ${m}
+          </span>
+        `).join('');
+      }
+
+      // 2. Update Tooltip Modules List for hover effect
+      if (tooltipList) {
+        if (selected.length > 0) {
+          tooltipList.innerHTML = selected.map(m => '<li>' + m + '</li>').join('');
+        } else {
+          tooltipList.innerHTML = '<li style="color:#94a3b8;">No modules selected</li>';
+        }
+      }
+
+      // 3. Save to localStorage
       localStorage.setItem('synergy_selected_modules', JSON.stringify(selected));
 
-      // Update all "Request Demo" links on the page to pass modules parameter
+      // 4. Update all "Request Demo" links on the page to pass modules parameter
       const demoLinks = document.querySelectorAll('a[href*="appointment.html"]');
       demoLinks.forEach(link => {
         if (selected.length > 0) {
@@ -3885,6 +3924,20 @@ a.btn-request-demo:hover {
         });
         updateSelectedModules();
       });
+
+      // Hover Tooltip explicit event listeners
+      if (clearTooltip) {
+        clearSelectionsBtn.addEventListener('mouseenter', function() {
+          clearTooltip.style.opacity = '1';
+          clearTooltip.style.visibility = 'visible';
+          clearTooltip.style.transform = 'translateY(0)';
+        });
+        clearSelectionsBtn.addEventListener('mouseleave', function() {
+          clearTooltip.style.opacity = '0';
+          clearTooltip.style.visibility = 'hidden';
+          clearTooltip.style.transform = 'translateY(6px)';
+        });
+      }
     }
 
     // Restore any existing selections from localStorage on page load
@@ -3901,6 +3954,5 @@ a.btn-request-demo:hover {
       }
     } catch(err) {}
   });
-
 
 </script>
