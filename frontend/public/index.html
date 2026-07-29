@@ -4,20 +4,2516 @@
   <meta charset="utf-8" />
   <title>Synergy Bravo ERP: Comprehensive Management Platform for Sugar Farmers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>
-    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-      window.location.replace('/landing_enhanced.html');
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2" />
+  <link rel="apple-touch-icon" href="favicon.png?v=2" />
+  <link rel="shortcut icon" type="image/png" href="favicon.png?v=2" />
+
+  <!-- Bootstrap 5.2 (no conflicts) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts: Roboto + Sansation (Sansation via fonts.cdnfonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/sansation" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary: #f6dd0d;           /* Goldish orange */
+      --secondary: #686fb4;         /* Light sage (slightly greener) */
+      --text: #5a5a5a;              /* Gentle gray text */
+      --text-dark: #3b3b3b;         /* Slightly darker for headings */
+      --footer-bg: #2f2f2f;         /* Medium-dark footer */
+      --hero-arrow-bg: rgba(255,255,255,0.85);
+      --hero-dot: rgba(255,255,255,0.6);
+      --hero-dot-active: #ffffff;
+      --container-max: 1200px;
+      --header-pad-y: 16px;
+      --header-pad-x: 18px;
+      --slide-height: 82vh;         /* full-screen-ish; we tuck under header */
+      --slide-arrow-offset: 60px;   /* inward arrow offset */
+      --card-br: 3px;              /* rounded corners */
+      --card-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --box-border: 1px;            /* requested border weight */
+      --panel-border: 1px;
     }
-  </script>
-  <meta http-equiv="refresh" content="0; url=/landing_enhanced.html" />
-  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon.png?v=2" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.png?v=2" />
-  <link rel="shortcut icon" type="image/png" href="%PUBLIC_URL%/favicon.png?v=2" />
+
+    html, body{
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background: #fff;
+      scroll-behavior: smooth;
+    }
+
+    /* Header */
+    .site-header{
+      position: fixed;
+      left: 0; right: 0; top: 0;
+      z-index: 998;
+      transition: background 260ms ease, backdrop-filter 260ms ease, padding 260ms ease, transform 260ms ease;
+      background: transparent;
+    }
+    .site-header .inner{
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--header-pad-y) var(--header-pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand img{
+      height: 66px;
+      transition: transform 260ms ease, height 260ms ease;
+    }
+    .main-nav a{
+      text-decoration: none;
+      color: #fff; /* start white over hero */
+      font-weight: 500;
+      margin: 0 10px;
+      transition: color 180ms ease, opacity 180ms ease;
+    }
+    .main-nav a:hover{ color: var(--secondary); }
+
+    .auth-actions a{
+      text-decoration: none;
+      margin-left: 14px;
+      font-weight: 500;
+      transition: color 180ms ease, background 180ms ease, border-color 180ms ease, opacity 180ms ease;
+    }
+    .auth-signin{
+      color: #fff;                   /* white before scroll */
+    }
+    .auth-signin:hover{ color: var(--primary); }
+
+    .btn-request-demo{
+      border: var(--box-border) solid #f6dd0d;
+      padding: 6px 14px;
+      border-radius: 3px;
+      background: #f6dd0d;
+      color: #3b3b3b;
+      font-size: 0.95rem;
+      box-shadow: none;
+    }
+    .btn-request-demo:hover{
+      background: #686fb4;
+      border-color: #686fb4;
+      color: #fff;
+      color: #fff;
+    }
+
+    /* Header on scroll */
+    .site-header.scrolled{
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+    .site-header.scrolled .brand img{
+      height: 53px !important;
+    }
+    .site-header.scrolled .main-nav a{
+      color: var(--text); /* gray after scroll */
+    }
+    .site-header.scrolled .auth-signin{
+      color: var(--text);
+    }
+    .site-header.scrolled .auth-signin:hover{
+      color: var(--primary);
+    }
+
+    /* Keep header content aligned to page width (not edges), except hero image stretches full */
+    .page-wrap{
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 0; /* sits under the transparent header */
+      position: relative;
+      z-index: 1;
+    }
+    .hero-carousel{
+      position: relative;
+      height: var(--slide-height);
+      overflow: hidden;
+    }
+    .hero-slide{
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 2.5s ease-in-out, visibility 2.5s ease-in-out;
+    }
+    .hero-slide.active{ 
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .hero-overlay{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35); /* helps white text */
+    }
+
+    .hero-content{
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 0 24px;
+      color: #fff;
+      font-family: 'Sansation', 'Roboto', sans-serif;
+    }
+
+    .hero-titles{
+      display: grid;
+      gap: 6px;
+      transform: translateY(-4%);
+    }
+    .hero-title-1, .hero-title-2, .hero-title-3{
+      opacity: 0;
+      transform: translateX(60px);
+      animation: slideInRight 900ms ease forwards;
+      color: #fff;
+      text-shadow: 0 10px 22px rgba(0,0,0,0.35);
+      line-height: 1.1;
+      letter-spacing: 0.2px;
+    }
+    .hero-title-1{ font-size: clamp(28px, 3.3vw, 44px); animation-delay: 400ms; }
+    .hero-title-2{ font-size: clamp(22px, 2.6vw, 34px); animation-delay: 720ms; }
+    .hero-title-3{ font-size: clamp(18px, 2.1vw, 26px); animation-delay: 1020ms; }
+
+    @keyframes slideInRight{
+      to{ opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-cta{
+      position: absolute;
+      bottom: 54px; /* close to dots */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .btn-start{
+      border: var(--box-border) solid #fff;
+      background: transparent;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .btn-start:hover{
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+    }
+
+    /* Hero Dots */
+    .hero-dots{
+      position: absolute;
+      bottom: 22px;
+      left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px;
+      z-index: 2;
+    }
+    .hero-dot{
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hero-dot);
+      transition: transform 160ms ease, background 160ms ease;
+      cursor: pointer;
+    }
+    .hero-dot.active{ background: var(--hero-dot-active); transform: scale(1.05); }
+
+    /* Hero Arrows */
+    .hero-arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--hero-arrow-bg);
+      display: grid; place-items: center;
+      border: var(--box-border) solid #fff;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+      cursor: pointer;
+      user-select: none;
+      z-index: 3;
+    }
+    .hero-arrow svg{
+      width: 16px; height: 16px; fill: #000; /* arrow is black for contrast */
+    }
+    .hero-arrow.prev{ left: var(--slide-arrow-offset); }
+    .hero-arrow.next{ right: var(--slide-arrow-offset); }
+
+    /* Section shells (subtle gradients for contrast) */
+    .section{
+      padding: 40px 0 50px;
+    }
+    .section-1{
+      background: linear-gradient(180deg, #f7f9f6 0%, #edf3ee 100%);
+      padding-top: 20px; /* tighten top per your request */
+    }
+    .section-2{
+      background: linear-gradient(180deg, #fff 0%, #f7f7fb 100%);
+    }
+    .section-3{
+      background: linear-gradient(180deg, #f6f7ff 0%, #eef1ff 100%);
+    }
+    .section-4{
+      background: linear-gradient(180deg, #fbfbfd 0%, #f2f2f7 100%);
+    }
+
+    .section .section-inner{
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .section h2{
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 18px;
+      transition: color 160ms ease;
+      font-size: clamp(22px, 2.2vw, 30px);
+    }
+    .section h2:hover{ color: var(--secondary); }
+
+    /* Features + Apps panel (same heights) */
+    .panel-card{
+      border: var(--box-border) solid var(--primary);
+      border-radius: var(--card-br);
+      box-shadow: var(--card-shadow);
+      background: #fff;
+      height: 100%;
+      overflow: hidden;
+    }
+    .panel-header{
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 1px dashed rgba(0,0,0,0.08);
+      color: var(--text-dark);
+    }
+    .panel-body{
+      padding: 14px 16px;
+    }
+
+    /* Features carousel */
+    .features-carousel{
+      position: relative;
+      min-height: 280px;
+    }
+    .features-slide{ display: none; }
+    .features-slide.active{ display: block; animation: fadeIn 380ms ease; }
+    @keyframes fadeIn{ from{opacity:0; transform: translateY(6px)} to{opacity:1; transform:none;} }
+
+    .features-list{
+      margin: 0; padding-left: 18px;
+    }
+    .features-list li{
+      margin: 6px 0;
+    }
+    .features-arrows{
+      display:flex; align-items:center; gap:10px; margin-top:12px;
+    }
+    .f-arrow{
+      width: 38px; height: 38px; border-radius:50%;
+      border: var(--box-border) solid var(--secondary);
+      display:grid; place-items:center; background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .f-arrow svg{ width: 14px; height: 14px; fill: #000; }
+    .f-dots{ display:flex; gap:8px; margin-left:auto; }
+    .f-dot{ width:9px; height:9px; border-radius:50%; background:#cfd8cf; cursor: pointer; }
+    .f-dot.active{ background:#6b8f6b; }
+
+    /* App Sorting Feature - Modern Icon Boxes */
+    .apps-search-wrapper {
+      margin-bottom: 24px;
+    }
+    .apps-search-input {
+      width: 45%;
+      padding: 14px 20px;
+      border: 2px solid rgba(246, 221, 13, 0.3);
+      border-radius: 3px;
+      font-size: 1rem;
+      color: var(--text-dark);
+      background: #fff;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    .apps-search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(246, 221, 13, 0.2);
+    }
+    .apps-carousel-wrapper {
+      position: relative;
+      padding: 0 60px;
+    }
+    .apps-slider{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 20px;
+      min-height: 500px;
+    }
+    .app-card{
+      position: relative;
+      border: 2px solid rgba(246, 221, 13, 0.3);
+      border-radius: 3px;
+      padding: 24px 16px;
+      text-align: center;
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9fb 100%);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .app-card::before{
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(246, 221, 13, 0.05) 0%, rgba(104, 111, 180, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .app-card:hover{
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 12px 32px rgba(246, 221, 13, 0.25);
+    }
+    .app-card:hover::before{
+      opacity: 1;
+    }
+    .app-card-icon{
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 12px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+    /* Icons now use inline SVG with solid color backgrounds */
+    
+    /* Icon SVG styling */
+    .app-card-icon svg {
+      width: 64px;
+      height: 64px;
+      filter: none;
+      position: relative;
+      z-index: 1;
+      border-radius: 3px;
+      display: block;
+      shape-rendering: crispEdges;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+    .app-card-icon svg rect {
+      shape-rendering: crispEdges;
+    }
+    .app-card:hover .app-card-icon{
+      transform: rotateY(360deg) scale(1.1);
+    }
+    .app-card-name{
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0;
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      transition: all 0.3s ease;
+    }
+    /* Hover state - show buttons */
+    .app-card-buttons{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(246, 221, 13, 0.96) 0%, rgba(255, 234, 167, 0.96) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3;
+    }
+    .app-card:hover .app-card-buttons{
+      opacity: 1;
+      visibility: visible;
+    }
+    .app-card:hover .app-card-name,
+    .app-card:hover .app-card-icon{
+      opacity: 0;
+    }
+    .app-btn{
+      background: #686fb4;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      width: 110px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: none;
+      transform: translateY(8px);
+      opacity: 0;
+      flex-shrink: 0;
+    }
+    .app-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: none;
+      background: #f6dd0d;
+      color: #3b3b3b;
+    }
+    .app-card:hover .app-btn{
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .app-card:hover .app-btn:nth-child(1){ transition-delay: 0.1s; }
+    .app-card:hover .app-btn:nth-child(2){ transition-delay: 0.2s; }
+    .app-card:hover .app-btn:nth-child(3){ transition-delay: 0.3s; }
+    .app-card:hover .app-btn:nth-child(4){ transition-delay: 0.4s; }
+    
+    /* Navigation Arrows */
+    .apps-nav-arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, #ffeaa7 100%);
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+      box-shadow: 0 6px 16px rgba(246, 221, 13, 0.3);
+    }
+    .apps-nav-arrow:hover{
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 8px 24px rgba(246, 221, 13, 0.5);
+    }
+    .apps-nav-arrow.prev{ left: 0; }
+    .apps-nav-arrow.next{ right: 0; }
+    .apps-nav-arrow svg{
+      width: 20px;
+      height: 20px;
+      fill: var(--text-dark);
+    }
+    
+    /* Pagination Dots */
+    .apps-pagination{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .app-dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: rgba(246, 221, 13, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .app-dot.active{
+      background: var(--primary);
+      transform: scale(1.3);
+      border-color: var(--secondary);
+    }
+    .app-dot:hover{
+      transform: scale(1.2);
+      background: var(--primary);
+    }
+
+    /* Testimonials */
+    .testi-wrap{
+      border: var(--box-border) solid rgba(0,0,0,0.08);
+      border-radius: var(--card-br);
+      background: #fff;
+      box-shadow: var(--card-shadow);
+      padding: 22px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .testi-carousel{ position: relative; min-height: 180px; }
+    .testi-slide{ display:none; text-align:center; }
+    .testi-slide.active{ display:block; animation: fadeIn 380ms ease; }
+    .testi-quote{ font-size: 1.05rem; color: var(--text-dark); margin-bottom: 10px; }
+    .testi-meta{ font-size: 0.95rem; opacity: 0.8; }
+
+    .t-arrows{ display:flex; align-items:center; gap:10px; justify-content:center; margin-top: 12px;}
+    .t-arrow{
+      width: 38px; height: 38px; border-radius:50%;
+      border: var(--box-border) solid var(--secondary);
+      display:grid; place-items:center; background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .t-arrow svg{ width: 14px; height: 14px; fill: #000; }
+    .t-dots{ display:flex; gap:8px; margin-left: 12px; }
+    .t-dot{ width:9px; height:9px; border-radius:50%; background:#cfd8cf; cursor: pointer; }
+    .t-dot.active{ background:#6b8f6b; }
+
+    /* Enterprise cards */
+    .enterprise-grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .ent-card{
+      border: var(--box-border) solid var(--primary);
+      border-radius: var(--card-br);
+      background: #fff;
+      box-shadow: var(--card-shadow);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      min-height: 160px;
+    }
+    .ent-card h4{
+      color: var(--secondary);
+      font-weight: 800;
+      margin-bottom: 8px;
+      font-family: 'Sansation', 'Roboto', sans-serif;
+    }
+    .ent-card p{ margin:0; }
+
+    /* Footer */
+    /* FOOTER - Matching Appointment System */
+    .site-footer{background:#2f2f2f;color:#fff;margin-top:56px;padding:40px 20px}
+    .footer-logo{text-align:center;margin-bottom:24px}
+    .footer-logo img{height:54px}
+    .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto;text-align:left}
+    .footer-col h4{font-size:1rem;margin-bottom:12px;color:#fff}
+    .footer-col ul{list-style:none;padding:0;margin:0}
+    .footer-col ul li{margin-bottom:8px}
+    .footer-col ul li a{color:#fff;text-decoration:none;font-size:0.9rem;opacity:0.9}
+    .footer-col ul li a:hover{opacity:1;text-decoration:underline}
+    .footer-social{display:flex;gap:16px;margin-top:16px;justify-content:flex-start}
+    @media(max-width:720px){
+      .footer-columns{grid-template-columns:1fr;text-align:center}
+      .footer-social{justify-content:center}
+    }
+
+    .footer-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;transition:all 0.3s ease;font-size:18px}
+    .footer-social a:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+    .footer-social a.facebook:hover{background:#1877F2}
+    .footer-social a.twitter:hover{background:#000}
+    .footer-social a.youtube:hover{background:#FF0000}
+    .footer-social a.instagram:hover{background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF,#515BD4)}
+    .footer-social a.tiktok:hover{background:#000}
+    .footer-social svg{width:20px;height:20px;fill:currentColor}
+
+    /* Utilities & tweaks */
+    .mt-tight{ margin-top: 6px !important; }
+    .mb-tight{ margin-bottom: 6px !important; }
+
+    
+.site-header .brand {
+  flex: 0 0 auto;
+}
+
+.site-header .main-nav {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.site-header .auth-actions {
+  flex: 0 0 auto;
+}
+
+
+    /* Responsive */
+    @media (max-width: 991.98px){
+      .apps-grid{ grid-template-columns: repeat(3,1fr); }
+      .enterprise-grid{ grid-template-columns: repeat(2,1fr); }
+      .hero-arrow{ width: 42px; height: 42px; }
+    }
+    @media (max-width: 575.98px){
+      .apps-grid{ grid-template-columns: repeat(2,1fr); }
+      .hero-title-1{ font-size: 26px; }
+      .hero-title-2{ font-size: 20px; }
+      .hero-title-3{ font-size: 17px; }
+      .hero-arrow{ width: 38px; height: 38px; }
+    }
+
+    /* Try it free */
+.btn-try{
+  border: 3px solid var(--primary) !important;   /* enforce 3px border */
+  bborder-width: 3px !important;
+  border-radius: 8px !important;   /* smaller, still rounded */
+  box-sizing: border-box;                        /* keep sizing consistent */
+  padding: 6px 14px;  
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.95rem;
+  box-shadow: 0 3px 10px rgba(245,154,35,0.25);
+}
+.btn-try:hover{
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: #fff;
+}
+
+/* Start Today */
+.btn-start{
+  border: 2px solid var(--primary) !important;   /* enforce 2px border */
+  border-width: 3px !important;
+  border-radius: 8px !important;   /* smaller, still rounded */
+  box-sizing: border-box;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-start:hover{
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: #fff;
+}
+
+
+.btn-start {
+  border-width: 2px !important;
+  box-sizing: border-box !important;
+}
+
+.panel, 
+.card, 
+.section-box {
+  border-width: 2px !important;   /* slim down borders */
+  border-style: solid;
+  border-color: var(--border, #ddd); /* use your theme border gray */
+  box-sizing: border-box;
+}
+
+/* Mega Menu Styles */
+.main-nav {
+  position: relative;
+}
+
+.nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-item > a {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 180ms ease;
+  cursor: pointer;
+}
+
+.nav-item > a::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid currentColor;
+  margin-left: 6px;
+  transition: transform 180ms ease;
+}
+
+.nav-item.has-dropdown > a::after {
+  opacity: 1;
+}
+
+.nav-item:not(.has-dropdown) > a::after {
+  display: none;
+}
+
+.nav-item.active > a::after {
+  transform: rotate(180deg);
+}
+
+.site-header.scrolled .nav-item > a {
+  color: var(--text);
+}
+
+.site-header.scrolled .nav-item > a:hover {
+  color: var(--primary);
+}
+
+.mega-menu {
+  position: fixed;
+  top: 72px;   /* adjust to match header height */
+  left: 0;
+  right: 0;
+  width: 100vw;
+  max-height: calc(100vh - 72px);
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 200ms ease;
+  z-index: 900; /* below header (998) */
+  overflow-y: auto;
+}
+
+.mega-menu-content {
+  max-width: 100%;
+  margin: 0;
+  padding: 60px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+}
+
+@media (max-width: 1400px) {
+  .mega-menu-content {
+    max-width: 1000px;
+    gap: 40px;
+  }
+}
+
+.mega-menu-section {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.mega-menu-section h4 {
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-family: 'Sansation', 'Roboto', sans-serif;
+}
+
+.mega-menu-item {
+  display: block;
+  padding: 12px 0;
+  text-decoration: none;
+  color: var(--text);
+  transition: color 180ms ease;
+  border-bottom: 1px solid #f0f0f0;
+  min-width: 0;
+}
+
+.mega-menu-item:hover {
+  color: var(--primary);
+}
+
+.mega-menu-item:last-child {
+  border-bottom: none;
+}
+
+.mega-menu-item .item-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: 15px;
+  color: var(--text-dark);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.mega-menu-item .item-desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.mega-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Mobile nav adjustments - hamburger menu handles visibility */
+
+/* Header layout fix: logo left, nav centered (absolute), auth right */
+.site-header .inner {
+  position: relative; /* allow absolute positioning */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--header-pad-y) var(--header-pad-x);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.site-header .brand {
+  flex: 0 0 auto;
+}
+
+.site-header .main-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.site-header .auth-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+  
+    /* Mega Menu styles defined earlier */
+
+/* Mobile: mega menu slides from left */
+
+
+/* Hamburger Menu */
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+    
+    .hamburger-menu span {
+      width: 100%;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    .site-header.scrolled .hamburger-menu span {
+      background-color: var(--text);
+    }
+    
+    .hamburger-menu.active span:nth-child(1) {
+      transform: translateY(10.5px) rotate(45deg);
+    }
+    
+    .hamburger-menu.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger-menu.active span:nth-child(3) {
+      transform: translateY(-10.5px) rotate(-45deg);
+    }
+    
+    /* Mobile Navigation */
+    @media (max-width: 768px) {
+      .hamburger-menu {
+        display: flex;
+      }
+      
+      .main-nav {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #fff;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        padding: 80px 20px 200px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        transition: right 0.3s ease;
+        z-index: 1001;
+        overflow-y: auto;
+      }
+      
+      .main-nav.active {
+        right: 0;
+      }
+      
+      .nav-item {
+        width: 100%;
+        margin: 8px 0;
+      }
+      
+      .nav-item > a {
+        color: var(--text-dark);
+        padding: 12px 16px;
+        width: 100%;
+        border-radius: 8px;
+        display: block;
+      }
+      
+      @media (hover: hover) {
+        .nav-item > a:hover {
+          background: rgba(246, 221, 13, 0.1);
+          color: var(--primary);
+        }
+      }
+      
+      .auth-actions {
+        position: fixed;
+        bottom: 20px;
+        right: -100%;
+        width: 240px;
+        padding: 20px;
+        background: transparent;
+        flex-direction: column;
+        gap: 12px;
+        transition: right 0.3s ease;
+        z-index: 1002;
+        box-shadow: none;
+      }
+      
+      .auth-actions.active {
+        right: 20px;
+      }
+      
+      .auth-actions a {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        margin: 0;
+      }
+      
+      .auth-signin {
+        color: var(--text-dark) !important;
+      }
+      
+      /* Mobile menu overlay */
+      .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+      }
+      
+      .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    /* Sign In Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: auto;
+      padding: 40px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 450px;
+      position: relative;
+      animation: slideDown 0.3s ease;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      color: #aaa;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+      color: #000;
+    }
+
+    .modal-header {
+      text-align: center;
+    }
+
+    .modal-form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .modal-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      color: #222;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-btn:hover {
+      background: var(--secondary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+
+  
+  /* User Specification Overrides */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /* 1px border strokes & 3px border radius across all boxes, cards & buttons */
+  .btn, .btn-request-demo, .btn-start, .btn-try, .modal-btn, .panel-card, .card, .app-card, .pricing-card, .ent-card, .modal-content, input, select, textarea, .form-control {
+    border-radius: 3px !important;
+  }
+  .panel-card, .card, .app-card, .pricing-card, .ent-card, .modal-content, .btn-request-demo, .btn-try, .btn-start {
+    border-width: 1px !important;
+  }
+  
+  /* Sticky Logo shrinks by only 20% of original 66px */
+  .site-header.scrolled .brand img {
+    height: 53px !important;
+  }
+
+  /* Main Menu Font 1px Smaller */
+  .main-nav a, .nav-item > a, .site-header .main-nav a {
+    font-size: 14px !important;
+  }
+
+  /* Mega Menu - 100% width and 100% height on click */
+  .mega-menu {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    background: #ffffff !important;
+    z-index: 2500 !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 250ms ease, visibility 250ms ease !important;
+    overflow-y: auto !important;
+    padding: 40px 60px 60px 60px !important;
+    box-sizing: border-box !important;
+  }
+  .mega-menu.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .mega-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .mega-menu-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    font-family: 'Sansation', 'Roboto', sans-serif;
+    margin: 0;
+  }
+  .mega-menu-close {
+    font-size: 28px;
+    font-weight: 400;
+    color: #475569;
+    cursor: pointer;
+    line-height: 1;
+    padding: 6px 14px;
+    border-radius: 3px !important;
+    transition: all 0.2s ease;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+  }
+  .mega-menu-close:hover {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+  }
+
+  /* Hamburger Dropdown Menu Fix on Hover & Click */
+  .hamburger-menu-container {
+    position: relative;
+  }
+  @media (min-width: 769px) {
+    .hamburger-menu:hover + .main-nav,
+    .main-nav:hover {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+
+  /* Modal Layout Fix (Top Horizontal Center Logo, Sequential Text below) */
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0;
+    border: none;
+  }
+  .modal-logo {
+    height: 44px;
+    width: auto;
+    margin: 0 auto 12px auto;
+    display: block;
+    object-fit: contain;
+  }
+  .modal-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin: 0 0 6px 0 !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+  .modal-subtitle {
+    font-size: 0.875rem !important;
+    color: #64748b !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+    width: 100% !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+  .modal-tabs {
+    display: flex;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+  .modal-tab {
+    flex: 1;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 3px !important;
+    transition: all 0.2s ease;
+  }
+  .modal-tab.active {
+    background: #ffffff;
+    color: #1e293b;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+</style>
 </head>
 <body>
-  <div id="root"></div>
-  <p style="text-align: center; margin-top: 50px; font-family: sans-serif; color: #5a5a5a;">
-    Redirecting to <a href="/landing_enhanced.html">Synergy Bravo ERP</a>...
-  </p>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="inner">
+        <div class="brand">
+          <img id="brandLogo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Election Pro">
+        </div>
+        <nav class="main-nav">
+          <div class="nav-item">
+            <a href="apps.html">Apps</a>
+          </div>
+          <div class="nav-item">
+            <a href="features.html">Features</a>
+          </div>
+          <div class="nav-item has-dropdown">
+            <a href="#usedby">Used By</a>
+            <div class="mega-menu" id="industriesMenu">
+  <div class="mega-menu-header">
+    <h3 class="mega-menu-title">Industries & ERP Modules</h3>
+    <span class="mega-menu-close" onclick="closeMegaMenu()">&times;</span>
+  </div>
+  <div class="mega-menu-content">
+    <div class="mega-menu-section">
+      <h4>Campaign Types</h4>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Local Elections</div>
+        <div class="item-desc">City council, mayor, school board campaigns</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">State Legislature</div>
+        <div class="item-desc">Assembly, senate, and gubernatorial races</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Federal Campaigns</div>
+        <div class="item-desc">Congressional and presidential campaigns</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Ballot Measures</div>
+        <div class="item-desc">Issue advocacy and referendum campaigns</div>
+      </a>
+    </div>
+    <div class="mega-menu-section">
+      <h4>Organizations</h4>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Political Parties</div>
+        <div class="item-desc">Democratic, Republican, and third-party organizations</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">PACs & Super PACs</div>
+        <div class="item-desc">Political action committees and advocacy groups</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Nonprofits</div>
+        <div class="item-desc">501(c)(3) and 501(c)(4) advocacy organizations</div>
+      </a>
+      <a href="#" class="mega-menu-item">
+        <div class="item-title">Consulting Firms</div>
+        <div class="item-desc">Political consultants and campaign agencies</div>
+      </a>
+    </div>
+  </div>
+</div>
+          </div>
+          <div class="nav-item">
+            <a href="forum/index.html">Community</a>
+          </div>
+          <div class="nav-item">
+            <a href="pricing.html">Pricing</a>
+          </div>
+          <div class="nav-item">
+            <a href="help.html">Help</a>
+          </div>
+        </nav>
+        <div class="auth-actions">
+          <a class="auth-signin" href="#" onclick="openSignInModal(); return false;" style="font-size:0.98rem;">Sign in</a>
+          <a class="btn-request-demo" href="/appointment.html" style="font-size:0.92rem;">Request Demo</a>
+        </div>
+        <!-- Hamburger Menu Button -->
+        <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-carousel" id="heroCarousel">
+      <!-- Slide 1 -->
+      <div class="hero-slide active" style="background-image:url('assets/images/slides/home-bg-3.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-titles">
+            <div class="hero-title-1">Intelligent</div>
+            <div class="hero-title-2">Cohesive</div>
+            <div class="hero-title-3">Integrated</div>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="#features" class="btn-start">Start Today</a>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="hero-slide" style="background-image:url('assets/images/slides/home-bg-2.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-titles">
+            <div class="hero-title-1">A comprehensive platform</div>
+            <div class="hero-title-2">Seamlessly connecting...</div>
+            <div class="hero-title-3">procurement, accounting, sales, and analytics</div>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="#features" class="btn-start">Start Today</a>
+        </div>
+      </div>
+      <!-- Slide 3 - EASILY COPY THIS BLOCK TO ADD MORE SLIDES -->
+      <div class="hero-slide" style="background-image:url('assets/images/slides/home-bg-1.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-titles">
+            <div class="hero-title-1">Empowering Growth</div>
+            <div class="hero-title-2">With Data-Driven Insights</div>
+            <div class="hero-title-3">Transform your business operations</div>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="#features" class="btn-start">Start Today</a>
+        </div>
+      </div>
+      <!-- END SLIDE 3 - Copy the above block and change data-i in dots below to add more -->
+
+
+
+
+      <!-- Arrows -->
+      <button class="hero-arrow prev" id="heroPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <button class="hero-arrow next" id="heroNext" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+      </button>
+
+      <!-- Dots - Add a new span with incremented data-i for each new slide -->
+      <div class="hero-dots" id="heroDots">
+        <span class="hero-dot active" data-i="0"></span>
+        <span class="hero-dot" data-i="1"></span>
+        <span class="hero-dot" data-i="2"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Features + Apps -->
+  <section class="section section-1" id="features">
+    <div class="section-inner">
+      <h2>Features</h2>
+      <div class="row g-3 align-items-stretch">
+        <!-- Features panel -->
+        <div class="col-lg-4">
+          <div class="panel-card h-100">
+            <div class="panel-header">Why Sugar Farmers choose Synergy Bravo ERP</div>
+            <div class="panel-body">
+              <div class="features-carousel" id="featuresCarousel">
+                <div class="features-slide active">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Outreach & Engagement</h5>
+                  <ul class="features-list">
+                    <li>Targeted voter messaging</li>
+                    <li>Event planning & RSVPs</li>
+                    <li>Canvassing mobile tools</li>
+                    <li>Volunteer onboarding</li>
+                    <li>SMS & email campaigns</li>
+                    <li>Real-time response tracking</li>
+                    <li>Analytics you can trust</li>
+                  </ul>
+                </div>
+                <div class="features-slide">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Finance & Compliance</h5>
+                  <ul class="features-list">
+                    <li>Donor CRM & receipts</li>
+                    <li>Recurring donations</li>
+                    <li>Contribution limits alerts</li>
+                    <li>Expense approvals</li>
+                    <li>Automated reports</li>
+                    <li>Bank sync & exports</li>
+                    <li>Audit-ready records</li>
+                  </ul>
+                </div>
+                <div class="features-slide">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Operations & Data</h5>
+                  <ul class="features-list">
+                    <li>Centralized data hub</li>
+                    <li>Role-based permissions</li>
+                    <li>Task & workflow boards</li>
+                    <li>Integrations & API</li>
+                    <li>Granular dashboards</li>
+                    <li>Automations builder</li>
+                    <li>99.99% platform uptime</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="features-arrows">
+                <button class="f-arrow" id="featPrev" aria-label="Previous">
+                  <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <button class="f-arrow" id="featNext" aria-label="Next">
+                  <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+                </button>
+                <div class="f-dots" id="featDots">
+                  <span class="f-dot active" data-i="0"></span>
+                  <span class="f-dot" data-i="1"></span>
+                  <span class="f-dot" data-i="2"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Apps panel with modern sorting feature -->
+        <div class="col-lg-8" id="apps">
+          <div class="panel-card h-100">
+            <div class="panel-header">Sugar Farming Industry Apps</div>
+            <div class="panel-body">
+              <!-- Search Field -->
+              <div class="apps-search-wrapper">
+                <input type="text" class="apps-search-input" id="appsSearch" placeholder="Search apps...">
+              </div>
+              
+              <div class="apps-carousel-wrapper">
+                <!-- Navigation Arrows -->
+                <button class="apps-nav-arrow prev" id="appsNavPrev" aria-label="Previous apps">
+                  <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <button class="apps-nav-arrow next" id="appsNavNext" aria-label="Next apps">
+                  <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+                </button>
+                
+                <!-- Apps Slider Container -->
+                <div class="apps-slider" id="appsSlider">
+                  <!-- Page 1 - 9 apps in 3x3 grid -->
+                  <div class="app-card" data-page="0" data-name="Farmers Recruitment & Cane" data-tags="farmers recruitment cane management hiring labor">
+                    <div class="app-card-icon icon-farmers">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#A7F3D0"/><path d="M32 16c-3.31 0-6 2.69-6 6 0 1.48.54 2.84 1.43 3.89L24 30.5v3.5h-4v10h8v-8h8v8h8v-10h-4v-3.5l-3.43-4.61A5.983 5.983 0 0 0 38 22c0-3.31-2.69-6-6-6zm0 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" fill="#059669"/></svg>
+                    </div>
+                    <div class="app-card-name">Farmers Recruitment & Cane</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="farmers-recruitment">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0" data-name="Nucleus & Farm Operations" data-tags="nucleus farm operations management core">
+                    <div class="app-card-icon icon-nucleus">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#C7D2FE"/><circle cx="32" cy="32" r="8" fill="#4F46E5"/><circle cx="32" cy="18" r="3" fill="#4F46E5"/><circle cx="32" cy="46" r="3" fill="#4F46E5"/><circle cx="18" cy="32" r="3" fill="#4F46E5"/><circle cx="46" cy="32" r="3" fill="#4F46E5"/><path d="M32 24v-3m0 22v3m-14-14h3m22 0h-3" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="app-card-name">Nucleus & Farm Operations</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="nucleus-operations">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0" data-name="Harvesting & Transport" data-tags="harvesting transport logistics delivery trucks">
+                    <div class="app-card-icon icon-harvesting">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#FED7AA"/><path d="M16 22c-1.1 0-2 .9-2 2v12h2c0 2.21 1.79 4 4 4s4-1.79 4-4h10c0 2.21 1.79 4 4 4s4-1.79 4-4h2v-6l-4-6h-6v-2H16zm0 4h6v6h-6v-6zm8 0h8v6h-8v-6zm10 3h4l3 3h-7v-3zm-14 7c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm18 0c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" fill="#EA580C"/></svg>
+                    </div>
+                    <div class="app-card-name">Harvesting & Transport</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="harvesting-transport">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0" data-name="Weighbridge" data-tags="weighbridge scale weight measurement cargo">
+                    <div class="app-card-icon icon-weighbridge">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#DDD6FE"/><rect x="20" y="30" width="24" height="4" rx="1" fill="#7C3AED"/><path d="M18 36h28v2c0 1.1-.9 2-2 2H20c-1.1 0-2-.9-2-2v-2z" fill="#7C3AED"/><circle cx="24" cy="26" r="2" fill="#7C3AED"/><circle cx="32" cy="26" r="2" fill="#7C3AED"/><circle cx="40" cy="26" r="2" fill="#7C3AED"/><rect x="30" y="18" width="4" height="8" fill="#7C3AED"/></svg>
+                    </div>
+                    <div class="app-card-name">Weighbridge</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="weighbridge">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0" data-name="Fleet Management" data-tags="fleet management vehicles trucks cars tracking gps">
+                    <div class="app-card-icon icon-fleet">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#BAE6FD"/><path d="M42 28h-6v-6h-8v6h-6l10 12 10-12z" fill="#0369A1"/><path d="M20 22c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h24c1.1 0 2-.9 2-2V24c0-1.1-.9-2-2-2H20zm2 4h20v8H22v-8z" fill="#0369A1"/><circle cx="25" cy="42" r="2.5" fill="#0369A1"/><circle cx="39" cy="42" r="2.5" fill="#0369A1"/></svg>
+                    </div>
+                    <div class="app-card-name">Fleet Management</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="fleet-management">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0" data-name="MRP & Inventory" data-tags="mrp procurement stores inventory control materials">
+                    <div class="app-card-icon icon-mrp">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#FECACA"/><path d="M32 16l-14 8v16l14 8 14-8V24l-14-8z" stroke="#DC2626" stroke-width="3" fill="none" stroke-linejoin="round"/><path d="M18 24l14 8m0 0l14-8m-14 8v16" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="app-card-name">MRP & Inventory</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="mrp-inventory">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0" data-name="Production" data-tags="production manufacturing operations processing plant">
+                    <div class="app-card-icon icon-production">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#A5F3FC"/><circle cx="32" cy="32" r="10" stroke="#0891B2" stroke-width="3" fill="none"/><path d="M32 18v4m0 20v4m14-14h-4m-20 0h-4" stroke="#0891B2" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="4" fill="#0891B2"/></svg>
+                    </div>
+                    <div class="app-card-name">Production</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="production">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0" data-name="Sales & Invoicing" data-tags="sales invoicing billing payments revenue customers">
+                    <div class="app-card-icon icon-sales">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#E9D5FF"/><rect x="18" y="20" width="28" height="24" rx="2" stroke="#9333EA" stroke-width="2.5" fill="none"/><path d="M18 26h28M22 30h4M22 34h4M30 30h8M30 34h12" stroke="#9333EA" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="app-card-name">Sales & Invoicing</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="sales-invoicing">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  <div class="app-card" data-page="0" data-name="Financial Management" data-tags="financial management accounting finance money budget">
+                    <div class="app-card-icon icon-financial">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#FEF3C7"/><path d="M32 16v4m0 24v4" stroke="#D97706" stroke-width="3" stroke-linecap="round"/><path d="M26 24h8c2.21 0 4 1.79 4 4s-1.79 4-4 4h-6c-2.21 0-4 1.79-4 4s1.79 4 4 4h8" stroke="#D97706" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+                    </div>
+                    <div class="app-card-name">Financial Management</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="financial-management">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                  
+                  <!-- Page 2 - 1 app -->
+                  <div class="app-card" data-page="1" style="display: none;" data-name="HR & Payroll" data-tags="hr payroll time attendance human resources employees">
+                    <div class="app-card-icon icon-hr">
+                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#FBCFE8"/><circle cx="32" cy="25" r="6" fill="#DB2777"/><path d="M20 42c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#DB2777" stroke-width="3" stroke-linecap="round" fill="none"/><circle cx="20" cy="26" r="4" fill="#DB2777"/><circle cx="44" cy="26" r="4" fill="#DB2777"/></svg>
+                    </div>
+                    <div class="app-card-name">HR & Payroll</div>
+                    <div class="app-card-buttons">
+                      <button class="app-btn app-features-btn" data-app="hr-payroll">Features</button>
+                      <a href="/appointment.html" class="app-btn">Request Demo</a>
+                      <a href="#info" class="app-btn">More Info</a>
+                      <a href="#pricing" class="app-btn">Pricing</a>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Pagination Dots -->
+                <div class="apps-pagination" id="appsPagination">
+                  <span class="app-dot active" data-page="0"></span>
+                  <span class="app-dot" data-page="1"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- row -->
+    </div>
+  </section>
+
+  <!-- Section 2: Testimonials -->
+  <section class="section section-2" id="testimonials" style="padding-top:25px;">
+    <div class="section-inner">
+      <h2>What People Say</h2>
+      <div class="testi-wrap" style="margin-top: 5px;">
+        <div class="testi-carousel" id="testiCarousel">
+          <div class="testi-slide active">
+            <div class="testi-quote">"Election Pro streamlined our entire operation. We moved faster and smarter."</div>
+            <div class="testi-meta">Jane M — Campaign Director, City of Hope</div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-quote">"Our team actually enjoys the tools. Fundraising went from chaos to clarity."</div>
+            <div class="testi-meta">Samuel A — Finance Lead, Forward Together</div>
+          </div>
+          <div class="testi-slide">
+            <div class="testi-quote">"From volunteers to compliance, it just works. Highly recommended."</div>
+            <div class="testi-meta">Ruqayya K — Field Ops, Open Future</div>
+          </div>
+        </div>
+        <div class="t-arrows">
+          <button class="t-arrow" id="testiPrev" aria-label="Previous">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <button class="t-arrow" id="testiNext" aria-label="Next">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+          </button>
+          <div class="t-dots" id="testiDots">
+            <span class="t-dot active" data-i="0"></span>
+            <span class="t-dot" data-i="1"></span>
+            <span class="t-dot" data-i="2"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2.5: AI Traceability Circle -->
+  <section class="section section-ai-circle" id="ai-traceability" style="padding: 60px 0; background: #fff;">
+    <div class="section-inner">
+      <h2 style="text-align: center; margin-bottom: 40px;">AI-Powered Traceability Network</h2>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <img src="assets/images/connected.png" alt="AI-Powered Traceability Network" style="width: 480px; height: 360px; max-width: 100%;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Access from all devices -->
+  <section class="section section-3" id="access">
+    <div class="section-inner">
+      <h2>Access from All Devices</h2>
+      <div class="row g-3 align-items-center">
+        <div class="col-md-6">
+          <p class="mb-2">Stay connected across web, tablet, and mobile with a secure, unified experience. Your data follows you and your team — anywhere.</p>
+          <ul class="mb-0">
+            <li>Real-time sync</li>
+            <li>Optimized UI per device</li>
+            <li>Offline-first workflows</li>
+            <li>Enterprise SSO options</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <img class="img-fluid rounded-3 shadow-sm" src="ai-traceability-network.svg" alt="Devices connectivity">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Enterprise Campaign Apps Done Right -->
+  <section class="section section-4" id="enterprise">
+    <div class="section-inner">
+      <h2>Enterprise Campaign Apps Done Right</h2>
+      <div class="enterprise-grid">
+        <div class="ent-card">
+          <h4>Reliability</h4>
+          <p>99.99% uptime and robust SLAs your team can depend on.</p>
+        </div>
+        <div class="ent-card">
+          <h4>Security</h4>
+          <p>Encryption, audit trails, and fine-grained permissions by default.</p>
+        </div>
+        <div class="ent-card">
+          <h4>Scale</h4>
+          <p>From local races to national coalitions — without friction.</p>
+        </div>
+        <div class="ent-card">
+          <h4>Support</h4>
+          <p>White-glove onboarding and success partners, every step.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <!-- FOOTER - Matching Appointment System -->
+  <footer class="site-footer">
+    <div class="footer-logo">
+      <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP">
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="forum/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html">Terms of Service</a></li>
+          <li><a href="security.html">Security</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">     
+        <h4>Connect with us</h4>
+        <div class="footer-social">
+          <a href="http://facebook.com/synergysugar" target="_blank" class="facebook" title="Facebook">
+            <svg viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="http://twitter.com/synergysugar" target="_blank" class="twitter" title="X (Twitter)">
+            <svg viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="http://youtube.com/@synergysugar" target="_blank" class="youtube" title="YouTube">
+            <svg viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="http://instagram.com/synergysugar" target="_blank" class="instagram" title="Instagram">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href="http://tiktok.com/@synergysugar" target="_blank" class="tiktok" title="TikTok">
+            <svg viewBox="0 0 24 24">
+              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap + minimal JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- Sign In Modal -->
+  <div id="signInModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeSignInModal()">&times;</span>
+      <div class="modal-header">
+        <img src="assets/images/Synergy-logo-sugar-web-black.png" alt="Synergy Bravo ERP" style="height: 50px; margin-bottom: 20px;">
+        <h2 style="margin: 0 0 8px; font-size: 1.8rem; color: #333;">Welcome Back</h2>
+        <p style="color: #777; margin: 0 0 30px;">Sign in to your Synergy Bravo ERP account</p>
+      </div>
+      <form class="modal-form" onsubmit="return false;">
+        <div class="form-group">
+          <label for="signin-email">Email Address</label>
+          <input type="email" id="signin-email" placeholder="you@company.com" required>
+        </div>
+        <div class="form-group">
+          <label for="signin-password">Password</label>
+          <div style="position: relative;">
+            <input type="password" id="signin-password" placeholder="Enter your password" required>
+            <span class="toggle-password" onclick="toggleModalPassword('signin-password', this)" style="position: absolute; right: 12px; top: 12px; cursor: pointer; font-size: 1.1rem;">👁</span>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 0;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+            <input type="checkbox" style="width: 16px; height: 16px;">
+            <span>Remember me</span>
+          </label>
+          <a href="#" style="color: var(--secondary); text-decoration: none; font-size: 0.9rem; font-weight: 600;">Forgot password?</a>
+        </div>
+        <button type="submit" class="modal-btn">Sign In</button>
+        <div style="text-align: center; margin-top: 20px; font-size: 0.95rem; color: #666;">
+          Don't have an account? <a href="signup.html" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Sign Up</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+    // Header behavior: transparent -> white .8, and logo swap if you like
+    (function(){
+      const header = document.getElementById('siteHeader');
+      const brandLogo = document.getElementById('brandLogo');
+      const whiteSrc = 'assets/images/Synergy-logo-sugar-web-white.png';
+      const blackSrc = 'assets/images/Synergy-logo-sugar-web-black.png';
+
+      function onScroll(){
+        const y = window.pageYOffset || document.documentElement.scrollTop;
+        if(y > 10){
+          header.classList.add('scrolled');
+          brandLogo.src = blackSrc;
+        } else {
+          header.classList.remove('scrolled');
+          brandLogo.src = whiteSrc;
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // Mega menu functionality - click to open/close
+    (function(){
+      const industriesLink = document.querySelector('.nav-item.has-dropdown > a');
+      const industriesItem = document.querySelector('.nav-item.has-dropdown');
+      const megaMenu = document.getElementById('industriesMenu');
+
+      if (industriesLink && megaMenu) {
+        industriesLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // On mobile, slide out to the left
+          if (window.innerWidth <= 768) {
+            industriesItem.classList.toggle('active');
+          } 
+          // On desktop, toggle full mega menu
+          else {
+            megaMenu.classList.toggle('active');
+          }
+        });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.mega-menu') && !e.target.closest('.nav-item.has-dropdown')) {
+        megaMenu.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        megaMenu.classList.remove('active');
+      }
+    });
+  }
+})();
+
+    // Basic carousel helper (no external deps).
+    function makeCarousel(containerSel, options){
+      const root = document.querySelector(containerSel);
+      if(!root) return;
+      
+      // Fixed selector logic - now looks for direct children of specific carousels
+      let slides;
+      if (containerSel === '#heroCarousel') {
+        slides = Array.from(root.querySelectorAll('.hero-slide'));
+      } else if (containerSel === '#featuresCarousel') {
+        slides = Array.from(root.querySelectorAll('.features-slide'));
+      } else if (containerSel === '#testiCarousel') {
+        slides = Array.from(root.querySelectorAll('.testi-slide'));
+      } else {
+        // Fallback for any other carousels
+        slides = Array.from(root.querySelectorAll('.slide, .hero-slide, .features-slide, .testi-slide'))
+                      .filter(el => el.parentElement === root);
+      }
+      
+      if(slides.length === 0) return;
+
+      let index = 0;
+      const {
+        prevSel, nextSel, dotsSel, activeClass='active',
+        interval=6000, auto=true
+      } = options;
+
+      const prevBtn = prevSel ? document.querySelector(prevSel) : null;
+      const nextBtn = nextSel ? document.querySelector(nextSel) : null;
+      const dotsWrap = dotsSel ? document.querySelector(dotsSel) : null;
+      const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+
+      function show(i){
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s,idx)=> {
+          const isActive = idx===index;
+          s.classList.toggle(activeClass, isActive);
+          
+          // Restart title animations for hero slides
+          if(isActive && containerSel === '#heroCarousel'){
+            const titles = s.querySelectorAll('.hero-title-1, .hero-title-2, .hero-title-3');
+            titles.forEach(title => {
+              // Force animation restart by removing and re-adding
+              title.style.animation = 'none';
+              title.offsetHeight; // Trigger reflow
+              title.style.animation = '';
+            });
+          }
+        });
+        if(dots.length){
+          dots.forEach((d,idx)=> d.classList.toggle('active', idx===index));
+        }
+      }
+      function next(){ show(index+1); }
+      function prev(){ show(index-1); }
+
+      if(prevBtn) prevBtn.addEventListener('click', prev);
+      if(nextBtn) nextBtn.addEventListener('click', next);
+      if(dots.length){
+        dots.forEach((dot, i)=> dot.addEventListener('click', ()=> show(i)));
+      }
+
+      let timer=null;
+      function start(){
+        if(auto){
+          stop();
+          timer = setInterval(next, interval);
+        }
+      }
+      function stop(){
+        if(timer){ clearInterval(timer); timer=null; }
+      }
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+
+      show(0);
+      start();
+      return { next, prev, show, stop, start };
+    }
+
+    // HERO carousel
+    makeCarousel('#heroCarousel', {
+      prevSel: '#heroPrev',
+      nextSel: '#heroNext',
+      dotsSel: '#heroDots',
+      activeClass: 'active',
+      interval: 6500,
+      auto: true
+    });
+
+    // FEATURES carousel
+    makeCarousel('#featuresCarousel', {
+      prevSel: '#featPrev',
+      nextSel: '#featNext',
+      dotsSel: '#featDots',
+      activeClass: 'active',
+      interval: 6000,
+      auto: true
+    });
+
+    // TESTIMONIALS carousel
+    makeCarousel('#testiCarousel', {
+      prevSel: '#testiPrev',
+      nextSel: '#testiNext',
+      dotsSel: '#testiDots',
+      activeClass: 'active',
+      interval: 6000,
+      auto: true
+    });
+
+    // APPS SORTING WITH PAGINATION, SEARCH AND FEATURES (3x3 Grid)
+    (function(){
+      let currentPage = 0;
+      const totalPages = 2; // 2 pages: Page 1 (9 apps) + Page 2 (1 app)
+      const appsSlider = document.getElementById('appsSlider');
+      const appCards = document.querySelectorAll('.app-card');
+      const searchInput = document.getElementById('appsSearch');
+      const prevBtn = document.getElementById('appsNavPrev');
+      const nextBtn = document.getElementById('appsNavNext');
+      const dots = document.querySelectorAll('.app-dot');
+      const featuresCarousel = document.getElementById('featuresCarousel');
+      let isSearchActive = false;
+      
+      // App-specific features data
+      const appFeatures = {
+        'farmers-recruitment': {
+          title: 'Farmers Recruitment & Cane Management',
+          features: [
+            'Farmer registration & profiles',
+            'Cane cultivation tracking',
+            'Contract management',
+            'Payment processing',
+            'Farmer communication portal',
+            'Cane quality assessment',
+            'Harvest scheduling coordination'
+          ]
+        },
+        'nucleus-operations': {
+          title: 'Nucleus & Farm Operations',
+          features: [
+            'Central farm management',
+            'Land allocation tracking',
+            'Irrigation system control',
+            'Equipment deployment',
+            'Labor allocation',
+            'Crop monitoring dashboard',
+            'Operations analytics'
+          ]
+        },
+        'harvesting-transport': {
+          title: 'Harvesting & Transport',
+          features: [
+            'Harvest scheduling',
+            'Cane cutting coordination',
+            'Transport vehicle assignment',
+            'Route optimization',
+            'Load tracking',
+            'Delivery confirmation',
+            'Real-time GPS tracking'
+          ]
+        },
+        'weighbridge': {
+          title: 'Weighbridge Management',
+          features: [
+            'Automated weight capture',
+            'Vehicle registration',
+            'Net weight calculation',
+            'Digital ticket generation',
+            'Quality parameter recording',
+            'Tare weight management',
+            'Historical weight reports'
+          ]
+        },
+        'fleet-management': {
+          title: 'Fleet Management',
+          features: [
+            'Vehicle tracking & monitoring',
+            'Fuel consumption analysis',
+            'Maintenance scheduling',
+            'Driver management',
+            'Trip planning & routing',
+            'Vehicle performance metrics',
+            'Compliance documentation'
+          ]
+        },
+        'mrp-inventory': {
+          title: 'MRP & Inventory Control',
+          features: [
+            'Material requirement planning',
+            'Procurement automation',
+            'Stock level monitoring',
+            'Supplier management',
+            'Purchase order tracking',
+            'Warehouse management',
+            'Inventory valuation reports'
+          ]
+        },
+        'production': {
+          title: 'Production Management',
+          features: [
+            'Production scheduling',
+            'Process monitoring',
+            'Quality control checks',
+            'Equipment efficiency tracking',
+            'Batch management',
+            'Waste reduction analytics',
+            'Output optimization'
+          ]
+        },
+        'sales-invoicing': {
+          title: 'Sales & Invoicing',
+          features: [
+            'Customer order management',
+            'Invoice generation',
+            'Payment tracking',
+            'Credit management',
+            'Sales analytics',
+            'Pricing management',
+            'Tax compliance'
+          ]
+        },
+        'financial-management': {
+          title: 'Financial Management',
+          features: [
+            'General ledger accounting',
+            'Budget planning & control',
+            'Cash flow management',
+            'Financial reporting',
+            'Tax management',
+            'Cost center tracking',
+            'Profit & loss analysis'
+          ]
+        },
+        'hr-payroll': {
+          title: 'HR, Payroll & Attendance',
+          features: [
+            'Employee database management',
+            'Payroll processing',
+            'Time & attendance tracking',
+            'Leave management',
+            'Performance appraisals',
+            'Statutory compliance',
+            'Employee self-service portal'
+          ]
+        }
+      };
+      
+      // Show specific page
+      function showPage(pageNum){
+        currentPage = (pageNum + totalPages) % totalPages;
+        
+        // Hide all cards
+        appCards.forEach(card => {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.9) translateY(20px)';
+        });
+        
+        // Show cards for current page with animation
+        const currentCards = document.querySelectorAll(`.app-card[data-page="${currentPage}"]`);
+        currentCards.forEach((card, idx) => {
+          card.style.display = 'flex';
+          setTimeout(() => {
+            card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1) translateY(0)';
+          }, idx * 100);
+        });
+        
+        // Update dots
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentPage);
+        });
+      }
+      
+      function nextPage(){
+        showPage(currentPage + 1);
+      }
+      
+      function prevPage(){
+        showPage(currentPage - 1);
+      }
+      
+      // Search functionality
+      function filterApps(searchTerm){
+        const term = searchTerm.toLowerCase().trim();
+        isSearchActive = term !== '';
+        let visibleCount = 0;
+        
+        if(!isSearchActive){
+          // Return to pagination mode
+          showPage(currentPage);
+          if(prevBtn) prevBtn.style.display = '';
+          if(nextBtn) nextBtn.style.display = '';
+          document.getElementById('appsPagination').style.display = '';
+          return;
+        }
+        
+        // Hide navigation in search mode
+        if(prevBtn) prevBtn.style.display = 'none';
+        if(nextBtn) nextBtn.style.display = 'none';
+        document.getElementById('appsPagination').style.display = 'none';
+        
+        // Filter cards
+        appCards.forEach(card => {
+          const name = card.getAttribute('data-name').toLowerCase();
+          const tags = card.getAttribute('data-tags').toLowerCase();
+          const matches = name.includes(term) || tags.includes(term);
+          
+          if(matches){
+            card.style.display = 'flex';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1) translateY(0)';
+            visibleCount++;
+          } else {
+
+
+  function toggleModalPassword(inputId, toggleElement) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+      input.type = "text";
+      toggleElement.textContent = "🙈";
+    } else {
+      input.type = "password";
+      toggleElement.textContent = "👁";
+    }
+  }
+
+            card.style.display = 'none';
+            card.style.opacity = '0';
+          }
+        });
+        
+        // Show no results message
+        if(visibleCount === 0){
+          const noResults = document.createElement('div');
+          noResults.id = 'no-results';
+          noResults.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text);';
+          noResults.innerHTML = '<p style="font-size: 1.1rem; margin-bottom: 8px;">No apps found</p><p style="font-size: 0.9rem; opacity: 0.7;">Try a different search term</p>';
+          
+          const existing = document.getElementById('no-results');
+          if(!existing){
+            appsSlider.appendChild(noResults);
+          }
+        } else {
+          const existing = document.getElementById('no-results');
+          if(existing) existing.remove();
+        }
+      }
+      
+      // Search input event
+      if(searchInput){
+        searchInput.addEventListener('input', (e) => {
+          filterApps(e.target.value);
+        });
+      }
+      
+      // Navigation event listeners
+      if(prevBtn) prevBtn.addEventListener('click', prevPage);
+      if(nextBtn) nextBtn.addEventListener('click', nextPage);
+      
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => showPage(idx));
+      });
+      
+      // Features button click handler
+      document.querySelectorAll('.app-features-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const appId = btn.getAttribute('data-app');
+          const appData = appFeatures[appId];
+          
+          if(appData && featuresCarousel){
+            // Update features section
+            const featuresSlides = featuresCarousel.querySelectorAll('.features-slide');
+            if(featuresSlides.length > 0){
+              const firstSlide = featuresSlides[0];
+              
+              // Update content
+              firstSlide.innerHTML = `
+                <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">${appData.title}</h5>
+                <ul class="features-list">
+                  ${appData.features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+              `;
+              
+              // Show first slide
+              featuresSlides.forEach(s => s.classList.remove('active'));
+              firstSlide.classList.add('active');
+              
+              // Scroll to features section smoothly
+              const featuresSection = document.getElementById('features');
+              if(featuresSection){
+                featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }
+          }
+        });
+      });
+      
+      // Initialize
+      showPage(0);
+    })();
+
+    // Make Features and Apps columns equal height on wide screens
+    function matchHeights(){
+      const left = document.querySelector('#features .col-lg-4 .panel-card');
+      const right = document.querySelector('#features .col-lg-8 .panel-card');
+      if(!left || !right) return;
+      // Reset first
+      left.style.height = 'auto';
+      right.style.height = 'auto';
+      if(window.innerWidth >= 992){
+        const h = Math.max(left.offsetHeight, right.offsetHeight);
+        left.style.height = h + 'px';
+        right.style.height = h + 'px';
+      }
+    }
+    window.addEventListener('load', matchHeights);
+    window.addEventListener('resize', matchHeights);
+    setTimeout(matchHeights, 350);
+
+  // Hamburger menu toggle
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mainNav = document.querySelector('.main-nav');
+  const authActions = document.querySelector('.auth-actions');
+  
+  if (hamburgerBtn) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-menu-overlay';
+    document.body.appendChild(overlay);
+    
+    hamburgerBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      hamburgerBtn.classList.toggle('active');
+      mainNav.classList.toggle('active');
+      authActions.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = hamburgerBtn.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', function() {
+      hamburgerBtn.classList.remove('active');
+      mainNav.classList.remove('active');
+      authActions.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    
+    // Close menu when clicking nav links
+    const navLinks = mainNav.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        hamburgerBtn.classList.remove('active');
+        mainNav.classList.remove('active');
+        authActions.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+
+  // Sign In Modal functionality
+  function openSignInModal() {
+    document.getElementById('signInModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  
+  function closeMegaMenu() {
+    const megaMenu = document.getElementById('industriesMenu');
+    const industriesItem = document.querySelector('.nav-item.has-dropdown');
+    if (megaMenu) megaMenu.classList.remove('active');
+    if (industriesItem) industriesItem.classList.remove('active');
+  }
+
+  function switchAuthTab(mode) {
+    const signInForm = document.getElementById('signInForm');
+    const registerForm = document.getElementById('registerForm');
+    const tabSignInBtn = document.getElementById('tabSignInBtn');
+    const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const authMessage = document.getElementById('authMessage');
+
+    if (authMessage) authMessage.style.display = 'none';
+
+    if (mode === 'register') {
+      signInForm.style.display = 'none';
+      registerForm.style.display = 'block';
+      tabSignInBtn.classList.remove('active');
+      tabRegisterBtn.classList.add('active');
+      modalTitle.textContent = 'Create an Account';
+      modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
+    } else {
+      signInForm.style.display = 'block';
+      registerForm.style.display = 'none';
+      tabSignInBtn.classList.add('active');
+      tabRegisterBtn.classList.remove('active');
+      modalTitle.textContent = 'Welcome Back';
+      modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
+    }
+  }
+
+  function handleSignIn(e) {
+    e.preventDefault();
+    const authMessage = document.getElementById('authMessage');
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#dcfce7';
+    authMessage.style.color = '#166534';
+    authMessage.style.border = '1px solid #bbf7d0';
+    authMessage.textContent = 'Signed in successfully! Redirecting...';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1200);
+  }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    const password = document.getElementById('reg-password').value;
+    const confirm = document.getElementById('reg-confirm-password').value;
+    const authMessage = document.getElementById('authMessage');
+    
+    if (password !== confirm) {
+      authMessage.style.display = 'block';
+      authMessage.style.background = '#fef2f2';
+      authMessage.style.color = '#991b1b';
+      authMessage.style.border = '1px solid #fecaca';
+      authMessage.textContent = 'Passwords do not match. Please verify and try again.';
+      return;
+    }
+
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#dcfce7';
+    authMessage.style.color = '#166534';
+    authMessage.style.border = '1px solid #bbf7d0';
+    authMessage.textContent = 'Account created successfully! Welcome to Synergy Bravo ERP.';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1500);
+  }
+
+  function closeSignInModal() {
+    document.getElementById('signInModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Close modal on outside click
+  window.onclick = function(event) {
+    const modal = document.getElementById('signInModal');
+    if (event.target === modal) {
+      closeSignInModal();
+    }
+  }
+
+  </script>
 </body>
 </html>
+ 

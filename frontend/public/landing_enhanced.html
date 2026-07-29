@@ -30,10 +30,10 @@
       --header-pad-x: 18px;
       --slide-height: 82vh;         /* full-screen-ish; we tuck under header */
       --slide-arrow-offset: 60px;   /* inward arrow offset */
-      --card-br: 14px;              /* rounded corners */
+      --card-br: 3px;              /* rounded corners */
       --card-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      --box-border: 3px;            /* requested border weight */
-      --panel-border: 2px;
+      --box-border: 1px;            /* requested border weight */
+      --panel-border: 1px;
     }
 
     html, body{
@@ -111,7 +111,7 @@
       backdrop-filter: saturate(140%) blur(6px);
     }
     .site-header.scrolled .brand img{
-      height: 32px; /* ~20% smaller than 40px */
+      height: 53px !important;
     }
     .site-header.scrolled .main-nav a{
       color: var(--text); /* gray after scroll */
@@ -1164,7 +1164,163 @@
     }
 
 
-  </style>
+  
+  /* User Specification Overrides */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /* 1px border strokes & 3px border radius across all boxes, cards & buttons */
+  .btn, .btn-request-demo, .btn-start, .btn-try, .modal-btn, .panel-card, .card, .app-card, .pricing-card, .ent-card, .modal-content, input, select, textarea, .form-control {
+    border-radius: 3px !important;
+  }
+  .panel-card, .card, .app-card, .pricing-card, .ent-card, .modal-content, .btn-request-demo, .btn-try, .btn-start {
+    border-width: 1px !important;
+  }
+  
+  /* Sticky Logo shrinks by only 20% of original 66px */
+  .site-header.scrolled .brand img {
+    height: 53px !important;
+  }
+
+  /* Main Menu Font 1px Smaller */
+  .main-nav a, .nav-item > a, .site-header .main-nav a {
+    font-size: 14px !important;
+  }
+
+  /* Mega Menu - 100% width and 100% height on click */
+  .mega-menu {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    background: #ffffff !important;
+    z-index: 2500 !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 250ms ease, visibility 250ms ease !important;
+    overflow-y: auto !important;
+    padding: 40px 60px 60px 60px !important;
+    box-sizing: border-box !important;
+  }
+  .mega-menu.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .mega-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .mega-menu-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    font-family: 'Sansation', 'Roboto', sans-serif;
+    margin: 0;
+  }
+  .mega-menu-close {
+    font-size: 28px;
+    font-weight: 400;
+    color: #475569;
+    cursor: pointer;
+    line-height: 1;
+    padding: 6px 14px;
+    border-radius: 3px !important;
+    transition: all 0.2s ease;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+  }
+  .mega-menu-close:hover {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+  }
+
+  /* Hamburger Dropdown Menu Fix on Hover & Click */
+  .hamburger-menu-container {
+    position: relative;
+  }
+  @media (min-width: 769px) {
+    .hamburger-menu:hover + .main-nav,
+    .main-nav:hover {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+
+  /* Modal Layout Fix (Top Horizontal Center Logo, Sequential Text below) */
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0;
+    border: none;
+  }
+  .modal-logo {
+    height: 44px;
+    width: auto;
+    margin: 0 auto 12px auto;
+    display: block;
+    object-fit: contain;
+  }
+  .modal-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin: 0 0 6px 0 !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+  .modal-subtitle {
+    font-size: 0.875rem !important;
+    color: #64748b !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+    width: 100% !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+  .modal-tabs {
+    display: flex;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+  .modal-tab {
+    flex: 1;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 3px !important;
+    transition: all 0.2s ease;
+  }
+  .modal-tab.active {
+    background: #ffffff;
+    color: #1e293b;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+</style>
 </head>
 <body>
 
@@ -1184,6 +1340,10 @@
           <div class="nav-item has-dropdown">
             <a href="#usedby">Used By</a>
             <div class="mega-menu" id="industriesMenu">
+  <div class="mega-menu-header">
+    <h3 class="mega-menu-title">Industries & ERP Modules</h3>
+    <span class="mega-menu-close" onclick="closeMegaMenu()">&times;</span>
+  </div>
   <div class="mega-menu-content">
     <div class="mega-menu-section">
       <h4>Campaign Types</h4>
@@ -2262,6 +2422,82 @@
   function openSignInModal() {
     document.getElementById('signInModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
+  }
+
+  
+  function closeMegaMenu() {
+    const megaMenu = document.getElementById('industriesMenu');
+    const industriesItem = document.querySelector('.nav-item.has-dropdown');
+    if (megaMenu) megaMenu.classList.remove('active');
+    if (industriesItem) industriesItem.classList.remove('active');
+  }
+
+  function switchAuthTab(mode) {
+    const signInForm = document.getElementById('signInForm');
+    const registerForm = document.getElementById('registerForm');
+    const tabSignInBtn = document.getElementById('tabSignInBtn');
+    const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const authMessage = document.getElementById('authMessage');
+
+    if (authMessage) authMessage.style.display = 'none';
+
+    if (mode === 'register') {
+      signInForm.style.display = 'none';
+      registerForm.style.display = 'block';
+      tabSignInBtn.classList.remove('active');
+      tabRegisterBtn.classList.add('active');
+      modalTitle.textContent = 'Create an Account';
+      modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
+    } else {
+      signInForm.style.display = 'block';
+      registerForm.style.display = 'none';
+      tabSignInBtn.classList.add('active');
+      tabRegisterBtn.classList.remove('active');
+      modalTitle.textContent = 'Welcome Back';
+      modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
+    }
+  }
+
+  function handleSignIn(e) {
+    e.preventDefault();
+    const authMessage = document.getElementById('authMessage');
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#dcfce7';
+    authMessage.style.color = '#166534';
+    authMessage.style.border = '1px solid #bbf7d0';
+    authMessage.textContent = 'Signed in successfully! Redirecting...';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1200);
+  }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    const password = document.getElementById('reg-password').value;
+    const confirm = document.getElementById('reg-confirm-password').value;
+    const authMessage = document.getElementById('authMessage');
+    
+    if (password !== confirm) {
+      authMessage.style.display = 'block';
+      authMessage.style.background = '#fef2f2';
+      authMessage.style.color = '#991b1b';
+      authMessage.style.border = '1px solid #fecaca';
+      authMessage.textContent = 'Passwords do not match. Please verify and try again.';
+      return;
+    }
+
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#dcfce7';
+    authMessage.style.color = '#166534';
+    authMessage.style.border = '1px solid #bbf7d0';
+    authMessage.textContent = 'Account created successfully! Welcome to Synergy Bravo ERP.';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1500);
   }
 
   function closeSignInModal() {
