@@ -2139,6 +2139,91 @@ a.btn-request-demo:hover {
       box-shadow: 0 0 20px rgba(246, 221, 13, 0.45) !important;
     }
 
+  
+    /* Clear Selections Button & Tooltip Popover High-Visibility Styling */
+    .btn-clear-selections {
+      background: rgba(246, 221, 13, 0.18) !important;
+      border: 1.5px solid #f6dd0d !important;
+      color: #f6dd0d !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      border-radius: 4px !important;
+      padding: 5px 14px !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+    .btn-clear-selections:hover {
+      background: #f6dd0d !important;
+      color: #16201c !important;
+      border-color: #ffe436 !important;
+      box-shadow: 0 4px 14px rgba(246, 221, 13, 0.4) !important;
+    }
+    .clear-selections-wrapper {
+      position: relative !important;
+      display: inline-block !important;
+    }
+    .clear-selections-tooltip {
+      position: absolute !important;
+      top: 100% !important;
+      right: 0 !important;
+      margin-top: 10px !important;
+      width: max-content !important;
+      min-width: 220px !important;
+      max-width: 360px !important;
+      background-color: #16221c !important;
+      background: #16221c !important;
+      border: 2px solid #f6dd0d !important;
+      border-radius: 8px !important;
+      padding: 14px 18px !important;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85) !important;
+      z-index: 999999 !important;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+      transform: translateY(6px);
+      pointer-events: none;
+    }
+    .clear-selections-wrapper:hover .clear-selections-tooltip,
+    .btn-clear-selections:hover + .clear-selections-tooltip {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      pointer-events: auto !important;
+      background-color: #16221c !important;
+    }
+    .tooltip-title {
+      font-size: 0.78rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      color: #f6dd0d !important;
+      margin-bottom: 8px !important;
+      padding-bottom: 6px !important;
+      border-bottom: 1px dashed rgba(246, 221, 13, 0.3) !important;
+    }
+    .tooltip-modules-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      font-size: 0.88rem !important;
+      color: #ffffff !important;
+    }
+    .tooltip-modules-list li {
+      padding: 4px 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      color: #f8fafc !important;
+    }
+    .tooltip-modules-list li::before {
+      content: '✓' !important;
+      color: #f6dd0d !important;
+      font-weight: 700 !important;
+    }
+
   </style>
 </head>
 <body>
