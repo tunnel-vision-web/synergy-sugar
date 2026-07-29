@@ -2891,7 +2891,8 @@ html, body {
   display: flex !important;
   align-items: center !important;
   gap: 12px !important;
-  margin-left: 20px !important;
+  margin-left: auto !important;   /* always flush to right edge */
+  flex-shrink: 0 !important;
 }
 .site-header .auth-actions .auth-signin,
 .site-header .auth-signin {
@@ -3204,7 +3205,7 @@ a.btn-request-demo:hover {
   display: flex;
   flex-direction: column;
   transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
-  overflow: hidden;
+  overflow: visible;   /* must NOT clip sub-panels that slide out */
   z-index: 1;
 }
 .mobile-drawer-container.active .mobile-drawer-panel {
@@ -4530,20 +4531,7 @@ a.btn-request-demo:hover {
 
 
 
-  // Mobile 2nd Level Swing-Out Subpanel Controller
-  function openMobileSubpanel(subpanelId) {
-    const subpanel = document.getElementById(subpanelId);
-    if (subpanel) {
-      subpanel.classList.add('active');
-    }
-  }
 
-  function closeMobileSubpanel(subpanelId) {
-    const subpanel = document.getElementById(subpanelId);
-    if (subpanel) {
-      subpanel.classList.remove('active');
-    }
-  }
 
   // Close desktop mega menus on Escape key
   document.addEventListener('keydown', function(e) {
