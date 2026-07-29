@@ -1301,7 +1301,7 @@
     left: 0 !important;
     right: 0 !important;
     top: 0 !important;
-    z-index: 998 !important;
+    z-index: 10000 !important;
     transition: background 260ms ease, backdrop-filter 260ms ease, border-color 260ms ease !important;
   }
 
@@ -2051,6 +2051,157 @@
     .mobile-menu-overlay.active {
       opacity: 1 !important;
       visibility: visible !important;
+    }
+  }
+
+
+  /* ==========================================================================
+     PERFECT Z-INDEX STACKING HIERARCHY FIX
+     ========================================================================== */
+  .site-header {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 10000 !important; /* Above backdrop overlay */
+    transition: background 260ms ease, backdrop-filter 260ms ease, border-color 260ms ease !important;
+  }
+
+  .site-header:not(.scrolled) {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-bottom: none !important;
+  }
+
+  .site-header.scrolled {
+    background: rgba(22, 32, 28, 0.92) !important;
+    backdrop-filter: saturate(140%) blur(8px) !important;
+    border-bottom: 1px solid rgba(54, 77, 66, 0.4) !important;
+  }
+
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    z-index: 10005 !important;
+    margin-left: 12px !important;
+  }
+
+  .hamburger-menu span {
+    width: 100%;
+    height: 2.5px;
+    background-color: #f8fafc !important;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .hamburger-menu.active span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+  }
+  .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+  }
+
+  @media (max-width: 991.98px) {
+    .hamburger-menu {
+      display: flex !important;
+    }
+
+    /* Mobile Drawer: Closed by default (right: -100%), slides in from right when active */
+    .main-nav {
+      position: fixed !important;
+      top: 72px !important;
+      right: -100% !important;
+      left: auto !important;
+      width: 285px !important;
+      max-width: 85vw !important;
+      height: calc(100vh - 72px) !important;
+      background: #18251f !important; /* Solid Dark Sage Background */
+      border-left: 1px solid #364e43 !important;
+      box-shadow: -15px 0 35px rgba(0, 0, 0, 0.8) !important;
+      padding: 24px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      justify-content: flex-start !important;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      z-index: 10001 !important; /* Above overlay */
+      overflow-y: auto !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .main-nav.active {
+      right: 0 !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    .main-nav .nav-item {
+      display: block !important;
+      width: 100% !important;
+      margin: 4px 0 !important;
+      position: relative !important;
+    }
+
+    /* Crisp High-Contrast Mobile Menu Links */
+    .main-nav a,
+    .main-nav .nav-item > a {
+      color: #f8fafc !important;
+      background: #23342c !important; /* Dark Sage Card Surface */
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      padding: 14px 18px !important;
+      display: block !important;
+      width: 100% !important;
+      border: 1px solid #364e43 !important;
+      border-radius: 3px !important;
+      text-decoration: none !important;
+      text-align: left !important;
+      box-sizing: border-box !important;
+      margin-bottom: 8px !important;
+      transition: all 0.2s ease !important;
+    }
+
+    .main-nav a:hover,
+    .main-nav .nav-item > a:hover {
+      background: #f6dd0d !important; /* Gold Highlight */
+      color: #16201c !important;       /* Dark Text */
+      border-color: #f6dd0d !important;
+    }
+
+    /* Overlay sits below header and menu drawer */
+    .mobile-menu-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(0, 0, 0, 0.7) !important;
+      backdrop-filter: blur(4px) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: all 0.3s ease !important;
+      z-index: 9998 !important; /* Below header (10000) and drawer (10001) */
+      pointer-events: none !important;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
     }
   }
 
