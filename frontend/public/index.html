@@ -2864,195 +2864,550 @@
   }
 }
 
+
+/* ==========================================================================
+   MASTER HEADER SPACING, HERO NO-STRIP FIX, 100% ODOO MEGA MENU (CLICK-ONLY)
+   & 2ND LEVEL MOBILE SWING-OUT DRAWER SYSTEM
+   ========================================================================== */
+
+/* Resets & Zero Hero Gap Fix */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+.hero, .hero-carousel, .hero-slide, .hero-overlay, .site-header {
+  border: 0 !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Header Layout & Spacing */
+.site-header {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: 72px !important;
+  z-index: 10000 !important;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease !important;
+}
+
+.site-header:not(.scrolled) {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+}
+
+.site-header.scrolled {
+  background: rgba(22, 32, 28, 0.88) !important;
+  backdrop-filter: saturate(140%) blur(10px) !important;
+  border-bottom: 1px solid rgba(120, 173, 148, 0.2) !important;
+}
+
+.site-header .inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  height: 72px !important;
+  box-sizing: border-box !important;
+}
+
+.site-header .brand {
+  flex: 0 0 auto !important;
+}
+
+.site-header .brand img {
+  height: 44px !important;
+  width: auto !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+
+/* Desktop Navigation Centered */
+.site-header .main-nav {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 20px !important;
+  margin: 0 24px !important;
+}
+
+.site-header .main-nav .nav-item {
+  position: relative !important;
+}
+
+.site-header .main-nav a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 14px !important;
+  color: #f8fafc !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.site-header .main-nav a:hover,
+.site-header .main-nav .nav-item.active-menu > a {
+  color: #f6dd0d !important;
+  background: rgba(246, 221, 13, 0.12) !important;
+}
+
+.site-header .auth-actions {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-left: auto !important;
+}
+
+.site-header .auth-signin {
+  color: #f8fafc !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  text-decoration: none !important;
+  padding: 8px 12px !important;
+  white-space: nowrap !important;
+  transition: color 0.2s ease !important;
+}
+
+.site-header .auth-signin:hover {
+  color: #f6dd0d !important;
+}
+
+/* Request Demo Button (Single-Line Guaranteed) */
+.btn-request-demo,
+a.btn-request-demo,
+button.btn-request-demo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  background: #f6dd0d !important;
+  border: 1px solid #f6dd0d !important;
+  border-radius: 4px !important;
+  color: #16201c !important;
+  font-weight: 700 !important;
+  padding: 9px 20px !important;
+  font-size: 0.92rem !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  line-height: 1.2 !important;
+}
+
+.btn-request-demo:hover,
+a.btn-request-demo:hover,
+button.btn-request-demo:hover {
+  background: #a3e635 !important;
+  border-color: #a3e635 !important;
+  color: #16201c !important;
+}
+
+/* Flat Icon Badges */
+.flat-icon-badge {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  border-radius: 8px !important;
+  display: grid !important;
+  place-items: center !important;
+  transition: transform 0.2s ease !important;
+}
+
+.badge-gold { background: rgba(246, 221, 13, 0.12) !important; color: #f6dd0d !important; border: 1px solid rgba(246, 221, 13, 0.3) !important; }
+.badge-green { background: rgba(52, 211, 153, 0.12) !important; color: #34d399 !important; border: 1px solid rgba(52, 211, 153, 0.3) !important; }
+.badge-amber { background: rgba(245, 158, 11, 0.12) !important; color: #fbbf24 !important; border: 1px solid rgba(245, 158, 11, 0.3) !important; }
+.badge-blue { background: rgba(59, 130, 246, 0.12) !important; color: #60a5fa !important; border: 1px solid rgba(59, 130, 246, 0.3) !important; }
+.badge-emerald { background: rgba(16, 185, 129, 0.12) !important; color: #10b981 !important; border: 1px solid rgba(16, 185, 129, 0.3) !important; }
+.badge-purple { background: rgba(168, 85, 247, 0.12) !important; color: #c084fc !important; border: 1px solid rgba(168, 85, 247, 0.3) !important; }
+
+/* 100% WIDTH & 100% HEIGHT DESKTOP MEGA MENU OVERLAY (CLICK-ONLY, NO HOVER) */
+@media (min-width: 992px) {
+  .hamburger-menu { display: none !important; }
+  .mobile-drawer-container { display: none !important; }
+
+  .mega-menu-overlay {
+    position: fixed !important;
+    top: 72px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 72px) !important;
+    background: rgba(16, 25, 20, 0.98) !important;
+    backdrop-filter: blur(24px) !important;
+    border-top: 1px solid rgba(120, 173, 148, 0.25) !important;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-20px) !important;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease !important;
+    z-index: 99999 !important;
+    pointer-events: none !important;
+    overflow-y: auto !important;
+  }
+
+  .mega-menu-overlay.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+  }
+
+  .mega-menu-content-wrap {
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    padding: 40px 32px 60px 32px !important;
+    position: relative !important;
+  }
+
+  .mega-menu-close-btn {
+    position: absolute !important;
+    top: 36px !important;
+    right: 32px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #f8fafc !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    font-size: 1.4rem !important;
+    cursor: pointer !important;
+    display: grid !important;
+    place-items: center !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .mega-menu-close-btn:hover {
+    background: #f6dd0d !important;
+    color: #16201c !important;
+  }
+
+  .mega-menu-header-bar {
+    margin-bottom: 32px !important;
+    padding-bottom: 16px !important;
+    border-bottom: 1px solid rgba(120, 173, 148, 0.2) !important;
+  }
+
+  .mega-menu-main-title {
+    color: #f6dd0d !important;
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  .mega-menu-main-sub {
+    color: #cbd5e1 !important;
+    font-size: 0.95rem !important;
+    margin: 0 !important;
+  }
+
+  .mega-menu-cols-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 36px !important;
+  }
+
+  .mega-menu-col-box h3 {
+    color: #ffffff !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    margin: 0 0 20px 0 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 2px solid rgba(246, 221, 13, 0.3) !important;
+  }
+
+  .mega-menu-card {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    padding: 16px !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(120, 173, 148, 0.15) !important;
+    text-decoration: none !important;
+    transition: all 0.25s ease !important;
+    margin-bottom: 14px !important;
+  }
+
+  .mega-menu-card:hover {
+    background: rgba(246, 221, 13, 0.08) !important;
+    border-color: #f6dd0d !important;
+    transform: translateY(-2px) !important;
+  }
+
+  .mega-menu-card:hover .flat-icon-badge {
+    transform: scale(1.1) !important;
+  }
+
+  .mega-menu-card .card-title {
+    color: #f8fafc !important;
+    font-size: 0.98rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 4px !important;
+    transition: color 0.2s ease !important;
+  }
+
+  .mega-menu-card:hover .card-title {
+    color: #f6dd0d !important;
+  }
+
+  .mega-menu-card .card-desc {
+    color: #94a3b8 !important;
+    font-size: 0.84rem !important;
+    line-height: 1.4 !important;
+  }
+}
+
+/* MOBILE NAVIGATION & 2ND LEVEL SWING-OUT SUBPANELS */
+@media (max-width: 991.98px) {
+  .site-header .main-nav { display: none !important; }
+  .mega-menu-overlay { display: none !important; }
+
+  .hamburger-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 28px !important;
+    height: 20px !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    z-index: 10005 !important;
+  }
+
+  .hamburger-menu span {
+    width: 100% !important;
+    height: 2.5px !important;
+    background-color: #f8fafc !important;
+    border-radius: 2px !important;
+    transition: all 0.3s ease !important;
+    display: block !important;
+  }
+
+  /* Level 1 Mobile Drawer (Slides from Right) */
+  .mobile-drawer-container {
+    position: fixed !important;
+    top: 72px !important;
+    right: -100% !important;
+    left: auto !important;
+    width: 310px !important;
+    max-width: 85vw !important;
+    height: calc(100vh - 72px) !important;
+    background: #16201c !important;
+    border-left: 1px solid #283a31 !important;
+    box-shadow: -15px 0 35px rgba(0, 0, 0, 0.85) !important;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 10001 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .mobile-drawer-container.active {
+    right: 0 !important;
+  }
+
+  .mobile-drawer-panel {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 20px 16px !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+  }
+
+  .mobile-drawer-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 20px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid #283a31 !important;
+  }
+
+  .mobile-drawer-close-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #f8fafc !important;
+    font-size: 1.8rem !important;
+    cursor: pointer !important;
+  }
+
+  .mobile-nav-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    flex: 1 1 auto !important;
+  }
+
+  .mobile-nav-item {
+    background: #1f2e28 !important;
+    border: 1px solid #2d4239 !important;
+    border-radius: 4px !important;
+    color: #f8fafc !important;
+    padding: 14px 16px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .mobile-nav-item:hover {
+    background: #f6dd0d !important;
+    color: #16201c !important;
+  }
+
+  .nav-swing-arrow {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+  }
+
+  .mobile-drawer-footer {
+    margin-top: 20px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid #283a31 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .mobile-drawer-footer .auth-signin {
+    text-align: center !important;
+  }
+
+  /* Level 2 Mobile Subpanel (Swings Out to the Right Inside Drawer) */
+  .mobile-subpanel {
+    position: absolute !important;
+    top: 0 !important;
+    top: 0 !important;
+    right: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: #14201b !important;
+    transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 10 !important;
+    padding: 20px 16px !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .mobile-subpanel.active {
+    right: 0 !important;
+  }
+
+  .mobile-subpanel-header {
+    margin-bottom: 16px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid #283a31 !important;
+  }
+
+  .subpanel-back-btn {
+    background: rgba(246, 221, 13, 0.15) !important;
+    border: 1px solid #f6dd0d !important;
+    color: #f6dd0d !important;
+    padding: 8px 14px !important;
+    border-radius: 4px !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    margin-bottom: 12px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .subpanel-title {
+    color: #ffffff !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+  }
+
+  .mobile-subpanel-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .subpanel-card {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 12px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid #283a31 !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+  }
+
+  .subpanel-card .card-title {
+    color: #f8fafc !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .subpanel-card .card-desc {
+    color: #94a3b8 !important;
+    font-size: 0.78rem !important;
+  }
+}
+
 </style>
 </head>
 <body>
 
   <!-- Header -->
       <!-- Header -->
+    <!-- Header -->
   <header class="site-header" id="siteHeader">
     <div class="inner">
       <div class="brand">
-        <a href="landing_enhanced.html" style="display:inline-block;">
+        <a href="landing_enhanced.html" style="display:flex; align-items:center; text-decoration:none;">
           <img id="brandLogo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP - Sugar Management System">
         </a>
       </div>
       
+      <!-- Desktop Navigation -->
       <nav class="main-nav" id="mainNav">
-        <!-- Desktop Nav Items -->
-        <div class="nav-item has-dropdown" id="navItemApps">
-          <a href="apps.html" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'navItemApps')">
+        <div class="nav-item">
+          <a href="#" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'appsMegaMenu')">
             <span>Apps</span> <span class="chevron-icon">▼</span>
           </a>
-          
-          <!-- 100% Width & Height Desktop Mega Menu (Odoo Style) -->
-          <div class="mega-menu" id="appsMegaMenu">
-            <div class="mega-menu-inner">
-              <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
-              <div class="mega-menu-header">
-                <h3 class="mega-menu-title">Synergy Bravo ERP — Applications & Core Modules</h3>
-                <p class="mega-menu-subtitle">Complete enterprise management suite tailored for Sugar Mills, Farms, and Supply Chains.</p>
-              </div>
-              <div class="mega-menu-grid">
-                <div class="mega-menu-col">
-                  <h4>Agriculture & Field Operations</h4>
-                  
-                  <a href="apps.html#farmer-mobile" class="mega-menu-item">
-                    <div class="flat-icon-badge badge-green">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Farmer & Field Mobile</div>
-                      <div class="item-desc">Plot mapping, grower contracts, harvest scheduling, GPS tracking</div>
-                    </div>
-                  </a>
-
-                  <a href="apps.html#weighbridge" class="mega-menu-item">
-                    <div class="flat-icon-badge badge-gold">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M3 9v6a3 3 0 003 3h12a3 3 0 003-3V9"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Weighbridge Scale Sync</div>
-                      <div class="item-desc">Gross & tare scale automation, grower tickets, lab sucrose sync</div>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="mega-menu-col">
-                  <h4>Factory & Milling Operations</h4>
-                  
-                  <a href="apps.html#milling" class="mega-menu-item">
-                    <div class="flat-icon-badge badge-amber">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Sugar Mill Processing</div>
-                      <div class="item-desc">Milling rate, juice extraction, boiler energy, lab quality</div>
-                    </div>
-                  </a>
-
-                  <a href="apps.html#inventory" class="mega-menu-item">
-                    <div class="flat-icon-badge badge-blue">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Supply Chain & Inventory</div>
-                      <div class="item-desc">Raw cane queue, sugar warehouse, logistics & dispatch</div>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="mega-menu-col">
-                  <h4>Enterprise Core & AI</h4>
-                  
-                  <a href="apps.html#financials" class="mega-menu-item">
-                    <div class="flat-icon-badge badge-emerald">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22m5-18H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Financials & Settlements</div>
-                      <div class="item-desc">Grower settlements, multi-currency invoicing, payroll, ledger</div>
-                    </div>
-                  </a>
-
-                  <a href="apps.html#ai-traceability" class="mega-menu-item">
-                    <div class="flat-icon-badge badge-purple">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">AI & Real-Time Traceability</div>
-                      <div class="item-desc">Laboratory AI analytics, predictive yield, real-time sensor sync</div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="nav-item">
           <a href="features.html">Features</a>
         </div>
 
-        <!-- Used By (with Mega Menu) -->
-        <div class="nav-item has-dropdown" id="navItemUsedBy">
-          <a href="#usedby" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'navItemUsedBy')">
+        <div class="nav-item">
+          <a href="#" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'usedbyMegaMenu')">
             <span>Used By</span> <span class="chevron-icon">▼</span>
           </a>
-          
-          <!-- 100% Width & Height Desktop Mega Menu (Odoo Style) -->
-          <div class="mega-menu" id="usedbyMegaMenu">
-            <div class="mega-menu-inner">
-              <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
-              <div class="mega-menu-header">
-                <h3 class="mega-menu-title">Industries & Operational Scale</h3>
-                <p class="mega-menu-subtitle">Designed for enterprise sugar producers, cooperatives, and agricultural supply chains.</p>
-              </div>
-              <div class="mega-menu-grid">
-                <div class="mega-menu-col">
-                  <h4>Sugar Milling Industry</h4>
-                  
-                  <a href="#usedby" class="mega-menu-item" onclick="closeAllMegaMenus()">
-                    <div class="flat-icon-badge badge-amber">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Sugar Mills & Refineries</div>
-                      <div class="item-desc">Integrated milling, juice extraction, and sugar quality control</div>
-                    </div>
-                  </a>
-
-                  <a href="#usedby" class="mega-menu-item" onclick="closeAllMegaMenus()">
-                    <div class="flat-icon-badge badge-green">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Agro-Industrial Enterprises</div>
-                      <div class="item-desc">Large-scale plantation management, farmer contracts, & field mobile</div>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="mega-menu-col">
-                  <h4>Grower Networks & Cooperatives</h4>
-                  
-                  <a href="#usedby" class="mega-menu-item" onclick="closeAllMegaMenus()">
-                    <div class="flat-icon-badge badge-emerald">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Cooperative Farmer Networks</div>
-                      <div class="item-desc">Harvest scheduling, cane delivery tracking, & weighbridge ticket sync</div>
-                    </div>
-                  </a>
-                </div>
-
-                <div class="mega-menu-col">
-                  <h4>Logistics & Commodity Trade</h4>
-                  
-                  <a href="#usedby" class="mega-menu-item" onclick="closeAllMegaMenus()">
-                    <div class="flat-icon-badge badge-blue">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Transport & Logistics Fleets</div>
-                      <div class="item-desc">Fleet GPS, weighbridge queue management, & scale automation</div>
-                    </div>
-                  </a>
-
-                  <a href="#usedby" class="mega-menu-item" onclick="closeAllMegaMenus()">
-                    <div class="flat-icon-badge badge-purple">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-                    </div>
-                    <div class="item-text">
-                      <div class="item-title">Export & Commodity Trading</div>
-                      <div class="item-desc">Warehouse inventory, export documentation, & sugar invoicing</div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="nav-item">
@@ -3064,156 +3419,357 @@
         <div class="nav-item">
           <a href="help.html">Help</a>
         </div>
-
-        <!-- Mobile Drawer Top Level Links (Only Visible on Mobile) -->
-        <div class="mobile-only-menu">
-          <div class="mobile-nav-link" onclick="openMobileSubpanel('mobileAppsSubpanel')">
-            <span>Apps & Modules</span>
-            <span class="mobile-nav-arrow">›</span>
-          </div>
-          <div class="mobile-nav-link" onclick="openMobileSubpanel('mobileUsedbySubpanel')">
-            <span>Used By (Industries)</span>
-            <span class="mobile-nav-arrow">›</span>
-          </div>
-        </div>
-
-        <!-- Mobile 2nd Level Swing-Out Subpanel 1: Apps -->
-        <div class="mobile-subpanel" id="mobileAppsSubpanel">
-          <div class="subpanel-header">
-            <button class="subpanel-back-btn" onclick="closeMobileSubpanel('mobileAppsSubpanel')">
-              ← Back to Menu
-            </button>
-            <h4 class="subpanel-title">Apps & Core Modules</h4>
-          </div>
-          <div class="subpanel-content">
-            <a href="apps.html#farmer-mobile" class="mobile-sub-item">
-              <div class="flat-icon-badge badge-green">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Farmer & Field Mobile</div>
-                <div class="sub-item-desc">Plot mapping, grower contracts, GPS tracking</div>
-              </div>
-            </a>
-            <a href="apps.html#weighbridge" class="mobile-sub-item">
-              <div class="flat-icon-badge badge-gold">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M3 9v6a3 3 0 003 3h12a3 3 0 003-3V9"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Weighbridge Scale Sync</div>
-                <div class="sub-item-desc">Gross & tare automation, grower tickets</div>
-              </div>
-            </a>
-            <a href="apps.html#milling" class="mobile-sub-item">
-              <div class="flat-icon-badge badge-amber">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Sugar Mill Processing</div>
-                <div class="sub-item-desc">Milling rate, juice extraction, boiler energy</div>
-              </div>
-            </a>
-            <a href="apps.html#inventory" class="mobile-sub-item">
-              <div class="flat-icon-badge badge-blue">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Supply Chain & Inventory</div>
-                <div class="sub-item-desc">Cane queue, warehouse, logistics</div>
-              </div>
-            </a>
-            <a href="apps.html#financials" class="mobile-sub-item">
-              <div class="flat-icon-badge badge-emerald">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22m5-18H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Financials & Settlements</div>
-                <div class="sub-item-desc">Grower settlements, invoicing, payroll</div>
-              </div>
-            </a>
-            <a href="apps.html#ai-traceability" class="mobile-sub-item">
-              <div class="flat-icon-badge badge-purple">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">AI & Real-Time Traceability</div>
-                <div class="sub-item-desc">Laboratory AI, predictive yield modeling</div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <!-- Mobile 2nd Level Swing-Out Subpanel 2: Used By -->
-        <div class="mobile-subpanel" id="mobileUsedbySubpanel">
-          <div class="subpanel-header">
-            <button class="subpanel-back-btn" onclick="closeMobileSubpanel('mobileUsedbySubpanel')">
-              ← Back to Menu
-            </button>
-            <h4 class="subpanel-title">Industries & Operational Scale</h4>
-          </div>
-          <div class="subpanel-content">
-            <a href="#usedby" class="mobile-sub-item" onclick="closeMobileSubpanel('mobileUsedbySubpanel')">
-              <div class="flat-icon-badge badge-amber">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Sugar Mills & Refineries</div>
-                <div class="sub-item-desc">Integrated milling & quality control</div>
-              </div>
-            </a>
-            <a href="#usedby" class="mobile-sub-item" onclick="closeMobileSubpanel('mobileUsedbySubpanel')">
-              <div class="flat-icon-badge badge-green">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Agro-Industrial Enterprises</div>
-                <div class="sub-item-desc">Plantation management & farmer contracts</div>
-              </div>
-            </a>
-            <a href="#usedby" class="mobile-sub-item" onclick="closeMobileSubpanel('mobileUsedbySubpanel')">
-              <div class="flat-icon-badge badge-emerald">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Cooperative Farmer Networks</div>
-                <div class="sub-item-desc">Harvest scheduling & weighbridge sync</div>
-              </div>
-            </a>
-            <a href="#usedby" class="mobile-sub-item" onclick="closeMobileSubpanel('mobileUsedbySubpanel')">
-              <div class="flat-icon-badge badge-blue">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Transport & Logistics Fleets</div>
-                <div class="sub-item-desc">Fleet GPS & weighbridge queue</div>
-              </div>
-            </a>
-            <a href="#usedby" class="mobile-sub-item" onclick="closeMobileSubpanel('mobileUsedbySubpanel')">
-              <div class="flat-icon-badge badge-purple">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-              </div>
-              <div>
-                <div class="sub-item-title">Export & Commodity Trading</div>
-                <div class="sub-item-desc">Warehouse inventory & sugar invoicing</div>
-              </div>
-            </a>
-          </div>
-        </div>
       </nav>
 
+      <!-- Auth Actions -->
       <div class="auth-actions">
         <a class="auth-signin" href="#" onclick="openAuthModal('signin'); return false;">Sign in</a>
         <a class="btn-request-demo" href="appointment.html">Request Demo</a>
       </div>
 
-      <!-- Hamburger Menu Button -->
-      <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle menu">
+      <!-- Hamburger Button (Mobile Only) -->
+      <button class="hamburger-menu" id="hamburgerBtn" onclick="toggleMobileDrawer(event)" aria-label="Toggle menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
   </header>
+
+  <!-- 100% WIDTH & 100% HEIGHT DESKTOP MEGA MENUS (CLICK ONLY) -->
+  <!-- Mega Menu 1: Apps -->
+  <div class="mega-menu-overlay" id="appsMegaMenu">
+    <div class="mega-menu-content-wrap">
+      <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
+      <div class="mega-menu-header-bar">
+        <h2 class="mega-menu-main-title">Synergy Bravo ERP — Applications Suite</h2>
+        <p class="mega-menu-main-sub">Complete enterprise modules tailored for sugar cane mills, agricultural supply chains, and factory operations.</p>
+      </div>
+      <div class="mega-menu-cols-grid">
+        <div class="mega-menu-col-box">
+          <h3>Agriculture & Field Operations</h3>
+          
+          <a href="apps.html#farmer-mobile" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-green">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Farmer & Field Mobile</div>
+              <div class="card-desc">Plot mapping, grower contracts, harvest scheduling, GPS tracking</div>
+            </div>
+          </a>
+
+          <a href="apps.html#weighbridge" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-gold">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M3 9v6a3 3 0 003 3h12a3 3 0 003-3V9"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Weighbridge Scale Sync</div>
+              <div class="card-desc">Gross & tare scale automation, grower tickets, lab sucrose sync</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Factory & Milling Operations</h3>
+          
+          <a href="apps.html#milling" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-amber">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Sugar Mill Processing</div>
+              <div class="card-desc">Milling rate, juice extraction, boiler energy, lab quality</div>
+            </div>
+          </a>
+
+          <a href="apps.html#inventory" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-blue">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Supply Chain & Inventory</div>
+              <div class="card-desc">Raw cane queue, sugar warehouse, logistics & dispatch</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Enterprise Core & AI</h3>
+          
+          <a href="apps.html#financials" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-emerald">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22m5-18H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Financials & Settlements</div>
+              <div class="card-desc">Grower settlements, multi-currency invoicing, payroll, ledger</div>
+            </div>
+          </a>
+
+          <a href="apps.html#ai-traceability" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-purple">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">AI & Real-Time Traceability</div>
+              <div class="card-desc">Laboratory AI analytics, predictive yield, real-time sensor sync</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mega Menu 2: Used By -->
+  <div class="mega-menu-overlay" id="usedbyMegaMenu">
+    <div class="mega-menu-content-wrap">
+      <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
+      <div class="mega-menu-header-bar">
+        <h2 class="mega-menu-main-title">Industries & Operational Scale</h2>
+        <p class="mega-menu-subtitle">Designed for enterprise sugar producers, cooperatives, logistics fleets, and commodity exporters.</p>
+      </div>
+      <div class="mega-menu-cols-grid">
+        <div class="mega-menu-col-box">
+          <h3>Sugar Milling Industry</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-amber">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Sugar Mills & Refineries</div>
+              <div class="card-desc">Integrated milling, juice extraction, and sugar quality control</div>
+            </div>
+          </a>
+
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-green">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Agro-Industrial Enterprises</div>
+              <div class="card-desc">Large-scale plantation management, farmer contracts, & field mobile</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Grower Networks & Cooperatives</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-emerald">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Cooperative Farmer Networks</div>
+              <div class="card-desc">Harvest scheduling, cane delivery tracking, & weighbridge ticket sync</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Logistics & Commodity Trade</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-blue">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Transport & Logistics Fleets</div>
+              <div class="card-desc">Fleet GPS, weighbridge queue management, & scale automation</div>
+            </div>
+          </a>
+
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-purple">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Export & Commodity Trading</div>
+              <div class="card-desc">Warehouse inventory, export documentation, & sugar invoicing</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE NAVIGATION DRAWER & 2ND LEVEL SWING-OUT PANELS -->
+  <div class="mobile-drawer-container" id="mobileDrawerContainer">
+    <!-- Level 1 Mobile Drawer -->
+    <div class="mobile-drawer-panel" id="mobileDrawerPanel">
+      <div class="mobile-drawer-header">
+        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Sugar" style="height: 36px;">
+        <button class="mobile-drawer-close-btn" onclick="closeMobileDrawer()">&times;</button>
+      </div>
+
+      <div class="mobile-nav-list">
+        <div class="mobile-nav-item" onclick="openMobileSubpanel('mobileSubpanelApps')">
+          <span>Apps & Modules</span>
+          <span class="nav-swing-arrow">›</span>
+        </div>
+
+        <a href="features.html" class="mobile-nav-item" onclick="closeMobileDrawer()">
+          <span>Features</span>
+        </a>
+
+        <div class="mobile-nav-item" onclick="openMobileSubpanel('mobileSubpanelUsedby')">
+          <span>Used By (Industries)</span>
+          <span class="nav-swing-arrow">›</span>
+        </div>
+
+        <a href="forum/index.html" class="mobile-nav-item" onclick="closeMobileDrawer()">
+          <span>Community</span>
+        </a>
+        <a href="pricing.html" class="mobile-nav-item" onclick="closeMobileDrawer()">
+          <span>Pricing</span>
+        </a>
+        <a href="help.html" class="mobile-nav-item" onclick="closeMobileDrawer()">
+          <span>Help</span>
+        </a>
+      </div>
+
+      <div class="mobile-drawer-footer">
+        <a class="auth-signin" href="#" onclick="openAuthModal('signin'); closeMobileDrawer(); return false;">Sign in</a>
+        <a class="btn-request-demo" href="appointment.html" onclick="closeMobileDrawer()">Request Demo</a>
+      </div>
+    </div>
+
+    <!-- Level 2 Mobile Subpanel: Apps (Swings out to the Right) -->
+    <div class="mobile-subpanel" id="mobileSubpanelApps">
+      <div class="mobile-subpanel-header">
+        <button class="subpanel-back-btn" onclick="closeMobileSubpanel('mobileSubpanelApps')">
+          ← Back to Main Menu
+        </button>
+        <h3 class="subpanel-title">Apps & Core Modules</h3>
+      </div>
+
+      <div class="mobile-subpanel-list">
+        <a href="apps.html#farmer-mobile" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-green">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Farmer & Field Mobile</div>
+            <div class="card-desc">Plot mapping, grower contracts, GPS tracking</div>
+          </div>
+        </a>
+
+        <a href="apps.html#weighbridge" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-gold">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M3 9v6a3 3 0 003 3h12a3 3 0 003-3V9"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Weighbridge Scale Sync</div>
+            <div class="card-desc">Gross & tare automation, tickets</div>
+          </div>
+        </a>
+
+        <a href="apps.html#milling" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-amber">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Sugar Mill Processing</div>
+            <div class="card-desc">Milling rate, juice extraction, lab quality</div>
+          </div>
+        </a>
+
+        <a href="apps.html#inventory" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-blue">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Supply Chain & Inventory</div>
+            <div class="card-desc">Raw cane queue, sugar warehouse</div>
+          </div>
+        </a>
+
+        <a href="apps.html#financials" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-emerald">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22m5-18H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Financials & Settlements</div>
+            <div class="card-desc">Grower settlements, invoicing, payroll</div>
+          </div>
+        </a>
+
+        <a href="apps.html#ai-traceability" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-purple">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div>
+            <div class="card-title">AI & Real-Time Traceability</div>
+            <div class="card-desc">Laboratory AI analytics, predictive yield</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Level 2 Mobile Subpanel: Used By (Swings out to the Right) -->
+    <div class="mobile-subpanel" id="mobileSubpanelUsedby">
+      <div class="mobile-subpanel-header">
+        <button class="subpanel-back-btn" onclick="closeMobileSubpanel('mobileSubpanelUsedby')">
+          ← Back to Main Menu
+        </button>
+        <h3 class="subpanel-title">Industries & Operational Scale</h3>
+      </div>
+
+      <div class="mobile-subpanel-list">
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-amber">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Sugar Mills & Refineries</div>
+            <div class="card-desc">Integrated milling & quality control</div>
+          </div>
+        </a>
+
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-green">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Agro-Industrial Enterprises</div>
+            <div class="card-desc">Plantation management & contracts</div>
+          </div>
+        </a>
+
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-emerald">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Cooperative Farmer Networks</div>
+            <div class="card-desc">Harvest scheduling & ticket sync</div>
+          </div>
+        </a>
+
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-blue">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Transport & Logistics Fleets</div>
+            <div class="card-desc">Fleet GPS & weighbridge queue</div>
+          </div>
+        </a>
+
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-purple">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Export & Commodity Trading</div>
+            <div class="card-desc">Warehouse inventory & sugar invoicing</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- Hero -->
   <section class="hero">
@@ -4015,6 +4571,88 @@
     if (e.key === 'Escape') {
       closeAllMegaMenus();
       document.querySelectorAll('.mobile-subpanel').forEach(panel => panel.classList.remove('active'));
+    }
+  });
+
+
+  // 100% Width & Height Desktop Mega Menu Controller (Click-Only)
+  function toggleDesktopMegaMenu(e, menuId) {
+    if (window.innerWidth < 992) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const targetMenu = document.getElementById(menuId);
+    if (!targetMenu) return;
+
+    const isActive = targetMenu.classList.contains('active');
+    closeAllMegaMenus();
+
+    if (!isActive) {
+      targetMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeAllMegaMenus() {
+    document.querySelectorAll('.mega-menu-overlay').forEach(menu => {
+      menu.classList.remove('active');
+    });
+    const drawer = document.getElementById('mobileDrawerContainer');
+    if (!drawer || !drawer.classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Mobile Drawer & 2nd Level Swing-Out Controller
+  function toggleMobileDrawer(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const drawer = document.getElementById('mobileDrawerContainer');
+    const btn = document.getElementById('hamburgerBtn');
+    if (!drawer) return;
+
+    const isActive = drawer.classList.contains('active');
+    if (isActive) {
+      closeMobileDrawer();
+    } else {
+      drawer.classList.add('active');
+      if (btn) btn.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeMobileDrawer() {
+    const drawer = document.getElementById('mobileDrawerContainer');
+    const btn = document.getElementById('hamburgerBtn');
+    if (drawer) drawer.classList.remove('active');
+    if (btn) btn.classList.remove('active');
+    document.querySelectorAll('.mobile-subpanel').forEach(panel => panel.classList.remove('active'));
+    document.body.style.overflow = '';
+  }
+
+  function openMobileSubpanel(panelId) {
+    const panel = document.getElementById(panelId);
+    if (panel) panel.classList.add('active');
+  }
+
+  function closeMobileSubpanel(panelId) {
+    const panel = document.getElementById(panelId);
+    if (panel) panel.classList.remove('active');
+  }
+
+  // Close open mega menus on backdrop click or Escape key
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('mega-menu-overlay')) {
+      closeAllMegaMenus();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeAllMegaMenus();
+      closeMobileDrawer();
     }
   });
 
