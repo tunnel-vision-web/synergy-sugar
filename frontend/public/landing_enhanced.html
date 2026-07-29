@@ -953,52 +953,7 @@
       transform: translateY(-10.5px) rotate(-45deg);
     }
     
-    /* Mobile Navigation */
-    @media (max-width: 768px) {
-      .hamburger-menu {
-        display: flex;
-      }
-      
-      .main-nav {
-        display: flex;
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 280px;
-        height: 100vh;
-        background: #fff;
-        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-        padding: 80px 20px 200px 20px;
-        flex-direction: column;
-        align-items: flex-start;
-        transition: right 0.3s ease;
-        z-index: 1001;
-        overflow-y: auto;
-      }
-      
-      .main-nav.active {
-        right: 0;
-      }
-      
-      .nav-item {
-        width: 100%;
-        margin: 8px 0;
-      }
-      
-      .nav-item > a {
-        color: var(--text-dark);
-        padding: 12px 16px;
-        width: 100%;
-        border-radius: 8px;
-        display: block;
-      }
-      
-      @media (hover: hover) {
-        .nav-item > a:hover {
-          background: rgba(246, 221, 13, 0.1);
-          color: var(--primary);
-        }
-      }
+    
       
       .auth-actions {
         position: fixed;
@@ -1553,9 +1508,7 @@
   }
 
 
-  /* ==========================================================================
-     MOBILE NAVIGATION & HAMBURGER MENU REWRITE
-     ========================================================================== */
+  
   .hamburger-menu {
     display: none;
     flex-direction: column;
@@ -1778,6 +1731,166 @@
       visibility: hidden !important;
       transition: all 0.3s ease !important;
       z-index: 1999 !important;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
+
+
+  /* ==========================================================================
+     FINAL MASTER MOBILE NAVIGATION & SLIDE-IN DRAWER
+     ========================================================================== */
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    z-index: 10005 !important;
+  }
+
+  .hamburger-menu span {
+    width: 100%;
+    height: 2.5px;
+    background-color: #f8fafc !important;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .hamburger-menu.active span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+  }
+  .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+  }
+
+  @media (max-width: 991.98px) {
+    .hamburger-menu {
+      display: flex !important;
+    }
+
+    /* Mobile Drawer: Closed by default (right: -100%), slides in from right when active */
+    .main-nav {
+      position: fixed !important;
+      top: 72px !important;
+      right: -100% !important;
+      left: auto !important;
+      width: 300px !important;
+      max-width: 85vw !important;
+      height: calc(100vh - 72px) !important;
+      background: #18251f !important; /* Solid Dark Sage Background */
+      border-left: 1px solid #364e43 !important;
+      box-shadow: -15px 0 35px rgba(0, 0, 0, 0.7) !important;
+      padding: 24px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      justify-content: flex-start !important;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      z-index: 10000 !important;
+      overflow-y: auto !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+
+    .main-nav.active {
+      right: 0 !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .main-nav .nav-item {
+      display: block !important;
+      width: 100% !important;
+      margin: 4px 0 !important;
+      position: relative !important;
+    }
+
+    /* Crisp High-Contrast Mobile Menu Links */
+    .main-nav a,
+    .main-nav .nav-item > a {
+      color: #f8fafc !important;
+      background: #23342c !important; /* Dark Sage Card Surface */
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      padding: 14px 18px !important;
+      display: block !important;
+      width: 100% !important;
+      border: 1px solid #364e43 !important;
+      border-radius: 3px !important;
+      text-decoration: none !important;
+      text-align: left !important;
+      box-sizing: border-box !important;
+      margin-bottom: 8px !important;
+      transition: all 0.2s ease !important;
+    }
+
+    .main-nav a:hover,
+    .main-nav .nav-item > a:hover {
+      background: #f6dd0d !important; /* Gold Highlight */
+      color: #16201c !important;       /* Dark Text */
+      border-color: #f6dd0d !important;
+    }
+
+    /* Mega Menu on Mobile */
+    .mega-menu {
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+      background: #141f19 !important;
+      border: 1px solid #364e43 !important;
+      border-radius: 3px !important;
+      box-shadow: none !important;
+      display: none;
+      padding: 14px !important;
+      margin-top: 4px !important;
+      margin-bottom: 12px !important;
+    }
+
+    .nav-item.has-dropdown.active .mega-menu {
+      display: block !important;
+    }
+
+    .mega-menu-item {
+      padding: 10px !important;
+      margin-bottom: 6px !important;
+      border-bottom: 1px solid #283a31 !important;
+    }
+
+    .mega-menu-item .item-title {
+      color: #f6dd0d !important;
+      font-weight: 700 !important;
+      font-size: 14px !important;
+    }
+
+    .mega-menu-item .item-desc {
+      color: #cbd5e1 !important;
+      font-size: 12px !important;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(0, 0, 0, 0.75) !important;
+      backdrop-filter: blur(4px) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: all 0.3s ease !important;
+      z-index: 9999 !important;
     }
 
     .mobile-menu-overlay.active {
