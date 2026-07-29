@@ -1320,6 +1320,176 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
 
+
+  /* ==========================================================================
+     DARK SAGE THEME OVERRIDES (Analogous Dark Sage Content Variations)
+     ========================================================================== */
+  :root {
+    --primary: #f6dd0d;           /* Vibrant Gold Accent */
+    --secondary: #78ad94;         /* Sage Accent */
+    --sage-dark-base: #16201c;    /* Deepest Dark Sage */
+    --sage-dark-sec1: #18241f;    /* Dark Sage Variation 1 */
+    --sage-dark-sec2: #1f2e28;    /* Dark Sage Variation 2 */
+    --sage-dark-sec3: #1b2822;    /* Dark Sage Variation 3 */
+    --sage-dark-sec4: #22332b;    /* Dark Sage Variation 4 */
+    --sage-card-bg: #25362e;      /* Elevated Dark Sage Surface */
+    --sage-card-border: #364d42;  /* Dark Sage Border */
+    --text: #cbd5e1;              /* Off-white Body Text */
+    --text-dark: #f8fafc;         /* High-contrast Headings */
+    --footer-bg: #111815;         /* Darkest Charcoal Sage */
+  }
+
+  html, body {
+    background-color: var(--sage-dark-base) !important;
+    color: var(--text) !important;
+  }
+
+  /* Header Dark Theme */
+  .site-header {
+    background: rgba(22, 32, 28, 0.85) !important;
+    backdrop-filter: saturate(140%) blur(8px) !important;
+    border-bottom: 1px solid rgba(54, 77, 66, 0.4) !important;
+  }
+  .site-header.scrolled {
+    background: rgba(26, 38, 33, 0.96) !important;
+    border-bottom: 1px solid #364d42 !important;
+  }
+  .main-nav a, .nav-item > a, .auth-signin {
+    color: #f1f5f9 !important;
+  }
+  .main-nav a:hover, .nav-item > a:hover, .auth-signin:hover {
+    color: var(--primary) !important;
+  }
+
+  /* Content Sections (Analogous Dark Sage Variations) */
+  .section-1 {
+    background: linear-gradient(180deg, #18241f 0%, #1f2e28 100%) !important;
+  }
+  .section-2 {
+    background: linear-gradient(180deg, #1f2e28 0%, #1b2822 100%) !important;
+  }
+  .section-3 {
+    background: linear-gradient(180deg, #1b2822 0%, #22332b 100%) !important;
+  }
+  .section-4 {
+    background: linear-gradient(180deg, #22332b 0%, #18241f 100%) !important;
+  }
+
+  /* Headings & Text */
+  .section h2, h1, h2, h3, h4, h5, h6 {
+    color: var(--text-dark) !important;
+  }
+  .section p, p, span, li {
+    color: var(--text);
+  }
+
+  /* Cards, Panels & Boxes */
+  .panel-card, .card, .app-card, .pricing-card, .ent-card, .section-box {
+    background-color: var(--sage-card-bg) !important;
+    border-color: var(--sage-card-border) !important;
+    color: var(--text) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+  }
+
+  .panel-header {
+    border-bottom: 1px solid var(--sage-card-border) !important;
+    background: rgba(0,0,0,0.15) !important;
+    color: var(--text-dark) !important;
+  }
+
+  .app-card {
+    background: #273b32 !important;
+    border: 1px solid #3b5447 !important;
+  }
+  .app-card:hover {
+    border-color: var(--primary) !important;
+    transform: translateY(-2px);
+  }
+  .app-title {
+    color: #f8fafc !important;
+  }
+  .app-desc {
+    color: #94a3b8 !important;
+  }
+
+  /* Buttons */
+  .btn-request-demo, .btn-try {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #16201c !important;
+    font-weight: 700 !important;
+  }
+  .btn-request-demo:hover, .btn-try:hover {
+    background: #a3e635 !important;
+    border-color: #a3e635 !important;
+    color: #16201c !important;
+  }
+
+  /* Footer */
+  .site-footer {
+    background: var(--footer-bg) !important;
+    border-top: 1px solid #283830 !important;
+  }
+  .footer-col ul li a {
+    color: #94a3b8 !important;
+  }
+  .footer-col ul li a:hover {
+    color: var(--primary) !important;
+  }
+
+  /* Modal Dark Sage Theme */
+  .modal-content {
+    background-color: #1e2b25 !important;
+    border: 1px solid #364e43 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7) !important;
+  }
+  .modal-title {
+    color: #f8fafc !important;
+  }
+  .modal-subtitle {
+    color: #94a3b8 !important;
+  }
+  .modal-close {
+    color: #cbd5e1 !important;
+  }
+  .modal-close:hover {
+    color: var(--primary) !important;
+  }
+  .modal-tabs {
+    background: #15201b !important;
+    border: 1px solid #2d3e35 !important;
+  }
+  .modal-tab {
+    color: #94a3b8 !important;
+  }
+  .modal-tab.active {
+    background: #283b32 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+  }
+  .form-group label {
+    color: #cbd5e1 !important;
+  }
+  .form-group input {
+    background-color: #16221c !important;
+    border: 1px solid #32473c !important;
+    color: #f8fafc !important;
+  }
+  .form-group input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px rgba(246, 221, 13, 0.2) !important;
+  }
+  .modal-btn {
+    background: var(--primary) !important;
+    color: #16201c !important;
+    border: none !important;
+  }
+  .modal-btn:hover {
+    background: #a3e635 !important;
+    color: #16201c !important;
+  }
+
 </style>
 </head>
 <body>
@@ -1397,7 +1567,7 @@
           </div>
         </nav>
         <div class="auth-actions">
-          <a class="auth-signin" href="#" onclick="openSignInModal(); return false;" style="font-size:0.98rem;">Sign in</a>
+          <a class="auth-signin" href="#" onclick="openAuthModal('signin'); return false;" style="font-size:0.98rem; margin-right: 12px;">Sign in</a><a class="auth-signin" href="#" onclick="openAuthModal('register'); return false;" style="font-size:0.98rem; font-weight:700; color:var(--primary) !important;">Sign Up</a>
           <a class="btn-request-demo" href="/appointment.html" style="font-size:0.92rem;">Request Demo</a>
         </div>
         <!-- Hamburger Menu Button -->
@@ -1864,7 +2034,7 @@
     <div class="modal-content">
       <span class="modal-close" onclick="closeSignInModal()">&times;</span>
       <div class="modal-header">
-        <img src="assets/images/Synergy-logo-sugar-web-black.png" alt="Synergy Bravo ERP" style="height: 50px; margin-bottom: 20px;">
+        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" style="height: 50px; margin-bottom: 20px;">
         <h2 style="margin: 0 0 8px; font-size: 1.8rem; color: #333;">Welcome Back</h2>
         <p style="color: #777; margin: 0 0 30px;">Sign in to your Synergy Bravo ERP account</p>
       </div>
@@ -1889,7 +2059,7 @@
         </div>
         <button type="submit" class="modal-btn">Sign In</button>
         <div style="text-align: center; margin-top: 20px; font-size: 0.95rem; color: #666;">
-          Don't have an account? <a href="signup.html" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Sign Up</a>
+          Don't have an account? <a href="#" onclick="openAuthModal('register'); return false;" style="color: var(--secondary); text-decoration: none; font-weight: 600;">Sign Up</a>
         </div>
       </form>
     </div>
@@ -1902,13 +2072,13 @@
       const header = document.getElementById('siteHeader');
       const brandLogo = document.getElementById('brandLogo');
       const whiteSrc = 'assets/images/Synergy-logo-sugar-web-white.png';
-      const blackSrc = 'assets/images/Synergy-logo-sugar-web-black.png';
+      const blackSrc = 'assets/images/Synergy-logo-sugar-web-white.png';
 
       function onScroll(){
         const y = window.pageYOffset || document.documentElement.scrollTop;
         if(y > 10){
           header.classList.add('scrolled');
-          brandLogo.src = blackSrc;
+          brandLogo.src = whiteSrc;
         } else {
           header.classList.remove('scrolled');
           brandLogo.src = whiteSrc;
