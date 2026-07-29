@@ -329,21 +329,34 @@
     /* App Sorting Feature - Modern Icon Boxes */
     .apps-search-wrapper {
       margin-bottom: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      max-width: 480px;
     }
     .apps-search-input {
-      width: 45%;
-      padding: 14px 20px;
-      border: 2px solid rgba(246, 221, 13, 0.3);
-      border-radius: 3px;
-      font-size: 1rem;
-      color: var(--text-dark);
-      background: #fff;
-      transition: all 0.3s ease;
-      outline: none;
+      width: 100% !important;
+      padding: 12px 20px 12px 44px !important;
+      border: 2px solid #cbd5e1 !important;
+      border-radius: 6px !important;
+      font-size: 0.98rem !important;
+      font-weight: 600 !important;
+      color: #0f172a !important;
+      background-color: #ffffff !important;
+      transition: all 0.2s ease !important;
+      outline: none !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    }
+    .apps-search-input::placeholder {
+      color: #64748b !important;
+      opacity: 1 !important;
+      font-weight: 400 !important;
     }
     .apps-search-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(246, 221, 13, 0.2);
+      border-color: #f6dd0d !important;
+      box-shadow: 0 0 0 4px rgba(246, 221, 13, 0.25) !important;
+      color: #0f172a !important;
+      background-color: #ffffff !important;
     }
     .apps-carousel-wrapper {
       position: relative;
@@ -2552,7 +2565,11 @@ a.btn-request-demo:hover {
             <div class="panel-body">
               <!-- Search Field -->
               <div class="apps-search-wrapper">
-                <input type="text" class="apps-search-input" id="appsSearch" placeholder="Search apps...">
+                <svg style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; fill: none; stroke: #64748b; stroke-width: 2; pointer-events: none; z-index: 2;" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="apps-search-input" id="appsSearch" placeholder="Search apps (e.g. Weighbridge, Milling, Financial)..." autocomplete="off">
               </div>
               
               <div class="apps-carousel-wrapper">
