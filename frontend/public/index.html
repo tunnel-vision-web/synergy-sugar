@@ -403,42 +403,31 @@
     .app-card:hover::before{
       opacity: 1;
     }
-    .app-card-icon{
+    .app-card-icon {
       width: 64px;
       height: 64px;
       margin: 0 auto 12px;
-      border-radius: 3px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      box-shadow: none;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
-      background: transparent;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: #18251f;
     }
-    /* Icons now use inline SVG with solid color backgrounds */
-    
-    /* Icon SVG styling */
-    .app-card-icon svg {
-      width: 64px;
-      height: 64px;
-      filter: none;
-      position: relative;
-      z-index: 1;
-      border-radius: 3px;
+    .app-card-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
       display: block;
-      shape-rendering: crispEdges;
-      image-rendering: pixelated;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: crisp-edges;
+      transition: transform 0.4s ease;
     }
-    .app-card-icon svg rect {
-      shape-rendering: crispEdges;
-    }
-    .app-card:hover .app-card-icon{
-      transform: rotateY(360deg) scale(1.1);
+    .app-card:hover .app-card-icon {
+      transform: scale(1.1) rotate(3deg);
+      box-shadow: 0 8px 24px rgba(246, 221, 13, 0.45);
     }
     .app-card-name{
       font-size: 0.95rem;
@@ -2588,8 +2577,8 @@ a.btn-request-demo:hover {
                 <div class="apps-slider" id="appsSlider">
                   <!-- Page 1 - 9 apps in 3x3 grid -->
                   <div class="app-card" data-page="0" data-name="Farmers Recruitment & Cane" data-tags="farmers recruitment cane management hiring labor">
-                    <div class="app-card-icon icon-farmers">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#A7F3D0"/><path d="M32 16c-3.31 0-6 2.69-6 6 0 1.48.54 2.84 1.43 3.89L24 30.5v3.5h-4v10h8v-8h8v8h8v-10h-4v-3.5l-3.43-4.61A5.983 5.983 0 0 0 38 22c0-3.31-2.69-6-6-6zm0 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" fill="#059669"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_farmers.jpg" alt="Farmers Recruitment & Cane">
                     </div>
                     <div class="app-card-name">Farmers Recruitment & Cane</div>
                     <div class="app-card-buttons">
@@ -2600,8 +2589,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Nucleus & Farm Operations" data-tags="nucleus farm operations management core">
-                    <div class="app-card-icon icon-nucleus">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#C7D2FE"/><circle cx="32" cy="32" r="8" fill="#4F46E5"/><circle cx="32" cy="18" r="3" fill="#4F46E5"/><circle cx="32" cy="46" r="3" fill="#4F46E5"/><circle cx="18" cy="32" r="3" fill="#4F46E5"/><circle cx="46" cy="32" r="3" fill="#4F46E5"/><path d="M32 24v-3m0 22v3m-14-14h3m22 0h-3" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_nucleus.jpg" alt="Nucleus & Farm Operations">
                     </div>
                     <div class="app-card-name">Nucleus & Farm Operations</div>
                     <div class="app-card-buttons">
@@ -2612,8 +2601,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Harvesting & Transport" data-tags="harvesting transport logistics delivery trucks">
-                    <div class="app-card-icon icon-harvesting">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#FED7AA"/><path d="M16 22c-1.1 0-2 .9-2 2v12h2c0 2.21 1.79 4 4 4s4-1.79 4-4h10c0 2.21 1.79 4 4 4s4-1.79 4-4h2v-6l-4-6h-6v-2H16zm0 4h6v6h-6v-6zm8 0h8v6h-8v-6zm10 3h4l3 3h-7v-3zm-14 7c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm18 0c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" fill="#EA580C"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_harvesting.jpg" alt="Harvesting & Transport">
                     </div>
                     <div class="app-card-name">Harvesting & Transport</div>
                     <div class="app-card-buttons">
@@ -2624,8 +2613,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Weighbridge" data-tags="weighbridge scale weight measurement cargo">
-                    <div class="app-card-icon icon-weighbridge">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#DDD6FE"/><rect x="20" y="30" width="24" height="4" rx="1" fill="#7C3AED"/><path d="M18 36h28v2c0 1.1-.9 2-2 2H20c-1.1 0-2-.9-2-2v-2z" fill="#7C3AED"/><circle cx="24" cy="26" r="2" fill="#7C3AED"/><circle cx="32" cy="26" r="2" fill="#7C3AED"/><circle cx="40" cy="26" r="2" fill="#7C3AED"/><rect x="30" y="18" width="4" height="8" fill="#7C3AED"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_weighbridge.jpg" alt="Weighbridge">
                     </div>
                     <div class="app-card-name">Weighbridge</div>
                     <div class="app-card-buttons">
@@ -2636,8 +2625,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Fleet Management" data-tags="fleet management vehicles trucks cars tracking gps">
-                    <div class="app-card-icon icon-fleet">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#BAE6FD"/><path d="M42 28h-6v-6h-8v6h-6l10 12 10-12z" fill="#0369A1"/><path d="M20 22c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h24c1.1 0 2-.9 2-2V24c0-1.1-.9-2-2-2H20zm2 4h20v8H22v-8z" fill="#0369A1"/><circle cx="25" cy="42" r="2.5" fill="#0369A1"/><circle cx="39" cy="42" r="2.5" fill="#0369A1"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_fleet.jpg" alt="Fleet Management">
                     </div>
                     <div class="app-card-name">Fleet Management</div>
                     <div class="app-card-buttons">
@@ -2648,8 +2637,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="MRP & Inventory" data-tags="mrp procurement stores inventory control materials">
-                    <div class="app-card-icon icon-mrp">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#FECACA"/><path d="M32 16l-14 8v16l14 8 14-8V24l-14-8z" stroke="#DC2626" stroke-width="3" fill="none" stroke-linejoin="round"/><path d="M18 24l14 8m0 0l14-8m-14 8v16" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_mrp.jpg" alt="MRP & Inventory">
                     </div>
                     <div class="app-card-name">MRP & Inventory</div>
                     <div class="app-card-buttons">
@@ -2660,8 +2649,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Production" data-tags="production manufacturing operations processing plant">
-                    <div class="app-card-icon icon-production">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#A5F3FC"/><circle cx="32" cy="32" r="10" stroke="#0891B2" stroke-width="3" fill="none"/><path d="M32 18v4m0 20v4m14-14h-4m-20 0h-4" stroke="#0891B2" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="4" fill="#0891B2"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_production.jpg" alt="Production">
                     </div>
                     <div class="app-card-name">Production</div>
                     <div class="app-card-buttons">
@@ -2672,8 +2661,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Sales & Invoicing" data-tags="sales invoicing billing payments revenue customers">
-                    <div class="app-card-icon icon-sales">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#E9D5FF"/><rect x="18" y="20" width="28" height="24" rx="2" stroke="#9333EA" stroke-width="2.5" fill="none"/><path d="M18 26h28M22 30h4M22 34h4M30 30h8M30 34h12" stroke="#9333EA" stroke-width="2" stroke-linecap="round"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_sales.jpg" alt="Sales & Invoicing">
                     </div>
                     <div class="app-card-name">Sales & Invoicing</div>
                     <div class="app-card-buttons">
@@ -2684,8 +2673,8 @@ a.btn-request-demo:hover {
                     </div>
                   </div>
                   <div class="app-card" data-page="0" data-name="Financial Management" data-tags="financial management accounting finance money budget">
-                    <div class="app-card-icon icon-financial">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#FEF3C7"/><path d="M32 16v4m0 24v4" stroke="#D97706" stroke-width="3" stroke-linecap="round"/><path d="M26 24h8c2.21 0 4 1.79 4 4s-1.79 4-4 4h-6c-2.21 0-4 1.79-4 4s1.79 4 4 4h8" stroke="#D97706" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_financial.jpg" alt="Financial Management">
                     </div>
                     <div class="app-card-name">Financial Management</div>
                     <div class="app-card-buttons">
@@ -2698,8 +2687,8 @@ a.btn-request-demo:hover {
                   
                   <!-- Page 2 - 1 app -->
                   <div class="app-card" data-page="1" style="display: none;" data-name="HR & Payroll" data-tags="hr payroll time attendance human resources employees">
-                    <div class="app-card-icon icon-hr">
-                      <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="3" fill="#FBCFE8"/><circle cx="32" cy="25" r="6" fill="#DB2777"/><path d="M20 42c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#DB2777" stroke-width="3" stroke-linecap="round" fill="none"/><circle cx="20" cy="26" r="4" fill="#DB2777"/><circle cx="44" cy="26" r="4" fill="#DB2777"/></svg>
+                    <div class="app-card-icon">
+                      <img src="assets/images/app_hr.jpg" alt="HR & Payroll">
                     </div>
                     <div class="app-card-name">HR & Payroll</div>
                     <div class="app-card-buttons">
