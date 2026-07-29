@@ -3848,7 +3848,7 @@ a.btn-request-demo:hover {
       // Save to localStorage
       localStorage.setItem('synergy_selected_modules', JSON.stringify(selected));
 
-      # Update all "Request Demo" links on the page to pass modules parameter
+      // Update all "Request Demo" links on the page to pass modules parameter
       const demoLinks = document.querySelectorAll('a[href*="appointment.html"]');
       demoLinks.forEach(link => {
         if (selected.length > 0) {
