@@ -3016,6 +3016,154 @@ a.btn-request-demo:hover {
   }
 }
 
+/* ── Desktop Full-Screen Mega Menu Overlay ── */
+.mega-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 72px);
+  background: rgba(16, 25, 20, 0.98);
+  backdrop-filter: blur(14px);
+  z-index: 99999;
+  overflow-y: auto;
+  border-top: 2px solid rgba(246, 221, 13, 0.4);
+  animation: megaFadeIn 0.22s ease;
+}
+.mega-menu-overlay.active {
+  display: block;
+}
+@keyframes megaFadeIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mega-menu-content-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 40px 60px;
+  position: relative;
+}
+.mega-menu-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 40px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #f8fafc;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+.mega-menu-close-btn:hover { background: #f6dd0d; color: #16201c; }
+.mega-menu-header-bar {
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(120,173,148,0.2);
+}
+.mega-menu-main-title {
+  color: #f6dd0d;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  padding-right: 60px;
+}
+.mega-menu-main-sub {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+.mega-menu-cols-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.mega-menu-col-box h3 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(246,221,13,0.3);
+}
+.mega-menu-col-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(120,173,148,0.12);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
+}
+.mega-menu-col-item:hover {
+  background: rgba(246,221,13,0.08);
+  border-color: #f6dd0d;
+  transform: translateY(-2px);
+}
+.mega-menu-col-item .item-title {
+  color: #f8fafc;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+  display: block;
+}
+.mega-menu-col-item:hover .item-title { color: #f6dd0d; }
+.mega-menu-col-item .item-desc {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  display: block;
+}
+/* Usedby grid: 2 columns */
+.mega-menu-cols-grid.usedby-grid {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 900px;
+}
+/* Mega menu card (same as col-item, aliased) */
+.mega-menu-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(120,173,148,0.12);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
+}
+.mega-menu-card:hover {
+  background: rgba(246,221,13,0.08);
+  border-color: rgba(246,221,13,0.5);
+  transform: translateY(-2px);
+}
+.mega-menu-card .card-info { flex: 1; }
+.mega-menu-card .card-title {
+  color: #f8fafc;
+  font-size: 0.93rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.mega-menu-card:hover .card-title { color: #f6dd0d; }
+.mega-menu-card .card-desc {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 991px) {
+  .mega-menu-overlay { display: none !important; }
+}
+
 </style>
 </head>
 <body>
@@ -4162,33 +4310,7 @@ a.btn-request-demo:hover {
   });
 
 
-  // Desktop 100% Width & Height Mega Menu Controller
-  function toggleDesktopMegaMenu(e, navItemId) {
-    if (window.innerWidth < 992) return; // Handled by mobile drawer
-    e.preventDefault();
-    e.stopPropagation();
 
-    const navItem = document.getElementById(navItemId);
-    if (!navItem) return;
-
-    const isOpen = navItem.classList.contains('open');
-    closeAllMegaMenus();
-
-    if (!isOpen) {
-      navItem.classList.add('open');
-      document.body.style.overflow = 'hidden'; // Prevent main scroll when 100% mega menu is active
-    }
-  }
-
-  function closeAllMegaMenus() {
-    document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
-      item.classList.remove('open');
-    });
-    const mainNav = document.querySelector('.main-nav');
-    if (!mainNav || !mainNav.classList.contains('active')) {
-      document.body.style.overflow = '';
-    }
-  }
 
   // Mobile 2nd Level Swing-Out Subpanel Controller
   function openMobileSubpanel(subpanelId) {
