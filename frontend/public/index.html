@@ -2493,39 +2493,39 @@ a.btn-request-demo:hover {
             <div class="panel-body">
               <div class="features-carousel" id="featuresCarousel">
                 <div class="features-slide active">
-                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Outreach & Engagement</h5>
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Cane Procurement & Field Operations</h5>
                   <ul class="features-list">
-                    <li>Targeted voter messaging</li>
-                    <li>Event planning & RSVPs</li>
-                    <li>Canvassing mobile tools</li>
-                    <li>Volunteer onboarding</li>
-                    <li>SMS & email campaigns</li>
-                    <li>Real-time response tracking</li>
-                    <li>Analytics you can trust</li>
+                    <li>Digital grower contracting & registration</li>
+                    <li>GPS plot mapping & acreage audit</li>
+                    <li>Harvest scheduling & cutting tickets</li>
+                    <li>Weighbridge gross/tare scale sync</li>
+                    <li>Field lab sucrose testing & quality link</li>
+                    <li>Transporter trip dispatch & tracking</li>
+                    <li>Grower mobile portal & SMS alerts</li>
                   </ul>
                 </div>
                 <div class="features-slide">
-                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Finance & Compliance</h5>
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Sugar Mill & Factory Operations</h5>
                   <ul class="features-list">
-                    <li>Donor CRM & receipts</li>
-                    <li>Recurring donations</li>
-                    <li>Contribution limits alerts</li>
-                    <li>Expense approvals</li>
-                    <li>Automated reports</li>
-                    <li>Bank sync & exports</li>
-                    <li>Audit-ready records</li>
+                    <li>Real-time milling rate (TCH) tracking</li>
+                    <li>Juice extraction & boiler steam balance</li>
+                    <li>Raw cane queue & weighbridge sync</li>
+                    <li>Sugar bag warehouse & batch control</li>
+                    <li>Factory equipment preventive maintenance</li>
+                    <li>Laboratory AI analytics & sucrose yield</li>
+                    <li>Molasses & ethanol output tracking</li>
                   </ul>
                 </div>
                 <div class="features-slide">
-                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Operations & Data</h5>
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Grower Settlements & Financials</h5>
                   <ul class="features-list">
-                    <li>Centralized data hub</li>
-                    <li>Role-based permissions</li>
-                    <li>Task & workflow boards</li>
-                    <li>Integrations & API</li>
-                    <li>Granular dashboards</li>
-                    <li>Automations builder</li>
-                    <li>99.99% platform uptime</li>
+                    <li>Automated grower sucrose payout calculations</li>
+                    <li>Harvesting & transport cost deductions</li>
+                    <li>Multi-currency sugar sales invoicing</li>
+                    <li>Seasonal labor & factory payroll</li>
+                    <li>General ledger & cost center accounting</li>
+                    <li>Bank sync & automated payment exports</li>
+                    <li>Audit-ready financial reporting</li>
                   </ul>
                 </div>
               </div>
@@ -3216,4 +3216,402 @@ a.btn-request-demo:hover {
     }
   });
 
+
+  // ==========================================================================
+  // APP SEARCH, SORTING, PAGINATION & FEATURES PANEL INTERACTION
+  // ==========================================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    // ── Elements ──
+    const appsSearch = document.getElementById('appsSearch');
+    const appsSlider = document.getElementById('appsSlider');
+    const appCards = Array.from(appsSlider ? appsSlider.querySelectorAll('.app-card') : []);
+    const appsNavPrev = document.getElementById('appsNavPrev');
+    const appsNavNext = document.getElementById('appsNavNext');
+    const appsPagination = document.getElementById('appsPagination');
+    const appDots = Array.from(appsPagination ? appsPagination.querySelectorAll('.app-dot') : []);
+
+    let currentPage = 0;
+    const itemsPerPage = 9;
+
+    // App specific features dictionary
+    const appFeaturesMap = {
+      'farmers-recruitment': {
+        title: 'Farmers Recruitment & Cane',
+        features: [
+          'Digital grower contracting & profile management',
+          'GPS field plot boundary mapping & land audit',
+          'Contracted acreage vs actual yield analytics',
+          'Mobile farmer onboarding & labor team assignment',
+          'Automated SMS notifications for harvest schedules',
+          'Grower advance payment tracking & statements'
+        ]
+      },
+      'nucleus-operations': {
+        title: 'Nucleus & Farm Operations',
+        features: [
+          'Plantation field block management & crop rotation',
+          'Fertilizer, seed & agrochemical application logs',
+          'Tractor & heavy machinery work order dispatch',
+          'Rainfall precipitation & soil moisture monitoring',
+          'Daily farm supervisor task boards & logs',
+          'Yield forecasting per hectare analytics'
+        ]
+      },
+      'harvesting-transport': {
+        title: 'Harvesting & Transport Logistics',
+        features: [
+          'Cane cutting schedule & burn notice management',
+          'Harvester & trailer fleet GPS live tracking',
+          'Weighbridge queue arrival time estimation',
+          'Field-to-mill delivery ticket creation',
+          'Transporter trip-based rate calculation & payouts',
+          'Cane freshness & trip turnaround time alerts'
+        ]
+      },
+      'weighbridge': {
+        title: 'Weighbridge Scale Automation',
+        features: [
+          'Automated gross & tare digital scale readings',
+          'Anti-tamper weighbridge ticket generation',
+          'Direct laboratory sucrose & Brix test link',
+          'Truck driver LED queue display integration',
+          'Instant grower ticket & weight receipt SMS',
+          'Multi-scale weighbridge throughput analytics'
+        ]
+      },
+      'fleet-management': {
+        title: 'Fleet Management',
+        features: [
+          'Heavy tractor & cane truck fuel consumption tracking',
+          'Preventive maintenance & oil change alerts',
+          'Driver license, shift logs & GPS route history',
+          'Spare parts inventory auto-allocation',
+          'Machine downtime & repair cost reporting',
+          'Tyre life & equipment wear monitoring'
+        ]
+      },
+      'mrp-inventory': {
+        title: 'MRP & Inventory Control',
+        features: [
+          'Raw cane buffer stock & yard management',
+          'Finished sugar bag warehouse batch tracking',
+          'Factory spare parts & chemical stores inventory',
+          'Automated reorder point threshold triggers',
+          'Multi-warehouse stock transfers & audits',
+          'Supplier purchase order approvals & receiving'
+        ]
+      },
+      'production': {
+        title: 'Sugar Mill Processing & Production',
+        features: [
+          'Real-time crushing rate (TCH) monitoring',
+          'Juice extraction, pH & sucrose purity lab logs',
+          'Boiler steam pressure & bagasse fuel balance',
+          'Molasses & ethanol recovery rate analytics',
+          'Continuous 24/7 factory operational dashboard',
+          'Shift supervisor hand-off & downtime logs'
+        ]
+      },
+      'sales-invoicing': {
+        title: 'Sales & Invoicing',
+        features: [
+          'Commercial sugar sales contract management',
+          'Bulk & 50kg bagged sugar dispatch invoicing',
+          'Multi-tier distributor pricing & discounts',
+          'Tax compliance, VAT & export documentation',
+          'Customer credit limits, balances & receipts',
+          'Sales revenue & dispatch volume reports'
+        ]
+      },
+      'financial-management': {
+        title: 'Financial Management & Payouts',
+        features: [
+          'Grower sucrose-based cane settlement payouts',
+          'Automated harvesting & transport cost deductions',
+          'General ledger & cost center profit accounting',
+          'Factory payroll & seasonal worker payouts',
+          'Bank integration & automated payment exports',
+          'Executive financial profitability dashboards'
+        ]
+      },
+      'hr-payroll': {
+        title: 'HR & Payroll',
+        features: [
+          'Seasonal cane cutter biometric attendance',
+          'Factory shift scheduling & overtime tracking',
+          'Automated wage calculation with statutory deductions',
+          'Employee self-service mobile portal & payslips',
+          'Tax & pension regulatory compliance reporting',
+          'Worker safety compliance & incident logs'
+        ]
+      }
+    };
+
+    // ── Function: Render App Page ──
+    function renderApps() {
+      const query = (appsSearch ? appsSearch.value : '').toLowerCase().trim();
+
+      if (query.length > 0) {
+        // Search Active: Filter & Sort matching cards
+        let matchCount = 0;
+        appCards.forEach(card => {
+          const name = (card.getAttribute('data-name') || '').toLowerCase();
+          const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+          const text = card.innerText.toLowerCase();
+
+          if (name.includes(query) || tags.includes(query) || text.includes(query)) {
+            card.style.display = 'flex';
+            matchCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Hide pagination dots & disable arrows during active search
+        if (appsPagination) appsPagination.style.display = 'none';
+        if (appsNavPrev) appsNavPrev.style.opacity = '0.4';
+        if (appsNavNext) appsNavNext.style.opacity = '0.4';
+
+        // Check for no matches message
+        let noMatchMsg = document.getElementById('appsNoMatchMsg');
+        if (matchCount === 0) {
+          if (!noMatchMsg) {
+            noMatchMsg = document.createElement('div');
+            noMatchMsg.id = 'appsNoMatchMsg';
+            noMatchMsg.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #64748b; font-size: 1.1rem;';
+            appsSlider.appendChild(noMatchMsg);
+          }
+          noMatchMsg.textContent = 'No applications found matching "' + appsSearch.value + '". Try searching "Weighbridge", "Harvesting", "Financial", or "Milling".';
+          noMatchMsg.style.display = 'block';
+        } else if (noMatchMsg) {
+          noMatchMsg.style.display = 'none';
+        }
+      } else {
+        // Normal View (No Search Query): Paginate 9 cards per page
+        const noMatchMsg = document.getElementById('appsNoMatchMsg');
+        if (noMatchMsg) noMatchMsg.style.display = 'none';
+        if (appsPagination) appsPagination.style.display = 'flex';
+
+        appCards.forEach(card => {
+          const pageAttr = parseInt(card.getAttribute('data-page') || '0', 10);
+          if (pageAttr === currentPage) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Update Dots
+        appDots.forEach((dot, idx) => {
+          if (idx === currentPage) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+
+        // Update Arrow Opacities
+        if (appsNavPrev) {
+          appsNavPrev.style.opacity = currentPage === 0 ? '0.4' : '1';
+          appsNavPrev.style.cursor = currentPage === 0 ? 'default' : 'pointer';
+        }
+        if (appsNavNext) {
+          const totalPages = Math.ceil(appCards.length / itemsPerPage);
+          appsNavNext.style.opacity = currentPage >= totalPages - 1 ? '0.4' : '1';
+          appsNavNext.style.cursor = currentPage >= totalPages - 1 ? 'default' : 'pointer';
+        }
+      }
+    }
+
+    // ── Search Input Event ──
+    if (appsSearch) {
+      appsSearch.addEventListener('input', renderApps);
+      appsSearch.addEventListener('keyup', renderApps);
+    }
+
+    // ── Pagination Nav Prev/Next Buttons ──
+    if (appsNavPrev) {
+      appsNavPrev.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (appsSearch && appsSearch.value.trim().length > 0) return; // Disabled during search
+        if (currentPage > 0) {
+          currentPage--;
+          renderApps();
+        }
+      });
+    }
+
+    if (appsNavNext) {
+      appsNavNext.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (appsSearch && appsSearch.value.trim().length > 0) return; // Disabled during search
+        const totalPages = Math.ceil(appCards.length / itemsPerPage);
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          renderApps();
+        }
+      });
+    }
+
+    // ── Clickable Pagination Dots ──
+    appDots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        if (appsSearch && appsSearch.value.trim().length > 0) return;
+        const pageIdx = parseInt(this.getAttribute('data-page') || '0', 10);
+        currentPage = pageIdx;
+        renderApps();
+      });
+    });
+
+    // Initialize App Page
+    renderApps();
+
+    // ── Features Panel Carousel Logic ──
+    const featCarousel = document.getElementById('featuresCarousel');
+    const featSlides = Array.from(featCarousel ? featCarousel.querySelectorAll('.features-slide') : []);
+    const featPrev = document.getElementById('featPrev');
+    const featNext = document.getElementById('featNext');
+    const featDots = Array.from(document.querySelectorAll('.f-dot'));
+    let currentFeatSlide = 0;
+
+    function showFeatSlide(idx) {
+      if (featSlides.length === 0) return;
+      currentFeatSlide = (idx + featSlides.length) % featSlides.length;
+      featSlides.forEach((slide, i) => {
+        if (i === currentFeatSlide) {
+          slide.classList.add('active');
+          slide.style.display = 'block';
+        } else {
+          slide.classList.remove('active');
+          slide.style.display = 'none';
+        }
+      });
+      featDots.forEach((dot, i) => {
+        if (i === currentFeatSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    if (featPrev) {
+      featPrev.addEventListener('click', function(e) {
+        e.preventDefault();
+        showFeatSlide(currentFeatSlide - 1);
+      });
+    }
+    if (featNext) {
+      featNext.addEventListener('click', function(e) {
+        e.preventDefault();
+        showFeatSlide(currentFeatSlide + 1);
+      });
+    }
+    featDots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        const i = parseInt(this.getAttribute('data-i') || '0', 10);
+        showFeatSlide(i);
+      });
+    });
+
+    // ── App Card 'Features' Button Click -> Updates Features Panel dynamically ──
+    const featButtons = document.querySelectorAll('.app-features-btn');
+    const featPanelHeader = document.querySelector('#features .col-lg-4 .panel-header');
+
+    featButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const appKey = this.getAttribute('data-app');
+        const appData = appFeaturesMap[appKey];
+
+        if (appData && featCarousel) {
+          // Update Features panel header
+          if (featPanelHeader) {
+            featPanelHeader.textContent = 'Features — ' + appData.title;
+          }
+
+          // Build custom single slide for selected app
+          const featuresListHtml = appData.features.map(f => '<li>' + f + '</li>').join('');
+          featCarousel.innerHTML = `
+            <div class="features-slide active" style="display: block;">
+              <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">${appData.title}</h5>
+              <ul class="features-list">
+                ${featuresListHtml}
+              </ul>
+              <div style="margin-top: 18px;">
+                <button id="resetFeaturesBtn" style="background:#f6dd0d; border:1px solid #f6dd0d; border-radius:3px; padding:6px 12px; font-size:0.8rem; font-weight:700; color:#16201c; cursor:pointer;">
+                  ← All Features Overview
+                </button>
+              </div>
+            </div>
+          `;
+
+          // Hide carousel dots/arrows during custom app view
+          const featArrows = document.querySelector('.features-arrows');
+          if (featArrows) featArrows.style.display = 'none';
+
+          // Reset button listener
+          const resetBtn = document.getElementById('resetFeaturesBtn');
+          if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+              if (featPanelHeader) featPanelHeader.textContent = 'Why Sugar Farmers choose Synergy Bravo ERP';
+              if (featArrows) featArrows.style.display = 'flex';
+              
+              // Restore original 3 slides
+              featCarousel.innerHTML = `
+                <div class="features-slide active" style="display: block;">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Cane Procurement & Field Operations</h5>
+                  <ul class="features-list">
+                    <li>Digital grower contracting & registration</li>
+                    <li>GPS plot mapping & acreage audit</li>
+                    <li>Harvest scheduling & cutting tickets</li>
+                    <li>Weighbridge gross/tare scale sync</li>
+                    <li>Field lab sucrose testing & quality link</li>
+                    <li>Transporter trip dispatch & tracking</li>
+                    <li>Grower mobile portal & SMS alerts</li>
+                  </ul>
+                </div>
+                <div class="features-slide" style="display: none;">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Sugar Mill & Factory Operations</h5>
+                  <ul class="features-list">
+                    <li>Real-time milling rate (TCH) tracking</li>
+                    <li>Juice extraction & boiler steam balance</li>
+                    <li>Raw cane queue & weighbridge sync</li>
+                    <li>Sugar bag warehouse & batch control</li>
+                    <li>Factory equipment preventive maintenance</li>
+                    <li>Laboratory AI analytics & sucrose yield</li>
+                    <li>Molasses & ethanol output tracking</li>
+                  </ul>
+                </div>
+                <div class="features-slide" style="display: none;">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Grower Settlements & Financials</h5>
+                  <ul class="features-list">
+                    <li>Automated grower sucrose payout calculations</li>
+                    <li>Harvesting & transport cost deductions</li>
+                    <li>Multi-currency sugar sales invoicing</li>
+                    <li>Seasonal labor & factory payroll</li>
+                    <li>General ledger & cost center accounting</li>
+                    <li>Bank sync & automated payment exports</li>
+                    <li>Audit-ready financial reporting</li>
+                  </ul>
+                </div>
+              `;
+              showFeatSlide(0);
+            });
+          }
+
+          // Smooth scroll to Features Panel
+          const featSection = document.getElementById('features');
+          if (featSection) {
+            featSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  });
+
 </script>
+</body>
+</html>
