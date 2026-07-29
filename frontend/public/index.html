@@ -907,6 +907,17 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left: auto;
+}
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
   
@@ -956,18 +967,12 @@
     
       
       .auth-actions {
-        position: fixed;
-        bottom: 20px;
-        right: -100%;
-        width: 240px;
-        padding: 20px;
-        background: transparent;
-        flex-direction: column;
-        gap: 12px;
-        transition: right 0.3s ease;
-        z-index: 1002;
-        box-shadow: none;
-      }
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
       
       .auth-actions.active {
         right: 20px;
@@ -1546,6 +1551,35 @@
     }
 
     .main-nav {
+  position: fixed !important;
+  top: 72px !important;
+  right: -100% !important;
+  left: auto !important;
+  width: 300px !important;
+  max-width: 85vw !important;
+  height: calc(100vh - 72px) !important;
+  background: #1e2b25 !important;
+  border-left: 1px solid #364e43 !important;
+  box-shadow: -10px 20px 40px rgba(0,0,0,0.5) !important;
+  padding: 30px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  transition: right 0.3s ease !important;
+  z-index: 2001 !important;
+  overflow-y: auto !important;
+  transform: none !important;
+}
+
+/* Override .site-header .main-nav for mobile */
+@media (max-width: 991.98px) {
+  .site-header .main-nav {
+    left: auto !important;
+    transform: none !important;
+  }
+}
+
       position: fixed !important;
       top: 72px !important;
       right: -100% !important;
@@ -2205,94 +2239,465 @@
     }
   }
 
+
+/* ==========================================================================
+   UNIFIED ODOO-STYLE MEGA MENU & CLEAN MOBILE NAVIGATION SYSTEM
+   ========================================================================== */
+.site-header {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  z-index: 10000 !important;
+  height: 72px !important;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease !important;
+}
+
+.site-header:not(.scrolled) {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+}
+
+.site-header.scrolled {
+  background: rgba(22, 32, 28, 0.88) !important;
+  backdrop-filter: saturate(140%) blur(10px) !important;
+  border-bottom: 1px solid rgba(120, 173, 148, 0.25) !important;
+}
+
+.site-header .inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  height: 72px !important;
+  box-sizing: border-box !important;
+}
+
+.site-header .brand img {
+  height: 40px !important;
+  width: auto !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+
+/* Desktop Main Nav */
+.main-nav {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.nav-item {
+  position: relative !important;
+}
+
+.nav-item > a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 10px 16px !important;
+  color: #f8fafc !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.nav-item > a:hover,
+.nav-item.open > a {
+  color: #f6dd0d !important;
+  background: rgba(246, 221, 13, 0.1) !important;
+}
+
+.chevron-icon {
+  font-size: 0.7rem !important;
+  transition: transform 0.25s ease !important;
+  display: inline-block !important;
+  margin-left: 2px !important;
+}
+
+.nav-item.open .chevron-icon,
+.nav-item.mobile-open .chevron-icon {
+  transform: rotate(180deg) !important;
+}
+
+/* Desktop Mega Menu (Odoo Style) */
+@media (min-width: 992px) {
+  .mega-menu {
+    position: fixed !important;
+    top: 72px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    background: rgba(18, 27, 23, 0.96) !important;
+    backdrop-filter: blur(16px) !important;
+    border-top: 1px solid rgba(120, 173, 148, 0.2) !important;
+    border-bottom: 2px solid #f6dd0d !important;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-8px) !important;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease !important;
+    z-index: 9999 !important;
+    pointer-events: none !important;
+  }
+
+  .nav-item.open .mega-menu,
+  .nav-item:hover .mega-menu {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+  }
+
+  .mega-menu-inner {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 32px 24px 36px 24px !important;
+  }
+
+  .mega-menu-header {
+    margin-bottom: 20px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid rgba(120, 173, 148, 0.15) !important;
+  }
+
+  .mega-menu-title {
+    color: #f6dd0d !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+  }
+
+  .mega-menu-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+    gap: 32px !important;
+  }
+
+  .mega-menu-col h4 {
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    margin: 0 0 16px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .col-icon {
+    font-style: normal !important;
+    font-size: 1.1rem !important;
+  }
+
+  .mega-menu-item {
+    display: block !important;
+    padding: 10px 12px !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+    margin-bottom: 6px !important;
+    background: transparent !important;
+  }
+
+  .mega-menu-item:hover {
+    background: rgba(246, 221, 13, 0.08) !important;
+    transform: translateX(4px) !important;
+  }
+
+  .mega-menu-item .item-title {
+    color: #f8fafc !important;
+    font-size: 0.92rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 3px !important;
+    transition: color 0.2s ease !important;
+  }
+
+  .mega-menu-item:hover .item-title {
+    color: #f6dd0d !important;
+  }
+
+  .mega-menu-item .item-desc {
+    color: #94a3b8 !important;
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+}
+
+/* Mobile Drawer & Dropdown (Max-width: 991.98px) */
+@media (max-width: 991.98px) {
+  .hamburger-menu {
+    display: flex !important;
+  }
+
+  .main-nav {
+    position: fixed !important;
+    top: 72px !important;
+    right: -100% !important;
+    left: auto !important;
+    width: 300px !important;
+    max-width: 85vw !important;
+    height: calc(100vh - 72px) !important;
+    background: #16201c !important;
+    border-left: 1px solid #283a31 !important;
+    box-shadow: -15px 0 35px rgba(0, 0, 0, 0.8) !important;
+    padding: 20px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 10001 !important;
+    overflow-y: auto !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+  }
+
+  .main-nav.active {
+    right: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .main-nav .nav-item {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 6px !important;
+  }
+
+  .main-nav .nav-item > a {
+    color: #f8fafc !important;
+    background: #1f2e28 !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    padding: 12px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    border: 1px solid #2d4239 !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+    margin-bottom: 0 !important;
+  }
+
+  .main-nav .nav-item > a:hover,
+  .main-nav .nav-item.mobile-open > a {
+    background: #f6dd0d !important;
+    color: #16201c !important;
+    border-color: #f6dd0d !important;
+  }
+
+  /* Mobile Accordion Dropdown */
+  .mega-menu {
+    display: none !important;
+    position: static !important;
+    width: 100% !important;
+    background: #121a17 !important;
+    border: 1px solid #283a31 !important;
+    border-left: 3px solid #f6dd0d !important;
+    border-radius: 4px !important;
+    padding: 12px 10px !important;
+    margin-top: 4px !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  .nav-item.mobile-open .mega-menu {
+    display: block !important;
+  }
+
+  .mega-menu-inner {
+    padding: 0 !important;
+  }
+
+  .mega-menu-header {
+    display: none !important;
+  }
+
+  .mega-menu-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .mega-menu-col h4 {
+    color: #f6dd0d !important;
+    font-size: 0.85rem !important;
+    margin: 8px 0 4px 4px !important;
+    font-weight: 700 !important;
+  }
+
+  .mega-menu-item {
+    padding: 8px 10px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  }
+
+  .mega-menu-item:last-child {
+    border-bottom: none !important;
+  }
+
+  .mega-menu-item .item-title {
+    color: #ffffff !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+  }
+
+  .mega-menu-item .item-desc {
+    color: #94a3b8 !important;
+    font-size: 0.78rem !important;
+  }
+}
+
 </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header class="site-header" id="siteHeader">
+    <header class="site-header" id="siteHeader">
     <div class="inner">
-        <div class="brand">
-          <img id="brandLogo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Election Pro">
-        </div>
-        <nav class="main-nav">
-          <div class="nav-item">
-            <a href="apps.html">Apps</a>
-          </div>
-          <div class="nav-item">
-            <a href="features.html">Features</a>
-          </div>
-          <div class="nav-item has-dropdown">
-            <a href="#usedby">Used By</a>
-            <div class="mega-menu" id="industriesMenu">
-  <div class="mega-menu-header">
-    <h3 class="mega-menu-title">Industries & ERP Modules</h3>
-    <span class="mega-menu-close" onclick="closeMegaMenu()">&times;</span>
-  </div>
-  <div class="mega-menu-content">
-    <div class="mega-menu-section">
-      <h4>Campaign Types</h4>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Local Elections</div>
-        <div class="item-desc">City council, mayor, school board campaigns</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">State Legislature</div>
-        <div class="item-desc">Assembly, senate, and gubernatorial races</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Federal Campaigns</div>
-        <div class="item-desc">Congressional and presidential campaigns</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Ballot Measures</div>
-        <div class="item-desc">Issue advocacy and referendum campaigns</div>
-      </a>
-    </div>
-    <div class="mega-menu-section">
-      <h4>Organizations</h4>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Political Parties</div>
-        <div class="item-desc">Democratic, Republican, and third-party organizations</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">PACs & Super PACs</div>
-        <div class="item-desc">Political action committees and advocacy groups</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Nonprofits</div>
-        <div class="item-desc">501(c)(3) and 501(c)(4) advocacy organizations</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Consulting Firms</div>
-        <div class="item-desc">Political consultants and campaign agencies</div>
-      </a>
-    </div>
-  </div>
-</div>
-          </div>
-          <div class="nav-item">
-            <a href="forum/index.html">Community</a>
-          </div>
-          <div class="nav-item">
-            <a href="pricing.html">Pricing</a>
-          </div>
-          <div class="nav-item">
-            <a href="help.html">Help</a>
-          </div>
-        </nav>
-        <div class="auth-actions">
-          <a class="auth-signin" href="#" onclick="openAuthModal('signin'); return false;" style="font-size:0.98rem;">Sign in</a>
-          <a class="btn-request-demo" href="appointment.html" style="font-size:0.92rem;">Request Demo</a>
-        </div>
-        <!-- Hamburger Menu Button -->
-        <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+      <div class="brand">
+        <a href="landing_enhanced.html" style="display:inline-block;">
+          <img id="brandLogo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP - Sugar Management System">
+        </a>
       </div>
-    </header>
+      
+      <nav class="main-nav" id="mainNav">
+        <!-- Apps (with Mega Menu) -->
+        <div class="nav-item has-dropdown" id="navItemApps">
+          <a href="apps.html" class="dropdown-toggle" onclick="handleDropdownClick(event, 'navItemApps')">
+            <span>Apps</span> <span class="chevron-icon">▼</span>
+          </a>
+          <div class="mega-menu" id="appsMenu">
+            <div class="mega-menu-inner">
+              <div class="mega-menu-header">
+                <h3 class="mega-menu-title">Synergy Bravo ERP Applications & Modules</h3>
+              </div>
+              <div class="mega-menu-grid">
+                <div class="mega-menu-col">
+                  <h4><i class="col-icon">🌾</i> Agriculture & Field Operations</h4>
+                  <a href="apps.html#farmer-mobile" class="mega-menu-item">
+                    <div class="item-title">Farmer & Field Mobile</div>
+                    <div class="item-desc">Plot mapping, grower contracts, harvest scheduling, GPS tracking</div>
+                  </a>
+                  <a href="apps.html#weighbridge" class="mega-menu-item">
+                    <div class="item-title">Weighbridge Scale Sync</div>
+                    <div class="item-desc">Gross & tare automation, grower tickets, lab sucrose sync</div>
+                  </a>
+                </div>
+                <div class="mega-menu-col">
+                  <h4><i class="col-icon">🏭</i> Factory & Milling Operations</h4>
+                  <a href="apps.html#milling" class="mega-menu-item">
+                    <div class="item-title">Sugar Mill Processing</div>
+                    <div class="item-desc">Milling rate, juice extraction, boiler energy, lab quality</div>
+                  </a>
+                  <a href="apps.html#inventory" class="mega-menu-item">
+                    <div class="item-title">Supply Chain & Inventory</div>
+                    <div class="item-desc">Raw cane queue, sugar warehouse, logistics & dispatch</div>
+                  </a>
+                </div>
+                <div class="mega-menu-col">
+                  <h4><i class="col-icon">⚡</i> Enterprise Core & AI</h4>
+                  <a href="apps.html#financials" class="mega-menu-item">
+                    <div class="item-title">Financials & Settlements</div>
+                    <div class="item-desc">Grower settlements, multi-currency invoicing, payroll, ledger</div>
+                  </a>
+                  <a href="apps.html#ai-traceability" class="mega-menu-item">
+                    <div class="item-title">AI & Real-Time Traceability</div>
+                    <div class="item-desc">Laboratory AI analytics, predictive yield, real-time sensor sync</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="features.html">Features</a>
+        </div>
+
+        <!-- Used By (with Mega Menu) -->
+        <div class="nav-item has-dropdown" id="navItemUsedBy">
+          <a href="#usedby" class="dropdown-toggle" onclick="handleDropdownClick(event, 'navItemUsedBy')">
+            <span>Used By</span> <span class="chevron-icon">▼</span>
+          </a>
+          <div class="mega-menu" id="industriesMenu">
+            <div class="mega-menu-inner">
+              <div class="mega-menu-header">
+                <h3 class="mega-menu-title">Industries & Operational Scale</h3>
+              </div>
+              <div class="mega-menu-grid">
+                <div class="mega-menu-col">
+                  <h4><i class="col-icon">🏭</i> Sugar Milling Industry</h4>
+                  <a href="#usedby" class="mega-menu-item">
+                    <div class="item-title">Sugar Mills & Refineries</div>
+                    <div class="item-desc">Integrated milling, juice extraction, and sugar quality control</div>
+                  </a>
+                  <a href="#usedby" class="mega-menu-item">
+                    <div class="item-title">Agro-Industrial Enterprises</div>
+                    <div class="item-desc">Large-scale plantation management, farmer contracts, & field mobile</div>
+                  </a>
+                  <a href="#usedby" class="mega-menu-item">
+                    <div class="item-title">Cooperative Farmer Networks</div>
+                    <div class="item-desc">Harvest scheduling, cane delivery tracking, and weighbridge ticket sync</div>
+                  </a>
+                </div>
+                <div class="mega-menu-col">
+                  <h4><i class="col-icon">🚛</i> Logistics & Global Trade</h4>
+                  <a href="#usedby" class="mega-menu-item">
+                    <div class="item-title">Transport & Logistics Fleets</div>
+                    <div class="item-desc">Fleet GPS, weighbridge queue management, & scale automation</div>
+                  </a>
+                  <a href="#usedby" class="mega-menu-item">
+                    <div class="item-title">Export & Commodity Trading</div>
+                    <div class="item-desc">Warehouse inventory, export documentation, & sugar invoicing</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="forum/index.html">Community</a>
+        </div>
+        <div class="nav-item">
+          <a href="pricing.html">Pricing</a>
+        </div>
+        <div class="nav-item">
+          <a href="help.html">Help</a>
+        </div>
+      </nav>
+
+      <div class="auth-actions">
+        <a class="auth-signin" href="#" onclick="openAuthModal('signin'); return false;">Sign in</a>
+        <a class="btn-request-demo" href="appointment.html">Request Demo</a>
+      </div>
+
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
 
   <!-- Hero -->
   <section class="hero">
@@ -2999,10 +3404,50 @@
       hamburgerBtn.onclick = toggleMobileMenu;
       overlay.onclick = closeMobileMenu;
 
-      const navLinks = mainNav.querySelectorAll('a');
+      const navLinks = mainNav.querySelectorAll('a:not(.dropdown-toggle), .mega-menu-item');
       navLinks.forEach(link => {
         link.addEventListener('click', closeMobileMenu);
       });
     }
   });
+
+  // Mega Menu & Mobile Dropdown Controller
+  function handleDropdownClick(e, navItemId) {
+    const isMobile = window.innerWidth < 992;
+    const navItem = document.getElementById(navItemId);
+    if (!navItem) return;
+
+    if (isMobile) {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = navItem.classList.contains('mobile-open');
+      document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+        if (item !== navItem) item.classList.remove('mobile-open');
+      });
+      if (isOpen) {
+        navItem.classList.remove('mobile-open');
+      } else {
+        navItem.classList.add('mobile-open');
+      }
+    } else {
+      const isOpen = navItem.classList.contains('open');
+      document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+        if (item !== navItem) item.classList.remove('open');
+      });
+      if (isOpen) {
+        navItem.classList.remove('open');
+      } else {
+        navItem.classList.add('open');
+      }
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-item.has-dropdown')) {
+      document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+        item.classList.remove('open');
+      });
+    }
+  });
+
 </script>
