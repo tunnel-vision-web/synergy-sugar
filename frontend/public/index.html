@@ -1631,7 +1631,7 @@
           </div>
         </nav>
         <div class="auth-actions">
-          <a class="auth-signin" href="#" onclick="openAuthModal('signin'); return false;" style="font-size:0.98rem; margin-right: 12px;">Sign in</a><a class="auth-signin" href="#" onclick="openAuthModal('register'); return false;" style="font-size:0.98rem; font-weight:700; color:var(--primary) !important;">Sign Up</a>
+          <a class="auth-signin" href="#" onclick="openAuthModal('signin'); return false;" style="font-size:0.98rem;">Sign in</a>
           <a class="btn-request-demo" href="appointment.html" style="font-size:0.92rem;">Request Demo</a>
         </div>
         <!-- Hamburger Menu Button -->
@@ -2658,11 +2658,27 @@
   }
 
 
-  // Sign In Modal functionality
-  function openSignInModal() {
-    document.getElementById('signInModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
+  
+  window.openAuthModal = function(mode) {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      if (typeof switchAuthTab === 'function') {
+        switchAuthTab(mode || 'signin');
+      }
+    }
+  };
+  window.openSignInModal = window.openAuthModal;
+
+  window.closeSignInModal = function() {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+
 
   
   function closeMegaMenu() {
@@ -2672,11 +2688,10 @@
     if (industriesItem) industriesItem.classList.remove('active');
   }
 
-  function switchAuthTab(mode) {
+  
+  window.switchAuthTab = function(mode) {
     const signInForm = document.getElementById('signInForm');
     const registerForm = document.getElementById('registerForm');
-    const tabSignInBtn = document.getElementById('tabSignInBtn');
-    const tabRegisterBtn = document.getElementById('tabRegisterBtn');
     const modalTitle = document.getElementById('modalTitle');
     const modalSubtitle = document.getElementById('modalSubtitle');
     const authMessage = document.getElementById('authMessage');
@@ -2684,13 +2699,18 @@
     if (authMessage) authMessage.style.display = 'none';
 
     if (mode === 'register') {
-      signInForm.style.display = 'none';
-      registerForm.style.display = 'block';
-      tabSignInBtn.classList.remove('active');
-      tabRegisterBtn.classList.add('active');
-      modalTitle.textContent = 'Create an Account';
-      modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
+      if (signInForm) signInForm.style.display = 'none';
+      if (registerForm) registerForm.style.display = 'block';
+      if (modalTitle) modalTitle.textContent = 'Create an Account';
+      if (modalSubtitle) modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
     } else {
+      if (signInForm) signInForm.style.display = 'block';
+      if (registerForm) registerForm.style.display = 'none';
+      if (modalTitle) modalTitle.textContent = 'Welcome Back';
+      if (modalSubtitle) modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
+    }
+  };
+ else {
       signInForm.style.display = 'block';
       registerForm.style.display = 'none';
       tabSignInBtn.classList.add('active');
