@@ -2710,15 +2710,6 @@
       if (modalSubtitle) modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
     }
   };
- else {
-      signInForm.style.display = 'block';
-      registerForm.style.display = 'none';
-      tabSignInBtn.classList.add('active');
-      tabRegisterBtn.classList.remove('active');
-      modalTitle.textContent = 'Welcome Back';
-      modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
-    }
-  }
 
   function handleSignIn(e) {
     e.preventDefault();
