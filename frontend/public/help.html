@@ -373,7 +373,61 @@
         visibility: visible;
       }
     }
-  </style>
+  
+  /* Explicit Request Demo Button & Bottom Footer Logo Alignment Fix */
+  .btn-request-demo,
+  a.btn-request-demo,
+  button.btn-request-demo {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #f6dd0d !important;
+    border: 1px solid #f6dd0d !important;
+    border-radius: 3px !important;
+    color: #16201c !important;
+    font-weight: 700 !important;
+    padding: 8px 18px !important;
+    font-size: 0.92rem !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    line-height: 1.2 !important;
+  }
+
+  .btn-request-demo:hover,
+  a.btn-request-demo:hover,
+  button.btn-request-demo:hover {
+    background: #a3e635 !important;
+    border-color: #a3e635 !important;
+    color: #16201c !important;
+    box-shadow: 0 4px 12px rgba(163, 230, 53, 0.3) !important;
+  }
+
+  /* Bottom Footer Logo Horizontal Centering */
+  .site-footer {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .footer-logo {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    margin: 0 auto 28px auto !important;
+    width: 100% !important;
+  }
+
+  .footer-logo img {
+    height: 54px !important;
+    width: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+  }
+
+</style>
   <style>
     :root {
       --hero-bg: url('parallax-bg.jpg');
@@ -1225,9 +1279,7 @@
   </div>
   <!-- FOOTER - Matching Appointment System -->
   <footer class="site-footer">
-    <div class="footer-logo">
-      <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP">
-    </div>
+    <div class="footer-logo" style="display: flex !important; justify-content: center !important; align-items: center !important; margin: 0 auto 28px auto !important; width: 100% !important; text-align: center !important;"><img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" style="height: 54px !important; margin: 0 auto !important; display: block !important;"></div>
     <div class="footer-columns">
       <div class="footer-col">
         <h4>Company</h4>
