@@ -530,3 +530,249 @@
 </script>
 </body>
 </html>
+
+<!-- SINGLE UNIFIED AUTH / ONBOARDING MODAL ARCHITECTURE -->
+<div id="signInModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 20000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto;">
+  <div class="modal-content" style="position: relative; width: 100%; max-width: 440px; background: #1e2b25; border: 1px solid #364e43; border-radius: 3px !important; padding: 36px 30px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); color: #f8fafc;">
+    <span class="modal-close" onclick="closeSignInModal()" style="position: absolute; right: 18px; top: 14px; font-size: 26px; color: #cbd5e1; cursor: pointer; line-height: 1;">&times;</span>
+    
+    <div class="modal-header" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px;">
+      <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" class="modal-logo" style="height: 46px; width: auto; margin: 0 auto 12px auto; display: block; object-fit: contain;">
+      <h2 class="modal-title" id="modalTitle" style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin: 0 0 6px 0; text-align: center;">Welcome Back</h2>
+      <p class="modal-subtitle" id="modalSubtitle" style="font-size: 0.875rem; color: #94a3b8; margin: 0; line-height: 1.4; text-align: center;">Sign in to your Synergy Bravo ERP account</p>
+    </div>
+
+    <div id="authMessage" style="display: none; padding: 12px; margin-bottom: 16px; border-radius: 3px !important; font-size: 0.875rem; text-align: center;"></div>
+
+    <form id="signInForm" class="modal-form" onsubmit="handleSignIn(event);">
+      <div class="form-group" id="authNameGroup" style="display: none; margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Full Name</label>
+        <input type="text" id="authName" placeholder="John Doe" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+
+      <div class="form-group" id="authCompanyGroup" style="display: none; margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Company / Sugar Mill Name</label>
+        <input type="text" id="authCompany" placeholder="Mumias Sugar Company Ltd" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+
+      <div class="form-group" id="authEmailGroup" style="margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Work Email Address</label>
+        <input type="email" id="authEmail" required placeholder="name@company.com" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+
+      <div class="form-group" id="authPasswordGroup" style="margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <label style="font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin: 0;">Password</label>
+          <a href="#" id="authForgotBtn" onclick="toggleForgotPasswordMode(); return false;" style="color: #f6dd0d; font-size: 0.8rem; text-decoration: none; font-weight: 600;">Forgot password?</a>
+        </div>
+        <div style="position: relative;">
+          <input type="password" id="authPassword" placeholder="••••••••" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 42px 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+          <button type="button" onclick="togglePasswordVisibility('authPassword', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.1rem; padding: 2px 6px;" aria-label="Toggle password visibility">👁</button>
+        </div>
+      </div>
+
+      <div class="form-group" id="authConfirmPasswordGroup" style="display: none; margin-bottom: 20px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Confirm Password</label>
+        <div style="position: relative;">
+          <input type="password" id="authConfirmPassword" placeholder="••••••••" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 42px 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+          <button type="button" onclick="togglePasswordVisibility('authConfirmPassword', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.1rem; padding: 2px 6px;" aria-label="Toggle confirm password visibility">👁</button>
+        </div>
+      </div>
+
+      <button type="submit" id="authSubmitBtn" style="width: 100%; background: #f6dd0d; color: #101915; font-weight: 700; border: none; padding: 12px; border-radius: 3px !important; cursor: pointer; font-size: 1rem;">Sign In</button>
+    </form>
+
+    <div style="margin-top: 20px; text-align: center; font-size: 0.875rem; color: #94a3b8;">
+      <span id="authToggleText">Don't have an account?</span> 
+      <a href="#" id="authToggleBtn" onclick="toggleAuthMode(); return false;" style="color: #f6dd0d; font-weight: 600; text-decoration: none;">Sign Up</a>
+    </div>
+  </div>
+</div>
+<script>
+  window.authMode = 'signin'; // 'signin', 'signup', or 'forgot'
+
+  window.openSignInModal = function(mode) {
+    if (mode === 'signup' || mode === 'register') {
+      window.authMode = 'signup';
+    } else if (mode === 'forgot') {
+      window.authMode = 'forgot';
+    } else {
+      window.authMode = 'signin';
+    }
+    window.updateModalUI();
+    const modal = document.getElementById('signInModal');
+    if (modal) modal.style.display = 'flex';
+  };
+
+  window.openAuthModal = function(mode) {
+    window.openSignInModal(mode);
+  };
+
+  window.closeSignInModal = function() {
+    const modal = document.getElementById('signInModal');
+    if (modal) modal.style.display = 'none';
+  };
+
+  window.closeAuthModal = function() {
+    window.closeSignInModal();
+  };
+
+  window.toggleAuthMode = function() {
+    if (window.authMode === 'signup') {
+      window.authMode = 'signin';
+    } else {
+      window.authMode = 'signup';
+    }
+    window.updateModalUI();
+  };
+
+  window.toggleForgotPasswordMode = function() {
+    window.authMode = (window.authMode === 'forgot') ? 'signin' : 'forgot';
+    window.updateModalUI();
+  };
+
+  window.togglePasswordVisibility = function(inputId, btnEl) {
+    const input = document.getElementById(inputId);
+    if (input) {
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (btnEl) btnEl.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        if (btnEl) btnEl.textContent = '👁';
+      }
+    }
+  };
+
+  window.switchAuthTab = function(tab) {
+    if (tab === 'register' || tab === 'signup') {
+      window.authMode = 'signup';
+    } else if (tab === 'forgot') {
+      window.authMode = 'forgot';
+    } else {
+      window.authMode = 'signin';
+    }
+    window.updateModalUI();
+    const modal = document.getElementById('signInModal');
+    if (modal) modal.style.display = 'flex';
+  };
+
+  window.updateModalUI = function() {
+    const title = document.getElementById('modalTitle');
+    const subtitle = document.getElementById('modalSubtitle');
+    const submitBtn = document.getElementById('authSubmitBtn');
+    const toggleText = document.getElementById('authToggleText');
+    const toggleBtn = document.getElementById('authToggleBtn');
+    const nameGroup = document.getElementById('authNameGroup');
+    const companyGroup = document.getElementById('authCompanyGroup');
+    const emailGroup = document.getElementById('authEmailGroup');
+    const passwordGroup = document.getElementById('authPasswordGroup');
+    const confirmPasswordGroup = document.getElementById('authConfirmPasswordGroup');
+    const msg = document.getElementById('authMessage');
+
+    if (msg) msg.style.display = 'none';
+
+    if (window.authMode === 'signup') {
+      if (title) title.textContent = 'Create an Account';
+      if (subtitle) subtitle.textContent = 'Start onboarding for Synergy Bravo ERP';
+      if (submitBtn) submitBtn.textContent = 'Register & Continue Onboarding';
+      if (toggleText) toggleText.textContent = 'Already have an account?';
+      if (toggleBtn) toggleBtn.textContent = 'Sign In';
+      if (nameGroup) nameGroup.style.display = 'block';
+      if (companyGroup) companyGroup.style.display = 'block';
+      if (emailGroup) emailGroup.style.display = 'block';
+      if (passwordGroup) passwordGroup.style.display = 'block';
+      if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'block';
+    } else if (window.authMode === 'forgot') {
+      if (title) title.textContent = 'Reset Password';
+      if (subtitle) subtitle.textContent = 'Enter your work email address to receive a password reset link';
+      if (submitBtn) submitBtn.textContent = 'Send Reset Link';
+      if (toggleText) toggleText.textContent = 'Remember your password?';
+      if (toggleBtn) toggleBtn.textContent = 'Sign In';
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (companyGroup) companyGroup.style.display = 'none';
+      if (emailGroup) emailGroup.style.display = 'block';
+      if (passwordGroup) passwordGroup.style.display = 'none';
+      if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
+    } else {
+      // Sign In mode
+      if (title) title.textContent = 'Welcome Back';
+      if (subtitle) subtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
+      if (submitBtn) submitBtn.textContent = 'Sign In';
+      if (toggleText) toggleText.textContent = "Don't have an account?";
+      if (toggleBtn) toggleBtn.textContent = 'Sign Up';
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (companyGroup) companyGroup.style.display = 'none';
+      if (emailGroup) emailGroup.style.display = 'block';
+      if (passwordGroup) passwordGroup.style.display = 'block';
+      if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
+    }
+  };
+
+  window.handleSignIn = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const msg = document.getElementById('authMessage');
+
+    if (window.authMode === 'signup') {
+      const pwd = document.getElementById('authPassword').value;
+      const confirmPwd = document.getElementById('authConfirmPassword').value;
+      if (pwd && confirmPwd && pwd !== confirmPwd) {
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(239, 68, 68, 0.15)';
+          msg.style.color = '#f87171';
+          msg.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+          msg.textContent = 'Passwords do not match. Please verify and try again.';
+        }
+        return;
+      }
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(34, 197, 94, 0.15)';
+        msg.style.color = '#4ade80';
+        msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+        msg.textContent = 'Account registered! Redirecting to ERP Dashboard Onboarding...';
+      }
+    } else if (window.authMode === 'forgot') {
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(34, 197, 94, 0.15)';
+        msg.style.color = '#4ade80';
+        msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+        msg.textContent = 'Password reset link sent! Please check your email inbox.';
+      }
+    } else {
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(34, 197, 94, 0.15)';
+        msg.style.color = '#4ade80';
+        msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+        msg.textContent = 'Welcome back! Signing you in...';
+      }
+    }
+
+    setTimeout(() => {
+      window.closeSignInModal();
+    }, 1800);
+  };
+
+  window.showLoginDialog = function() {
+    window.openSignInModal('signin');
+  };
+
+  // Close modal when clicking backdrop or pressing Escape key
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('signInModal');
+    if (modal && event.target === modal) {
+      window.closeSignInModal();
+    }
+  });
+
+  window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      window.closeSignInModal();
+    }
+  });
+</script>
+</body>
+</html>

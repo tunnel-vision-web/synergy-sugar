@@ -3268,14 +3268,28 @@ a.btn-request-demo:hover {
         <input type="text" id="authCompany" placeholder="Mumias Sugar Company Ltd" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
       </div>
 
-      <div class="form-group" style="margin-bottom: 16px;">
+      <div class="form-group" id="authEmailGroup" style="margin-bottom: 16px;">
         <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Work Email Address</label>
         <input type="email" id="authEmail" required placeholder="name@company.com" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
       </div>
 
-      <div class="form-group" style="margin-bottom: 20px;">
-        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Password</label>
-        <input type="password" id="authPassword" required placeholder="••••••••" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      <div class="form-group" id="authPasswordGroup" style="margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <label style="font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin: 0;">Password</label>
+          <a href="#" id="authForgotBtn" onclick="toggleForgotPasswordMode(); return false;" style="color: #f6dd0d; font-size: 0.8rem; text-decoration: none; font-weight: 600;">Forgot password?</a>
+        </div>
+        <div style="position: relative;">
+          <input type="password" id="authPassword" placeholder="••••••••" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 42px 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+          <button type="button" onclick="togglePasswordVisibility('authPassword', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.1rem; padding: 2px 6px;" aria-label="Toggle password visibility">👁</button>
+        </div>
+      </div>
+
+      <div class="form-group" id="authConfirmPasswordGroup" style="display: none; margin-bottom: 20px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Confirm Password</label>
+        <div style="position: relative;">
+          <input type="password" id="authConfirmPassword" placeholder="••••••••" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 42px 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+          <button type="button" onclick="togglePasswordVisibility('authConfirmPassword', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.1rem; padding: 2px 6px;" aria-label="Toggle confirm password visibility">👁</button>
+        </div>
       </div>
 
       <button type="submit" id="authSubmitBtn" style="width: 100%; background: #f6dd0d; color: #101915; font-weight: 700; border: none; padding: 12px; border-radius: 3px !important; cursor: pointer; font-size: 1rem;">Sign In</button>
@@ -3288,13 +3302,15 @@ a.btn-request-demo:hover {
   </div>
 </div>
 <script>
-  window.isSignUpMode = false;
+  window.authMode = 'signin'; // 'signin', 'signup', or 'forgot'
 
   window.openSignInModal = function(mode) {
     if (mode === 'signup' || mode === 'register') {
-      window.isSignUpMode = true;
+      window.authMode = 'signup';
+    } else if (mode === 'forgot') {
+      window.authMode = 'forgot';
     } else {
-      window.isSignUpMode = false;
+      window.authMode = 'signin';
     }
     window.updateModalUI();
     const modal = document.getElementById('signInModal');
@@ -3315,15 +3331,39 @@ a.btn-request-demo:hover {
   };
 
   window.toggleAuthMode = function() {
-    window.isSignUpMode = !window.isSignUpMode;
+    if (window.authMode === 'signup') {
+      window.authMode = 'signin';
+    } else {
+      window.authMode = 'signup';
+    }
     window.updateModalUI();
+  };
+
+  window.toggleForgotPasswordMode = function() {
+    window.authMode = (window.authMode === 'forgot') ? 'signin' : 'forgot';
+    window.updateModalUI();
+  };
+
+  window.togglePasswordVisibility = function(inputId, btnEl) {
+    const input = document.getElementById(inputId);
+    if (input) {
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (btnEl) btnEl.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        if (btnEl) btnEl.textContent = '👁';
+      }
+    }
   };
 
   window.switchAuthTab = function(tab) {
     if (tab === 'register' || tab === 'signup') {
-      window.isSignUpMode = true;
+      window.authMode = 'signup';
+    } else if (tab === 'forgot') {
+      window.authMode = 'forgot';
     } else {
-      window.isSignUpMode = false;
+      window.authMode = 'signin';
     }
     window.updateModalUI();
     const modal = document.getElementById('signInModal');
@@ -3338,8 +3378,14 @@ a.btn-request-demo:hover {
     const toggleBtn = document.getElementById('authToggleBtn');
     const nameGroup = document.getElementById('authNameGroup');
     const companyGroup = document.getElementById('authCompanyGroup');
+    const emailGroup = document.getElementById('authEmailGroup');
+    const passwordGroup = document.getElementById('authPasswordGroup');
+    const confirmPasswordGroup = document.getElementById('authConfirmPasswordGroup');
+    const msg = document.getElementById('authMessage');
 
-    if (window.isSignUpMode) {
+    if (msg) msg.style.display = 'none';
+
+    if (window.authMode === 'signup') {
       if (title) title.textContent = 'Create an Account';
       if (subtitle) subtitle.textContent = 'Start onboarding for Synergy Bravo ERP';
       if (submitBtn) submitBtn.textContent = 'Register & Continue Onboarding';
@@ -3347,7 +3393,22 @@ a.btn-request-demo:hover {
       if (toggleBtn) toggleBtn.textContent = 'Sign In';
       if (nameGroup) nameGroup.style.display = 'block';
       if (companyGroup) companyGroup.style.display = 'block';
+      if (emailGroup) emailGroup.style.display = 'block';
+      if (passwordGroup) passwordGroup.style.display = 'block';
+      if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'block';
+    } else if (window.authMode === 'forgot') {
+      if (title) title.textContent = 'Reset Password';
+      if (subtitle) subtitle.textContent = 'Enter your work email address to receive a password reset link';
+      if (submitBtn) submitBtn.textContent = 'Send Reset Link';
+      if (toggleText) toggleText.textContent = 'Remember your password?';
+      if (toggleBtn) toggleBtn.textContent = 'Sign In';
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (companyGroup) companyGroup.style.display = 'none';
+      if (emailGroup) emailGroup.style.display = 'block';
+      if (passwordGroup) passwordGroup.style.display = 'none';
+      if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
     } else {
+      // Sign In mode
       if (title) title.textContent = 'Welcome Back';
       if (subtitle) subtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
       if (submitBtn) submitBtn.textContent = 'Sign In';
@@ -3355,24 +3416,57 @@ a.btn-request-demo:hover {
       if (toggleBtn) toggleBtn.textContent = 'Sign Up';
       if (nameGroup) nameGroup.style.display = 'none';
       if (companyGroup) companyGroup.style.display = 'none';
+      if (emailGroup) emailGroup.style.display = 'block';
+      if (passwordGroup) passwordGroup.style.display = 'block';
+      if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
     }
   };
 
   window.handleSignIn = function(e) {
     if (e && e.preventDefault) e.preventDefault();
     const msg = document.getElementById('authMessage');
-    if (msg) {
-      msg.style.display = 'block';
-      msg.style.background = 'rgba(34, 197, 94, 0.15)';
-      msg.style.color = '#4ade80';
-      msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
-      msg.textContent = window.isSignUpMode 
-        ? 'Account registered! Redirecting to ERP Dashboard Onboarding...' 
-        : 'Welcome back! Signing you in...';
+
+    if (window.authMode === 'signup') {
+      const pwd = document.getElementById('authPassword').value;
+      const confirmPwd = document.getElementById('authConfirmPassword').value;
+      if (pwd && confirmPwd && pwd !== confirmPwd) {
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.background = 'rgba(239, 68, 68, 0.15)';
+          msg.style.color = '#f87171';
+          msg.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+          msg.textContent = 'Passwords do not match. Please verify and try again.';
+        }
+        return;
+      }
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(34, 197, 94, 0.15)';
+        msg.style.color = '#4ade80';
+        msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+        msg.textContent = 'Account registered! Redirecting to ERP Dashboard Onboarding...';
+      }
+    } else if (window.authMode === 'forgot') {
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(34, 197, 94, 0.15)';
+        msg.style.color = '#4ade80';
+        msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+        msg.textContent = 'Password reset link sent! Please check your email inbox.';
+      }
+    } else {
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(34, 197, 94, 0.15)';
+        msg.style.color = '#4ade80';
+        msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+        msg.textContent = 'Welcome back! Signing you in...';
+      }
     }
+
     setTimeout(() => {
       window.closeSignInModal();
-    }, 1500);
+    }, 1800);
   };
 
   window.showLoginDialog = function() {
