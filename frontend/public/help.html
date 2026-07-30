@@ -2331,6 +2331,7 @@ a.btn-request-demo:hover {
   </style>
 
 
+  <!-- Dark Sage Theme Master Overrides -->
   <style>
     .page-header-banner {
       position: relative;
@@ -2385,17 +2386,23 @@ a.btn-request-demo:hover {
       background-color: #101915 !important;
       color: #cbd5e1 !important;
     }
-    .card, .pricing-card, .plan-card, .help-hero, .help-card, .kb-card, .contact-card, .faq-item, .box, .panel {
+    .page-main-container {
+      padding: 40px 0 80px 0;
+      background: #101915 !important;
+    }
+    
+    /* Global Element Overrides for Dark Theme */
+    .card, .price-card, .pricing-card, .plan-card, .help-hero, .help-card, .kb-card, .contact-card, .faq-item, .box, .panel, .apps-area, .apps-grid > div {
       background: #16221c !important;
       border: 1px solid #283a31 !important;
       color: #cbd5e1 !important;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3) !important;
       border-radius: 8px !important;
     }
-    h1, h2, h3, h4, h5, h6, .card-title, .pricing-title, .plan-name, .faq-question, .hero-title {
+    h1, h2, h3, h4, h5, h6, .card-title, .pricing-title, .plan-name, .faq-question, .app-name {
       color: #ffffff !important;
     }
-    p, li, span, div, td, label {
+    p, li, span, div, td, label, .app-description {
       color: #cbd5e1;
     }
     input, select, textarea {
@@ -2422,33 +2429,37 @@ a.btn-request-demo:hover {
       border-bottom: 1px solid #283a31 !important;
       color: #cbd5e1 !important;
     }
-    .pricing-price, .price, .amount, .highlight, .currency {
+    .price, .pricing-price, .amount, .highlight, .currency {
       color: #f6dd0d !important;
     }
-    .btn, .btn-primary, .btn-main, .btn-gold, .btn-cta {
+    .btn, .btn-primary, .btn-main, .btn-gold, .btn-cta, .btn-blue {
       background: #f6dd0d !important;
       color: #16201c !important;
       font-weight: 700 !important;
       border: none !important;
       transition: all 0.2s ease !important;
+      text-decoration: none !important;
+      display: inline-block !important;
     }
-    .btn:hover, .btn-primary:hover, .btn-main:hover, .btn-gold:hover, .btn-cta:hover {
+    .btn:hover, .btn-primary:hover, .btn-main:hover, .btn-gold:hover, .btn-cta:hover, .btn-blue:hover {
       background: #ffe436 !important;
       color: #16201c !important;
       box-shadow: 0 4px 14px rgba(246, 221, 13, 0.4) !important;
     }
-    .btn-outline, .btn-secondary, .btn-light {
-      background: rgba(255, 255, 255, 0.1) !important;
-      border: 1px solid rgba(255, 255, 255, 0.2) !important;
-      color: #ffffff !important;
+    .billing-toggle {
+      background: #16221c !important;
+      border: 1px solid #283a31 !important;
     }
-    .btn-outline:hover, .btn-secondary:hover, .btn-light:hover {
-      background: #f6dd0d !important;
+    .billing-btn {
+      color: #cbd5e1 !important;
+    }
+    .billing-btn.active {
       color: #16201c !important;
+      background: #f6dd0d !important;
+      border-radius: 20px !important;
     }
-    .site-footer {
-      background: #0c1310 !important;
-      border-top: 1px solid #283a31 !important;
+    #billingSlider {
+      background: #f6dd0d !important;
     }
   </style>
 
@@ -2808,7 +2819,9 @@ a.btn-request-demo:hover {
   </section>
 
 
-<main style="padding: 40px 0 80px 0; background: #101915;">
+<main class="page-main-container">
+  <div class="container" style="max-width:1200px; margin:0 auto; padding:0 20px;">
+
 
     ader class="site-header" id="siteHeader">
     <div class="inner">
@@ -2873,41 +2886,19 @@ a.btn-request-demo:hover {
   </div>
 </div>
 
-    <section class="hero">
-    <div class="hero-content">
-      <h1>Need Help?</h1>
-      <p>Browse documentation, tutorials, and community answers</p>
-    </div>
-  </section>
+    
   <div class="page">
     <section class="apps-area">
       
 
 <div class="page">
-  <section class="apps-area" style="border:1px solid #ddd; border-radius:var(--radius); padding:30px; background:#fff;">
+  <section class="apps-area" style="border:1px solid #283a31; border-radius:var(--radius); padding:30px; background:#16221c;">
 
     <section class="help-center">
     <div class="help-container">
 
       <!-- Hero -->
-      <div class="help-hero">
-        <h1>How can we help you?</h1>
-        <p>Browse documentation, tutorials, and community answers</p>
-
-        <!-- Search -->
-     <form class="help-search" role="search" 
-        style="display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:nowrap; margin-top:20px;">
-         <input type="text" id="helpSearchInput" placeholder="Ask Election PRO ai…" 
-         style="padding:10px 14px; border:1px solid var(--border); border-radius:var(--radius); font-size:0.95rem; box-shadow:var(--shadow-card); outline:none; height:38px; width:260px;">
-        <span style="white-space:nowrap; font-size:.9rem; color:#666;">or</span>
-        <button type="submit" class="btn btn-blue" 
-          style="height:38px; padding:0 16px; text-decoration:none; white-space:nowrap;">Submit Ticket</button>
-    </form>
-
-
-
-
-      </div>
+      
 
       <!-- Categories -->
       <div class="apps-grid">
@@ -2935,8 +2926,8 @@ a.btn-request-demo:hover {
       <!-- Contact Support CTA -->
       <div class="help-cta">
         <div>
-          <div style="font-weight:700; color:#333;">Still need help?</div>
-          <div style="color:#666; font-size:.95rem;">Our team is here for you.</div>
+          <div style="font-weight:700; color:#cbd5e1;">Still need help?</div>
+          <div style="color:#cbd5e1; font-size:.95rem;">Our team is here for you.</div>
         </div>
         <div>
           <a href="#" class="btn btn-blue">Contact Support</a>
@@ -3640,6 +3631,8 @@ document.querySelectorAll('.faq-question').forEach(question => {
 
   </script>
 
+
+  </div>
 </main>
 
 <footer class="site-footer">

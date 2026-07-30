@@ -2331,6 +2331,7 @@ a.btn-request-demo:hover {
   </style>
 
 
+  <!-- Dark Sage Theme Master Overrides -->
   <style>
     .page-header-banner {
       position: relative;
@@ -2385,17 +2386,23 @@ a.btn-request-demo:hover {
       background-color: #101915 !important;
       color: #cbd5e1 !important;
     }
-    .card, .pricing-card, .plan-card, .help-hero, .help-card, .kb-card, .contact-card, .faq-item, .box, .panel {
+    .page-main-container {
+      padding: 40px 0 80px 0;
+      background: #101915 !important;
+    }
+    
+    /* Global Element Overrides for Dark Theme */
+    .card, .price-card, .pricing-card, .plan-card, .help-hero, .help-card, .kb-card, .contact-card, .faq-item, .box, .panel, .apps-area, .apps-grid > div {
       background: #16221c !important;
       border: 1px solid #283a31 !important;
       color: #cbd5e1 !important;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3) !important;
       border-radius: 8px !important;
     }
-    h1, h2, h3, h4, h5, h6, .card-title, .pricing-title, .plan-name, .faq-question, .hero-title {
+    h1, h2, h3, h4, h5, h6, .card-title, .pricing-title, .plan-name, .faq-question, .app-name {
       color: #ffffff !important;
     }
-    p, li, span, div, td, label {
+    p, li, span, div, td, label, .app-description {
       color: #cbd5e1;
     }
     input, select, textarea {
@@ -2422,33 +2429,37 @@ a.btn-request-demo:hover {
       border-bottom: 1px solid #283a31 !important;
       color: #cbd5e1 !important;
     }
-    .pricing-price, .price, .amount, .highlight, .currency {
+    .price, .pricing-price, .amount, .highlight, .currency {
       color: #f6dd0d !important;
     }
-    .btn, .btn-primary, .btn-main, .btn-gold, .btn-cta {
+    .btn, .btn-primary, .btn-main, .btn-gold, .btn-cta, .btn-blue {
       background: #f6dd0d !important;
       color: #16201c !important;
       font-weight: 700 !important;
       border: none !important;
       transition: all 0.2s ease !important;
+      text-decoration: none !important;
+      display: inline-block !important;
     }
-    .btn:hover, .btn-primary:hover, .btn-main:hover, .btn-gold:hover, .btn-cta:hover {
+    .btn:hover, .btn-primary:hover, .btn-main:hover, .btn-gold:hover, .btn-cta:hover, .btn-blue:hover {
       background: #ffe436 !important;
       color: #16201c !important;
       box-shadow: 0 4px 14px rgba(246, 221, 13, 0.4) !important;
     }
-    .btn-outline, .btn-secondary, .btn-light {
-      background: rgba(255, 255, 255, 0.1) !important;
-      border: 1px solid rgba(255, 255, 255, 0.2) !important;
-      color: #ffffff !important;
+    .billing-toggle {
+      background: #16221c !important;
+      border: 1px solid #283a31 !important;
     }
-    .btn-outline:hover, .btn-secondary:hover, .btn-light:hover {
-      background: #f6dd0d !important;
+    .billing-btn {
+      color: #cbd5e1 !important;
+    }
+    .billing-btn.active {
       color: #16201c !important;
+      background: #f6dd0d !important;
+      border-radius: 20px !important;
     }
-    .site-footer {
-      background: #0c1310 !important;
-      border-top: 1px solid #283a31 !important;
+    #billingSlider {
+      background: #f6dd0d !important;
     }
   </style>
 
@@ -2808,35 +2819,32 @@ a.btn-request-demo:hover {
   </section>
 
 
-<main style="padding: 40px 0 80px 0; background: #101915;">
+<main class="page-main-container">
+  <div class="container" style="max-width:1200px; margin:0 auto; padding:0 20px;">
+
 
     
 
-    <section class="hero">
-    <div class="hero-content">
-      <h1>Straightforward Pricing</h1>
-      <p>Choose the plan that works best for you</p>
-    </div>
-  </section>
+    
   <div class="page">
     <section class="apps-area">
       
 
 <div class="page">
-  <section class="apps-area" style="border:1px solid #ddd; border-radius:var(--radius); padding:30px; background:#fff;">
+  <section class="apps-area" style="border:1px solid #283a31; border-radius:var(--radius); padding:30px; background:#16221c;">
 
     <!-- Yearly/Monthly Toggle -->
     <div style="text-align:center; margin-bottom:32px;">
-      <div class="billing-toggle" style="display:inline-flex; position:relative; background:#f5f5f5; border-radius:30px; padding:4px; box-shadow:var(--shadow-card);">
+      <div class="billing-toggle" style="display:inline-flex; position:relative; background:#101915; border-radius:30px; padding:4px; box-shadow:var(--shadow-card);">
         <!-- highlight slider -->
-        <div id="billingSlider" style="position:absolute; top:4px; left:4px; width:50%; height:calc(100% - 8px); background:#fff; border-radius:30px; box-shadow:0 2px 6px rgba(0,0,0,.15); transition:all .3s ease;"></div>
+        <div id="billingSlider" style="position:absolute; top:4px; left:4px; width:50%; height:calc(100% - 8px); background:#16221c; border-radius:30px; box-shadow:0 2px 6px rgba(0,0,0,.15); transition:all .3s ease;"></div>
 
         <button id="monthlyBtn" class="billing-btn active" data-value="monthly"
-                style="flex:1; padding:6px 18px; border:none; background:transparent; color:#333; font-weight:600; cursor:pointer; z-index:2;">
+                style="flex:1; padding:6px 18px; border:none; background:transparent; color:#cbd5e1; font-weight:600; cursor:pointer; z-index:2;">
           Monthly
         </button>
         <button id="yearlyBtn" class="billing-btn" data-value="yearly"
-                style="flex:1; padding:6px 18px; border:none; background:transparent; color:#666; font-weight:600; cursor:pointer; z-index:2;">
+                style="flex:1; padding:6px 18px; border:none; background:transparent; color:#cbd5e1; font-weight:600; cursor:pointer; z-index:2;">
           Yearly <span style="color:var(--primary); font-weight:600;">Save 15%</span>
         </button>
       </div>
@@ -2851,7 +2859,7 @@ a.btn-request-demo:hover {
     <div class="apps-grid" style="margin-top:30px;">
 
       <!-- Plan 1 -->
-      <div class="price-card" style="position:relative; background:#fff; border-radius:var(--radius); padding:24px; box-shadow:var(--shadow-card); text-align:center; border:1px solid var(--border); transition:all .25s ease;">
+      <div class="price-card" style="position:relative; background:#16221c; border-radius:var(--radius); padding:24px; box-shadow:var(--shadow-card); text-align:center; border:1px solid #283a31; transition:all .25s ease;">
         <div class="app-name" style="font-size:1.3rem; font-weight:700; color:var(--primary);">Starter</div>
         <div class="app-description">One App Free</div>
         <div class="price" data-monthly="0" data-yearly="0" 
@@ -2872,17 +2880,17 @@ a.btn-request-demo:hover {
         <div class="app-description">Best for growing organizations</div>
         <div class="price" data-monthly="700" data-yearly="7140" 
              style="font-size:2.2rem; font-weight:800; margin:16px 0 4px;">KSH 700<span style="font-size:1rem;">/month</span></div>
-        <div style="font-size:0.9rem; color:#666; margin-bottom:12px;">per app</div>
+        <div style="font-size:0.9rem; color:#cbd5e1; margin-bottom:12px;">per app</div>
         <a href="buy1.html" class="btn btn-blue" style="text-decoration:none;">Buy Now</a>
       </div>
 
       <!-- Plan 3 -->
-      <div class="price-card" style="position:relative; background:#fff; border-radius:var(--radius); padding:24px; box-shadow:var(--shadow-card); text-align:center; border:1px solid var(--border); transition:all .25s ease;">
+      <div class="price-card" style="position:relative; background:#16221c; border-radius:var(--radius); padding:24px; box-shadow:var(--shadow-card); text-align:center; border:1px solid #283a31; transition:all .25s ease;">
         <div class="app-name" style="font-size:1.3rem; font-weight:700; color:var(--primary);">Enterprise</div>
         <div class="app-description">Advanced tools & priority support</div>
         <div class="price" data-monthly="1400" data-yearly="14280" 
              style="font-size:2rem; font-weight:700; margin:16px 0 4px;">KSH 1400<span style="font-size:1rem;">/month</span></div>
-        <div style="font-size:0.9rem; color:#666; margin-bottom:12px;">per app</div>
+        <div style="font-size:0.9rem; color:#cbd5e1; margin-bottom:12px;">per app</div>
         <a href="appointment.html" class="btn btn-blue" style="text-decoration:none;">Contact Sales</a>
       </div>
 
@@ -2890,35 +2898,35 @@ a.btn-request-demo:hover {
 
     <!-- FAQ Section -->
     <div style="margin-top:60px;">
-      <h2 style="text-align:center; margin-bottom:24px; color:#333;">Frequently Asked Questions</h2>
+      <h2 style="text-align:center; margin-bottom:24px; color:#cbd5e1;">Frequently Asked Questions</h2>
       <div style="max-width:800px; margin:0 auto; display:grid; gap:12px;">
 
-        <div class="faq-item" style="border:1px solid #ddd; border-radius:var(--radius); background:#fff; box-shadow:var(--shadow-card);">
+        <div class="faq-item" style="border:1px solid #283a31; border-radius:var(--radius); background:#16221c; box-shadow:var(--shadow-card);">
           <div class="faq-question" style="padding:14px; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
             <span>How does the free trial work?</span>
             <span class="faq-arrow">▼</span>
           </div>
-          <div class="faq-answer" style="display:none; padding:0 14px 14px; color:#666; font-size:.95rem;">
+          <div class="faq-answer" style="display:none; padding:0 14px 14px; color:#cbd5e1; font-size:.95rem;">
             You get 15 days of full access to all features, no credit card required.
           </div>
         </div>
 
-        <div class="faq-item" style="border:1px solid #ddd; border-radius:var(--radius); background:#fff; box-shadow:var(--shadow-card);">
+        <div class="faq-item" style="border:1px solid #283a31; border-radius:var(--radius); background:#16221c; box-shadow:var(--shadow-card);">
           <div class="faq-question" style="padding:14px; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
             <span>Can I change plans later?</span>
             <span class="faq-arrow">▼</span>
           </div>
-          <div class="faq-answer" style="display:none; padding:0 14px 14px; color:#666; font-size:.95rem;">
+          <div class="faq-answer" style="display:none; padding:0 14px 14px; color:#cbd5e1; font-size:.95rem;">
             Yes, you can upgrade, downgrade, or cancel your plan anytime.
           </div>
         </div>
 
-        <div class="faq-item" style="border:1px solid #ddd; border-radius:var(--radius); background:#fff; box-shadow:var(--shadow-card);">
+        <div class="faq-item" style="border:1px solid #283a31; border-radius:var(--radius); background:#16221c; box-shadow:var(--shadow-card);">
           <div class="faq-question" style="padding:14px; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
             <span>What happens after my trial?</span>
             <span class="faq-arrow">▼</span>
           </div>
-          <div class="faq-answer" style="display:none; padding:0 14px 14px; color:#666; font-size:.95rem;">
+          <div class="faq-answer" style="display:none; padding:0 14px 14px; color:#cbd5e1; font-size:.95rem;">
             You’ll be asked to pick a plan to continue using the service. Your data will be preserved.
           </div>
         </div>
@@ -3631,6 +3639,8 @@ document.querySelectorAll('.faq-question').forEach(question => {
 
   </script>
 
+
+  </div>
 </main>
 
 <footer class="site-footer">
