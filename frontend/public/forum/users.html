@@ -399,17 +399,29 @@
       <p class="modal-subtitle" id="modalSubtitle" style="font-size: 0.875rem; color: #94a3b8; margin: 0; line-height: 1.4; text-align: center;">Sign in to your Synergy Bravo ERP account</p>
     </div>
 
-    <div id="authMessage" style="display: none; padding: 12px; margin-bottom: 16px; border-radius: 3px; font-size: 0.875rem; text-align: center;"></div>
+    <div id="authMessage" style="display: none; padding: 12px; margin-bottom: 16px; border-radius: 3px !important; font-size: 0.875rem; text-align: center;"></div>
 
     <form id="signInForm" class="modal-form" onsubmit="handleSignIn(event);">
+      <div class="form-group" id="authNameGroup" style="display: none; margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Full Name</label>
+        <input type="text" id="authName" placeholder="John Doe" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+
+      <div class="form-group" id="authCompanyGroup" style="display: none; margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Company / Sugar Mill Name</label>
+        <input type="text" id="authCompany" placeholder="Mumias Sugar Company Ltd" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+
       <div class="form-group" style="margin-bottom: 16px;">
-        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Email Address</label>
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Work Email Address</label>
         <input type="email" id="authEmail" required placeholder="name@company.com" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
       </div>
+
       <div class="form-group" style="margin-bottom: 20px;">
         <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Password</label>
         <input type="password" id="authPassword" required placeholder="••••••••" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
       </div>
+
       <button type="submit" id="authSubmitBtn" style="width: 100%; background: #f6dd0d; color: #101915; font-weight: 700; border: none; padding: 12px; border-radius: 3px !important; cursor: pointer; font-size: 1rem;">Sign In</button>
     </form>
 
@@ -447,6 +459,8 @@
     const submitBtn = document.getElementById('authSubmitBtn');
     const toggleText = document.getElementById('authToggleText');
     const toggleBtn = document.getElementById('authToggleBtn');
+    const nameGroup = document.getElementById('authNameGroup');
+    const companyGroup = document.getElementById('authCompanyGroup');
 
     if (isSignUpMode) {
       if (title) title.textContent = 'Create an Account';
@@ -454,12 +468,16 @@
       if (submitBtn) submitBtn.textContent = 'Register & Continue Onboarding';
       if (toggleText) toggleText.textContent = 'Already have an account?';
       if (toggleBtn) toggleBtn.textContent = 'Sign In';
+      if (nameGroup) nameGroup.style.display = 'block';
+      if (companyGroup) companyGroup.style.display = 'block';
     } else {
       if (title) title.textContent = 'Welcome Back';
       if (subtitle) subtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
       if (submitBtn) submitBtn.textContent = 'Sign In';
       if (toggleText) toggleText.textContent = "Don't have an account?";
       if (toggleBtn) toggleBtn.textContent = 'Sign Up';
+      if (nameGroup) nameGroup.style.display = 'none';
+      if (companyGroup) companyGroup.style.display = 'none';
     }
   }
 
@@ -483,6 +501,20 @@
   function showLoginDialog() {
     openSignInModal();
   }
+
+  // Close modal when clicking outside backdrop or pressing Escape key
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('signInModal');
+    if (modal && event.target === modal) {
+      closeSignInModal();
+    }
+  });
+
+  window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeSignInModal();
+    }
+  });
 </script>
 </body>
 </html>
