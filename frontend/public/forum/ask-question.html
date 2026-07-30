@@ -198,12 +198,12 @@
   </section>
 </div>
 
-<!-- FOOTER - CONSISTENT 4 EQUAL COLUMNS -->
-<footer class="site-footer">
-  <div class="footer-columns">
-    <!-- 1st Column: AgriBusiness Ecosystem Logo & Subtitle -->
-    <div class="footer-col" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;">
-      <a href="../landing_enhanced.html" class="agri-logo-link">
+<!-- FOOTER -->
+<footer class="site-footer" style="background: #2f2f2f; color: #fff; margin-top: 56px; padding: 40px 20px;">
+  <div class="footer-columns" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; text-align: left; width: 100%;">
+    <!-- 1st Column: AgriBusiness Ecosystem Logo & Subtitle (Centered) -->
+    <div class="footer-col" style="display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: flex-start;">
+      <a href="../landing_enhanced.html" class="agri-logo-link" style="display: inline-block; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), filter 0.25s ease; text-decoration: none; margin-bottom: 8px;">
         <img src="../assets/images/synergy-agribusiness-logo.png" alt="Synergy Bravo ERP for AgriBusiness" class="agri-logo-img" style="max-width: 210px; height: auto; display: block; margin: 0 auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));">
       </a>
       <p class="agri-desc" style="color: #cbd5e1; font-size: 0.88rem; line-height: 1.5; margin: 6px 0 0 0; text-align: center; max-width: 230px; font-weight: 500;">
@@ -211,31 +211,35 @@
       </p>
     </div>
 
-    <!-- 2nd Column: Company -->
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="../landing_enhanced.html">Home</a></li>
-        <li><a href="../landing_enhanced.html#features">Features</a></li>
-        <li><a href="../pricing.html">Pricing</a></li>
-      </ul>
+    <!-- 2nd Column: Company (Centered Column, Left-Justified Menu) -->
+    <div class="footer-col" style="display: flex; flex-direction: column; align-items: center;">
+      <div style="text-align: left; width: max-content;">
+        <h4 style="font-size: 1rem; margin-bottom: 12px; color: #fff;">Company</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;"><a href="../landing_enhanced.html" style="color: #fff; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">Home</a></li>
+          <li style="margin-bottom: 8px;"><a href="../landing_enhanced.html#features" style="color: #fff; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">Features</a></li>
+          <li style="margin-bottom: 8px;"><a href="../pricing.html" style="color: #fff; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">Pricing</a></li>
+        </ul>
+      </div>
     </div>
 
-    <!-- 3rd Column: Support & Legal -->
-    <div class="footer-col">
-      <h4>Support & Legal</h4>
-      <ul>
-        <li><a href="../help.html">Help Center</a></li>
-        <li><a href="../appointment.html">Contact Us</a></li>
-        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
-        <li><a href="../terms-of-service.html">Terms of Service</a></li>
-      </ul>
+    <!-- 3rd Column: Support & Legal (Centered Column, Left-Justified Menu) -->
+    <div class="footer-col" style="display: flex; flex-direction: column; align-items: center;">
+      <div style="text-align: left; width: max-content;">
+        <h4 style="font-size: 1rem; margin-bottom: 12px; color: #fff;">Support & Legal</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 8px;"><a href="../help.html" style="color: #fff; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">Help Center</a></li>
+          <li style="margin-bottom: 8px;"><a href="../appointment.html" style="color: #fff; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">Contact Us</a></li>
+          <li style="margin-bottom: 8px;"><a href="../privacy-policy.html" style="color: #fff; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">Privacy Policy</a></li>
+          <li style="margin-bottom: 8px;"><a href="../terms-of-service.html" style="color: #fff; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">Terms of Service</a></li>
+        </ul>
+      </div>
     </div>
 
-    <!-- 4th Column: Social Links -->
-    <div class="footer-col">     
-      <h4>Connect with us</h4>
-      <div class="footer-social">
+    <!-- 4th Column: Connect with us / Social Links (Centered) -->
+    <div class="footer-col" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+      <h4 style="font-size: 1rem; margin-bottom: 12px; color: #fff;">Connect with us</h4>
+      <div class="footer-social" style="display: flex; gap: 16px; margin-top: 4px; justify-content: center; width: 100%;">
         <a href="http://facebook.com/synergysugar" target="_blank" class="facebook" title="Facebook">
           <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
