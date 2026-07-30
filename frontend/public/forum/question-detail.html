@@ -9,6 +9,19 @@
   <link rel="shortcut icon" type="image/png" href="../favicon.png?v=2" />
   <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+
+<style id="headerScrollStyle">
+  .site-header {
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+  }
+  .site-header.scrolled {
+    background: rgba(22, 34, 28, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(40, 58, 49, 0.8) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+  }
+</style>
 </head>
 <body>
 
@@ -350,6 +363,24 @@
 </div>
 <script>
   window.authMode = 'signin'; // 'signin', 'signup', or 'forgot'
+
+  window.handleHeaderScroll = function() {
+    const header = document.querySelector('.site-header') || document.getElementById('siteHeader');
+    if (header) {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+  };
+
+  window.addEventListener('scroll', window.handleHeaderScroll, { passive: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', window.handleHeaderScroll);
+  } else {
+    window.handleHeaderScroll();
+  }
 
   window.openSignInModal = function(mode) {
     if (mode === 'signup' || mode === 'register') {
