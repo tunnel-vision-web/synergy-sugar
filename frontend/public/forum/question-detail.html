@@ -31,7 +31,7 @@
 
     <!-- Auth Actions -->
     <div class="auth-actions">
-      <a class="auth-signin" href="#" onclick="openSignInModal(); return false;">Sign in</a>
+      <a class="auth-signin" href="#" onclick="openSignInModal('signin'); return false;">Sign in</a>
       <a class="btn" href="ask-question.html" style="background:#f6dd0d; color:#101915; font-weight:700; border-radius:3px !important; text-decoration:none; padding:8px 16px;">Ask Question</a>
     </div>
   </div>
@@ -202,7 +202,7 @@
     <!-- Answer Form -->
     <div class="login-notice">
       <h3 style="margin-top:0;color:#856404">🔒 Login Required</h3>
-      <p style="margin-bottom:0">Please <strong>log in</strong> to post answers, vote on questions, or add comments. <a href="#" onclick="showLoginDialog()" style="color: var(--secondary);">Sign in here</a> to join our community!</p>
+      <p style="margin-bottom:0">Please <strong>log in</strong> to post answers, vote on questions, or add comments. <a href="#" onclick="openSignInModal('signin')" style="color: var(--secondary);">Sign in here</a> to join our community!</p>
     </div>
     
     <!-- Related Questions -->
@@ -291,7 +291,7 @@
   </div>
 </footer>
 
-<!-- SINGLE UNIFIED AUTH MODAL -->
+<!-- SINGLE UNIFIED AUTH / ONBOARDING MODAL ARCHITECTURE -->
 <div id="signInModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 20000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto;">
   <div class="modal-content" style="position: relative; width: 100%; max-width: 440px; background: #1e2b25; border: 1px solid #364e43; border-radius: 3px !important; padding: 36px 30px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); color: #f8fafc;">
     <span class="modal-close" onclick="closeSignInModal()" style="position: absolute; right: 18px; top: 14px; font-size: 26px; color: #cbd5e1; cursor: pointer; line-height: 1;">&times;</span>
@@ -334,16 +334,29 @@
     </div>
   </div>
 </div>
+</div>
 
 <script src="js/main.js"></script>
 <script>
-  let isSignUpMode = false;
+  if (typeof isSignUpMode === 'undefined') {
+    var isSignUpMode = false;
+  }
 
-  function openSignInModal() {
-    isSignUpMode = false;
+  function openSignInModal(mode) {
+    if (mode === 'signup') {
+      isSignUpMode = true;
+    } else if (mode === 'signin') {
+      isSignUpMode = false;
+    } else {
+      isSignUpMode = false;
+    }
     updateModalUI();
     const modal = document.getElementById('signInModal');
     if (modal) modal.style.display = 'flex';
+  }
+
+  function openAuthModal(mode) {
+    openSignInModal(mode);
   }
 
   function closeSignInModal() {
@@ -402,10 +415,10 @@
   }
 
   function showLoginDialog() {
-    openSignInModal();
+    openSignInModal('signin');
   }
 
-  // Close modal when clicking outside backdrop or pressing Escape key
+  // Close modal when clicking backdrop or pressing Escape key
   window.addEventListener('click', function(event) {
     const modal = document.getElementById('signInModal');
     if (modal && event.target === modal) {
