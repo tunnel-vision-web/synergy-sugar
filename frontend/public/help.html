@@ -2445,20 +2445,322 @@ a.btn-request-demo:hover {
       color: #16201c !important;
       box-shadow: 0 4px 14px rgba(246, 221, 13, 0.4) !important;
     }
-    .billing-toggle {
-      background: #16221c !important;
-      border: 1px solid #283a31 !important;
+    /* COMPREHENSIVE HELP CENTER STYLES */
+    .help-top-search {
+      position: relative;
+      margin-bottom: 30px;
     }
-    .billing-btn {
-      color: #cbd5e1 !important;
+    .help-search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
     }
-    .billing-btn.active {
-      color: #16201c !important;
+    .help-search-box input {
+      width: 100%;
+      padding: 16px 48px 16px 54px;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #f8fafc;
+      background: #101915;
+      border: 1px solid #283a31;
+      border-radius: 3px !important;
+      outline: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .help-search-box input:focus {
+      border-color: #f6dd0d;
+      box-shadow: 0 0 0 3px rgba(246, 221, 13, 0.2);
+    }
+    .help-search-icon {
+      position: absolute;
+      left: 18px;
+      color: #f6dd0d;
+      pointer-events: none;
+    }
+    .help-search-clear-btn {
+      position: absolute;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 700;
+      width: 26px;
+      height: 26px;
+      border-radius: 50% !important;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 5;
+    }
+    .help-search-clear-btn:hover {
+      background: #f6dd0d;
+      color: #101915;
+      transform: scale(1.1);
+    }
+
+    .help-main-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .help-main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sidebar Sorting & Filters */
+    .help-sidebar {
+      background: #101915;
+      border: 1px solid #283a31;
+      border-radius: 3px !important;
+      padding: 24px;
+      position: sticky;
+      top: 100px;
+    }
+    .help-sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #f6dd0d;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .help-sort-wrapper {
+      margin-bottom: 24px;
+    }
+    .help-sort-label {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      margin-bottom: 8px;
+      font-weight: 600;
+      display: block;
+    }
+    .help-sort-select {
+      width: 100%;
+      padding: 10px 14px;
+      background: #16221c;
+      border: 1px solid #283a31;
+      color: #f8fafc;
+      border-radius: 3px !important;
+      font-size: 0.9rem;
+      outline: none;
+      cursor: pointer;
+    }
+    .help-category-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .help-category-item {
+      padding: 10px 14px;
+      margin-bottom: 6px;
+      border-radius: 3px !important;
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+    .help-category-item:hover {
+      background: #16221c;
+      color: #f6dd0d;
+      border-color: #283a31;
+    }
+    .help-category-item.active {
       background: #f6dd0d !important;
-      border-radius: 20px !important;
+      color: #101915 !important;
+      font-weight: 700;
     }
-    #billingSlider {
+    .help-cat-count {
+      font-size: 0.78rem;
+      padding: 2px 8px;
+      border-radius: 3px !important;
+      background: rgba(255,255,255,0.1);
+    }
+    .help-category-item.active .help-cat-count {
+      background: #101915;
+      color: #f6dd0d;
+    }
+
+    /* Articles Knowledge Base Grid */
+    .help-articles-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .help-article-card {
+      background: #101915;
+      border: 1px solid #283a31;
+      border-radius: 3px !important;
+      padding: 24px;
+      transition: all 0.25s ease;
+    }
+    .help-article-card.hidden {
+      display: none !important;
+    }
+    .help-article-card:hover {
+      border-color: #f6dd0d;
+      box-shadow: 0 6px 20px rgba(246, 221, 13, 0.1);
+    }
+    .help-article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .help-article-badge {
+      background: rgba(246, 221, 13, 0.15);
+      color: #f6dd0d;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 3px !important;
+      border: 1px solid rgba(246, 221, 13, 0.3);
+    }
+    .help-article-readtime {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    /* Help Pagination Styles */
+    .help-pagination-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid #283a31;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .help-pagination-info {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .help-pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .help-page-btn {
+      background: #101915;
+      border: 1px solid #283a31;
+      color: #cbd5e1;
+      min-width: 34px;
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 3px !important;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .help-page-btn:hover:not(:disabled) {
+      border-color: #f6dd0d;
+      color: #f6dd0d;
+      background: rgba(246, 221, 13, 0.08);
+    }
+    .help-page-btn.active {
       background: #f6dd0d !important;
+      color: #101915 !important;
+      border-color: #f6dd0d !important;
+      font-weight: 800 !important;
+    }
+    .help-page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .help-article-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+    .help-article-excerpt {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .help-article-body {
+      display: none;
+      padding-top: 16px;
+      border-top: 1px dashed #283a31;
+      margin-top: 16px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .help-article-body h4 {
+      color: #f6dd0d;
+      font-size: 1.05rem;
+      margin: 14px 0 8px;
+    }
+    .help-article-body ol, .help-article-body ul {
+      padding-left: 20px;
+      margin-bottom: 14px;
+    }
+    .help-article-body li {
+      margin-bottom: 6px;
+    }
+    .help-article-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+    }
+    .btn-toggle-article {
+      background: transparent;
+      border: 1px solid #283a31;
+      color: #f6dd0d;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 3px !important;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-toggle-article:hover {
+      background: #f6dd0d;
+      color: #101915;
+    }
+    .help-article-helpful {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+    .btn-helpful {
+      background: #16221c;
+      border: 1px solid #283a31;
+      color: #cbd5e1;
+      padding: 4px 10px;
+      border-radius: 3px !important;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .btn-helpful:hover {
+      border-color: #f6dd0d;
+      color: #f6dd0d;
     }
   </style>
 
@@ -2516,6 +2818,165 @@ a.btn-request-demo:hover {
       </button>
     </div>
   </header>
+
+  <!-- 100% WIDTH & 100% HEIGHT DESKTOP MEGA MENUS (CLICK ONLY) -->
+  <!-- Mega Menu 1: Apps -->
+  <div class="mega-menu-overlay" id="appsMegaMenu">
+    <div class="mega-menu-content-wrap">
+      <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
+      <div class="mega-menu-header-bar">
+        <h2 class="mega-menu-main-title">Synergy Bravo ERP — Applications Suite</h2>
+        <p class="mega-menu-main-sub">Complete enterprise modules tailored for sugar cane mills, agricultural supply chains, and factory operations.</p>
+      </div>
+      <div class="mega-menu-cols-grid">
+        <div class="mega-menu-col-box">
+          <h3>Agriculture & Field Operations</h3>
+          
+          <a href="apps.html#farmer-mobile" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-green">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Farmer & Field Mobile</div>
+              <div class="card-desc">Plot mapping, grower contracts, harvest scheduling, GPS tracking</div>
+            </div>
+          </a>
+
+          <a href="apps.html#weighbridge" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-gold">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M3 9v6a3 3 0 003 3h12a3 3 0 003-3V9"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Weighbridge Scale Sync</div>
+              <div class="card-desc">Gross & tare scale automation, grower tickets, lab sucrose sync</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Factory & Milling Operations</h3>
+          
+          <a href="apps.html#milling" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-amber">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Sugar Mill Processing</div>
+              <div class="card-desc">Milling rate, juice extraction, boiler energy, lab quality</div>
+            </div>
+          </a>
+
+          <a href="apps.html#inventory" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-blue">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Supply Chain & Inventory</div>
+              <div class="card-desc">Raw cane queue, sugar warehouse, logistics & dispatch</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Enterprise Core & AI</h3>
+          
+          <a href="apps.html#financials" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-emerald">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22m5-18H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Financials & Settlements</div>
+              <div class="card-desc">Grower settlements, multi-currency invoicing, payroll, ledger</div>
+            </div>
+          </a>
+
+          <a href="apps.html#ai-traceability" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-purple">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">AI & Real-Time Traceability</div>
+              <div class="card-desc">Laboratory AI analytics, predictive yield, real-time sensor sync</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mega Menu 2: Used By -->
+  <div class="mega-menu-overlay" id="usedbyMegaMenu">
+    <div class="mega-menu-content-wrap">
+      <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
+      <div class="mega-menu-header-bar">
+        <h2 class="mega-menu-main-title">Industries & Operational Scale</h2>
+        <p class="mega-menu-subtitle">Designed for enterprise sugar producers, cooperatives, logistics fleets, and commodity exporters.</p>
+      </div>
+      <div class="mega-menu-cols-grid">
+        <div class="mega-menu-col-box">
+          <h3>Sugar Milling Industry</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-amber">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Sugar Mills & Refineries</div>
+              <div class="card-desc">Integrated milling, juice extraction, and sugar quality control</div>
+            </div>
+          </a>
+
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-green">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Agro-Industrial Enterprises</div>
+              <div class="card-desc">Large-scale plantation management, farmer contracts, & field mobile</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Grower Networks & Cooperatives</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-emerald">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Cooperative Farmer Networks</div>
+              <div class="card-desc">Harvest scheduling, cane delivery tracking, & weighbridge ticket sync</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Logistics & Commodity Trade</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-blue">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Transport & Logistics Fleets</div>
+              <div class="card-desc">Fleet GPS, weighbridge queue management, & scale automation</div>
+            </div>
+          </a>
+
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-purple">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Export & Commodity Trading</div>
+              <div class="card-desc">Warehouse inventory, export documentation, & sugar invoicing</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -2698,7 +3159,7 @@ a.btn-request-demo:hover {
 
 
   <!-- HELP CENTER HEADER IMAGE BANNER -->
-  <section class="page-header-banner" style="background-image: url('assets/images/slides/home-bg-1.jpg');">
+  <section class="page-header-banner" style="background-image: url('assets/images/help_header.jpg');">
     <div class="page-header-overlay"></div>
     <div class="page-header-content">
       <h1>Help & Support Center</h1>
@@ -2714,123 +3175,343 @@ a.btn-request-demo:hover {
 <main class="page-main-container">
   <div class="container" style="max-width:1200px; margin:0 auto; padding:0 20px;">
 
-    ader class="site-header" id="siteHeader">
-    <div class="inner">
-      <div class="brand">
-        <a href="landing_enhanced.html">
-          <img id="brandLogo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP">
-        </a>
-      </div>
-      <nav class="main-nav">
-        <div class="nav-item">
-          <a href="landing_enhanced.html#apps">Apps</a>
-        </div>
-        <div class="nav-item">
-          <a href="landing_enhanced.html#features">Features</a>
-        </div>
-        <div class="nav-item has-dropdown">
-          <a href="#industries">Industries</a>
-        </div>
-</div>
-
-<!-- Mega menu outside header -->
-<div class="mega-menu" id="industriesMenu">
-  <div class="mega-menu-content">
-    <div class="mega-menu-section">
-      <h4>Campaign Types</h4>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Local Elections</div>
-        <div class="item-desc">City council, mayor, school board campaigns</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">State Legislature</div>
-        <div class="item-desc">Assembly, senate, and gubernatorial races</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Federal Campaigns</div>
-        <div class="item-desc">Congressional and presidential campaigns</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Ballot Measures</div>
-        <div class="item-desc">Issue advocacy and referendum campaigns</div>
-      </a>
-    </div>
-    <div class="mega-menu-section">
-      <h4>Organizations</h4>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Political Parties</div>
-        <div class="item-desc">Democratic, Republican, and third-party organizations</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">PACs & Super PACs</div>
-        <div class="item-desc">Political action committees and advocacy groups</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Nonprofits</div>
-        <div class="item-desc">501(c)(3) and 501(c)(4) advocacy organizations</div>
-      </a>
-      <a href="#" class="mega-menu-item">
-        <div class="item-title">Consulting Firms</div>
-        <div class="item-desc">Political consultants and campaign agencies</div>
-      </a>
-    </div>
-  </div>
-</div>
-
-    
   <div class="page">
-    <section class="apps-area">
-      
+    <section class="apps-area" style="border:1px solid #283a31; border-radius:3px; padding:36px 30px; background:#16221c;">
 
-<div class="page">
-  <section class="apps-area" style="border:1px solid #283a31; border-radius:var(--radius); padding:30px; background:#16221c;">
-
-    <section class="help-center">
-    <div class="help-container">
-
-      <!-- Hero -->
-      
-
-      <!-- Categories -->
-      <div class="apps-grid">
-        <a href="#" class="help-card">
-          <h3>Documentation</h3>
-          <p>Step-by-step guides to help you get the most out of the platform.</p>
-        </a>
-
-        <a href="#" class="help-card">
-          <h3>Tutorials</h3>
-          <p>Follow guided tutorials to learn new features and workflows quickly.</p>
-        </a>
-
-        <a href="#" class="help-card">
-          <h3>Community</h3>
-          <p>Ask questions, share tips, and get help from other users.</p>
-        </a>
-
-        <a href="#" class="help-card">
-          <h3>Contact Support</h3>
-          <p>Need help from our team? Reach out to our support specialists directly.</p>
-        </a>
-      </div>
-
-      <!-- Contact Support CTA -->
-      <div class="help-cta">
-        <div>
-          <div style="font-weight:700; color:#cbd5e1;">Still need help?</div>
-          <div style="color:#cbd5e1; font-size:.95rem;">Our team is here for you.</div>
-        </div>
-        <div>
-          <a href="#" class="btn btn-blue">Contact Support</a>
-          <a href="forum/index.html" class="btn btn-blue" style="background:var(--primary);">Community Forum</a>
-          <a href="#" class="btn btn-blue" style="background:#555;">Documentation</a>
+      <!-- Top Search Bar -->
+      <div class="help-top-search">
+        <div class="help-search-box">
+          <svg class="help-search-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="helpSearchInput" placeholder="Search knowledge base articles, FAQs, guides, and technical topics..." autocomplete="off">
+          <button type="button" id="helpSearchClearBtn" class="help-search-clear-btn" aria-label="Clear search">✕</button>
         </div>
       </div>
-    </div>
-  </section>
 
+      <!-- Main Layout: Left Sidebar + Articles -->
+      <div class="help-main-layout">
+        
+        <!-- Left Sidebar: Sort & Categories -->
+        <aside class="help-sidebar">
+          <div class="help-sidebar-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+            Filter & Sort
+          </div>
 
-  </section>
+          <div class="help-sort-wrapper">
+            <label class="help-sort-label" for="helpSortSelect">Sort Articles By</label>
+            <select id="helpSortSelect" class="help-sort-select">
+              <option value="popular">Most Popular</option>
+              <option value="recent">Recently Added</option>
+              <option value="title">Alphabetical (A-Z)</option>
+            </select>
+          </div>
+
+          <div class="help-sort-label">Categories</div>
+          <ul class="help-category-list" id="helpCategoryList">
+            <li class="help-category-item active" data-category="all">
+              <span>All Topics</span>
+              <span class="help-cat-count">8</span>
+            </li>
+            <li class="help-category-item" data-category="getting-started">
+              <span>Getting Started</span>
+              <span class="help-cat-count">2</span>
+            </li>
+            <li class="help-category-item" data-category="farmer-ops">
+              <span>Farmer Operations</span>
+              <span class="help-cat-count">1</span>
+            </li>
+            <li class="help-category-item" data-category="weighbridge-mill">
+              <span>Weighbridge & Mill</span>
+              <span class="help-cat-count">2</span>
+            </li>
+            <li class="help-category-item" data-category="financials">
+              <span>Financials & Payroll</span>
+              <span class="help-cat-count">1</span>
+            </li>
+            <li class="help-category-item" data-category="inventory">
+              <span>Inventory & Sales</span>
+              <span class="help-cat-count">1</span>
+            </li>
+            <li class="help-category-item" data-category="troubleshooting">
+              <span>Troubleshooting</span>
+              <span class="help-cat-count">1</span>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Right Content Area: Detailed Knowledge Base Articles -->
+        <main class="help-articles-container" id="helpArticlesContainer">
+          
+          <!-- Article 1 -->
+          <article class="help-article-card" data-category="farmer-ops" data-title="Setting up Grower Contracts & Field GPS Plot Mapping" data-popularity="98" data-date="2026-07-01">
+            <div class="help-article-meta">
+              <span class="help-article-badge">Farmer Operations</span>
+              <span class="help-article-readtime">⏱️ 4 min read</span>
+            </div>
+            <h3 class="help-article-title">Setting up Grower Contracts & Field GPS Plot Mapping</h3>
+            <p class="help-article-excerpt">
+              Learn how to register outgrower farmers, record land acreage with mobile GPS boundary mapping, and generate digital sugarcane supply contracts.
+            </p>
+            <div class="help-article-body">
+              <h4>Overview & Key Steps</h4>
+              <p>The Farmer & Field Mobile module allows field officers to onboard outgrower farmers directly from smartphone or tablet devices even while offline.</p>
+              <ol>
+                <li>Navigate to <strong>Farmers & Contracting &gt; New Grower Registration</strong> in the ERP dashboard.</li>
+                <li>Input grower personal information, national ID, mobile money number (M-PESA/Airtel), and bank account details.</li>
+                <li>Open the field app, enable high-precision GPS positioning, and walk the boundary of the sugarcane block to automatically map polygon coordinates.</li>
+                <li>Select cane variety (e.g. N14, CO421, KEN82-493), planting date, and estimated harvest maturity window.</li>
+                <li>Generate the digital contract, collect e-signatures on device, and submit for automated approval.</li>
+              </ol>
+              <p><strong>Note:</strong> Coordinates captured offline automatically sync once the mobile unit reconnects to cellular data or Wi-Fi.</p>
+            </div>
+            <div class="help-article-footer">
+              <button class="btn-toggle-article" onclick="toggleHelpArticle(this)">Read Full Article ▼</button>
+              <div class="help-article-helpful">
+                <span>Was this helpful?</span>
+                <button class="btn-helpful" onclick="markHelpful(this, true)">👍 Yes</button>
+                <button class="btn-helpful" onclick="markHelpful(this, false)">👎 No</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 2 -->
+          <article class="help-article-card" data-category="weighbridge-mill" data-title="Weighbridge Scale Calibration, Gross & Tare Ticket Sync" data-popularity="95" data-date="2026-07-10">
+            <div class="help-article-meta">
+              <span class="help-article-badge">Weighbridge & Mill</span>
+              <span class="help-article-readtime">⏱️ 5 min read</span>
+            </div>
+            <h3 class="help-article-title">Weighbridge Scale Calibration, Gross & Tare Ticket Sync</h3>
+            <p class="help-article-excerpt">
+              Guide to configuring serial/IP electronic weighbridge scales, automated gross weight capture, tractor/trailer tare balancing, and net cane calculation.
+            </p>
+            <div class="help-article-body">
+              <h4>Step-by-Step Weighbridge Operation</h4>
+              <ol>
+                <li>Ensure the serial (RS232/RS485) or IP weight indicator is connected to the Synergy Weighbridge Gateway service.</li>
+                <li>Upon vehicle arrival at Gate 1, scan the driver RFID card or vehicle barcode to pull up the active trip ticket.</li>
+                <li>Position vehicle on weighbridge scale platform and click <strong>Capture Gross Weight</strong>. The system locks the weight reading from the scale sensor.</li>
+                <li>After unloading at the cane yard / feed table, vehicle returns to Weighbridge Scale 2 for <strong>Tare Weight Capture</strong>.</li>
+                <li>Net Weight is automatically calculated: <code>Net Weight = Gross Weight - Tare Weight - Trash Deductions</code>.</li>
+                <li>A tri-copy thermal weighbill ticket prints automatically with QR verification code.</li>
+              </ol>
+            </div>
+            <div class="help-article-footer">
+              <button class="btn-toggle-article" onclick="toggleHelpArticle(this)">Read Full Article ▼</button>
+              <div class="help-article-helpful">
+                <span>Was this helpful?</span>
+                <button class="btn-helpful" onclick="markHelpful(this, true)">👍 Yes</button>
+                <button class="btn-helpful" onclick="markHelpful(this, false)">👎 No</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 3 -->
+          <article class="help-article-card" data-category="weighbridge-mill" data-title="Sucrose Extraction Rates & Sugar Mill Laboratory Quality Logs" data-popularity="88" data-date="2026-07-15">
+            <div class="help-article-meta">
+              <span class="help-article-badge">Weighbridge & Mill</span>
+              <span class="help-article-readtime">⏱️ 6 min read</span>
+            </div>
+            <h3 class="help-article-title">Sucrose Extraction Rates & Sugar Mill Laboratory Quality Logs</h3>
+            <p class="help-article-excerpt">
+              Detailed walkthrough for recording Brix %, Pol %, purity, fiber %, and calculating Estimated Recoverable Crystal (ERC) for grower payout bonuses.
+            </p>
+            <div class="help-article-body">
+              <h4>Laboratory Integration Workflow</h4>
+              <p>Juice samples collected at first expressor roller are tagged with the corresponding delivery batch number.</p>
+              <ul>
+                <li>Enter Brix hydrometer reading and refractometer temperature corrections into the <strong>Lab Quality Module</strong>.</li>
+                <li>Record polarimeter Pol reading; system automatically computes Sucrose % in juice.</li>
+                <li>ERC formula: <code>ERC = (Pol % * 0.98) - (Non-Pol Solids * 0.4)</code>.</li>
+                <li>High-sucrose deliveries automatically trigger quality incentive bonuses added to grower settlement accounts.</li>
+              </ul>
+            </div>
+            <div class="help-article-footer">
+              <button class="btn-toggle-article" onclick="toggleHelpArticle(this)">Read Full Article ▼</button>
+              <div class="help-article-helpful">
+                <span>Was this helpful?</span>
+                <button class="btn-helpful" onclick="markHelpful(this, true)">👍 Yes</button>
+                <button class="btn-helpful" onclick="markHelpful(this, false)">👎 No</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 4 -->
+          <article class="help-article-card" data-category="financials" data-title="Processing Grower Settlements, Cane Deductions & M-PESA Payroll" data-popularity="92" data-date="2026-07-18">
+            <div class="help-article-meta">
+              <span class="help-article-badge">Financials & Payroll</span>
+              <span class="help-article-readtime">⏱️ 5 min read</span>
+            </div>
+            <h3 class="help-article-title">Processing Grower Settlements, Cane Deductions & M-PESA Payroll</h3>
+            <p class="help-article-excerpt">
+              Learn how grower gross earnings are calculated from delivered cane tonnage and automatically netted against fertilizer advances, harvesting labor, and transport deductions.
+            </p>
+            <div class="help-article-body">
+              <h4>Settlement Calculation Flow</h4>
+              <ol>
+                <li>Go to <strong>Financials &gt; Grower Payroll & Settlements</strong>.</li>
+                <li>Select billing cycle date range (e.g. 1st - 15th of the month).</li>
+                <li>System automatically aggregates all weighbills delivered by the grower during the period.</li>
+                <li>Automatic deduction offsets applied:
+                  <ul>
+                    <li>Seed cane & fertilizer advances</li>
+                    <li>Tractor transport freight charges per km/tonne</li>
+                    <li>Harvesting gang labor wages</li>
+                    <li>Cooperative development levy (1%)</li>
+                  </ul>
+                </li>
+                <li>Click <strong>Execute Bulk Payment</strong> to push payments via M-PESA B2C API or direct KITS bank transfer.</li>
+              </ol>
+            </div>
+            <div class="help-article-footer">
+              <button class="btn-toggle-article" onclick="toggleHelpArticle(this)">Read Full Article ▼</button>
+              <div class="help-article-helpful">
+                <span>Was this helpful?</span>
+                <button class="btn-helpful" onclick="markHelpful(this, true)">👍 Yes</button>
+                <button class="btn-helpful" onclick="markHelpful(this, false)">👎 No</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 5 -->
+          <article class="help-article-card" data-category="inventory" data-title="Warehouse Stock Tracking, Bagging Inventory & Delivery Notes" data-popularity="84" data-date="2026-07-20">
+            <div class="help-article-meta">
+              <span class="help-article-badge">Inventory & Sales</span>
+              <span class="help-article-readtime">⏱️ 4 min read</span>
+            </div>
+            <h3 class="help-article-title">Warehouse Stock Tracking, Bagging Inventory & Delivery Notes</h3>
+            <p class="help-article-excerpt">
+              How to manage 50kg bag production output, warehouse stack bin locations, wholesale dispatch dispatching, and automated delivery note issuance.
+            </p>
+            <div class="help-article-body">
+              <h4>Inventory Management Steps</h4>
+              <p>Track brown, white, and industrial sugar bag counts in real time across main and regional distribution depots.</p>
+              <ul>
+                <li>Log daily production batch outputs from bagging machinery into <strong>Production & Inventory</strong>.</li>
+                <li>Assign pallet RFID codes and warehouse bay numbers (e.g. Bay B4-02).</li>
+                <li>When dispatching customer sales orders, generate dispatch tickets with gate pass verification.</li>
+              </ul>
+            </div>
+            <div class="help-article-footer">
+              <button class="btn-toggle-article" onclick="toggleHelpArticle(this)">Read Full Article ▼</button>
+              <div class="help-article-helpful">
+                <span>Was this helpful?</span>
+                <button class="btn-helpful" onclick="markHelpful(this, true)">👍 Yes</button>
+                <button class="btn-helpful" onclick="markHelpful(this, false)">👎 No</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 6 -->
+          <article class="help-article-card" data-category="getting-started" data-title="Connecting IoT Sensors & Real-Time AI Yield Traceability" data-popularity="80" data-date="2026-07-22">
+            <div class="help-article-meta">
+              <span class="help-article-badge">Getting Started</span>
+              <span class="help-article-readtime">⏱️ 6 min read</span>
+            </div>
+            <h3 class="help-article-title">Connecting IoT Sensors & Real-Time AI Yield Traceability</h3>
+            <p class="help-article-excerpt">
+              Overview of setting up field moisture sensors, weather stations, and configuring predictive AI machine learning models for harvest yield forecasting.
+            </p>
+            <div class="help-article-body">
+              <h4>IoT & AI Setup Guide</h4>
+              <p>Synergy Sugar integrates with LoRaWAN and cellular telemetry sensors to monitor soil moisture, sucrose accumulation, and micro-climate risk factors.</p>
+              <ol>
+                <li>Add sensor device EUI in <strong>AI Traceability &gt; Device Management</strong>.</li>
+                <li>Map sensor location to specific farm block polygon.</li>
+                <li>View real-time heatmaps and predictive harvest scheduling alerts.</li>
+              </ol>
+            </div>
+            <div class="help-article-footer">
+              <button class="btn-toggle-article" onclick="toggleHelpArticle(this)">Read Full Article ▼</button>
+              <div class="help-article-helpful">
+                <span>Was this helpful?</span>
+                <button class="btn-helpful" onclick="markHelpful(this, true)">👍 Yes</button>
+                <button class="btn-helpful" onclick="markHelpful(this, false)">👎 No</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 7 -->
+          <article class="help-article-card" data-category="troubleshooting" data-title="Troubleshooting Hardware Scale Offline Mode & Data Sync" data-popularity="90" data-date="2026-07-25">
+            <div class="help-article-meta">
+              <span class="help-article-badge">Troubleshooting</span>
+              <span class="help-article-readtime">⏱️ 3 min read</span>
+            </div>
+            <h3 class="help-article-title">Troubleshooting Hardware Scale Offline Mode & Data Sync</h3>
+            <p class="help-article-excerpt">
+              Quick steps to resolve serial COM port disconnections, local database queue backlog, and network reconnection synchronization.
+            </p>
+            <div class="help-article-body">
+              <h4>Troubleshooting Steps</h4>
+              <ol>
+                <li>Check USB-to-Serial adapter LED indicators on the weighbridge terminal PC.</li>
+                <li>Open <strong>Weighbridge Sync Status</strong> from taskbar tray; confirm COM port setting matches device manager (e.g. COM3, 9600 baud rate).</li>
+                <li>If internet connection drops, tickets automatically buffer to SQLite local storage. Do not restart terminal PC until queue reaches 0 after network reconnects.</li>
+              </ol>
+            </div>
+            <div class="help-article-footer">
+              <button class="btn-toggle-article" onclick="toggleHelpArticle(this)">Read Full Article ▼</button>
+              <div class="help-article-helpful">
+                <span>Was this helpful?</span>
+                <button class="btn-helpful" onclick="markHelpful(this, true)">👍 Yes</button>
+                <button class="btn-helpful" onclick="markHelpful(this, false)">👎 No</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Article 8 -->
+          <article class="help-article-card" data-category="getting-started" data-title="User Role Permissions, Audit Trails & Multi-Site Access Control" data-popularity="75" data-date="2026-07-28">
+            <div class="help-article-meta">
+              <span class="help-article-badge">Getting Started</span>
+              <span class="help-article-readtime">⏱️ 4 min read</span>
+            </div>
+            <h3 class="help-article-title">User Role Permissions, Audit Trails & Multi-Site Access Control</h3>
+            <p class="help-article-excerpt">
+              Configure system administrator roles, weighbridge clerk privileges, field officer scopes, and review immutable audit log activity records.
+            </p>
+            <div class="help-article-body">
+              <h4>Role Configuration</h4>
+              <p>Ensure strict separation of duties between weighbridge clerks, lab technicians, finance officers, and executive managers.</p>
+              <ul>
+                <li>Go to <strong>System Settings &gt; Roles & Permissions</strong>.</li>
+                <li>Assign granular view/edit/delete rights for each module.</li>
+                <li>Audit logs record user ID, timestamp, IP address, and exact record changes for full compliance.</li>
+              </ul>
+            </div>
+            <div class="help-article-footer">
+              <button class="btn-toggle-article" onclick="toggleHelpArticle(this)">Read Full Article ▼</button>
+              <div class="help-article-helpful">
+                <span>Was this helpful?</span>
+                <button class="btn-helpful" onclick="markHelpful(this, true)">👍 Yes</button>
+                <button class="btn-helpful" onclick="markHelpful(this, false)">👎 No</button>
+              </div>
+            </div>
+        </main>
+      </div>
+
+      <!-- Article Pagination Controls -->
+      <div class="help-pagination-container" id="helpPaginationContainer">
+        <div class="help-pagination-info" id="helpPaginationInfo">
+          Showing 1–5 of 8 articles
+        </div>
+        <div class="help-pagination-controls" id="helpPaginationControls">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </div>
+
+      <!-- Support CTA Banner -->
+      <div style="margin-top:40px; padding:24px; background:#101915; border:1px solid #283a31; border-radius:3px !important; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div>
+          <div style="font-weight:700; color:#f8fafc; font-size:1.1rem;">Still need assistance?</div>
+          <div style="color:#cbd5e1; font-size:.95rem;">Our ERP specialists are available 24/7 for Kenya & East Africa sugar operations.</div>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="appointment.html" class="btn btn-blue" style="border-radius:3px !important; text-decoration:none;">Request Live Support</a>
+          <a href="forum/index.html" class="btn btn-blue" style="background:var(--primary); color:#101915; border-radius:3px !important; text-decoration:none;">Community Forum</a>
+        </div>
+      </div>
+
+    </section>
+  </div>
 </div>
 
 
@@ -2850,23 +3531,23 @@ a.btn-request-demo:hover {
       // header scroll swap + hybrid panel logic
       function onScroll(){
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if(scrollTop>50){ $header.addClass('scrolled'); } else { $header.removeClass('scrolled'); }
+        if($header && $header.length){
+          if(scrollTop>50){ $header.addClass('scrolled'); } else { $header.removeClass('scrolled'); }
+        }
 
         // Hybrid sticky/fixed
-        const panelHeight = $panelShell.outerHeight();
-        const footerTop = $footer.offset().top;
-        const viewportTop = scrollTop;
-        const viewportBottom = viewportTop + window.innerHeight;
+        if($footer && $footer.length && $footer.offset() && $panelShell && $panelShell.length && $panelShell.offset()){
+          const panelHeight = $panelShell.outerHeight();
+          const footerTop = $footer.offset().top;
+          const viewportTop = scrollTop;
 
-        if(viewportTop + panelHeight + 60 >= footerTop){
-          // Near footer - pin inside flow to avoid overlap
-          $panelShell.css({position:'absolute', bottom:'60px', top:'auto', right:'0', left:'auto'});
-        } else if(scrollTop > 260 && $('body').hasClass('panel-active')) {
-          // Scrolled past hero and panel is active - float fixed
-          $panelShell.css({position:'fixed', top:'100px', right:'calc((100vw - min(1200px,92vw))/2)', left:'auto', bottom:'auto'});
-        } else {
-          // Default (when up top or no selection)
-          $panelShell.css({position:'relative', top:'auto', right:'auto', left:'auto', bottom:'auto'});
+          if(viewportTop + panelHeight + 60 >= footerTop){
+            $panelShell.css({position:'absolute', bottom:'60px', top:'auto', right:'0', left:'auto'});
+          } else if(scrollTop > 260 && $('body').hasClass('panel-active')) {
+            $panelShell.css({position:'fixed', top:'100px', right:'calc((100vw - min(1200px,92vw))/2)', left:'auto', bottom:'auto'});
+          } else {
+            $panelShell.css({position:'relative', top:'auto', right:'auto', left:'auto', bottom:'auto'});
+          }
         }
       }
       window.addEventListener('scroll', onScroll, {passive:true});
@@ -2912,30 +3593,31 @@ a.btn-request-demo:hover {
     })(jQuery);
 
     // Sync chosen apps into top row summary
-function updateAppsChosen() {
-  const $chosen = $('#appsChosen');
-  $chosen.empty();
-  $('#selectedList .selected-item').each(function() {
-    const name = $(this).find('.sel-label').text().trim();
-    $chosen.append(
-      '<span class="app-pill" style="background:var(--secondary); color:#fff; padding:4px 10px; border-radius:var(--radius);">' 
-      + name + '</span>'
-    );
-  });
-}
+    function updateAppsChosen() {
+      const $chosen = $('#appsChosen');
+      if (!$chosen.length) return;
+      $chosen.empty();
+      $('#selectedList .selected-item').each(function() {
+        const name = $(this).find('.sel-label').text().trim();
+        $chosen.append(
+          '<span class="app-pill" style="background:var(--secondary); color:#fff; padding:4px 10px; border-radius:var(--radius);">' 
+          + name + '</span>'
+        );
+      });
+    }
 
-// Hook into existing selection changes
-$(document).on('click', '.app-card, .remove-btn, #deselectAllBtn', updateAppsChosen);
+    // Hook into existing selection changes
+    $(document).on('click', '.app-card, .remove-btn, #deselectAllBtn', updateAppsChosen);
 
-// Run once on load
-updateAppsChosen();
+    // Run once on load
+    updateAppsChosen();
 
-// Change selections button scrolls to apps area
-$('#changeSelectionsBtn').on('click', function() {
-  $('html, body').animate({ scrollTop: $('.apps-area').offset().top - 80 }, 600);
-});
-
-
+    // Change selections button scrolls to apps area
+    $('#changeSelectionsBtn').on('click', function() {
+      if ($('.apps-area').length && $('.apps-area').offset()) {
+        $('html, body').animate({ scrollTop: $('.apps-area').offset().top - 80 }, 600);
+      }
+    });
 
   </script>
 
@@ -2946,20 +3628,20 @@ const yearlyBtn = document.getElementById('yearlyBtn');
 const billingSlider = document.getElementById('billingSlider');
 
 function setBilling(mode) {
+  if (!monthlyBtn || !yearlyBtn || !billingSlider) return;
   document.querySelectorAll('.price').forEach(priceEl => {
     const monthly = parseFloat(priceEl.getAttribute('data-monthly'));
     const yearly = parseFloat(priceEl.getAttribute('data-yearly'));
 
     if (mode === 'yearly' && yearly > 0) {
-      priceEl.innerHTML = `$${yearly}<span style="font-size:1rem;">/year</span>`;
+      priceEl.innerHTML = `KSH ${yearly.toLocaleString()}<span style="font-size:1rem;">/year</span>`;
     } else if (monthly > 0) {
-      priceEl.innerHTML = `$${monthly}<span style="font-size:1rem;">/month</span>`;
+      priceEl.innerHTML = `KSH ${monthly.toLocaleString()}<span style="font-size:1rem;">/month</span>`;
     } else {
       priceEl.innerHTML = 'Free';
     }
   });
 
-  // slider position
   if (mode === 'yearly') {
     billingSlider.style.left = "50%";
   } else {
@@ -2967,11 +3649,11 @@ function setBilling(mode) {
   }
 }
 
-monthlyBtn.addEventListener('click', () => setBilling('monthly'));
-yearlyBtn.addEventListener('click', () => setBilling('yearly'));
-
-// default
-setBilling('monthly');
+if (monthlyBtn && yearlyBtn && billingSlider) {
+  monthlyBtn.addEventListener('click', () => setBilling('monthly'));
+  yearlyBtn.addEventListener('click', () => setBilling('yearly'));
+  setBilling('monthly');
+}
 
 // FAQ accordion with arrows
 document.querySelectorAll('.faq-question').forEach(question => {
@@ -3000,16 +3682,7 @@ document.querySelectorAll('.faq-question').forEach(question => {
 </script>
 
 
-<script>
-    // Search handler
-    document.querySelector('.help-search')?.addEventListener('submit', e => {
-      e.preventDefault();
-      const q = document.getElementById('helpSearchInput').value.trim();
-      if(q) {
-        alert("Search or submit ticket for: " + q);
-      }
-    });
-  </script>
+
 
 <script>
     // Header behavior: transparent -> white .8, and logo swap if you like
@@ -4533,17 +5206,274 @@ document.querySelectorAll('.faq-question').forEach(question => {
     // Restore any existing selections from localStorage on page load
     try {
       const saved = JSON.parse(localStorage.getItem('synergy_selected_modules') || '[]');
-      if (Array.isArray(saved) && saved.length > 0) {
+      if (Array.isArray(saved) && saved.length > 0 && typeof selectCheckboxes !== 'undefined') {
         selectCheckboxes.forEach(cb => {
           const card = cb.closest('.app-card');
           if (card && saved.includes(card.getAttribute('data-name'))) {
             cb.checked = true;
           }
         });
-        updateSelectedModules();
+        if (typeof updateSelectedModules === 'function') updateSelectedModules();
       }
-    } catch(err) {}
+    } catch (err) {}
   });
+
+  // COMPREHENSIVE HELP CENTER INTERACTIVE ENGINE
+  function toggleHelpArticle(btn) {
+    const card = btn.closest('.help-article-card');
+    const body = card.querySelector('.help-article-body');
+    const isOpen = body.style.display === 'block';
+    
+    body.style.display = isOpen ? 'none' : 'block';
+    btn.textContent = isOpen ? 'Read Full Article ▼' : 'Close Article ▲';
+  }
+
+  function markHelpful(btn, isYes) {
+    const parent = btn.parentElement;
+    parent.innerHTML = isYes 
+      ? '<span style="color:#22c55e; font-weight:700;">✓ Thanks for your feedback!</span>' 
+      : '<span style="color:#f6dd0d;">Thank you! We will improve this guide.</span>';
+  }
+
+  function resetHelpFilters() {
+    const searchInput = document.getElementById('helpSearchInput');
+    if (searchInput) searchInput.value = '';
+    const allCatItem = document.querySelector('.help-category-item[data-category="all"]');
+    if (allCatItem) allCatItem.click();
+  }
+
+  function initHelpCenterEngine() {
+    const searchInput = document.getElementById('helpSearchInput');
+    const categoryItems = document.querySelectorAll('.help-category-item');
+    const sortSelect = document.getElementById('helpSortSelect');
+    const container = document.getElementById('helpArticlesContainer');
+    const ITEMS_PER_PAGE = 5;
+    let activeCategory = 'all';
+    let currentPage = 1;
+
+    function normalizeText(text) {
+      return (text || '').toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function renderPagination(totalItems) {
+      const pagContainer = document.getElementById('helpPaginationContainer');
+      const pagInfo = document.getElementById('helpPaginationInfo');
+      const pagControls = document.getElementById('helpPaginationControls');
+
+      if (!pagContainer || !pagInfo || !pagControls) return;
+
+      if (totalItems <= 0) {
+        pagContainer.style.display = 'none';
+        return;
+      }
+
+      pagContainer.style.display = 'flex';
+
+      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+      const endIdx = Math.min(startIdx + ITEMS_PER_PAGE, totalItems);
+
+      pagInfo.textContent = `Showing ${startIdx + 1}–${endIdx} of ${totalItems} articles`;
+
+      if (totalPages <= 1) {
+        pagControls.innerHTML = '';
+        return;
+      }
+
+      let html = `<button type="button" class="help-page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToHelpPage(${currentPage - 1})">‹ Prev</button>`;
+
+      for (let p = 1; p <= totalPages; p++) {
+        html += `<button type="button" class="help-page-btn ${p === currentPage ? 'active' : ''}" onclick="goToHelpPage(${p})">${p}</button>`;
+      }
+
+      html += `<button type="button" class="help-page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToHelpPage(${currentPage + 1})">Next ›</button>`;
+
+      pagControls.innerHTML = html;
+    }
+
+    window.goToHelpPage = function(p) {
+      currentPage = p;
+      filterAndSortArticles(false);
+      const containerEl = document.getElementById('helpArticlesContainer');
+      if (containerEl) {
+        containerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    function filterAndSortArticles(resetPage = true) {
+      if (!container) return;
+      if (resetPage) currentPage = 1;
+
+      const rawQuery = searchInput ? searchInput.value : '';
+      const query = normalizeText(rawQuery);
+      const queryTokens = query ? query.split(' ') : [];
+
+      const articles = Array.from(document.querySelectorAll('.help-article-card'));
+
+      // Dynamic counts per category
+      const counts = { all: 0 };
+      const matchingArticles = [];
+
+      articles.forEach(article => {
+        const cat = article.getAttribute('data-category');
+        const title = article.getAttribute('data-title') || '';
+        const excerpt = article.querySelector('.help-article-excerpt') ? article.querySelector('.help-article-excerpt').textContent : '';
+        const bodyText = article.querySelector('.help-article-body') ? article.querySelector('.help-article-body').textContent : '';
+
+        const fullText = normalizeText(`${title} ${excerpt} ${bodyText} ${cat}`);
+        const matchesQuery = queryTokens.length === 0 || queryTokens.every(token => fullText.includes(token));
+
+        if (matchesQuery) {
+          counts.all = (counts.all || 0) + 1;
+          if (cat) counts[cat] = (counts[cat] || 0) + 1;
+        }
+
+        const matchesCat = (activeCategory === 'all' || cat === activeCategory);
+
+        if (matchesCat && matchesQuery) {
+          matchingArticles.push(article);
+        } else {
+          article.classList.add('hidden');
+          article.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      // Update Category Badge Counts in Sidebar
+      categoryItems.forEach(item => {
+        const cat = item.getAttribute('data-category');
+        const countSpan = item.querySelector('.help-cat-count');
+        if (countSpan) {
+          countSpan.textContent = counts[cat] || 0;
+        }
+      });
+
+      // Sorting matching articles
+      const sortVal = sortSelect ? sortSelect.value : 'popular';
+
+      matchingArticles.sort((a, b) => {
+        if (sortVal === 'popular') {
+          return parseInt(b.getAttribute('data-popularity') || 0) - parseInt(a.getAttribute('data-popularity') || 0);
+        } else if (sortVal === 'recent') {
+          return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
+        } else if (sortVal === 'title') {
+          return (a.getAttribute('data-title') || '').localeCompare(b.getAttribute('data-title') || '');
+        }
+        return 0;
+      });
+
+      // Re-append in sorted order inside container
+      matchingArticles.forEach(art => container.appendChild(art));
+
+      // Pagination slice
+      const totalItems = matchingArticles.length;
+      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const pageStart = (currentPage - 1) * ITEMS_PER_PAGE;
+      const pageEnd = pageStart + ITEMS_PER_PAGE;
+
+      matchingArticles.forEach((art, idx) => {
+        if (idx >= pageStart && idx < pageEnd) {
+          art.classList.remove('hidden');
+          art.style.setProperty('display', 'block', 'important');
+        } else {
+          art.classList.add('hidden');
+          art.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      renderPagination(totalItems);
+
+      // Handle Empty State
+      let emptyMsg = document.getElementById('helpNoResults');
+      if (!emptyMsg) {
+        emptyMsg = document.createElement('div');
+        emptyMsg.id = 'helpNoResults';
+        emptyMsg.className = 'help-no-results';
+        emptyMsg.style.cssText = 'display:none; text-align:center; padding:48px 20px; background:#101915; border:1px dashed #283a31; border-radius:3px; margin-top:20px;';
+        emptyMsg.innerHTML = `
+          <div style="font-size:2.5rem; margin-bottom:12px;">🔍</div>
+          <h4 style="color:#f8fafc; font-size:1.2rem; margin-bottom:8px;">No Articles Found</h4>
+          <p style="color:#94a3b8; font-size:0.95rem; margin-bottom:16px;" id="noResultsText">No guides match your search criteria.</p>
+          <button onclick="resetHelpFilters()" style="background:#f6dd0d; color:#101915; font-weight:700; border:none; padding:8px 18px; border-radius:3px; cursor:pointer;">Reset All Filters</button>
+        `;
+        container.appendChild(emptyMsg);
+      }
+
+      if (matchingArticles.length === 0) {
+        emptyMsg.style.display = 'block';
+        const txt = document.getElementById('noResultsText');
+        if (txt) {
+          txt.textContent = rawQuery ? `No articles matched "${rawQuery}". Try another keyword or clear search.` : `No articles found in this category.`;
+        }
+      } else {
+        emptyMsg.style.display = 'none';
+      }
+    }
+
+    const clearBtn = document.getElementById('helpSearchClearBtn');
+
+    function updateClearBtnVisibility() {
+      if (!clearBtn || !searchInput) return;
+      if (searchInput.value.trim().length > 0) {
+        clearBtn.style.display = 'flex';
+      } else {
+        clearBtn.style.display = 'none';
+      }
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (searchInput) {
+          searchInput.value = '';
+          searchInput.focus();
+        }
+        updateClearBtnVisibility();
+        filterAndSortArticles();
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        updateClearBtnVisibility();
+        filterAndSortArticles();
+      });
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          updateClearBtnVisibility();
+          filterAndSortArticles();
+        }
+      });
+    }
+
+    if (sortSelect) sortSelect.addEventListener('change', filterAndSortArticles);
+
+    categoryItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        categoryItems.forEach(ci => ci.classList.remove('active'));
+        this.classList.add('active');
+        activeCategory = this.getAttribute('data-category') || 'all';
+        filterAndSortArticles();
+      });
+    });
+
+    // Initial run
+    updateClearBtnVisibility();
+    filterAndSortArticles();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHelpCenterEngine);
+  } else {
+    initHelpCenterEngine();
+  }
 
 </script>
 
