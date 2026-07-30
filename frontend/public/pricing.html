@@ -2647,6 +2647,54 @@ a.btn-request-demo:hover {
           </div>
           <div>
             <div class="card-title">Sugar Mills & Refineries</div>
+            <div class="card-desc">Integrated milling & quality control</div>
+          </div>
+        </a>
+
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-green">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Agro-Industrial Enterprises</div>
+            <div class="card-desc">Plantation management & contracts</div>
+          </div>
+        </a>
+
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-emerald">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Cooperative Farmer Networks</div>
+            <div class="card-desc">Harvest scheduling & ticket sync</div>
+          </div>
+        </a>
+
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-blue">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Transport & Logistics Fleets</div>
+            <div class="card-desc">Fleet GPS & weighbridge queue</div>
+          </div>
+        </a>
+
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-purple">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Export & Commodity Trading</div>
+            <div class="card-desc">Warehouse inventory & sugar invoicing</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
 
 
   <!-- PRICING HEADER IMAGE BANNER -->
@@ -2666,6 +2714,7 @@ a.btn-request-demo:hover {
 <main class="page-main-container">
   <div class="container" style="max-width:1200px; margin:0 auto; padding:0 20px;">
 
+    
 
     
   <div class="page">
@@ -2787,6 +2836,700 @@ a.btn-request-demo:hover {
   </div>
   <!-- FOOTER - Matching Appointment System -->
   
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    (function($){
+      const $body=$('body'), $header=$('#siteHeader'), $list=$('#selectedList'), $panelShell=$('#panelShell'), $footer=$('#pageFooter');
+      function setPanelActive(active){ $body.toggleClass('panel-active', !!active); }
+
+      // header scroll swap + hybrid panel logic
+      function onScroll(){
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if(scrollTop>50){ $header.addClass('scrolled'); } else { $header.removeClass('scrolled'); }
+
+        // Hybrid sticky/fixed
+        const panelHeight = $panelShell.outerHeight();
+        const footerTop = $footer.offset().top;
+        const viewportTop = scrollTop;
+        const viewportBottom = viewportTop + window.innerHeight;
+
+        if(viewportTop + panelHeight + 60 >= footerTop){
+          // Near footer - pin inside flow to avoid overlap
+          $panelShell.css({position:'absolute', bottom:'60px', top:'auto', right:'0', left:'auto'});
+        } else if(scrollTop > 260 && $('body').hasClass('panel-active')) {
+          // Scrolled past hero and panel is active - float fixed
+          $panelShell.css({position:'fixed', top:'100px', right:'calc((100vw - min(1200px,92vw))/2)', left:'auto', bottom:'auto'});
+        } else {
+          // Default (when up top or no selection)
+          $panelShell.css({position:'relative', top:'auto', right:'auto', left:'auto', bottom:'auto'});
+        }
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      window.addEventListener('resize', onScroll);
+
+      // Card selection
+      $('.app-card').on('click',function(){
+        const $c=$(this),app=$c.data('app'),icon=$c.data('icon'),name=$c.data('name');
+        if($c.hasClass('selected')){
+          $c.removeClass('selected');
+          $list.find('li[data-app="'+app+'"]').remove();
+        } else {
+          $c.addClass('selected');
+          if(!$list.find('li[data-app="'+app+'"]').length){
+            $list.append('<li class="selected-item" data-app="'+app+'"><span class="sel-label">'+icon+' '+name+'</span><button class="remove-btn" title="Remove">✕</button></li>');
+          }
+        }
+        setPanelActive($list.children().length>0);
+        onScroll();
+      });
+
+      // Remove item from panel
+      $(document).on('click','.remove-btn',function(e){
+        e.stopPropagation();
+        const $li=$(this).closest('.selected-item'); const app=$li.data('app');
+        $li.remove();
+        $('.app-card[data-app="'+app+'"]').removeClass('selected');
+        setPanelActive($list.children().length>0);
+        onScroll();
+      });
+
+      // Deselect all
+      $('#deselectAllBtn').on('click',function(){
+        $('.app-card.selected').removeClass('selected');
+        $list.empty();
+        setPanelActive(false);
+        onScroll();
+      });
+
+      // Init
+      setPanelActive(false);
+      onScroll();
+    })(jQuery);
+
+    // Sync chosen apps into top row summary
+function updateAppsChosen() {
+  const $chosen = $('#appsChosen');
+  $chosen.empty();
+  $('#selectedList .selected-item').each(function() {
+    const name = $(this).find('.sel-label').text().trim();
+    $chosen.append(
+      '<span class="app-pill" style="background:var(--secondary); color:#fff; padding:4px 10px; border-radius:var(--radius);">' 
+      + name + '</span>'
+    );
+  });
+}
+
+// Hook into existing selection changes
+$(document).on('click', '.app-card, .remove-btn, #deselectAllBtn', updateAppsChosen);
+
+// Run once on load
+updateAppsChosen();
+
+// Change selections button scrolls to apps area
+$('#changeSelectionsBtn').on('click', function() {
+  $('html, body').animate({ scrollTop: $('.apps-area').offset().top - 80 }, 600);
+});
+
+
+
+  </script>
+
+<script>
+// Billing toggle slider animation
+const monthlyBtn = document.getElementById('monthlyBtn');
+const yearlyBtn = document.getElementById('yearlyBtn');
+const billingSlider = document.getElementById('billingSlider');
+
+function setBilling(mode) {
+  document.querySelectorAll('.price').forEach(priceEl => {
+    const monthly = parseFloat(priceEl.getAttribute('data-monthly'));
+    const yearly = parseFloat(priceEl.getAttribute('data-yearly'));
+
+    if (mode === 'yearly' && yearly > 0) {
+      priceEl.innerHTML = `KSH ${yearly}<span style="font-size:1rem;">/year</span>`;
+    } else if (monthly > 0) {
+      priceEl.innerHTML = `KSH ${monthly}<span style="font-size:1rem;">/month</span>`;
+    } else {
+      priceEl.innerHTML = 'Free';
+    }
+  });
+
+  // slider position
+  if (mode === 'yearly') {
+    billingSlider.style.left = "50%";
+  } else {
+    billingSlider.style.left = "4px";
+  }
+}
+
+monthlyBtn.addEventListener('click', () => setBilling('monthly'));
+yearlyBtn.addEventListener('click', () => setBilling('yearly'));
+
+// default
+setBilling('monthly');
+
+// FAQ accordion with arrows
+document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', function() {
+    const answer = this.nextElementSibling;
+    const arrow = this.querySelector('.faq-arrow');
+
+    // close others
+    document.querySelectorAll('.faq-answer').forEach(el => {
+      if (el !== answer) el.style.display = 'none';
+    });
+    document.querySelectorAll('.faq-arrow').forEach(el => {
+      if (el !== arrow) el.textContent = '▼';
+    });
+
+    // toggle current
+    if (answer.style.display === 'block') {
+      answer.style.display = 'none';
+      arrow.textContent = '▼';
+    } else {
+      answer.style.display = 'block';
+      arrow.textContent = '▲';
+    }
+  });
+});
+</script>
+
+
+
+
+<script>
+    // Header behavior: transparent -> white .8, and logo swap if you like
+    (function(){
+      const header = document.getElementById('siteHeader');
+      const brandLogo = document.getElementById('brandLogo');
+      const whiteSrc = 'assets/images/Synergy-logo-sugar-web-white.png';
+      const blackSrc = 'assets/images/Synergy-logo-sugar-web-black.png';
+
+      function onScroll(){
+        const y = window.pageYOffset || document.documentElement.scrollTop;
+        if(y > 10){
+          header.classList.add('scrolled');
+          brandLogo.src = blackSrc;
+        } else {
+          header.classList.remove('scrolled');
+          brandLogo.src = whiteSrc;
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // Mega menu functionality - click to open/close
+    (function(){
+      const industriesLink = document.querySelector('.nav-item.has-dropdown > a');
+      const industriesItem = document.querySelector('.nav-item.has-dropdown');
+      const megaMenu = document.getElementById('industriesMenu');
+
+      if (industriesLink && megaMenu) {
+        industriesLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // On mobile, slide out to the left
+          if (window.innerWidth <= 768) {
+            industriesItem.classList.toggle('active');
+          } 
+          // On desktop, toggle full mega menu
+          else {
+            megaMenu.classList.toggle('active');
+          }
+        });
+
+        // Handle back button click on mobile (clicking the ::before pseudo-element area)
+        megaMenu.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            const rect = megaMenu.getBoundingClientRect();
+            // If click is in the top-left area (where back button is)
+            if (e.clientY < rect.top + 60 && e.clientX < rect.left + 120) {
+              industriesItem.classList.remove('active');
+            }
+          }
+        });
+
+        // Close mega menu when clicking outside (desktop only)
+        document.addEventListener('click', function(e) {
+          if (window.innerWidth > 768) {
+            if (!e.target.closest('.mega-menu') && !e.target.closest('.nav-item.has-dropdown')) {
+              megaMenu.classList.remove('active');
+            }
+          }
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            megaMenu.classList.remove('active');
+            industriesItem.classList.remove('active');
+          }
+        });
+      }
+    })();
+
+    // Basic carousel helper (no external deps).
+    function makeCarousel(containerSel, options){
+      const root = document.querySelector(containerSel);
+      if(!root) return;
+      
+      // Fixed selector logic - now looks for direct children of specific carousels
+      let slides;
+      if (containerSel === '#heroCarousel') {
+        slides = Array.from(root.querySelectorAll('.hero-slide'));
+      } else if (containerSel === '#featuresCarousel') {
+        slides = Array.from(root.querySelectorAll('.features-slide'));
+      } else if (containerSel === '#testiCarousel') {
+        slides = Array.from(root.querySelectorAll('.testi-slide'));
+      } else {
+        // Fallback for any other carousels
+        slides = Array.from(root.querySelectorAll('.slide, .hero-slide, .features-slide, .testi-slide'))
+                      .filter(el => el.parentElement === root);
+      }
+      
+      if(slides.length === 0) return;
+
+      let index = 0;
+      const {
+        prevSel, nextSel, dotsSel, activeClass='active',
+        interval=6000, auto=true
+      } = options;
+
+      const prevBtn = prevSel ? document.querySelector(prevSel) : null;
+      const nextBtn = nextSel ? document.querySelector(nextSel) : null;
+      const dotsWrap = dotsSel ? document.querySelector(dotsSel) : null;
+      const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+
+      function show(i){
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s,idx)=> {
+          const isActive = idx===index;
+          s.classList.toggle(activeClass, isActive);
+          
+          // Restart title animations for hero slides
+          if(isActive && containerSel === '#heroCarousel'){
+            const titles = s.querySelectorAll('.hero-title-1, .hero-title-2, .hero-title-3');
+            titles.forEach(title => {
+              // Force animation restart by removing and re-adding
+              title.style.animation = 'none';
+              title.offsetHeight; // Trigger reflow
+              title.style.animation = '';
+            });
+          }
+        });
+        if(dots.length){
+          dots.forEach((d,idx)=> d.classList.toggle('active', idx===index));
+        }
+      }
+      function next(){ show(index+1); }
+      function prev(){ show(index-1); }
+
+      if(prevBtn) prevBtn.addEventListener('click', prev);
+      if(nextBtn) nextBtn.addEventListener('click', next);
+      if(dots.length){
+        dots.forEach((dot, i)=> dot.addEventListener('click', ()=> show(i)));
+      }
+
+      let timer=null;
+      function start(){
+        if(auto){
+          stop();
+          timer = setInterval(next, interval);
+        }
+      }
+      function stop(){
+        if(timer){ clearInterval(timer); timer=null; }
+      }
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+
+      show(0);
+      start();
+      return { next, prev, show, stop, start };
+    }
+
+    // HERO carousel
+    makeCarousel('#heroCarousel', {
+      prevSel: '#heroPrev',
+      nextSel: '#heroNext',
+      dotsSel: '#heroDots',
+      activeClass: 'active',
+      interval: 6500,
+      auto: true
+    });
+
+    // FEATURES carousel
+    makeCarousel('#featuresCarousel', {
+      prevSel: '#featPrev',
+      nextSel: '#featNext',
+      dotsSel: '#featDots',
+      activeClass: 'active',
+      interval: 6000,
+      auto: true
+    });
+
+    // TESTIMONIALS carousel
+    makeCarousel('#testiCarousel', {
+      prevSel: '#testiPrev',
+      nextSel: '#testiNext',
+      dotsSel: '#testiDots',
+      activeClass: 'active',
+      interval: 6000,
+      auto: true
+    });
+
+    // APPS SORTING WITH PAGINATION, SEARCH AND FEATURES (3x3 Grid)
+    (function(){
+      let currentPage = 0;
+      const totalPages = 2; // 2 pages: Page 1 (9 apps) + Page 2 (1 app)
+      const appsSlider = document.getElementById('appsSlider');
+      const appCards = document.querySelectorAll('.app-card');
+      const searchInput = document.getElementById('appsSearch');
+      const prevBtn = document.getElementById('appsNavPrev');
+      const nextBtn = document.getElementById('appsNavNext');
+      const dots = document.querySelectorAll('.app-dot');
+      const featuresCarousel = document.getElementById('featuresCarousel');
+      let isSearchActive = false;
+      
+      // App-specific features data
+      const appFeatures = {
+        'farmers-recruitment': {
+          title: 'Farmers Recruitment & Cane Management',
+          features: [
+            'Farmer registration & profiles',
+            'Cane cultivation tracking',
+            'Contract management',
+            'Payment processing',
+            'Farmer communication portal',
+            'Cane quality assessment',
+            'Harvest scheduling coordination'
+          ]
+        },
+        'nucleus-operations': {
+          title: 'Nucleus & Farm Operations',
+          features: [
+            'Central farm management',
+            'Land allocation tracking',
+            'Irrigation system control',
+            'Equipment deployment',
+            'Labor allocation',
+            'Crop monitoring dashboard',
+            'Operations analytics'
+          ]
+        },
+        'harvesting-transport': {
+          title: 'Harvesting & Transport',
+          features: [
+            'Harvest scheduling',
+            'Cane cutting coordination',
+            'Transport vehicle assignment',
+            'Route optimization',
+            'Load tracking',
+            'Delivery confirmation',
+            'Real-time GPS tracking'
+          ]
+        },
+        'weighbridge': {
+          title: 'Weighbridge Management',
+          features: [
+            'Automated weight capture',
+            'Vehicle registration',
+            'Net weight calculation',
+            'Digital ticket generation',
+            'Quality parameter recording',
+            'Tare weight management',
+            'Historical weight reports'
+          ]
+        },
+        'fleet-management': {
+          title: 'Fleet Management',
+          features: [
+            'Vehicle tracking & monitoring',
+            'Fuel consumption analysis',
+            'Maintenance scheduling',
+            'Driver management',
+            'Trip planning & routing',
+            'Vehicle performance metrics',
+            'Compliance documentation'
+          ]
+        },
+        'mrp-inventory': {
+          title: 'MRP & Inventory Control',
+          features: [
+            'Material requirement planning',
+            'Procurement automation',
+            'Stock level monitoring',
+            'Supplier management',
+            'Purchase order tracking',
+            'Warehouse management',
+            'Inventory valuation reports'
+          ]
+        },
+        'production': {
+          title: 'Production Management',
+          features: [
+            'Production scheduling',
+            'Process monitoring',
+            'Quality control checks',
+            'Equipment efficiency tracking',
+            'Batch management',
+            'Waste reduction analytics',
+            'Output optimization'
+          ]
+        },
+        'sales-invoicing': {
+          title: 'Sales & Invoicing',
+          features: [
+            'Customer order management',
+            'Invoice generation',
+            'Payment tracking',
+            'Credit management',
+            'Sales analytics',
+            'Pricing management',
+            'Tax compliance'
+          ]
+        },
+        'financial-management': {
+          title: 'Financial Management',
+          features: [
+            'General ledger accounting',
+            'Budget planning & control',
+            'Cash flow management',
+            'Financial reporting',
+            'Tax management',
+            'Cost center tracking',
+            'Profit & loss analysis'
+          ]
+        },
+        'hr-payroll': {
+          title: 'HR, Payroll & Attendance',
+          features: [
+            'Employee database management',
+            'Payroll processing',
+            'Time & attendance tracking',
+            'Leave management',
+            'Performance appraisals',
+            'Statutory compliance',
+            'Employee self-service portal'
+          ]
+        }
+      };
+      
+      // Show specific page
+      function showPage(pageNum){
+        currentPage = (pageNum + totalPages) % totalPages;
+        
+        // Hide all cards
+        appCards.forEach(card => {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.9) translateY(20px)';
+        });
+        
+        // Show cards for current page with animation
+        const currentCards = document.querySelectorAll(`.app-card[data-page="${currentPage}"]`);
+        currentCards.forEach((card, idx) => {
+          card.style.display = 'flex';
+          setTimeout(() => {
+            card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1) translateY(0)';
+          }, idx * 100);
+        });
+        
+        // Update dots
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentPage);
+        });
+      }
+      
+      function nextPage(){
+        showPage(currentPage + 1);
+      }
+      
+      function prevPage(){
+        showPage(currentPage - 1);
+      }
+      
+      // Search functionality
+      function filterApps(searchTerm){
+        const term = searchTerm.toLowerCase().trim();
+        isSearchActive = term !== '';
+        let visibleCount = 0;
+        
+        if(!isSearchActive){
+          // Return to pagination mode
+          showPage(currentPage);
+          if(prevBtn) prevBtn.style.display = '';
+          if(nextBtn) nextBtn.style.display = '';
+          document.getElementById('appsPagination').style.display = '';
+          return;
+        }
+        
+        // Hide navigation in search mode
+        if(prevBtn) prevBtn.style.display = 'none';
+        if(nextBtn) nextBtn.style.display = 'none';
+        document.getElementById('appsPagination').style.display = 'none';
+        
+        // Filter cards
+        appCards.forEach(card => {
+          const name = card.getAttribute('data-name').toLowerCase();
+          const tags = card.getAttribute('data-tags').toLowerCase();
+          const matches = name.includes(term) || tags.includes(term);
+          
+          if(matches){
+            card.style.display = 'flex';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1) translateY(0)';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+            card.style.opacity = '0';
+          }
+        });
+        
+        // Show no results message
+        if(visibleCount === 0){
+          const noResults = document.createElement('div');
+          noResults.id = 'no-results';
+          noResults.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text);';
+          noResults.innerHTML = '<p style="font-size: 1.1rem; margin-bottom: 8px;">No apps found</p><p style="font-size: 0.9rem; opacity: 0.7;">Try a different search term</p>';
+          
+          const existing = document.getElementById('no-results');
+          if(!existing){
+            appsSlider.appendChild(noResults);
+          }
+        } else {
+          const existing = document.getElementById('no-results');
+          if(existing) existing.remove();
+        }
+      }
+      
+      // Search input event
+      if(searchInput){
+        searchInput.addEventListener('input', (e) => {
+          filterApps(e.target.value);
+        });
+      }
+      
+      // Navigation event listeners
+      if(prevBtn) prevBtn.addEventListener('click', prevPage);
+      if(nextBtn) nextBtn.addEventListener('click', nextPage);
+      
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => showPage(idx));
+      });
+      
+      // Features button click handler
+      document.querySelectorAll('.app-features-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const appId = btn.getAttribute('data-app');
+          const appData = appFeatures[appId];
+          
+          if(appData && featuresCarousel){
+            // Update features section
+            const featuresSlides = featuresCarousel.querySelectorAll('.features-slide');
+            if(featuresSlides.length > 0){
+              const firstSlide = featuresSlides[0];
+              
+              // Update content
+              firstSlide.innerHTML = `
+                <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">${appData.title}</h5>
+                <ul class="features-list">
+                  ${appData.features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+              `;
+              
+              // Show first slide
+              featuresSlides.forEach(s => s.classList.remove('active'));
+              firstSlide.classList.add('active');
+              
+              // Scroll to features section smoothly
+              const featuresSection = document.getElementById('features');
+              if(featuresSection){
+                featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }
+          }
+        });
+      });
+      
+      // Initialize
+      showPage(0);
+    })();
+
+    // Make Features and Apps columns equal height on wide screens
+    function matchHeights(){
+      const left = document.querySelector('#features .col-lg-4 .panel-card');
+      const right = document.querySelector('#features .col-lg-8 .panel-card');
+      if(!left || !right) return;
+      // Reset first
+      left.style.height = 'auto';
+      right.style.height = 'auto';
+      if(window.innerWidth >= 992){
+        const h = Math.max(left.offsetHeight, right.offsetHeight);
+        left.style.height = h + 'px';
+        right.style.height = h + 'px';
+      }
+    }
+    window.addEventListener('load', matchHeights);
+    window.addEventListener('resize', matchHeights);
+    setTimeout(matchHeights, 350);
+
+  
+  // Hamburger menu toggle
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mainNav = document.querySelector('.main-nav');
+  const authActions = document.querySelector('.auth-actions');
+  
+  if (hamburgerBtn) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-menu-overlay';
+    document.body.appendChild(overlay);
+    
+    hamburgerBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      hamburgerBtn.classList.toggle('active');
+      mainNav.classList.toggle('active');
+      authActions.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = hamburgerBtn.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', function() {
+      hamburgerBtn.classList.remove('active');
+      mainNav.classList.remove('active');
+      authActions.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    
+    // Close menu when clicking nav links (except Industries dropdown toggle)
+    const navLinks = mainNav.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        // Don't close menu if clicking Industries toggle or dropdown items
+        if (link.closest('.nav-item.has-dropdown') && !link.closest('.simple-dropdown')) {
+          return; // Let Industries toggle handle it
+        }
+        
+        // Close menu for other links
+        hamburgerBtn.classList.remove('active');
+        mainNav.classList.remove('active');
+        authActions.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  </script>
+
   </div>
 </main>
 
