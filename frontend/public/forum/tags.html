@@ -12,25 +12,44 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a class="logo" href="../landing_enhanced.html"><img class="black" src="../assets/images/Synergy-logo-sugar-web-black.png" alt="Logo"></a>
-    <nav class="nav">
-      <a href="index.html">Help</a>
-      <a href="#" onclick="navigateTo('questions')">Questions</a>
-      <a href="users.html">Users</a>
-      <a href="tags.html" class="active">Tags</a>
-    </nav>
-    <div class="header-cta">
-      <a class="auth-signin" href="#" onclick="showLoginDialog()">Sign in</a>
-      <a class="btn" href="ask-question.html">Ask Question</a>
+<header class="site-header" id="siteHeader">
+  <div class="inner">
+    <div class="brand">
+      <a href="../landing_enhanced.html" style="display:flex; align-items:center; text-decoration:none;">
+        <img id="brandLogo" src="../assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP">
+      </a>
     </div>
-  </header>
+    
+    <!-- Desktop Navigation -->
+    <nav class="main-nav" id="mainNav">
+      <div class="nav-item"><a href="../landing_enhanced.html">Home</a></div>
+      <div class="nav-item"><a href="../features.html">Features</a></div>
+      <div class="nav-item"><a href="index.html" class="active">Community</a></div>
+      <div class="nav-item"><a href="../pricing.html">Pricing</a></div>
+      <div class="nav-item"><a href="../help.html">Help</a></div>
+    </nav>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>Browse Tags</h1>
-    <a href="index.html" class="btn btn-light">← Back to Forum</a>
+    <!-- Auth Actions -->
+    <div class="auth-actions">
+      <a class="auth-signin" href="#" onclick="openSignInModal(); return false;">Sign in</a>
+      <a class="btn" href="ask-question.html" style="background:#f6dd0d; color:#101915; font-weight:700; border-radius:3px !important; text-decoration:none; padding:8px 16px;">Ask Question</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO / PAGE BANNER -->
+<section class="page-header-banner" style="background: linear-gradient(180deg, #101915 0%, #16221c 100%); border-bottom: 1px solid #283a31; padding: 100px 20px 30px 20px; text-align: center;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h1 style="color: #f8fafc; font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; font-family: 'Sansation', sans-serif;">Community & Knowledge Forum</h1>
+    <p style="color: #94a3b8; font-size: 1rem; max-width: 720px; margin: 0 auto 20px auto; line-height: 1.5;">
+      Connect with sugar mill engineers, agronomists, ERP specialists, and community members.
+    </p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="index.html" class="forum-header-subnav-btn">Help & Discussions</a>
+      <a href="ask-question.html" class="forum-header-subnav-btn">Ask Question</a>
+      <a href="tags.html" class="forum-header-subnav-btn active">Topic Tags</a>
+      <a href="users.html" class="forum-header-subnav-btn">Community Members</a>
+    </div>
   </div>
 </section>
 
@@ -325,103 +344,102 @@
     </div>
   </footer>
 
+<!-- SINGLE UNIFIED AUTH MODAL -->
+<div id="signInModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 20000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto;">
+  <div class="modal-content" style="position: relative; width: 100%; max-width: 440px; background: #1e2b25; border: 1px solid #364e43; border-radius: 3px !important; padding: 36px 30px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); color: #f8fafc;">
+    <span class="modal-close" onclick="closeSignInModal()" style="position: absolute; right: 18px; top: 14px; font-size: 26px; color: #cbd5e1; cursor: pointer; line-height: 1;">&times;</span>
+    
+    <div class="modal-header" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px;">
+      <img src="../assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" class="modal-logo" style="height: 46px; width: auto; margin: 0 auto 12px auto; display: block; object-fit: contain;">
+      <h2 class="modal-title" id="modalTitle" style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin: 0 0 6px 0; text-align: center;">Welcome Back</h2>
+      <p class="modal-subtitle" id="modalSubtitle" style="font-size: 0.875rem; color: #94a3b8; margin: 0; line-height: 1.4; text-align: center;">Sign in to your Synergy Bravo ERP account</p>
+    </div>
+
+    <div id="authMessage" style="display: none; padding: 12px; margin-bottom: 16px; border-radius: 3px; font-size: 0.875rem; text-align: center;"></div>
+
+    <form id="signInForm" class="modal-form" onsubmit="handleSignIn(event);">
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Email Address</label>
+        <input type="email" id="authEmail" required placeholder="name@company.com" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Password</label>
+        <input type="password" id="authPassword" required placeholder="••••••••" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+      <button type="submit" id="authSubmitBtn" style="width: 100%; background: #f6dd0d; color: #101915; font-weight: 700; border: none; padding: 12px; border-radius: 3px !important; cursor: pointer; font-size: 1rem;">Sign In</button>
+    </form>
+
+    <div style="margin-top: 20px; text-align: center; font-size: 0.875rem; color: #94a3b8;">
+      <span id="authToggleText">Don't have an account?</span> 
+      <a href="#" id="authToggleBtn" onclick="toggleAuthMode(); return false;" style="color: #f6dd0d; font-weight: 600; text-decoration: none;">Sign Up</a>
+    </div>
+  </div>
+</div>
+
 <script src="js/main.js"></script>
-
 <script>
-function filterTags(type) {
-  const tabs = document.querySelectorAll('.forum-tabs button');
-  const tagCards = document.querySelectorAll('.tag-card');
-  
-  // Update active tab
-  tabs.forEach(tab => tab.classList.remove('active'));
-  event.target.classList.add('active');
-  
-  // Convert NodeList to Array for sorting
-  const cardsArray = Array.from(tagCards);
-  
-  switch(type) {
-    case 'popular':
-      cardsArray.sort((a, b) => {
-        const aQuestions = parseInt(a.querySelector('.tag-stats span').textContent);
-        const bQuestions = parseInt(b.querySelector('.tag-stats span').textContent);
-        return bQuestions - aQuestions;
-      });
-      break;
-    case 'recent':
-      // Mock recent sorting - in real app would use actual dates
-      cardsArray.sort(() => Math.random() - 0.5);
-      break;
-    case 'name':
-      cardsArray.sort((a, b) => {
-        const aName = a.querySelector('.tag-name').textContent;
-        const bName = b.querySelector('.tag-name').textContent;
-        return aName.localeCompare(bName);
-      });
-      break;
-    case 'all':
-    default:
-      // Show all in original order
-      break;
-  }
-  
-  // Re-append sorted cards if needed
-  if (type !== 'all') {
-    const container = document.querySelector('.tag-grid');
-    cardsArray.forEach(card => container.appendChild(card));
-  }
-  
-  // Show all cards
-  cardsArray.forEach(card => card.style.display = 'block');
-}
+  let isSignUpMode = false;
 
-function filterByTag(tagName) {
-  // Redirect to main forum with tag filter
-  window.location.href = `index.html?tag=${encodeURIComponent(tagName)}`;
-}
-
-  // Hamburger menu toggle
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mainNav = document.querySelector('.main-nav');
-  const authActions = document.querySelector('.auth-actions');
-  
-  if (hamburgerBtn) {
-    // Create overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'mobile-menu-overlay';
-    document.body.appendChild(overlay);
-    
-    hamburgerBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      hamburgerBtn.classList.toggle('active');
-      mainNav.classList.toggle('active');
-      authActions.classList.toggle('active');
-      overlay.classList.toggle('active');
-      document.body.style.overflow = hamburgerBtn.classList.contains('active') ? 'hidden' : '';
-    });
-    
-    // Close menu when clicking overlay
-    overlay.addEventListener('click', function() {
-      hamburgerBtn.classList.remove('active');
-      mainNav.classList.remove('active');
-      authActions.classList.remove('active');
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-    
-    // Close menu when clicking nav links
-    const navLinks = mainNav.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        hamburgerBtn.classList.remove('active');
-        mainNav.classList.remove('active');
-        authActions.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    });
+  function openSignInModal() {
+    isSignUpMode = false;
+    updateModalUI();
+    const modal = document.getElementById('signInModal');
+    if (modal) modal.style.display = 'flex';
   }
 
-  </script>
+  function closeSignInModal() {
+    const modal = document.getElementById('signInModal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  function toggleAuthMode() {
+    isSignUpMode = !isSignUpMode;
+    updateModalUI();
+  }
+
+  function updateModalUI() {
+    const title = document.getElementById('modalTitle');
+    const subtitle = document.getElementById('modalSubtitle');
+    const submitBtn = document.getElementById('authSubmitBtn');
+    const toggleText = document.getElementById('authToggleText');
+    const toggleBtn = document.getElementById('authToggleBtn');
+
+    if (isSignUpMode) {
+      if (title) title.textContent = 'Create an Account';
+      if (subtitle) subtitle.textContent = 'Start onboarding for Synergy Bravo ERP';
+      if (submitBtn) submitBtn.textContent = 'Register & Continue Onboarding';
+      if (toggleText) toggleText.textContent = 'Already have an account?';
+      if (toggleBtn) toggleBtn.textContent = 'Sign In';
+    } else {
+      if (title) title.textContent = 'Welcome Back';
+      if (subtitle) subtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
+      if (submitBtn) submitBtn.textContent = 'Sign In';
+      if (toggleText) toggleText.textContent = "Don't have an account?";
+      if (toggleBtn) toggleBtn.textContent = 'Sign Up';
+    }
+  }
+
+  function handleSignIn(e) {
+    e.preventDefault();
+    const msg = document.getElementById('authMessage');
+    if (msg) {
+      msg.style.display = 'block';
+      msg.style.background = 'rgba(34, 197, 94, 0.15)';
+      msg.style.color = '#4ade80';
+      msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+      msg.textContent = isSignUpMode 
+        ? 'Account registered! Redirecting to ERP Dashboard Onboarding...' 
+        : 'Welcome back! Signing you in...';
+    }
+    setTimeout(() => {
+      closeSignInModal();
+    }, 1500);
+  }
+
+  function showLoginDialog() {
+    openSignInModal();
+  }
+</script>
 </body>
 </html>
  
