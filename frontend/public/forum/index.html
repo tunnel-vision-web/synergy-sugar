@@ -417,6 +417,16 @@
   </div>
 </footer>
 
+
+</div>
+</div>
+
+<script src="js/main.js"></script>
+
+
+
+</div>
+
 <!-- SINGLE UNIFIED AUTH / ONBOARDING MODAL ARCHITECTURE -->
 <div id="signInModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 20000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto;">
   <div class="modal-content" style="position: relative; width: 100%; max-width: 440px; background: #1e2b25; border: 1px solid #364e43; border-radius: 3px !important; padding: 36px 30px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); color: #f8fafc;">
@@ -460,42 +470,50 @@
     </div>
   </div>
 </div>
-</div>
-
-<script src="js/main.js"></script>
 <script>
-  if (typeof isSignUpMode === 'undefined') {
-    var isSignUpMode = false;
-  }
+  window.isSignUpMode = false;
 
-  function openSignInModal(mode) {
-    if (mode === 'signup') {
-      isSignUpMode = true;
-    } else if (mode === 'signin') {
-      isSignUpMode = false;
+  window.openSignInModal = function(mode) {
+    if (mode === 'signup' || mode === 'register') {
+      window.isSignUpMode = true;
     } else {
-      isSignUpMode = false;
+      window.isSignUpMode = false;
     }
-    updateModalUI();
+    window.updateModalUI();
     const modal = document.getElementById('signInModal');
     if (modal) modal.style.display = 'flex';
-  }
+  };
 
-  function openAuthModal(mode) {
-    openSignInModal(mode);
-  }
+  window.openAuthModal = function(mode) {
+    window.openSignInModal(mode);
+  };
 
-  function closeSignInModal() {
+  window.closeSignInModal = function() {
     const modal = document.getElementById('signInModal');
     if (modal) modal.style.display = 'none';
-  }
+  };
 
-  function toggleAuthMode() {
-    isSignUpMode = !isSignUpMode;
-    updateModalUI();
-  }
+  window.closeAuthModal = function() {
+    window.closeSignInModal();
+  };
 
-  function updateModalUI() {
+  window.toggleAuthMode = function() {
+    window.isSignUpMode = !window.isSignUpMode;
+    window.updateModalUI();
+  };
+
+  window.switchAuthTab = function(tab) {
+    if (tab === 'register' || tab === 'signup') {
+      window.isSignUpMode = true;
+    } else {
+      window.isSignUpMode = false;
+    }
+    window.updateModalUI();
+    const modal = document.getElementById('signInModal');
+    if (modal) modal.style.display = 'flex';
+  };
+
+  window.updateModalUI = function() {
     const title = document.getElementById('modalTitle');
     const subtitle = document.getElementById('modalSubtitle');
     const submitBtn = document.getElementById('authSubmitBtn');
@@ -504,7 +522,7 @@
     const nameGroup = document.getElementById('authNameGroup');
     const companyGroup = document.getElementById('authCompanyGroup');
 
-    if (isSignUpMode) {
+    if (window.isSignUpMode) {
       if (title) title.textContent = 'Create an Account';
       if (subtitle) subtitle.textContent = 'Start onboarding for Synergy Bravo ERP';
       if (submitBtn) submitBtn.textContent = 'Register & Continue Onboarding';
@@ -521,43 +539,42 @@
       if (nameGroup) nameGroup.style.display = 'none';
       if (companyGroup) companyGroup.style.display = 'none';
     }
-  }
+  };
 
-  function handleSignIn(e) {
-    e.preventDefault();
+  window.handleSignIn = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
     const msg = document.getElementById('authMessage');
     if (msg) {
       msg.style.display = 'block';
       msg.style.background = 'rgba(34, 197, 94, 0.15)';
       msg.style.color = '#4ade80';
       msg.style.border = '1px solid rgba(34, 197, 94, 0.3)';
-      msg.textContent = isSignUpMode 
+      msg.textContent = window.isSignUpMode 
         ? 'Account registered! Redirecting to ERP Dashboard Onboarding...' 
         : 'Welcome back! Signing you in...';
     }
     setTimeout(() => {
-      closeSignInModal();
+      window.closeSignInModal();
     }, 1500);
-  }
+  };
 
-  function showLoginDialog() {
-    openSignInModal('signin');
-  }
+  window.showLoginDialog = function() {
+    window.openSignInModal('signin');
+  };
 
   // Close modal when clicking backdrop or pressing Escape key
   window.addEventListener('click', function(event) {
     const modal = document.getElementById('signInModal');
     if (modal && event.target === modal) {
-      closeSignInModal();
+      window.closeSignInModal();
     }
   });
 
   window.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
-      closeSignInModal();
+      window.closeSignInModal();
     }
   });
 </script>
 </body>
 </html>
- 
