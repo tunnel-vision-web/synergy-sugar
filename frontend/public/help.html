@@ -1,161 +1,736 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Help Center - Synergy Bravo ERP</title>
+
+  <meta charset="utf-8" />
+  <title>Synergy Bravo ERP: Comprehensive Management Platform for Sugar Farmers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2" />
   <link rel="apple-touch-icon" href="favicon.png?v=2" />
   <link rel="shortcut icon" type="image/png" href="favicon.png?v=2" />
+
+  <!-- Bootstrap 5.2 (no conflicts) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts: Roboto + Sansation (Sansation via fonts.cdnfonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/sansation" rel="stylesheet">
+
   <style>
-    :root {
-      --primary: #f6dd0d;
-      --secondary: #686fb4;
-      --border: #ddd;
-      --radius: 8px;
-      --shadow-card: 0 1px 3px rgba(0,0,0,0.1);
-      --shadow-card-lg: 0 3px 12px rgba(0,0,0,0.15);
+    :root{
+      --primary: #f6dd0d;           /* Goldish orange */
+      --secondary: #686fb4;         /* Light sage (slightly greener) */
+      --text: #5a5a5a;              /* Gentle gray text */
+      --text-dark: #3b3b3b;         /* Slightly darker for headings */
+      --footer-bg: #2f2f2f;         /* Medium-dark footer */
+      --hero-arrow-bg: rgba(255,255,255,0.85);
+      --hero-dot: rgba(255,255,255,0.6);
+      --hero-dot-active: #ffffff;
+      --container-max: 1200px;
+      --header-pad-y: 16px;
+      --header-pad-x: 18px;
+      --slide-height: 82vh;         /* full-screen-ish; we tuck under header */
+      --slide-arrow-offset: 60px;   /* inward arrow offset */
+      --card-br: 3px;              /* rounded corners */
+      --card-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --box-border: 1px;            /* requested border weight */
+      --panel-border: 1px;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #fafafa;
-      color: #333;
+    html, body{
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background: #fff;
+      scroll-behavior: smooth;
     }
 
-    .help-center {
-      padding: 40px 0;
+    /* Header - base styles only, overridden by master block below */
+    .site-header{
+      position: fixed;
+      left: 0; right: 0; top: 0;
+      background: transparent;
     }
-
-    .help-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-
-    .help-hero {
-      text-align: center;
-      padding: 36px 16px;
-      background: linear-gradient(135deg, rgba(255,122,0,.08), rgba(0,0,0,0));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-card);
-    }
-
-    .help-hero h1 {
-      margin: 0 0 8px;
-      font-size: 2rem;
-      font-weight: 800;
-      color: #333;
-    }
-
-    .help-hero p {
-      margin: 0;
-      color: #666;
-    }
-
-    .help-search {
-      max-width: 720px;
-      margin: 20px auto 0;
+    .brand{
       display: flex;
-      gap: 8px;
       align-items: center;
-      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand img{
+      height: 66px;
+      transition: transform 260ms ease, height 260ms ease;
+    }
+    .main-nav a{
+      text-decoration: none;
+      color: #fff; /* start white over hero */
+      font-weight: 500;
+      margin: 0 10px;
+      transition: color 180ms ease, opacity 180ms ease;
+    }
+    .main-nav a:hover{ color: var(--secondary); }
+
+    .auth-actions a{
+      text-decoration: none;
+      margin-left: 14px;
+      font-weight: 500;
+      transition: color 180ms ease, background 180ms ease, border-color 180ms ease, opacity 180ms ease;
+    }
+    .auth-signin{
+      color: #fff;                   /* white before scroll */
+    }
+    .auth-signin:hover{ color: var(--primary); }
+
+    .btn-request-demo{
+      border: var(--box-border) solid #f6dd0d;
+      padding: 6px 14px;
+      border-radius: 3px;
+      background: #f6dd0d;
+      color: #3b3b3b;
+      font-size: 0.95rem;
+      box-shadow: none;
+    }
+    .btn-request-demo:hover{
+      background: #686fb4;
+      border-color: #686fb4;
+      color: #fff;
+      color: #fff;
     }
 
-    .help-search input {
-      flex: 1;
+    /* Header on scroll */
+    .site-header.scrolled{
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+    .site-header.scrolled .brand img{
+      height: 53px !important;
+    }
+    .site-header.scrolled .main-nav a{
+      color: var(--text); /* gray after scroll */
+    }
+    .site-header.scrolled .auth-signin{
+      color: var(--text);
+    }
+    .site-header.scrolled .auth-signin:hover{
+      color: var(--primary);
+    }
+
+    /* Keep header content aligned to page width (not edges), except hero image stretches full */
+    .page-wrap{
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 0; /* sits under the transparent header */
+      position: relative;
+      z-index: 1;
+    }
+    .hero-carousel{
+      position: relative;
+      height: var(--slide-height);
+      overflow: hidden;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
+      z-index: 1;
+    }
+    .hero-slide.active { 
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
+    }
+    .hero-arrow {
+      z-index: 10 !important;
+      cursor: pointer !important;
+    }
+    .hero-dots {
+      z-index: 10 !important;
+    }
+    .hero-dot {
+      cursor: pointer !important;
+    }
+
+    .hero-overlay{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35); /* helps white text */
+    }
+
+    .hero-content{
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 0 24px;
+      color: #fff;
+      font-family: 'Sansation', 'Roboto', sans-serif;
+    }
+
+    .hero-titles{
+      display: grid;
+      gap: 6px;
+      transform: translateY(-4%);
+    }
+    .hero-title-1, .hero-title-2, .hero-title-3{
+      opacity: 0;
+      transform: translateX(60px);
+      animation: slideInRight 900ms ease forwards;
+      color: #fff;
+      text-shadow: 0 10px 22px rgba(0,0,0,0.35);
+      line-height: 1.1;
+      letter-spacing: 0.2px;
+    }
+    .hero-title-1{ font-size: clamp(28px, 3.3vw, 44px); animation-delay: 400ms; }
+    .hero-title-2{ font-size: clamp(22px, 2.6vw, 34px); animation-delay: 720ms; }
+    .hero-title-3{ font-size: clamp(18px, 2.1vw, 26px); animation-delay: 1020ms; }
+
+    @keyframes slideInRight{
+      to{ opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-cta{
+      position: absolute;
+      bottom: 54px; /* close to dots */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .btn-start{
+      border: var(--box-border) solid #fff;
+      background: transparent;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .btn-start:hover{
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+    }
+
+    /* Hero Dots */
+    .hero-dots{
+      position: absolute;
+      bottom: 22px;
+      left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px;
+      z-index: 2;
+    }
+    .hero-dot{
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hero-dot);
+      transition: transform 160ms ease, background 160ms ease;
+      cursor: pointer;
+    }
+    .hero-dot.active{ background: var(--hero-dot-active); transform: scale(1.05); }
+
+    /* Hero Arrows */
+    .hero-arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--hero-arrow-bg);
+      display: grid; place-items: center;
+      border: var(--box-border) solid #fff;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+      cursor: pointer;
+      user-select: none;
+      z-index: 3;
+    }
+    .hero-arrow svg{
+      width: 16px; height: 16px; fill: #000; /* arrow is black for contrast */
+    }
+    .hero-arrow.prev{ left: var(--slide-arrow-offset); }
+    .hero-arrow.next{ right: var(--slide-arrow-offset); }
+
+    /* Section shells (subtle gradients for contrast) */
+    .section{
+      padding: 40px 0 50px;
+    }
+    .section-1{
+      background: linear-gradient(180deg, #f7f9f6 0%, #edf3ee 100%);
+      padding-top: 20px; /* tighten top per your request */
+    }
+    .section-2{
+      background: linear-gradient(180deg, #fff 0%, #f7f7fb 100%);
+    }
+    .section-3{
+      background: linear-gradient(180deg, #f6f7ff 0%, #eef1ff 100%);
+    }
+    .section-4{
+      background: linear-gradient(180deg, #fbfbfd 0%, #f2f2f7 100%);
+    }
+
+    .section .section-inner{
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .section h2{
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 18px;
+      transition: color 160ms ease;
+      font-size: clamp(22px, 2.2vw, 30px);
+    }
+    .section h2:hover{ color: var(--secondary); }
+
+    /* Features + Apps panel (same heights) */
+    .panel-card{
+      border: var(--box-border) solid var(--primary);
+      border-radius: var(--card-br);
+      box-shadow: var(--card-shadow);
+      background: #fff;
+      height: 100%;
+      overflow: hidden;
+    }
+    .panel-header{
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      font-weight: 700;
       padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 1rem;
-      box-shadow: var(--shadow-card);
+      border-bottom: 1px dashed rgba(0,0,0,0.08);
+      color: var(--text-dark);
+    }
+    .panel-body{
+      padding: 14px 16px;
+    }
+
+    /* Features carousel */
+    .features-carousel{
+      position: relative;
+      min-height: 280px;
+    }
+    .features-slide{ display: none; }
+    .features-slide.active{ display: block; animation: fadeIn 380ms ease; }
+    @keyframes fadeIn{ from{opacity:0; transform: translateY(6px)} to{opacity:1; transform:none;} }
+
+    .features-list{
+      margin: 0; padding-left: 18px;
+    }
+    .features-list li{
+      margin: 6px 0;
+    }
+    .features-arrows{
+      display:flex; align-items:center; gap:10px; margin-top:12px;
+    }
+    .f-arrow{
+      width: 38px; height: 38px; border-radius:50%;
+      border: var(--box-border) solid var(--secondary);
+      display:grid; place-items:center; background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .f-arrow svg{ width: 14px; height: 14px; fill: #000; }
+    .f-dots{ display:flex; gap:8px; margin-left:auto; }
+    .f-dot{ width:9px; height:9px; border-radius:50%; background:#cfd8cf; cursor: pointer; }
+    .f-dot.active{ background:#6b8f6b; }
+
+    /* App Sorting Feature - Modern Icon Boxes */
+    .apps-search-wrapper {
+      margin-bottom: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      max-width: 480px;
+    }
+    .apps-search-input {
+      width: 100% !important;
+      padding: 12px 20px 12px 44px !important;
+      border: 2px solid #cbd5e1 !important;
+      border-radius: 6px !important;
+      font-size: 0.98rem !important;
+      font-weight: 600 !important;
+      color: #0f172a !important;
+      background-color: #ffffff !important;
+      transition: all 0.2s ease !important;
+      outline: none !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    }
+    .apps-search-input::placeholder {
+      color: #64748b !important;
+      opacity: 1 !important;
+      font-weight: 400 !important;
+    }
+    .apps-search-input:focus {
+      border-color: #f6dd0d !important;
+      box-shadow: 0 0 0 4px rgba(246, 221, 13, 0.25) !important;
+      color: #0f172a !important;
+      background-color: #ffffff !important;
+    }
+    .apps-carousel-wrapper {
+      position: relative;
+      padding: 0 60px;
+    }
+    .apps-slider{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 20px;
+      min-height: 500px;
+    }
+    .app-card {
+      position: relative;
+      border: 1px solid #2d4239 !important;
+      border-radius: 8px !important;
+      padding: 24px 16px;
+      text-align: center;
+      background: #18251f !important; /* Dark sage container - NO white box */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      overflow: hidden;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .app-card:hover {
+      background: #1f3129 !important;
+      border-color: #f6dd0d !important;
+      transform: translateY(-6px) !important;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4) !important;
+    }
+    .app-card-name {
+      color: #f8fafc !important; /* White crisp label */
+    }
+    .app-card::before{
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(246, 221, 13, 0.05) 0%, rgba(104, 111, 180, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .app-card:hover{
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 12px 32px rgba(246, 221, 13, 0.25);
+    }
+    .app-card:hover::before{
+      opacity: 1;
+    }
+    .app-card-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 14px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .app-card:hover .app-card-icon {
+      transform: scale(1.12);
+    }
+    .badge-gold    { background: rgba(246,221,13,0.15) !important; color: #f6dd0d !important; border: 1px solid rgba(246,221,13,0.35) !important; }
+    .badge-green   { background: rgba(34,197,94,0.15) !important;  color: #22c55e !important; border: 1px solid rgba(34,197,94,0.35) !important; }
+    .badge-blue    { background: rgba(59,130,246,0.15) !important; color: #3b82f6 !important; border: 1px solid rgba(59,130,246,0.35) !important; }
+    .badge-amber   { background: rgba(245,158,11,0.15) !important; color: #f59e0b !important; border: 1px solid rgba(245,158,11,0.35) !important; }
+    .badge-emerald { background: rgba(16,185,129,0.15) !important; color: #10b981 !important; border: 1px solid rgba(16,185,129,0.35) !important; }
+    .badge-purple  { background: rgba(168,85,247,0.15) !important; color: #a855f7 !important; border: 1px solid rgba(168,85,247,0.35) !important; }
+    .badge-indigo  { background: rgba(99,102,241,0.15) !important; color: #818cf8 !important; border: 1px solid rgba(99,102,241,0.35) !important; }
+    .badge-cyan    { background: rgba(6,182,212,0.15) !important;  color: #22d3ee !important; border: 1px solid rgba(6,182,212,0.35) !important; }
+    .badge-pink    { background: rgba(236,72,153,0.15) !important; color: #f472b6 !important; border: 1px solid rgba(236,72,153,0.35) !important; }
+    .badge-shield  { background: rgba(246,221,13,0.18) !important; color: #f6dd0d !important; border: 1.5px solid #f6dd0d !important; box-shadow: 0 0 16px rgba(246,221,13,0.3) !important; }
+    .app-card-name{
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0;
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      transition: all 0.3s ease;
+    }
+    /* Hover state - show buttons */
+    .app-card-buttons{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(246, 221, 13, 0.96) 0%, rgba(255, 234, 167, 0.96) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3;
+    }
+    .app-card:hover .app-card-buttons{
+      opacity: 1;
+      visibility: visible;
+    }
+    .app-card:hover .app-card-name,
+    .app-card:hover .app-card-icon{
+      opacity: 0;
+    }
+    .app-btn{
+      background: #686fb4;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      width: 110px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: none;
+      transform: translateY(8px);
+      opacity: 0;
+      flex-shrink: 0;
+    }
+    .app-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: none;
+      background: #f6dd0d;
+      color: #3b3b3b;
+    }
+    .app-card:hover .app-btn{
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .app-card:hover .app-btn:nth-child(1){ transition-delay: 0.1s; }
+    .app-card:hover .app-btn:nth-child(2){ transition-delay: 0.2s; }
+    .app-card:hover .app-btn:nth-child(3){ transition-delay: 0.3s; }
+    .app-card:hover .app-btn:nth-child(4){ transition-delay: 0.4s; }
+    
+
+
+    /* Clear Selections Button */
+    .btn-clear-selections {
+      background: rgba(246, 221, 13, 0.12) !important;
+      border: 1px solid #f6dd0d !important;
+      color: #f6dd0d !important;
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      border-radius: 4px !important;
+      padding: 4px 12px !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      outline: none !important;
+    }
+    .btn-clear-selections:hover {
+      background: #f6dd0d !important;
+      color: #16201c !important;
+      box-shadow: 0 0 12px rgba(246, 221, 13, 0.4) !important;
+    }
+
+    /* Top-Left Select Checkbox in App Cards */
+    .app-select-wrapper {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .app-select-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #64748b;
+      border-radius: 4px;
+      background: #0f1713;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
       outline: none;
     }
-
-    .help-search span {
-      font-size: .9rem;
-      color: #666;
+    .app-select-checkbox:hover {
+      border-color: #f6dd0d !important;
+      box-shadow: 0 0 8px rgba(246, 221, 13, 0.4) !important;
+    }
+    .app-select-checkbox:checked {
+      background: #f6dd0d !important;
+      border-color: #f6dd0d !important;
+    }
+    .app-select-checkbox:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 5px;
+      height: 9px;
+      border: solid #101915;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .app-card.selected {
+      border-color: #f6dd0d !important;
+      box-shadow: 0 0 18px rgba(246, 221, 13, 0.4) !important;
     }
 
-    .btn {
-      border: none;
-      cursor: pointer;
-      border-radius: var(--radius);
-      font-weight: 600;
-      transition: all .2s ease;
-    }
-
-    .btn-blue {
-      background: var(--secondary);
-      color: #fff;
-      padding: 10px 18px;
-    }
-
-    .btn-blue:hover {
-      filter: brightness(0.9);
-      box-shadow: var(--shadow-card-lg);
-    }
-
-    .apps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 28px;
-    }
-
-    .help-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow-card);
-      text-decoration: none;
-      color: inherit;
-      transition: .2s;
-      display: block;
-    }
-
-    .help-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-card-lg);
-    }
-
-    .help-card h3 {
-      margin: 0 0 8px;
-      color: var(--primary);
-      font-size: 1.1rem;
-    }
-
-    .help-card p {
-      margin: 0;
-      color: #666;
-      font-size: .95rem;
-    }
-
-    .help-cta {
-      margin: 28px 0 0;
-      padding: 18px;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-card);
+    /* Navigation Arrows - 100% Fully Visible, No Fade */
+    .apps-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #f6dd0d !important;
+      border: 2px solid #e0c800 !important;
       display: flex;
-      gap: 14px;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      justify-content: center;
+      cursor: pointer !important;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
+      z-index: 10;
+      box-shadow: 0 6px 18px rgba(246, 221, 13, 0.45) !important;
+      opacity: 1 !important; /* FULLY VISIBLE AT ALL TIMES - NO FADE */
+    }
+    .apps-nav-arrow:hover {
+      background: #ffe436 !important;
+      transform: translateY(-50%) scale(1.1) !important;
+      box-shadow: 0 8px 24px rgba(246, 221, 13, 0.6) !important;
+      opacity: 1 !important;
+    }
+    .apps-nav-arrow.prev { left: 0; }
+    .apps-nav-arrow.next { right: 0; }
+    .apps-nav-arrow svg {
+      width: 22px;
+      height: 22px;
+      fill: #16201c !important;
+    }
+    
+    /* Pagination Dots */
+    .apps-pagination{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .app-dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: rgba(246, 221, 13, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .app-dot.active{
+      background: var(--primary);
+      transform: scale(1.3);
+      border-color: var(--secondary);
+    }
+    .app-dot:hover{
+      transform: scale(1.2);
+      background: var(--primary);
     }
 
-    .help-cta div:first-child {
-      min-width: 200px;
+    /* Testimonials */
+    .testi-wrap{
+      border: var(--box-border) solid rgba(0,0,0,0.08);
+      border-radius: var(--card-br);
+      background: #fff;
+      box-shadow: var(--card-shadow);
+      padding: 22px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .testi-carousel{ position: relative; min-height: 180px; }
+    .testi-slide{ display:none; text-align:center; }
+    .testi-slide.active{ display:block; animation: fadeIn 380ms ease; }
+    .testi-quote{ font-size: 1.05rem; color: var(--text-dark); margin-bottom: 10px; }
+    .testi-meta{ font-size: 0.95rem; opacity: 0.8; }
+
+    .t-arrows{ display:flex; align-items:center; gap:10px; justify-content:center; margin-top: 12px;}
+    .t-arrow{
+      width: 38px; height: 38px; border-radius:50%;
+      border: var(--box-border) solid var(--secondary);
+      display:grid; place-items:center; background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+    .t-arrow svg{ width: 14px; height: 14px; fill: #000; }
+    .t-dots{ display:flex; gap:8px; margin-left: 12px; }
+    .t-dot{ width:9px; height:9px; border-radius:50%; background:#cfd8cf; cursor: pointer; }
+    .t-dot.active{ background:#6b8f6b; }
+
+    /* Enterprise cards */
+    .enterprise-grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .ent-card{
+      border: var(--box-border) solid var(--primary);
+      border-radius: var(--card-br);
+      background: #fff;
+      box-shadow: var(--card-shadow);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      min-height: 160px;
+    }
+    .ent-card h4{
+      color: var(--secondary);
+      font-weight: 800;
+      margin-bottom: 8px;
+      font-family: 'Sansation', 'Roboto', sans-serif;
+    }
+    .ent-card p{ margin:0; }
+
+    /* Footer */
+    /* FOOTER - Matching Appointment System */
+    .site-footer{background:#2f2f2f;color:#fff;margin-top:56px;padding:40px 20px}
+    .footer-logo{text-align:center;margin-bottom:24px}
+    .footer-logo img{height:54px}
+    .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto;text-align:left}
+    .footer-col h4{font-size:1rem;margin-bottom:12px;color:#fff}
+    .footer-col ul{list-style:none;padding:0;margin:0}
+    .footer-col ul li{margin-bottom:8px}
+    .footer-col ul li a{color:#fff;text-decoration:none;font-size:0.9rem;opacity:0.9}
+    .footer-col ul li a:hover{opacity:1;text-decoration:underline}
+    .footer-social{display:flex;gap:16px;margin-top:16px;justify-content:flex-start}
+    @media(max-width:720px){
+      .footer-columns{grid-template-columns:1fr;text-align:center}
+      .footer-social{justify-content:center}
     }
 
-    .help-cta .btn {
-      margin-left: 8px;
-    }
-  
+    .footer-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;transition:all 0.3s ease;font-size:18px}
+    .footer-social a:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+    .footer-social a.facebook:hover{background:#1877F2}
+    .footer-social a.twitter:hover{background:#000}
+    .footer-social a.youtube:hover{background:#FF0000}
+    .footer-social a.instagram:hover{background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF,#515BD4)}
+    .footer-social a.tiktok:hover{background:#000}
+    .footer-social svg{width:20px;height:20px;fill:currentColor}
+
+    /* Utilities & tweaks */
+    .mt-tight{ margin-top: 6px !important; }
+    .mb-tight{ margin-bottom: 6px !important; }
+
+    
 .site-header .brand {
   flex: 0 0 auto;
 }
@@ -170,14 +745,131 @@
   flex: 0 0 auto;
 }
 
-    /* Mega Menu */
+
+    /* Responsive */
+    @media (max-width: 991.98px){
+      .apps-grid{ grid-template-columns: repeat(3,1fr); }
+      .enterprise-grid{ grid-template-columns: repeat(2,1fr); }
+      .hero-arrow{ width: 42px; height: 42px; }
+    }
+    @media (max-width: 575.98px){
+      .apps-grid{ grid-template-columns: repeat(2,1fr); }
+      .hero-title-1{ font-size: 26px; }
+      .hero-title-2{ font-size: 20px; }
+      .hero-title-3{ font-size: 17px; }
+      .hero-arrow{ width: 38px; height: 38px; }
+    }
+
+    /* Try it free */
+.btn-try{
+  border: 3px solid var(--primary) !important;   /* enforce 3px border */
+  bborder-width: 3px !important;
+  border-radius: 8px !important;   /* smaller, still rounded */
+  box-sizing: border-box;                        /* keep sizing consistent */
+  padding: 6px 14px;  
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.95rem;
+  box-shadow: 0 3px 10px rgba(245,154,35,0.25);
+}
+.btn-try:hover{
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: #fff;
+}
+
+/* Start Today */
+.btn-start{
+  border: 2px solid var(--primary) !important;   /* enforce 2px border */
+  border-width: 3px !important;
+  border-radius: 8px !important;   /* smaller, still rounded */
+  box-sizing: border-box;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-start:hover{
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: #fff;
+}
+
+
+.btn-start {
+  border-width: 2px !important;
+  box-sizing: border-box !important;
+}
+
+.panel, 
+.card, 
+.section-box {
+  border-width: 2px !important;   /* slim down borders */
+  border-style: solid;
+  border-color: var(--border, #ddd); /* use your theme border gray */
+  box-sizing: border-box;
+}
+
+/* Mega Menu Styles */
+
+
+.nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-item > a {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 180ms ease;
+  cursor: pointer;
+}
+
+.nav-item > a::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid currentColor;
+  margin-left: 6px;
+  transition: transform 180ms ease;
+}
+
+.nav-item.has-dropdown > a::after {
+  opacity: 1;
+}
+
+.nav-item:not(.has-dropdown) > a::after {
+  display: none;
+}
+
+.nav-item.active > a::after {
+  transform: rotate(180deg);
+}
+
+.site-header.scrolled .nav-item > a {
+  color: var(--text);
+}
+
+.site-header.scrolled .nav-item > a:hover {
+  color: var(--primary);
+}
+
 .mega-menu {
   position: fixed;
-  top: 72px;
+  top: 72px;   /* adjust to match header height */
   left: 0;
   right: 0;
-  bottom: 0;
   width: 100vw;
+  max-height: calc(100vh - 72px);
   background: #fff;
   border-top: 1px solid #e0e0e0;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
@@ -185,23 +877,29 @@
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 200ms ease;
-  z-index: 900;
+  z-index: 900; /* below header (998) */
   overflow-y: auto;
 }
 
-.mega-menu.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
 .mega-menu-content {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 40px 18px;
+  max-width: 100%;
+  margin: 0;
+  padding: 60px 80px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 100px;
+}
+
+@media (max-width: 1400px) {
+  .mega-menu-content {
+    max-width: 1000px;
+    gap: 40px;
+  }
+}
+
+.mega-menu-section {
+  min-width: 0;
+  overflow: hidden;
 }
 
 .mega-menu-section h4 {
@@ -219,6 +917,7 @@
   color: var(--text);
   transition: color 180ms ease;
   border-bottom: 1px solid #f0f0f0;
+  min-width: 0;
 }
 
 .mega-menu-item:hover {
@@ -233,13 +932,33 @@
   font-weight: 500;
   margin-bottom: 4px;
   font-size: 15px;
+  color: var(--text-dark);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .mega-menu-item .item-desc {
   font-size: 13px;
   color: #888;
   line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
+
+.mega-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Mobile nav adjustments - hamburger menu handles visibility */
+
+
+
+  
+    /* Mega Menu styles defined earlier */
 
 /* Mobile: mega menu slides from left */
 
@@ -282,73 +1001,11 @@
       transform: translateY(-10.5px) rotate(-45deg);
     }
     
-    /* Mobile Navigation */
-    @media (max-width: 768px) {
-      .hamburger-menu {
-        display: flex;
-      }
+    
       
-      .main-nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 280px;
-        height: 100vh;
-        background: #fff;
-        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-        padding: 80px 20px 20px;
-        flex-direction: column;
-        align-items: flex-start;
-        transition: right 0.3s ease;
-        z-index: 1000;
-        overflow-y: auto;
-      }
+
       
-      .main-nav.active {
-        right: 0;
-      }
       
-      .nav-item {
-        width: 100%;
-        margin: 8px 0;
-      }
-      
-      .nav-item > a {
-        color: var(--text-dark);
-        padding: 12px 16px;
-        width: 100%;
-        border-radius: 8px;
-      }
-      
-      .nav-item > a:hover {
-        background: rgba(246, 221, 13, 0.1);
-        color: var(--primary);
-      }
-      
-      .auth-actions {
-        position: fixed;
-        bottom: 20px;
-        right: -100%;
-        width: 280px;
-        padding: 20px;
-        background: #fff;
-        flex-direction: column;
-        gap: 12px;
-        transition: right 0.3s ease;
-        z-index: 1000;
-        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-      }
-      
-      .auth-actions.active {
-        right: 0;
-      }
-      
-      .auth-actions a {
-        width: 100%;
-        text-align: center;
-        padding: 12px;
-        margin: 0;
-      }
       
       .auth-signin {
         color: var(--text-dark) !important;
@@ -373,7 +1030,457 @@
         visibility: visible;
       }
     }
+
+    /* Sign In Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: auto;
+      padding: 40px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 450px;
+      position: relative;
+      animation: slideDown 0.3s ease;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      color: #aaa;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+      color: #000;
+    }
+
+    .modal-header {
+      text-align: center;
+    }
+
+    .modal-form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .modal-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      color: #222;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-btn:hover {
+      background: var(--secondary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+
   
+  /* User Specification Overrides */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /* 1px border strokes & 3px border radius across all boxes, cards & buttons */
+  .btn, .btn-request-demo, .btn-start, .btn-try, .modal-btn, .panel-card, .card, .app-card, .pricing-card, .ent-card, .modal-content, input, select, textarea, .form-control {
+    border-radius: 3px !important;
+  }
+  .panel-card, .card, .app-card, .pricing-card, .ent-card, .modal-content, .btn-request-demo, .btn-try, .btn-start {
+    border-width: 1px !important;
+  }
+  
+  /* Sticky Logo shrinks by only 20% of original 66px */
+  .site-header.scrolled .brand img {
+    height: 53px !important;
+  }
+
+  /* Main Menu Font 1px Smaller */
+  .main-nav a, .nav-item > a, .site-header .main-nav a {
+    font-size: 14px !important;
+  }
+
+  /* Mega Menu - 100% width and 100% height on click */
+  .mega-menu {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    background: #ffffff !important;
+    z-index: 2500 !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 250ms ease, visibility 250ms ease !important;
+    overflow-y: auto !important;
+    padding: 40px 60px 60px 60px !important;
+    box-sizing: border-box !important;
+  }
+  .mega-menu.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .mega-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .mega-menu-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    font-family: 'Sansation', 'Roboto', sans-serif;
+    margin: 0;
+  }
+  .mega-menu-close {
+    font-size: 28px;
+    font-weight: 400;
+    color: #475569;
+    cursor: pointer;
+    line-height: 1;
+    padding: 6px 14px;
+    border-radius: 3px !important;
+    transition: all 0.2s ease;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+  }
+  .mega-menu-close:hover {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+  }
+
+  /* Hamburger Dropdown Menu Fix on Hover & Click */
+  .hamburger-menu-container {
+    position: relative;
+  }
+  @media (min-width: 769px) {
+    
+  }
+
+  /* Modal Layout Fix (Top Horizontal Center Logo, Sequential Text below) */
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0;
+    border: none;
+  }
+  .modal-logo {
+    height: 44px;
+    width: auto;
+    margin: 0 auto 12px auto;
+    display: block;
+    object-fit: contain;
+  }
+  .modal-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin: 0 0 6px 0 !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+  .modal-subtitle {
+    font-size: 0.875rem !important;
+    color: #64748b !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+    width: 100% !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+  .modal-tabs {
+    display: flex;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+  .modal-tab {
+    flex: 1;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 3px !important;
+    transition: all 0.2s ease;
+  }
+  .modal-tab.active {
+    background: #ffffff;
+    color: #1e293b;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+
+  /* ==========================================================================
+     DARK SAGE THEME OVERRIDES (Analogous Dark Sage Content Variations)
+     ========================================================================== */
+  :root {
+    --primary: #f6dd0d;           /* Vibrant Gold Accent */
+    --secondary: #78ad94;         /* Sage Accent */
+    --sage-dark-base: #16201c;    /* Deepest Dark Sage */
+    --sage-dark-sec1: #18241f;    /* Dark Sage Variation 1 */
+    --sage-dark-sec2: #1f2e28;    /* Dark Sage Variation 2 */
+    --sage-dark-sec3: #1b2822;    /* Dark Sage Variation 3 */
+    --sage-dark-sec4: #22332b;    /* Dark Sage Variation 4 */
+    --sage-card-bg: #25362e;      /* Elevated Dark Sage Surface */
+    --sage-card-border: #364d42;  /* Dark Sage Border */
+    --text: #cbd5e1;              /* Off-white Body Text */
+    --text-dark: #f8fafc;         /* High-contrast Headings */
+    --footer-bg: #111815;         /* Darkest Charcoal Sage */
+  }
+
+  html, body {
+    background-color: var(--sage-dark-base) !important;
+    color: var(--text) !important;
+  }
+
+  
+  /* Header Background: Transparent before scroll, 0.8 opacity after scroll */
+  .site-header {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 10000 !important;
+    transition: background 260ms ease, backdrop-filter 260ms ease, border-color 260ms ease !important;
+  }
+
+  .site-header:not(.scrolled) {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-bottom: none !important;
+  }
+
+  .site-header.scrolled {
+    background: rgba(22, 32, 28, 0.8) !important;
+    backdrop-filter: saturate(140%) blur(8px) !important;
+    border-bottom: 1px solid rgba(54, 77, 66, 0.4) !important;
+  }
+
+  .main-nav a, .nav-item > a, .auth-signin {
+    color: #f1f5f9 !important;
+  }
+  .main-nav a:hover, .nav-item > a:hover, .auth-signin:hover {
+    color: var(--primary) !important;
+  }
+
+  /* Content Sections (Analogous Dark Sage Variations) */
+  .section-1 {
+    background: linear-gradient(180deg, #18241f 0%, #1f2e28 100%) !important;
+  }
+  .section-2 {
+    background: linear-gradient(180deg, #1f2e28 0%, #1b2822 100%) !important;
+  }
+  .section-3 {
+    background: linear-gradient(180deg, #1b2822 0%, #22332b 100%) !important;
+  }
+  .section-4 {
+    background: linear-gradient(180deg, #22332b 0%, #18241f 100%) !important;
+  }
+
+  /* Headings & Text */
+  .section h2, h1, h2, h3, h4, h5, h6 {
+    color: var(--text-dark) !important;
+  }
+  .section p, p, span, li {
+    color: var(--text);
+  }
+
+  /* Cards, Panels & Boxes */
+  .panel-card, .card, .app-card, .pricing-card, .ent-card, .section-box {
+    background-color: var(--sage-card-bg) !important;
+    border-color: var(--sage-card-border) !important;
+    color: var(--text) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+  }
+
+  .panel-header {
+    border-bottom: 1px solid var(--sage-card-border) !important;
+    background: rgba(0,0,0,0.15) !important;
+    color: var(--text-dark) !important;
+  }
+
+  .app-card {
+    background: #273b32 !important;
+    border: 1px solid #3b5447 !important;
+  }
+  .app-card:hover {
+    border-color: var(--primary) !important;
+    transform: translateY(-2px);
+  }
+  .app-title {
+    color: #f8fafc !important;
+  }
+  .app-desc {
+    color: #94a3b8 !important;
+  }
+
+  /* Buttons */
+  .btn-request-demo, .btn-try {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #16201c !important;
+    font-weight: 700 !important;
+  }
+  .btn-request-demo:hover, .btn-try:hover {
+    background: #a3e635 !important;
+    border-color: #a3e635 !important;
+    color: #16201c !important;
+  }
+
+  /* Footer */
+  .site-footer {
+    background: var(--footer-bg) !important;
+    border-top: 1px solid #283830 !important;
+  }
+  .footer-col ul li a {
+    color: #94a3b8 !important;
+  }
+  .footer-col ul li a:hover {
+    color: var(--primary) !important;
+  }
+
+  /* Modal Dark Sage Theme */
+  .modal-content {
+    background-color: #1e2b25 !important;
+    border: 1px solid #364e43 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7) !important;
+  }
+  .modal-title {
+    color: #f8fafc !important;
+  }
+  .modal-subtitle {
+    color: #94a3b8 !important;
+  }
+  .modal-close {
+    color: #cbd5e1 !important;
+  }
+  .modal-close:hover {
+    color: var(--primary) !important;
+  }
+  .modal-tabs {
+    background: #15201b !important;
+    border: 1px solid #2d3e35 !important;
+  }
+  .modal-tab {
+    color: #94a3b8 !important;
+  }
+  .modal-tab.active {
+    background: #283b32 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+  }
+  .form-group label {
+    color: #cbd5e1 !important;
+  }
+  .form-group input {
+    background-color: #16221c !important;
+    border: 1px solid #32473c !important;
+    color: #f8fafc !important;
+  }
+  .form-group input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px rgba(246, 221, 13, 0.2) !important;
+  }
+  .modal-btn {
+    background: var(--primary) !important;
+    color: #16201c !important;
+    border: none !important;
+  }
+  .modal-btn:hover {
+    background: #a3e635 !important;
+    color: #16201c !important;
+  }
+
+
   /* Explicit Request Demo Button & Bottom Footer Logo Alignment Fix */
   .btn-request-demo,
   a.btn-request-demo,
@@ -381,12 +1488,14 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
     background: #f6dd0d !important;
     border: 1px solid #f6dd0d !important;
     border-radius: 3px !important;
     color: #16201c !important;
     font-weight: 700 !important;
-    padding: 8px 18px !important;
+    padding: 8px 16px !important;
     font-size: 0.92rem !important;
     text-decoration: none !important;
     box-shadow: none !important;
@@ -427,710 +1536,1281 @@
     object-fit: contain !important;
   }
 
-</style>
-  <style>
-    :root {
-      --hero-bg: url('parallax-bg.jpg');
-      --primary: #f6dd0d; /* orange */
-      --secondary: #686fb4; /* teal */
-      --radius: 7px;
-      --border: #dcdcdc;
-      --shadow-card: 0 2px 6px rgba(0,0,0,0.08);
-      --shadow-card-lg: 0 4px 12px rgba(0,0,0,0.10);
-      --bg: #f7f7f8;
-      --headerH: 72px;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: var(--bg); }
 
-    
-    /* Header - Matching Landing Page */
-    :root {
-      --container-max: 1200px;
-      --header-pad-y: 16px;
-      --header-pad-x: 18px;
-      --box-border: 3px;
-      --text: #5a5a5a;
-      --text-dark: #3b3b3b;
-    }
-    
-    .site-header {
-      position: fixed;
-      left: 0; right: 0; top: 0;
-      z-index: 998;
-      transition: background 260ms ease, backdrop-filter 260ms ease, padding 260ms ease;
-      background: transparent;
-    }
-    
-    .site-header .inner {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: var(--header-pad-y) var(--header-pad-x);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .brand img {
-      height: 66px;
-      transition: transform 260ms ease, height 260ms ease;
-    }
-    
-    .main-nav {
-      display: flex;
-      gap: 0;
-    }
-    
-    .nav-item {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .nav-item > a {
-      display: flex;
-      align-items: center;
-      padding: 8px 12px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: color 180ms ease;
-      cursor: pointer;
-    }
-    
-    .nav-item > a:hover {
-      color: var(--secondary);
-    }
-    
-    .nav-item > a::after {
-      content: '';
-      width: 0;
-      height: 0;
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-top: 4px solid currentColor;
-      margin-left: 6px;
-      transition: transform 180ms ease;
-    }
-    
-    .nav-item.has-dropdown > a::after {
-      opacity: 1;
-    }
-    
-    .nav-item:not(.has-dropdown) > a::after {
-      display: none;
-    }
-    
-    .nav-item.active > a::after {
-      transform: rotate(180deg);
-    }
-    
-    .main-nav a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      margin: 0 10px;
-      transition: color 180ms ease;
-    }
-    
-    .main-nav a:hover {
-      color: var(--secondary);
-    }
-    
-    .auth-actions {
-      display: flex;
-      align-items: center;
-    }
-    
-    .auth-actions a {
-      text-decoration: none;
-      margin-left: 14px;
-      font-weight: 500;
-      transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
-    }
-    
-    .auth-signin {
-      color: #fff;
-    }
-    
-    .auth-signin:hover {
-      color: var(--primary);
-    }
-    
-    .btn-request-demo {
-      border: var(--box-border) solid #f6dd0d;
-      padding: 6px 14px;
-      border-radius: 3px;
-      background: #f6dd0d;
-      color: #3b3b3b;
-      font-size: 0.92rem;
-    }
-    
-    .btn-request-demo:hover {
-      background: #686fb4;
-      border-color: #686fb4;
-      color: #fff;
-    }
-    
-    /* Header on scroll */
-    .site-header.scrolled {
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: saturate(140%) blur(6px);
-    }
-    
-    .site-header.scrolled .brand img {
-      height: 32px;
-    }
-    
-    .site-header.scrolled .nav-item > a {
-      color: var(--text);
-    }
-    
-    .site-header.scrolled .nav-item > a:hover {
-      color: var(--primary);
-    }
-    
-    .site-header.scrolled .main-nav a {
-      color: var(--text);
-    }
-    
-    .site-header.scrolled .auth-signin {
-      color: var(--text);
-    }
-    
-    /* Responsive */
-    @media(max-width: 768px) {
-      .main-nav { display: none; }
-    }
+  
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 2002 !important;
+  }
 
-.mega-menu {
-  position: fixed;
-  top: 72px;   /* adjust to match header height */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  background: #fff;
-  border-top: 1px solid #e0e0e0;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 200ms ease;
-  z-index: 900; /* below header (999) */
-  overflow-y: auto;
+  .hamburger-menu span {
+    width: 100%;
+    height: 2px;
+    background-color: #f8fafc !important;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .hamburger-menu.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+
+  /* ==========================================================================
+   HEADER & NAVIGATION – PERFECT SINGLE SOURCE OF TRUTH
+   ========================================================================== */
+
+/* ── Resets & Hero zero-gap ── */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+.hero, .hero-carousel, .hero-slide, .hero-overlay {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
-.nav-item.active .mega-menu {
-  position: fixed;
-  top: 72px;   /* adjust to match header height */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  background: #fff;
-  border-top: 1px solid #e0e0e0;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 200ms ease;
-  z-index: 900; /* below header (999) */
-  overflow-y: auto;
+/* ── Outer header shell ── */
+.site-header {
+  position: fixed !important;
+  left: 0 !important; right: 0 !important; top: 0 !important;
+  height: 84px !important;
+  z-index: 9999 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, height 0.3s ease !important;
+  background: transparent !important;
+}
+.site-header.scrolled {
+  height: 70px !important;
+  background: rgba(22, 32, 28, 0.92) !important;
+  backdrop-filter: saturate(140%) blur(12px) !important;
+  border-bottom: 1px solid rgba(120, 173, 148, 0.2) !important;
 }
 
-.mega-menu-content {
-  max-width: var(--container-max);
+/* ── Inner flex container ── */
+.site-header .inner {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* ── Brand / logo (66px prescroll, 53px scrolled) ── */
+.site-header .brand {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  z-index: 2 !important;
+}
+.site-header .brand img {
+  height: 66px !important;
+  width: auto !important;
+  display: block !important;
+  object-fit: contain !important;
+  transition: height 0.3s ease !important;
+}
+.site-header.scrolled .brand img {
+  height: 53px !important;
+}
+
+/* ── Desktop navigation (Horizontally centered at 50% of container) ── */
+.site-header .main-nav {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  white-space: nowrap !important;
+  z-index: 1 !important;
+}
+.site-header .main-nav .nav-item {
+  position: relative !important;
+  display: inline-flex !important;
+}
+.site-header .main-nav a,
+.site-header .main-nav .nav-item > a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 8px 14px !important;
+  color: #f8fafc !important;
+  font-size: 0.93rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border-radius: 4px !important;
+  transition: color 0.2s ease, background 0.2s ease !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+}
+.site-header .main-nav a:hover,
+.site-header .main-nav .nav-item > a:hover,
+.site-header .main-nav .nav-item.active-menu > a {
+  color: #f6dd0d !important;
+  background: rgba(246, 221, 13, 0.12) !important;
+}
+
+/* ── Auth actions (Anchored on the right edge) ── */
+.site-header .auth-actions {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  margin-left: auto !important;
+  z-index: 2 !important;
+}
+.site-header .auth-actions .auth-signin,
+.site-header .auth-signin {
+  color: #f8fafc !important;
+  font-weight: 600 !important;
+  font-size: 0.93rem !important;
+  text-decoration: none !important;
+  padding: 6px 10px !important;
+  white-space: nowrap !important;
+  transition: color 0.2s ease !important;
+  flex-shrink: 0 !important;
+}
+.site-header .auth-actions .auth-signin:hover,
+.site-header .auth-signin:hover { color: #f6dd0d !important; }
+
+/* ── Request Demo button ── */
+.btn-request-demo,
+a.btn-request-demo,
+button.btn-request-demo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  background: #f6dd0d !important;
+  border: 1px solid #f6dd0d !important;
+  border-radius: 4px !important;
+  color: #16201c !important;
+  font-weight: 700 !important;
+  font-size: 0.88rem !important;
+  padding: 8px 18px !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1 !important;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease !important;
+}
+.btn-request-demo:hover,
+a.btn-request-demo:hover {
+  background: #ffe436 !important;
+  border-color: #ffe436 !important;
+  transform: translateY(-1px) !important;
+  color: #16201c !important;
+}
+
+/* ── Hamburger Button (Mobile Only) ── */
+.hamburger-menu {
+  display: none !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  width: 30px !important;
+  height: 30px !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  margin-left: 10px !important;
+  z-index: 10005 !important;
+}
+.hamburger-menu span {
+  display: block !important;
+  width: 100% !important;
+  height: 2.5px !important;
+  background: #f8fafc !important;
+  border-radius: 2px !important;
+  transition: all 0.3s ease !important;
+}
+.hamburger-menu.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg) !important; }
+.hamburger-menu.active span:nth-child(2) { opacity: 0 !important; }
+.hamburger-menu.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg) !important; }
+
+/* ── Responsive Header Adjustments ── */
+@media (max-width: 991px) {
+  .site-header { height: 72px !important; }
+  .hamburger-menu { display: flex !important; }
+  .site-header .main-nav { display: none !important; }
+  .site-header .inner { padding: 0 16px !important; }
+  .site-header .brand img { height: 42px !important; }
+  .site-header.scrolled .brand img { height: 38px !important; }
+}
+@media (max-width: 576px) {
+  .site-header .auth-signin { display: none !important; }
+  .btn-request-demo { padding: 7px 12px !important; font-size: 0.82rem !important; }
+}
+
+/* ── Desktop Full-Screen Mega Menu Overlay (Click-Only) ── */
+.mega-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 84px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 84px);
+  background: rgba(16, 25, 20, 0.98);
+  backdrop-filter: blur(14px);
+  z-index: 99999;
+  overflow-y: auto;
+  border-top: 2px solid rgba(246, 221, 13, 0.4);
+  animation: megaFadeIn 0.22s ease;
+}
+.site-header.scrolled ~ .mega-menu-overlay {
+  top: 70px;
+  height: calc(100vh - 70px);
+}
+.mega-menu-overlay.active {
+  display: block !important;
+}
+@keyframes megaFadeIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mega-menu-content-wrap {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 40px 18px;
+  padding: 40px 40px 60px;
+  position: relative;
+}
+.mega-menu-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 40px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #f8fafc;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  place-items: center;
+  transition: all 0.2s ease;
+  z-index: 1;
 }
-
-.mega-menu-section h4 {
-  color: var(--text-dark);
+.mega-menu-close-btn:hover { background: #f6dd0d; color: #16201c; }
+.mega-menu-header-bar {
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(120,173,148,0.2);
+}
+.mega-menu-main-title {
+  color: #f6dd0d;
+  font-size: 1.4rem;
   font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 20px;
-  font-family: 'Sansation', 'Roboto', sans-serif;
+  margin: 0 0 6px 0;
+  padding-right: 60px;
 }
-
-.mega-menu-item {
-  display: block;
-  padding: 12px 0;
+.mega-menu-main-sub {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+.mega-menu-cols-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.mega-menu-col-box h3 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(246,221,13,0.3);
+}
+.mega-menu-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(120,173,148,0.12);
   text-decoration: none;
-  color: var(--text);
-  transition: color 180ms ease;
-  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
 }
-
-.mega-menu-item:hover {
-  color: var(--primary);
+.mega-menu-card:hover {
+  background: rgba(246,221,13,0.08);
+  border-color: rgba(246,221,13,0.5);
+  transform: translateY(-2px);
 }
-
-.mega-menu-item:last-child {
-  border-bottom: none;
+.mega-menu-card .card-info { flex: 1; }
+.mega-menu-card .card-title {
+  color: #f8fafc;
+  font-size: 0.93rem;
+  font-weight: 700;
+  margin-bottom: 3px;
 }
-
-.mega-menu-item .item-title {
-  font-weight: 500;
-  margin-bottom: 4px;
-  font-size: 15px;
-}
-
-.mega-menu-item .item-desc {
-  font-size: 13px;
-  color: #888;
+.mega-menu-card:hover .card-title { color: #f6dd0d; }
+.mega-menu-card .card-desc {
+  color: #94a3b8;
+  font-size: 0.8rem;
   line-height: 1.4;
 }
-
-.mega-menu.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.mega-menu-cols-grid.usedby-grid {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 900px;
 }
 
-/* Mobile nav adjustments */
+@media (max-width: 991px) {
+  .mega-menu-overlay { display: none !important; }
+}
 
-    /* Hero */
-    .hero {
-      background: var(--hero-bg) center/cover no-repeat;
-      height: 320px; display:flex; align-items:center; justify-content:center;
-      text-align:center; color:#fff; position:relative;
-    }
-    .hero::before { content:""; position:absolute; inset:0; background:rgba(0,0,0,0.5); }
-    .hero-content { position:relative; z-index:1; }
-    .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
-    .hero p { font-size: 1.2rem; margin: 0; }
+/* ── MOBILE DRAWER & 2ND LEVEL SWING-OUT PANELS ── */
+.mobile-drawer-container {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 100000 !important;
+  pointer-events: none;
+}
+@media (max-width: 991px) {
+  .mobile-drawer-container { display: block !important; }
+}
 
-    /* Layout */
-    .page { width:min(1200px,92vw); margin:100px auto 0; display:flex; gap:24px; position:relative; z-index:2; }
-    .apps-area { flex:1 1 auto; }
-    .panel-area { width:0; transition:width .35s ease; flex:0 0 auto; }
-    body.panel-active .panel-area { width:340px; }
+.mobile-drawer-container.active {
+  pointer-events: auto !important;
+}
 
-    .apps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:40px; }
-    @media(max-width:1024px){ .apps-grid{ grid-template-columns:repeat(2,1fr); } }
-    @media(max-width:720px){ .page{ flex-direction:column; } .panel-area{ width:100%!important; } .apps-grid{ grid-template-columns:1fr; } }
+.mobile-drawer-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background 0.35s ease;
+  pointer-events: none;
+}
+.mobile-drawer-container.active::before {
+  background: rgba(0,0,0,0.65);
+  pointer-events: auto;
+}
 
-    /* App Card */
-    .app-card {
-      position:relative; display:flex; gap:12px; align-items:flex-start;
-      background:#fff; border-radius:var(--radius); padding:16px;
-      cursor:pointer; box-shadow:var(--shadow-card);
-      border:2px solid transparent; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-    .app-card:hover { border-color: var(--secondary); transform:translateY(-2px); }
-    .app-card.selected { border-color: var(--primary); box-shadow: var(--shadow-card-lg); }
-    .app-icon { font-size:1.6rem; }
-    .app-content { flex:1; }
-    .app-name { font-weight:700; margin-bottom:3px; }
-    .app-description { font-size:.92rem; color:#666; }
+/* Level 1 Mobile Drawer Panel */
+.mobile-drawer-panel {
+  position: absolute;
+  top: 0;
+  right: -100%;
+  width: 310px;
+  max-width: 85vw;
+  height: 100%;
+  background: #16221c;
+  border-left: 1px solid #283a31;
+  box-shadow: -12px 0 40px rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  z-index: 100001 !important;
+}
+.mobile-drawer-container.active .mobile-drawer-panel {
+  right: 0 !important;
+}
 
-    /* Checkbox */
-    .app-checkbox {
-      position:absolute; top:-10px; right:-10px;
-      width:22px; height:22px; border:2px solid var(--secondary); border-radius:4px;
-      background:#fff; display:none; align-items:center; justify-content:center;
-      font-size:14px; font-weight:bold; color:#fff; transition:all .25s ease;
-    }
-    .app-card.selected .app-checkbox { display:flex; background:var(--primary); border-color:var(--primary); }
-
-    /* Panel */
-    .panel-shell { position:relative; }
-    .selected-apps-panel {
-      width:100%; background:#fff; border-radius:var(--radius);
-      box-shadow:var(--shadow-card-lg); padding:14px;
-      opacity:0; transform:translateX(24px); transition:opacity .35s ease, transform .35s ease;
-    }
-    body.panel-active .selected-apps-panel { opacity:1; transform:translateX(0); }
-    .panel-title { font-weight:800; margin-bottom:8px; }
-    .selected-list { list-style:none; margin:0; padding:0; max-height:48vh; overflow:auto; }
-    .selected-item { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed var(--border); }
-    .sel-label { display:flex; gap:8px; align-items:center; }
-    .remove-btn { border:none; background:transparent; cursor:pointer; color:#999; }
-    .remove-btn:hover { color:#e74c3c; }
-    .panel-note { margin-top:10px; padding:10px; background:#fafafa; border:1px solid var(--border); border-radius:var(--radius); text-align:center; font-size:.9rem; }
-    .btn { display:block; width:100%; padding:11px; border-radius:var(--radius); cursor:pointer; margin-top:8px; }
-    .btn-gray { background:#f4f4f4; border:1px solid #ccc; }
-    .btn-blue { background: var(--secondary); color:#fff; border:none; }
-
-    /* Footer */
-    /* FOOTER - Matching Appointment System */
-    .site-footer{background:#2f2f2f;color:#fff;margin-top:56px;padding:40px 20px}
-    .footer-logo{text-align:center;margin-bottom:24px}
-    .footer-logo img{height:54px}
-    .footer-columns{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto;text-align:left}
-    .footer-col h4{font-size:1rem;margin-bottom:12px;color:#fff}
-    .footer-col ul{list-style:none;padding:0;margin:0}
-    .footer-col ul li{margin-bottom:8px}
-    .footer-col ul li a{color:#fff;text-decoration:none;font-size:0.9rem;opacity:0.9}
-    .footer-col ul li a:hover{opacity:1;text-decoration:underline}
-    .footer-social{display:flex;gap:16px;margin-top:16px;justify-content:flex-start}
-    @media(max-width:720px){
-      .footer-columns{grid-template-columns:1fr;text-align:center}
-      .footer-social{justify-content:center}
-    }
-
-    .footer-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;transition:all 0.3s ease;font-size:18px}
-    .footer-social a:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
-    .footer-social a.facebook:hover{background:#1877F2}
-    .footer-social a.twitter:hover{background:#000}
-    .footer-social a.youtube:hover{background:#FF0000}
-    .footer-social a.instagram:hover{background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF,#515BD4)}
-    .footer-social a.tiktok:hover{background:#000}
-    .footer-social svg{width:20px;height:20px;fill:currentColor}
-  </style>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/sansation" rel="stylesheet">
-<style id="live-overrides">
-  :root {
-    --secondary: #686fb4; /* greener sage */
-  }
-  body { font-family: 'Roboto', sans-serif; color:#888; }
-  /* Lift app list */
-  .page { margin-top: 15px !important; }
-  /* Hero title playful Sour Gummy */
-  .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
-  .hero p { font-size: 1.2rem; margin: 0; }
-  /* Footer styling */
-  .site-footer { background:#444; color:#fff; margin-top:56px; padding:40px 20px; }
-  .footer-logo { text-align:center; margin-bottom:24px; }
-  .footer-logo img { height:54px; }
-  .footer-columns { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; max-width:1200px; margin:0 auto; text-align:left; }
-  .footer-col h4 { font-size:1rem; margin-bottom:12px; color:#fff; }
-  .footer-col ul { list-style:none; padding:0; margin:0; }
-  .footer-col ul li { margin-bottom:8px; }
-  .footer-col ul li a { color:#fff; text-decoration:none; font-size:0.9rem; opacity:0.9; }
-  .footer-col ul li a:hover { opacity:1; text-decoration:underline; }
-  .footer-social { display:flex; gap:12px; margin-top:12px; }
-  .footer-social a { color:#fff; font-size:1.2rem; opacity:0.9; }
-  .footer-social a:hover { opacity:1; }
-  @media(max-width:720px){ .footer-columns{ grid-template-columns:1fr; text-align:center; } }
-</style>
-
-<style id="live-overrides-v2">
-  /* Hero title only 60% bigger than subtitle (1.2rem -> 2rem) */
-  .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
-
-  /* Subtitle stays 1.2rem */
-  .hero p { font-size: 1.2rem; margin: 0; }
-
-  /* Try it free button smaller radius + hover to secondary */
-  .auth .try { border-radius:3px !important; }
-  .auth .try:hover { background: var(--secondary) !important; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
-
-  /* Main nav hover with secondary color */
-  .nav a:hover { border-bottom:2px solid var(--secondary) !important; color:var(--secondary) !important; }
-
-  /* App group titles darker gray */
-  .apps-area h2 { color:#666 !important; margin:24px 0 16px; font-size:1.4rem; }
-
-  /* Ensure panels match width consistently */
-  .panel-shell, .selected-apps-panel { min-width:340px !important; max-width:340px !important; }
-</style>
-
-
-<style id="live-overrides-v3">
-  /* Page title bigger (30% bigger than current 2rem -> 2.6rem) and wider span */
-  .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
-
-  /* Panel transition smoother */
-  .panel-shell, .selected-apps-panel { transition: all .6s ease !important; }
-
-  /* Continue button styled like Try it free */
-  #continueBtn { background: var(--primary) !important; color:#fff !important; font-size:.8rem; border-radius:3px !important; transition: background .3s ease, box-shadow .3s ease; }
-  #continueBtn:hover { background: var(--secondary) !important; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
-
-  /* Trial note subtle background */
-  .panel-note { background: rgba(143, 184, 114, 0.12) !important; border:1px solid var(--secondary) !important; }
-</style>
-
-
-<style id="live-overrides-v4">
-  /* Page title another 30% bigger (2.6rem -> ~3.4rem) */
-  .hero h1 { font-family: 'Sansation', 'Roboto', sans-serif; font-size: 2.8rem; margin: 0 0 10px; font-weight: 700; }
-</style>
-
-
-<style id="live-overrides-v11">
-  /* Selected Apps Panel: cap overall height and scroll inside */
-  .selected-apps-panel {
-    max-height: 300px !important;
-    overflow-y: auto !important;
-    padding-right: 4px;
-  }
-
-  /* Scrollbar styling */
-  .selected-apps-panel::-webkit-scrollbar {
-    width: 8px;
-  }
-  .selected-apps-panel::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.05);
-    border-radius: 4px;
-  }
-  .selected-apps-panel::-webkit-scrollbar-thumb {
-    background: #8FB872;
-    border-radius: 4px;
-  }
-  .selected-apps-panel::-webkit-scrollbar-thumb:hover {
-    background: #779d5f;
-  }
-  .selected-apps-panel {
-    scrollbar-width: thin;
-    scrollbar-color: #8FB872 rgba(0,0,0,0.05);
-  }
-</style>
-
-
-<style id="live-overrides-v13">
-  /* Responsive max-height for selected apps panel */
-  .selected-apps-panel {
-    max-height: 300px;
-    overflow-y: auto;
-    padding-right: 4px;
-  }
-
-  @media (max-width: 992px) {
-    .selected-apps-panel { max-height: 40vh; }
-  }
-  @media (max-width: 600px) {
-    .selected-apps-panel { max-height: 60vh; }
-  }
-
-  /* Scrollbar styling */
-  .selected-apps-panel::-webkit-scrollbar {
-    width: 8px;
-  }
-  .selected-apps-panel::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.05);
-    border-radius: 4px;
-  }
-  .selected-apps-panel::-webkit-scrollbar-thumb {
-    background: #8FB872;
-    border-radius: 4px;
-  }
-  .selected-apps-panel::-webkit-scrollbar-thumb:hover {
-    background: #779d5f;
-  }
-  .selected-apps-panel {
-    scrollbar-width: thin;
-    scrollbar-color: #8FB872 rgba(0,0,0,0.05);
-  }
-
-  /* Continue button styling */
-  #continueBtn {
-    display: block;
-    margin: 12px auto 0;
-    padding: 10px 20px;
-    background: #f90;
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-  }
-  #continueBtn:hover {
-    background: #cc7a00;
-  }
-</style>
-
-
-<style id="live-overrides-v14">
-  .main-continue-container {
-    margin-top: 20px;
-    text-align: center;
-  }
-  .main-continue-btn {
-    padding: 12px 24px;
-    background: #f90;
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-  }
-  .main-continue-btn:hover {
-    background: #cc7a00;
-  }
-</style>
-
-
-<style id="live-overrides-v15">
-  /* Main continue button under app list */
-  .main-continue-container {
-    margin-top: 20px;
-    text-align: center;
-  }
-  .main-continue-btn {
-    padding: 12px 24px;
-    background: #f90;
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-  }
-  .main-continue-btn:hover {
-    background: #cc7a00;
-  }
-
-  /* Light border around side panel */
-  .selected-apps-panel {
-    border: 1px solid #888 !important; /* same gray as general font */
-    border-radius: 8px !important;
-  }
-</style>
-
-
-<style id="live-overrides-v16">
-  /* Main continue button in its own div */
-  .main-continue-container {
-    margin: 30px auto;
-    text-align: center;
-    width: 100%;
-  }
-  .main-continue-btn {
-    padding: 12px 24px;
-    background: #f90;
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-  }
-  .main-continue-btn:hover {
-    background: #cc7a00;
-  }
-
-  /* Side panel border in primary orange */
-  .selected-apps-panel {
-    border: 1px solid #f90 !important;
-    border-radius: 8px !important;
-  }
-</style>
-
-
-<style id="live-overrides-v17">
-  /* Main continue button */
-  .main-continue-container {
-    margin: 30px auto;
-    text-align: center;
-    width: 100%;
-  }
-  .main-continue-btn {
-    padding: 12px 24px;
-    background: #f90;
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-  }
-  .main-continue-btn:hover {
-    background: #cc7a00;
-  }
-
-  /* Side panel border weight to match app boxes (2px) */
-  .selected-apps-panel {
-    border: 2px solid #f90 !important;
-    border-radius: 8px !important;
-  }
-</style>
-
-
-<style id="live-overrides-v22">
-  /* Shared Continue Button Styling */
-  #continueBtnMain,
-  #continueBtnPanel {
-    display: block;
-    margin: 12px auto 0;
-    padding: 12px 24px;
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-  }
-  #continueBtnMain:hover,
-  #continueBtnPanel:hover {
-    background: var(--secondary);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
-  /* Ensure main button centers under app grid */
-  #continueBtnMain {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-
-/* Pricing card hover */
-.price-card {
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+.mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+.mobile-drawer-close-btn {
+  background: none;
+  border: none;
+  color: #f8fafc;
+  font-size: 1.6rem;
+  line-height: 1;
   cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s ease;
 }
-.price-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card-lg);
-  border-color: var(--secondary);
-}
+.mobile-drawer-close-btn:hover { color: #f6dd0d; }
 
-/* Pricing buttons hover fix */
-.price-card .btn {
-  text-decoration: none !important;
-  display: inline-block;
-  margin-top: 12px;
-  width: auto;
+.mobile-nav-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 0;
 }
-.price-card .btn:hover {
-  background: var(--secondary) !important;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  color: #e8f0ec;
+  font-size: 0.97rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
-
-/* Remove underline from bottom CTA buttons */
-.help-cta .btn {
-  text-decoration: none !important;
+.mobile-nav-item:hover {
+  background: rgba(246,221,13,0.08);
+  color: #f6dd0d;
 }
-
-.help-cta .btn:hover {
-  text-decoration: none !important;
-}
-
-/* Trim 40px from the top of the Help section without breaking layout */
-.help-center {
-  padding-top: 12px !important;  /* was 40px, -16 */
-}
-
-.help-hero {
-  padding-top: 10px !important;  /* was 36px, -16 */
+.nav-swing-arrow {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.4);
 }
 
-.help-search {
-  margin-top: 12px !important;   /* was 20px, -8 */
+.mobile-drawer-footer {
+  padding: 18px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.mobile-drawer-footer .auth-signin {
+  text-align: center;
+  padding: 10px;
+  color: #f8fafc;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+}
+.mobile-drawer-footer .btn-request-demo {
+  text-align: center;
+  display: block;
 }
 
+/* Level 2 Subpanels (Swings out to right, overlays Level 1 panel) */
+.mobile-subpanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 310px;
+  max-width: 85vw;
+  height: 100%;
+  background: #18261f;
+  border-left: 1px solid #283a31;
+  box-shadow: -12px 0 40px rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100002 !important;
+  overflow-y: auto;
+}
+.mobile-subpanel.active {
+  transform: translateX(0) !important;
+}
 
-</style>
+.mobile-subpanel-header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+.subpanel-back-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.88rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+.subpanel-back-btn:hover { color: #f6dd0d; }
+.subpanel-title {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+}
+.mobile-subpanel-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 14px;
+}
+.subpanel-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.subpanel-card:hover {
+  background: rgba(246,221,13,0.08);
+  border-color: rgba(246,221,13,0.3);
+}
+.subpanel-card .card-title {
+  color: #f0f4f0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: block;
+}
+.subpanel-card .card-desc {
+  color: #6b7f77;
+  font-size: 0.78rem;
+  display: block;
+  margin-top: 2px;
+}
 
+/* Flat icon badges */
+.flat-icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.badge-gold    { background: rgba(246,221,13,0.15); color: #f6dd0d; }
+.badge-green   { background: rgba(34,197,94,0.15);  color: #22c55e; }
+.badge-blue    { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.badge-amber   { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.badge-emerald { background: rgba(16,185,129,0.15); color: #10b981; }
+.badge-purple  { background: rgba(168,85,247,0.15); color: #a855f7; }
+
+
+    /* Top-Left Standalone Checkbox (No Text) */
+    .app-select-wrapper {
+      position: absolute !important;
+      top: 10px !important;
+      left: 10px !important;
+      z-index: 30 !important;
+      pointer-events: auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .app-select-checkbox {
+      width: 20px !important;
+      height: 20px !important;
+      accent-color: #f6dd0d !important;
+      cursor: pointer !important;
+      margin: 0 !important;
+      z-index: 30 !important;
+      background: #101915 !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 4px !important;
+    }
+    .app-card.selected {
+      border-color: #f6dd0d !important;
+      box-shadow: 0 0 20px rgba(246, 221, 13, 0.45) !important;
+    }
+
+  
+    /* Clear Selections Button & Tooltip Popover High-Visibility Styling */
+    .btn-clear-selections {
+      background: rgba(246, 221, 13, 0.18) !important;
+      border: 1.5px solid #f6dd0d !important;
+      color: #f6dd0d !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      border-radius: 4px !important;
+      padding: 5px 14px !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+    .btn-clear-selections:hover {
+      background: #f6dd0d !important;
+      color: #16201c !important;
+      border-color: #ffe436 !important;
+      box-shadow: 0 4px 14px rgba(246, 221, 13, 0.4) !important;
+    }
+    .clear-selections-wrapper {
+      position: relative !important;
+      display: inline-block !important;
+    }
+    .clear-selections-tooltip {
+      position: absolute !important;
+      top: 100% !important;
+      right: 0 !important;
+      margin-top: 10px !important;
+      width: max-content !important;
+      min-width: 220px !important;
+      max-width: 360px !important;
+      background-color: #16221c !important;
+      background: #16221c !important;
+      border: 2px solid #f6dd0d !important;
+      border-radius: 8px !important;
+      padding: 14px 18px !important;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85) !important;
+      z-index: 999999 !important;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+      transform: translateY(6px);
+      pointer-events: none;
+    }
+    .clear-selections-wrapper:hover .clear-selections-tooltip,
+    .btn-clear-selections:hover + .clear-selections-tooltip {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      pointer-events: auto !important;
+      background-color: #16221c !important;
+    }
+    .tooltip-title {
+      font-size: 0.78rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      color: #f6dd0d !important;
+      margin-bottom: 8px !important;
+      padding-bottom: 6px !important;
+      border-bottom: 1px dashed rgba(246, 221, 13, 0.3) !important;
+    }
+    .tooltip-modules-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      font-size: 0.88rem !important;
+      color: #ffffff !important;
+    }
+    .tooltip-modules-list li {
+      padding: 4px 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      color: #f8fafc !important;
+    }
+    .tooltip-modules-list li::before {
+      content: '✓' !important;
+      color: #f6dd0d !important;
+      font-weight: 700 !important;
+    }
+
+  
+    /* Allow dropdown tooltips to float outside panel cards without clipping */
+    .panel-card, .panel-header, .panel-card .panel-header {
+      overflow: visible !important;
+    }
+    
+    /* High-Visibility Clear Selections Button & Hover Dropdown */
+    .btn-clear-selections {
+      background: rgba(246, 221, 13, 0.18) !important;
+      border: 1.5px solid #f6dd0d !important;
+      color: #f6dd0d !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      border-radius: 4px !important;
+      padding: 6px 14px !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      position: relative !important;
+      z-index: 100 !important;
+    }
+    .btn-clear-selections:hover {
+      background: #f6dd0d !important;
+      color: #16201c !important;
+      border-color: #ffe436 !important;
+      box-shadow: 0 4px 16px rgba(246, 221, 13, 0.5) !important;
+      transform: translateY(-1px) !important;
+    }
+    .clear-selections-wrapper {
+      position: relative !important;
+      display: inline-block !important;
+      z-index: 1000 !important;
+    }
+    .clear-selections-tooltip {
+      position: absolute !important;
+      top: 100% !important;
+      right: 0 !important;
+      margin-top: 10px !important;
+      width: max-content !important;
+      min-width: 240px !important;
+      max-width: 380px !important;
+      background-color: #16221c !important;
+      background: #16221c !important;
+      border: 2.5px solid #f6dd0d !important;
+      border-radius: 8px !important;
+      padding: 14px 18px !important;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.9) !important;
+      z-index: 9999999 !important;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+      transform: translateY(8px);
+      pointer-events: none;
+    }
+    .clear-selections-wrapper:hover .clear-selections-tooltip,
+    .btn-clear-selections:hover + .clear-selections-tooltip,
+    .clear-selections-tooltip:hover {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      pointer-events: auto !important;
+      background-color: #16221c !important;
+      background: #16221c !important;
+    }
+    .tooltip-title {
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      color: #f6dd0d !important;
+      margin-bottom: 10px !important;
+      padding-bottom: 6px !important;
+      border-bottom: 1px dashed rgba(246, 221, 13, 0.4) !important;
+    }
+    .tooltip-modules-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      font-size: 0.88rem !important;
+      color: #ffffff !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 6px !important;
+    }
+    .tooltip-modules-list li {
+      padding: 4px 10px !important;
+      background: rgba(246, 221, 13, 0.15) !important;
+      border: 1px solid rgba(246, 221, 13, 0.4) !important;
+      border-radius: 6px !important;
+      color: #f8fafc !important;
+      font-weight: 600 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+    }
+    .tooltip-modules-list li::before {
+      content: '✓' !important;
+      color: #f6dd0d !important;
+      font-weight: 800 !important;
+    }
+
+  </style>
+
+
+  <style>
+    .page-header-banner {
+      position: relative;
+      height: 270px !important;
+      padding-top: var(--headerH, 84px);
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      text-align: center;
+      padding-bottom: 24px;
+      border-bottom: none !important;
+    }
+    .page-header-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(16, 25, 21, 0.65) 0%, rgba(16, 25, 21, 0.94) 100%);
+      z-index: 1;
+    }
+    .page-header-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    .page-header-content h1 {
+      font-family: 'Sansation', 'Roboto', sans-serif;
+      font-size: 2.1rem !important;
+      font-weight: 700;
+      color: #ffffff !important;
+      margin: 0 0 6px 0;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .page-breadcrumb {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .page-breadcrumb a {
+      color: #f6dd0d !important;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .page-breadcrumb a:hover { text-decoration: underline; }
+    .page-breadcrumb .sep { color: #64748b; }
+
+    body {
+      background-color: #101915 !important;
+      color: #cbd5e1 !important;
+    }
+    .card, .pricing-card, .plan-card, .help-hero, .help-card, .kb-card, .contact-card, .faq-item, .box, .panel {
+      background: #16221c !important;
+      border: 1px solid #283a31 !important;
+      color: #cbd5e1 !important;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+      border-radius: 8px !important;
+    }
+    h1, h2, h3, h4, h5, h6, .card-title, .pricing-title, .plan-name, .faq-question, .hero-title {
+      color: #ffffff !important;
+    }
+    p, li, span, div, td, label {
+      color: #cbd5e1;
+    }
+    input, select, textarea {
+      background: #101915 !important;
+      border: 1px solid #283a31 !important;
+      color: #ffffff !important;
+      border-radius: 4px !important;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #f6dd0d !important;
+      box-shadow: 0 0 0 3px rgba(246, 221, 13, 0.2) !important;
+    }
+    table {
+      background: #16221c !important;
+      color: #cbd5e1 !important;
+      border-color: #283a31 !important;
+    }
+    th {
+      background: #1f3129 !important;
+      color: #f6dd0d !important;
+      border-bottom: 2px solid #283a31 !important;
+    }
+    td {
+      border-bottom: 1px solid #283a31 !important;
+      color: #cbd5e1 !important;
+    }
+    .pricing-price, .price, .amount, .highlight, .currency {
+      color: #f6dd0d !important;
+    }
+    .btn, .btn-primary, .btn-main, .btn-gold, .btn-cta {
+      background: #f6dd0d !important;
+      color: #16201c !important;
+      font-weight: 700 !important;
+      border: none !important;
+      transition: all 0.2s ease !important;
+    }
+    .btn:hover, .btn-primary:hover, .btn-main:hover, .btn-gold:hover, .btn-cta:hover {
+      background: #ffe436 !important;
+      color: #16201c !important;
+      box-shadow: 0 4px 14px rgba(246, 221, 13, 0.4) !important;
+    }
+    .btn-outline, .btn-secondary, .btn-light {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: #ffffff !important;
+    }
+    .btn-outline:hover, .btn-secondary:hover, .btn-light:hover {
+      background: #f6dd0d !important;
+      color: #16201c !important;
+    }
+    .site-footer {
+      background: #0c1310 !important;
+      border-top: 1px solid #283a31 !important;
+    }
+  </style>
 
 </head>
 <body>
-    <header class="site-header" id="siteHeader">
+
+<header class="site-header" id="siteHeader">
+    <div class="inner">
+      <div class="brand">
+        <a href="landing_enhanced.html" style="display:flex; align-items:center; text-decoration:none;">
+          <img id="brandLogo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP - Sugar Management System">
+        </a>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="main-nav" id="mainNav">
+        <div class="nav-item">
+          <a href="#" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'appsMegaMenu')">
+            <span>Apps</span> <span class="chevron-icon">▼</span>
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="features.html">Features</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="#" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'usedbyMegaMenu')">
+            <span>Used By</span> <span class="chevron-icon">▼</span>
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="forum/index.html">Community</a>
+        </div>
+        <div class="nav-item">
+          <a href="pricing.html">Pricing</a>
+        </div>
+        <div class="nav-item">
+          <a href="help.html" class="active">Help</a>
+        </div>
+      </nav>
+
+      <!-- Auth Actions -->
+      <div class="auth-actions">
+        <a class="auth-signin" href="#" onclick="openAuthModal('signin'); return false;">Sign in</a>
+        <a class="btn-request-demo" href="appointment.html">Request Demo</a>
+      </div>
+
+      <!-- Hamburger Button (Mobile Only) -->
+      <button class="hamburger-menu" id="hamburgerBtn" onclick="toggleMobileDrawer(event)" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 100% WIDTH & 100% HEIGHT DESKTOP MEGA MENUS (CLICK ONLY) -->
+  <!-- Mega Menu 1: Apps -->
+  <div class="mega-menu-overlay" id="appsMegaMenu">
+    <div class="mega-menu-content-wrap">
+      <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
+      <div class="mega-menu-header-bar">
+        <h2 class="mega-menu-main-title">Synergy Bravo ERP — Applications Suite</h2>
+        <p class="mega-menu-main-sub">Complete enterprise modules tailored for sugar cane mills, agricultural supply chains, and factory operations.</p>
+      </div>
+      <div class="mega-menu-cols-grid">
+        <div class="mega-menu-col-box">
+          <h3>Agriculture & Field Operations</h3>
+          
+          <a href="apps.html#farmer-mobile" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-green">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Farmer & Field Mobile</div>
+              <div class="card-desc">Plot mapping, grower contracts, harvest scheduling, GPS tracking</div>
+            </div>
+          </a>
+
+          <a href="apps.html#weighbridge" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-gold">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M3 9v6a3 3 0 003 3h12a3 3 0 003-3V9"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Weighbridge Scale Sync</div>
+              <div class="card-desc">Gross & tare scale automation, grower tickets, lab sucrose sync</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Factory & Milling Operations</h3>
+          
+          <a href="apps.html#milling" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-amber">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Sugar Mill Processing</div>
+              <div class="card-desc">Milling rate, juice extraction, boiler energy, lab quality</div>
+            </div>
+          </a>
+
+          <a href="apps.html#inventory" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-blue">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Supply Chain & Inventory</div>
+              <div class="card-desc">Raw cane queue, sugar warehouse, logistics & dispatch</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Enterprise Core & AI</h3>
+          
+          <a href="apps.html#financials" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-emerald">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22m5-18H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Financials & Settlements</div>
+              <div class="card-desc">Grower settlements, multi-currency invoicing, payroll, ledger</div>
+            </div>
+          </a>
+
+          <a href="apps.html#ai-traceability" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-purple">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">AI & Real-Time Traceability</div>
+              <div class="card-desc">Laboratory AI analytics, predictive yield, real-time sensor sync</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mega Menu 2: Used By -->
+  <div class="mega-menu-overlay" id="usedbyMegaMenu">
+    <div class="mega-menu-content-wrap">
+      <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
+      <div class="mega-menu-header-bar">
+        <h2 class="mega-menu-main-title">Industries & Operational Scale</h2>
+        <p class="mega-menu-subtitle">Designed for enterprise sugar producers, cooperatives, logistics fleets, and commodity exporters.</p>
+      </div>
+      <div class="mega-menu-cols-grid">
+        <div class="mega-menu-col-box">
+          <h3>Sugar Milling Industry</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-amber">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Sugar Mills & Refineries</div>
+              <div class="card-desc">Integrated milling, juice extraction, and sugar quality control</div>
+            </div>
+          </a>
+
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-green">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Agro-Industrial Enterprises</div>
+              <div class="card-desc">Large-scale plantation management, farmer contracts, & field mobile</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Grower Networks & Cooperatives</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-emerald">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Cooperative Farmer Networks</div>
+              <div class="card-desc">Harvest scheduling, cane delivery tracking, & weighbridge ticket sync</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="mega-menu-col-box">
+          <h3>Logistics & Commodity Trade</h3>
+          
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-blue">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Transport & Logistics Fleets</div>
+              <div class="card-desc">Fleet GPS, weighbridge queue management, & scale automation</div>
+            </div>
+          </a>
+
+          <a href="#usedby" class="mega-menu-card" onclick="closeAllMegaMenus()">
+            <div class="flat-icon-badge badge-purple">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <div class="card-info">
+              <div class="card-title">Export & Commodity Trading</div>
+              <div class="card-desc">Warehouse inventory, export documentation, & sugar invoicing</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE NAVIGATION DRAWER & 2ND LEVEL SWING-OUT PANELS -->
+  <div class="mobile-drawer-container" id="mobileDrawerContainer">
+    <!-- Level 1 Mobile Drawer -->
+    <div class="mobile-drawer-panel" id="mobileDrawerPanel">
+      <div class="mobile-drawer-header">
+        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Sugar" style="height: 36px;">
+        <button class="mobile-drawer-close-btn" onclick="closeMobileDrawer()">&times;</button>
+      </div>
+
+      <div class="mobile-nav-list">
+        <div class="mobile-nav-item" onclick="openMobileSubpanel('mobileSubpanelApps')">
+          <span>Apps & Modules</span>
+          <span class="nav-swing-arrow">›</span>
+        </div>
+
+        <a href="features.html" class="mobile-nav-item" onclick="closeMobileDrawer()">
+          <span>Features</span>
+        </a>
+
+        <div class="mobile-nav-item" onclick="openMobileSubpanel('mobileSubpanelUsedby')">
+          <span>Used By (Industries)</span>
+          <span class="nav-swing-arrow">›</span>
+        </div>
+
+        <a href="forum/index.html" class="mobile-nav-item" onclick="closeMobileDrawer()">
+          <span>Community</span>
+        </a>
+        <a href="pricing.html" class="mobile-nav-item" onclick="closeMobileDrawer()">
+          <span>Pricing</span>
+        </a>
+        <a href="help.html" class="mobile-nav-item" onclick="closeMobileDrawer()">
+          <span>Help</span>
+        </a>
+      </div>
+
+      <div class="mobile-drawer-footer">
+        <a class="auth-signin" href="#" onclick="openAuthModal('signin'); closeMobileDrawer(); return false;">Sign in</a>
+        <a class="btn-request-demo" href="appointment.html" onclick="closeMobileDrawer()">Request Demo</a>
+      </div>
+    </div>
+
+    <!-- Level 2 Mobile Subpanel: Apps (Swings out to the Right) -->
+    <div class="mobile-subpanel" id="mobileSubpanelApps">
+      <div class="mobile-subpanel-header">
+        <button class="subpanel-back-btn" onclick="closeMobileSubpanel('mobileSubpanelApps')">
+          ← Back to Main Menu
+        </button>
+        <h3 class="subpanel-title">Apps & Core Modules</h3>
+      </div>
+
+      <div class="mobile-subpanel-list">
+        <a href="apps.html#farmer-mobile" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-green">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Farmer & Field Mobile</div>
+            <div class="card-desc">Plot mapping, grower contracts, GPS tracking</div>
+          </div>
+        </a>
+
+        <a href="apps.html#weighbridge" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-gold">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M3 9v6a3 3 0 003 3h12a3 3 0 003-3V9"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Weighbridge Scale Sync</div>
+            <div class="card-desc">Gross & tare automation, tickets</div>
+          </div>
+        </a>
+
+        <a href="apps.html#milling" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-amber">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Sugar Mill Processing</div>
+            <div class="card-desc">Milling rate, juice extraction, lab quality</div>
+          </div>
+        </a>
+
+        <a href="apps.html#inventory" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-blue">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Supply Chain & Inventory</div>
+            <div class="card-desc">Raw cane queue, sugar warehouse</div>
+          </div>
+        </a>
+
+        <a href="apps.html#financials" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-emerald">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22m5-18H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Financials & Settlements</div>
+            <div class="card-desc">Grower settlements, invoicing, payroll</div>
+          </div>
+        </a>
+
+        <a href="apps.html#ai-traceability" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-purple">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div>
+            <div class="card-title">AI & Real-Time Traceability</div>
+            <div class="card-desc">Laboratory AI analytics, predictive yield</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Level 2 Mobile Subpanel: Used By (Swings out to the Right) -->
+    <div class="mobile-subpanel" id="mobileSubpanelUsedby">
+      <div class="mobile-subpanel-header">
+        <button class="subpanel-back-btn" onclick="closeMobileSubpanel('mobileSubpanelUsedby')">
+          ← Back to Main Menu
+        </button>
+        <h3 class="subpanel-title">Industries & Operational Scale</h3>
+      </div>
+
+      <div class="mobile-subpanel-list">
+        <a href="#usedby" class="subpanel-card" onclick="closeMobileDrawer()">
+          <div class="flat-icon-badge badge-amber">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11"/></svg>
+          </div>
+
+
+  <section class="page-header-banner" style="background-image: url('assets/images/slides/home-bg-1.jpg');">
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <h1>Help & Support Center</h1>
+      <div class="page-breadcrumb">
+        <a href="landing_enhanced.html">Home</a>
+        <span class="sep">/</span>
+        <span>Help</span>
+      </div>
+    </div>
+  </section>
+
+
+<main style="padding: 40px 0 80px 0; background: #101915;">
+
+    ader class="site-header" id="siteHeader">
     <div class="inner">
       <div class="brand">
         <a href="landing_enhanced.html">
@@ -1278,65 +2958,7 @@
     </section>
   </div>
   <!-- FOOTER - Matching Appointment System -->
-  <footer class="site-footer">
-    <div class="footer-logo" style="display: flex !important; justify-content: center !important; align-items: center !important; margin: 0 auto 28px auto !important; width: 100% !important; text-align: center !important;"><img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" style="height: 54px !important; margin: 0 auto !important; display: block !important;"></div>
-    <div class="footer-columns">
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="forum/index.html">Blog</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Documentation</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Security</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">     
-        <h4>Connect with us</h4>
-        <div class="footer-social">
-          <a href="#" class="facebook" title="Facebook">
-            <svg viewBox="0 0 24 24">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-          </a>
-          <a href="#" class="twitter" title="X (Twitter)">
-            <svg viewBox="0 0 24 24">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
-          </a>
-          <a href="#" class="youtube" title="YouTube">
-            <svg viewBox="0 0 24 24">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-          </a>
-          <a href="#" class="instagram" title="Instagram">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-          </a>
-          <a href="#" class="tiktok" title="TikTok">
-            <svg viewBox="0 0 24 24">
-              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     (function($){
@@ -2017,6 +3639,1030 @@ document.querySelectorAll('.faq-question').forEach(question => {
   }
 
   </script>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-logo" style="display: flex !important; justify-content: center !important; align-items: center !important; margin: 0 auto 28px auto !important; width: 100% !important; text-align: center !important;"><img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" style="height: 54px !important; margin: 0 auto !important; display: block !important;"></div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="forum/index.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Documentation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html">Terms of Service</a></li>
+          <li><a href="security.html">Security</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">     
+        <h4>Connect with us</h4>
+        <div class="footer-social">
+          <a href="http://facebook.com/synergysugar" target="_blank" class="facebook" title="Facebook">
+            <svg viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="http://twitter.com/synergysugar" target="_blank" class="twitter" title="X (Twitter)">
+            <svg viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="http://youtube.com/@synergysugar" target="_blank" class="youtube" title="YouTube">
+            <svg viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="http://instagram.com/synergysugar" target="_blank" class="instagram" title="Instagram">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href="http://tiktok.com/@synergysugar" target="_blank" class="tiktok" title="TikTok">
+            <svg viewBox="0 0 24 24">
+              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap + minimal JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- Sign In Modal -->
+  
+
+
+  
+
+  <!-- SINGLE UNIFIED AUTH MODAL -->
+  <div id="signInModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 20000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto;">
+    <div class="modal-content" style="position: relative; width: 100%; max-width: 440px; background: #1e2b25; border: 1px solid #364e43; border-radius: 3px !important; padding: 36px 30px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6); color: #f8fafc;">
+      <span class="modal-close" onclick="closeSignInModal()" style="position: absolute; right: 18px; top: 14px; font-size: 26px; color: #cbd5e1; cursor: pointer; line-height: 1;">&times;</span>
+      
+      <!-- Top Horizontal Centered Logo & Header Text -->
+      <div class="modal-header" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px;">
+        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Bravo ERP" class="modal-logo" style="height: 46px; width: auto; margin: 0 auto 12px auto; display: block; object-fit: contain;">
+        <h2 class="modal-title" id="modalTitle" style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin: 0 0 6px 0; text-align: center;">Welcome Back</h2>
+        <p class="modal-subtitle" id="modalSubtitle" style="font-size: 0.875rem; color: #94a3b8; margin: 0; line-height: 1.4; text-align: center;">Sign in to your Synergy Bravo ERP account</p>
+      </div>
+
+      <div id="authMessage" style="display: none; padding: 12px; margin-bottom: 16px; border-radius: 3px; font-size: 0.875rem; text-align: center;"></div>
+
+      <!-- Sign In Form -->
+      <form id="signInForm" class="modal-form" onsubmit="handleSignIn(event);">
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="signin-email" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Email Address</label>
+          <input type="email" id="signin-email" placeholder="you@company.com" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="signin-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Password</label>
+          <div style="position: relative;">
+            <input type="password" id="signin-password" placeholder="Enter your password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+            <span class="toggle-password" onclick="toggleModalPassword('signin-password', this)" style="position: absolute; right: 12px; top: 10px; cursor: pointer; font-size: 1.1rem; color: #94a3b8;">👁</span>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 0;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #cbd5e1; cursor: pointer;">
+            <input type="checkbox" style="width: 16px; height: 16px;">
+            <span>Remember me</span>
+          </label>
+          <a href="#" style="color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Forgot password?</a>
+        </div>
+        <button type="submit" class="modal-btn" style="width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 3px !important; color: #16201c; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s ease;">Sign In</button>
+        <div style="text-align: center; margin-top: 20px; font-size: 0.875rem; color: #94a3b8;">
+          Don't have an account? <a href="#" onclick="switchAuthTab('register'); return false;" style="color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer;">Sign Up</a>
+        </div>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" class="modal-form" style="display: none;" onsubmit="handleRegister(event);">
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-fullname" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Full Name</label>
+          <input type="text" id="reg-fullname" placeholder="Jane Doe" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-email" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Email Address</label>
+          <input type="email" id="reg-email" placeholder="you@company.com" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-phone" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Phone Number</label>
+          <input type="tel" id="reg-phone" placeholder="+254 700 000 000" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-company" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Company / Farm Name</label>
+          <input type="text" id="reg-company" placeholder="e.g. Mumias Sugar / Family Farm" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Password</label>
+          <input type="password" id="reg-password" placeholder="Create password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="reg-confirm-password" style="display: block; margin-bottom: 6px; font-weight: 600; color: #cbd5e1; font-size: 0.875rem;">Confirm Password</label>
+          <input type="password" id="reg-confirm-password" placeholder="Confirm password" required style="width: 100%; padding: 10px 12px; background: #16221c; border: 1px solid #32473c; border-radius: 3px !important; color: #f8fafc; font-size: 0.95rem; box-sizing: border-box;">
+        </div>
+        <div style="margin: 14px 0;">
+          <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.82rem; color: #94a3b8; cursor: pointer;">
+            <input type="checkbox" required style="margin-top: 3px;">
+            <span>I agree to the <a href="terms-of-service.html" target="_blank" style="color: var(--primary);">Terms of Service</a> &amp; <a href="privacy-policy.html" target="_blank" style="color: var(--primary);">Privacy Policy</a></span>
+          </label>
+        </div>
+        <button type="submit" class="modal-btn" style="width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 3px !important; color: #16201c; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s ease;">Create Account</button>
+        <div style="text-align: center; margin-top: 20px; font-size: 0.875rem; color: #94a3b8;">
+          Already have an account? <a href="#" onclick="switchAuthTab('signin'); return false;" style="color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer;">Sign In</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+<script>
+  // Global Auth Modal Controls
+  window.openAuthModal = function(mode) {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      window.switchAuthTab(mode || 'signin');
+    }
+  };
+
+  window.openSignInModal = function() {
+    window.openAuthModal('signin');
+  };
+
+  window.closeSignInModal = function() {
+    const modal = document.getElementById('signInModal');
+    if (modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.switchAuthTab = function(mode) {
+    const signInForm = document.getElementById('signInForm');
+    const registerForm = document.getElementById('registerForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const authMessage = document.getElementById('authMessage');
+
+    if (authMessage) authMessage.style.display = 'none';
+
+    if (mode === 'register') {
+      if (signInForm) signInForm.style.display = 'none';
+      if (registerForm) registerForm.style.display = 'block';
+      if (modalTitle) modalTitle.textContent = 'Create an Account';
+      if (modalSubtitle) modalSubtitle.textContent = 'Register for access to Synergy Bravo ERP';
+    } else {
+      if (signInForm) signInForm.style.display = 'block';
+      if (registerForm) registerForm.style.display = 'none';
+      if (modalTitle) modalTitle.textContent = 'Welcome Back';
+      if (modalSubtitle) modalSubtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
+    }
+  };
+
+  window.toggleModalPassword = function(inputId, iconEl) {
+    const input = document.getElementById(inputId);
+    if (input) {
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (iconEl) iconEl.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        if (iconEl) iconEl.textContent = '👁';
+      }
+    }
+  };
+
+  window.handleSignIn = function(e) {
+    e.preventDefault();
+    const authMessage = document.getElementById('authMessage');
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#166534';
+    authMessage.style.color = '#f8fafc';
+    authMessage.style.border = '1px solid #22c55e';
+    authMessage.textContent = 'Signed in successfully! Redirecting...';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1200);
+  };
+
+  window.handleRegister = function(e) {
+    e.preventDefault();
+    const password = document.getElementById('reg-password').value;
+    const confirm = document.getElementById('reg-confirm-password').value;
+    const authMessage = document.getElementById('authMessage');
+    
+    if (password !== confirm) {
+      authMessage.style.display = 'block';
+      authMessage.style.background = '#991b1b';
+      authMessage.style.color = '#f8fafc';
+      authMessage.style.border = '1px solid #ef4444';
+      authMessage.textContent = 'Passwords do not match. Please verify and try again.';
+      return;
+    }
+
+    authMessage.style.display = 'block';
+    authMessage.style.background = '#166534';
+    authMessage.style.color = '#f8fafc';
+    authMessage.style.border = '1px solid #22c55e';
+    authMessage.textContent = 'Account created successfully! Welcome to Synergy Bravo ERP.';
+    setTimeout(() => {
+      closeSignInModal();
+      authMessage.style.display = 'none';
+    }, 1500);
+  };
+
+  // Close modal when clicking outside content card
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('signInModal');
+    if (event.target === modal) {
+      window.closeSignInModal();
+    }
+  });
+
+  // Header Scroll Opacity & Hamburger Mobile Menu Toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('siteHeader');
+    const brandLogo = document.getElementById('brandLogo');
+
+    function onScroll() {
+      const y = window.pageYOffset || document.documentElement.scrollTop;
+      if (y > 10) {
+        if (header) header.classList.add('scrolled');
+      } else {
+        if (header) header.classList.remove('scrolled');
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    
+  });
+
+  // Mega Menu & Mobile Dropdown Controller
+  function handleDropdownClick(e, navItemId) {
+    const isMobile = window.innerWidth < 992;
+    const navItem = document.getElementById(navItemId);
+    if (!navItem) return;
+
+    if (isMobile) {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = navItem.classList.contains('mobile-open');
+      document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+        if (item !== navItem) item.classList.remove('mobile-open');
+      });
+      if (isOpen) {
+        navItem.classList.remove('mobile-open');
+      } else {
+        navItem.classList.add('mobile-open');
+      }
+    } else {
+      const isOpen = navItem.classList.contains('open');
+      document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+        if (item !== navItem) item.classList.remove('open');
+      });
+      if (isOpen) {
+        navItem.classList.remove('open');
+      } else {
+        navItem.classList.add('open');
+      }
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-item.has-dropdown')) {
+      document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+        item.classList.remove('open');
+      });
+    }
+  });
+
+
+
+
+
+
+  // Close desktop mega menus on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeAllMegaMenus();
+      document.querySelectorAll('.mobile-subpanel').forEach(panel => panel.classList.remove('active'));
+    }
+  });
+
+
+  // 100% Width & Height Desktop Mega Menu Controller (Click-Only)
+  function toggleDesktopMegaMenu(e, menuId) {
+    if (window.innerWidth < 992) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const targetMenu = document.getElementById(menuId);
+    if (!targetMenu) return;
+
+    const isActive = targetMenu.classList.contains('active');
+    closeAllMegaMenus();
+
+    if (!isActive) {
+      targetMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeAllMegaMenus() {
+    document.querySelectorAll('.mega-menu-overlay').forEach(menu => {
+      menu.classList.remove('active');
+    });
+    const drawer = document.getElementById('mobileDrawerContainer');
+    if (!drawer || !drawer.classList.contains('active')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Mobile Drawer & 2nd Level Swing-Out Controller
+  function toggleMobileDrawer(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const drawer = document.getElementById('mobileDrawerContainer');
+    const btn = document.getElementById('hamburgerBtn');
+    if (!drawer) return;
+
+    const isActive = drawer.classList.contains('active');
+    if (isActive) {
+      closeMobileDrawer();
+    } else {
+      drawer.classList.add('active');
+      if (btn) btn.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeMobileDrawer() {
+    const drawer = document.getElementById('mobileDrawerContainer');
+    const btn = document.getElementById('hamburgerBtn');
+    if (drawer) drawer.classList.remove('active');
+    if (btn) btn.classList.remove('active');
+    document.querySelectorAll('.mobile-subpanel').forEach(panel => panel.classList.remove('active'));
+    document.body.style.overflow = '';
+  }
+
+  function openMobileSubpanel(panelId) {
+    const panel = document.getElementById(panelId);
+    if (panel) panel.classList.add('active');
+  }
+
+  function closeMobileSubpanel(panelId) {
+    const panel = document.getElementById(panelId);
+    if (panel) panel.classList.remove('active');
+  }
+
+  // Close open mega menus on backdrop click or Escape key
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('mega-menu-overlay')) {
+      closeAllMegaMenus();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeAllMegaMenus();
+      closeMobileDrawer();
+    }
+  });
+
+
+  // ==========================================================================
+  // APP SEARCH, SORTING, PAGINATION & FEATURES PANEL INTERACTION
+  // ==========================================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    // ── Elements ──
+    const appsSearch = document.getElementById('appsSearch');
+    const appsSlider = document.getElementById('appsSlider');
+    const appCards = Array.from(appsSlider ? appsSlider.querySelectorAll('.app-card') : []);
+    const appsNavPrev = document.getElementById('appsNavPrev');
+    const appsNavNext = document.getElementById('appsNavNext');
+    const appsPagination = document.getElementById('appsPagination');
+    const appDots = Array.from(appsPagination ? appsPagination.querySelectorAll('.app-dot') : []);
+
+    let currentPage = 0;
+    const itemsPerPage = 9;
+
+    // App specific features dictionary
+    const appFeaturesMap = {
+      'farmers-recruitment': {
+        title: 'Farmers Recruitment & Cane',
+        features: [
+          'Digital grower contracting & profile management',
+          'GPS field plot boundary mapping & land audit',
+          'Contracted acreage vs actual yield analytics',
+          'Mobile farmer onboarding & labor team assignment',
+          'Automated SMS notifications for harvest schedules',
+          'Grower advance payment tracking & statements'
+        ]
+      },
+      'nucleus-operations': {
+        title: 'Nucleus & Farm Operations',
+        features: [
+          'Plantation field block management & crop rotation',
+          'Fertilizer, seed & agrochemical application logs',
+          'Tractor & heavy machinery work order dispatch',
+          'Rainfall precipitation & soil moisture monitoring',
+          'Daily farm supervisor task boards & logs',
+          'Yield forecasting per hectare analytics'
+        ]
+      },
+      'harvesting-transport': {
+        title: 'Harvesting & Transport Logistics',
+        features: [
+          'Cane cutting schedule & burn notice management',
+          'Harvester & trailer fleet GPS live tracking',
+          'Weighbridge queue arrival time estimation',
+          'Field-to-mill delivery ticket creation',
+          'Transporter trip-based rate calculation & payouts',
+          'Cane freshness & trip turnaround time alerts'
+        ]
+      },
+      'weighbridge': {
+        title: 'Weighbridge Scale Automation',
+        features: [
+          'Automated gross & tare digital scale readings',
+          'Anti-tamper weighbridge ticket generation',
+          'Direct laboratory sucrose & Brix test link',
+          'Truck driver LED queue display integration',
+          'Instant grower ticket & weight receipt SMS',
+          'Multi-scale weighbridge throughput analytics'
+        ]
+      },
+      'fleet-management': {
+        title: 'Fleet Management',
+        features: [
+          'Heavy tractor & cane truck fuel consumption tracking',
+          'Preventive maintenance & oil change alerts',
+          'Driver license, shift logs & GPS route history',
+          'Spare parts inventory auto-allocation',
+          'Machine downtime & repair cost reporting',
+          'Tyre life & equipment wear monitoring'
+        ]
+      },
+      'mrp-inventory': {
+        title: 'MRP & Inventory Control',
+        features: [
+          'Raw cane buffer stock & yard management',
+          'Finished sugar bag warehouse batch tracking',
+          'Factory spare parts & chemical stores inventory',
+          'Automated reorder point threshold triggers',
+          'Multi-warehouse stock transfers & audits',
+          'Supplier purchase order approvals & receiving'
+        ]
+      },
+      'production': {
+        title: 'Sugar Mill Processing & Production',
+        features: [
+          'Real-time crushing rate (TCH) monitoring',
+          'Juice extraction, pH & sucrose purity lab logs',
+          'Boiler steam pressure & bagasse fuel balance',
+          'Molasses & ethanol recovery rate analytics',
+          'Continuous 24/7 factory operational dashboard',
+          'Shift supervisor hand-off & downtime logs'
+        ]
+      },
+      'sales-invoicing': {
+        title: 'Sales & Invoicing',
+        features: [
+          'Commercial sugar sales contract management',
+          'Bulk & 50kg bagged sugar dispatch invoicing',
+          'Multi-tier distributor pricing & discounts',
+          'Tax compliance, VAT & export documentation',
+          'Customer credit limits, balances & receipts',
+          'Sales revenue & dispatch volume reports'
+        ]
+      },
+      'financial-management': {
+        title: 'Financial Management & Payouts',
+        features: [
+          'Grower sucrose-based cane settlement payouts',
+          'Automated harvesting & transport cost deductions',
+          'General ledger & cost center profit accounting',
+          'Factory payroll & seasonal worker payouts',
+          'Bank integration & automated payment exports',
+          'Executive financial profitability dashboards'
+        ]
+      },
+      'hr-payroll': {
+        title: 'HR & Payroll',
+        features: [
+          'Seasonal cane cutter biometric attendance',
+          'Factory shift scheduling & overtime tracking',
+          'Automated wage calculation with statutory deductions',
+          'Employee self-service mobile portal & payslips',
+          'Tax & pension regulatory compliance reporting',
+          'Worker safety compliance & incident logs'
+        ]
+      }
+    };
+
+    // ── Function: Render App Page ──
+    function renderApps() {
+      const query = (appsSearch ? appsSearch.value : '').toLowerCase().trim();
+
+      if (query.length > 0) {
+        // Search Active: Filter & Sort matching cards
+        let matchCount = 0;
+        appCards.forEach(card => {
+          const name = (card.getAttribute('data-name') || '').toLowerCase();
+          const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+          const text = card.innerText.toLowerCase();
+
+          if (name.includes(query) || tags.includes(query) || text.includes(query)) {
+            card.style.display = 'flex';
+            matchCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Hide pagination dots during active search, keep arrows 100% visible
+        if (appsPagination) appsPagination.style.display = 'none';
+        if (appsNavPrev) { appsNavPrev.style.opacity = '1'; appsNavPrev.style.cursor = 'pointer'; }
+        if (appsNavNext) { appsNavNext.style.opacity = '1'; appsNavNext.style.cursor = 'pointer'; }
+
+        // Check for no matches message
+        let noMatchMsg = document.getElementById('appsNoMatchMsg');
+        if (matchCount === 0) {
+          if (!noMatchMsg) {
+            noMatchMsg = document.createElement('div');
+            noMatchMsg.id = 'appsNoMatchMsg';
+            noMatchMsg.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #64748b; font-size: 1.1rem;';
+            appsSlider.appendChild(noMatchMsg);
+          }
+          noMatchMsg.textContent = 'No applications found matching "' + appsSearch.value + '". Try searching "Weighbridge", "Harvesting", "Financial", or "Milling".';
+          noMatchMsg.style.display = 'block';
+        } else if (noMatchMsg) {
+          noMatchMsg.style.display = 'none';
+        }
+      } else {
+        // Normal View (No Search Query): Paginate 9 cards per page
+        const noMatchMsg = document.getElementById('appsNoMatchMsg');
+        if (noMatchMsg) noMatchMsg.style.display = 'none';
+        if (appsPagination) appsPagination.style.display = 'flex';
+
+        appCards.forEach(card => {
+          const pageAttr = parseInt(card.getAttribute('data-page') || '0', 10);
+          if (pageAttr === currentPage) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Update Dots
+        appDots.forEach((dot, idx) => {
+          if (idx === currentPage) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+
+        // Keep Navigation Arrows 100% Fully Visible (No Fade)
+        if (appsNavPrev) {
+          appsNavPrev.style.opacity = '1';
+          appsNavPrev.style.cursor = 'pointer';
+        }
+        if (appsNavNext) {
+          appsNavNext.style.opacity = '1';
+          appsNavNext.style.cursor = 'pointer';
+        }
+      }
+    }
+
+    // ── Search Input Event ──
+    if (appsSearch) {
+      appsSearch.addEventListener('input', renderApps);
+      appsSearch.addEventListener('keyup', renderApps);
+    }
+
+    // ── Pagination Nav Prev/Next Buttons ──
+    if (appsNavPrev) {
+      appsNavPrev.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (appsSearch && appsSearch.value.trim().length > 0) return;
+        const totalPages = Math.ceil(appCards.length / itemsPerPage);
+        currentPage = (currentPage - 1 + totalPages) % totalPages; // Seamless looping
+        renderApps();
+      });
+    }
+
+    if (appsNavNext) {
+      appsNavNext.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (appsSearch && appsSearch.value.trim().length > 0) return;
+        const totalPages = Math.ceil(appCards.length / itemsPerPage);
+        currentPage = (currentPage + 1) % totalPages; // Seamless looping
+        renderApps();
+      });
+    }
+
+    // ── Clickable Pagination Dots ──
+    appDots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        if (appsSearch && appsSearch.value.trim().length > 0) return;
+        const pageIdx = parseInt(this.getAttribute('data-page') || '0', 10);
+        currentPage = pageIdx;
+        renderApps();
+      });
+    });
+
+    // Initialize App Page
+    renderApps();
+
+    // ── Features Panel Carousel Logic ──
+    const featCarousel = document.getElementById('featuresCarousel');
+    const featSlides = Array.from(featCarousel ? featCarousel.querySelectorAll('.features-slide') : []);
+    const featPrev = document.getElementById('featPrev');
+    const featNext = document.getElementById('featNext');
+    const featDots = Array.from(document.querySelectorAll('.f-dot'));
+    let currentFeatSlide = 0;
+
+    function showFeatSlide(idx) {
+      if (featSlides.length === 0) return;
+      currentFeatSlide = (idx + featSlides.length) % featSlides.length;
+      featSlides.forEach((slide, i) => {
+        if (i === currentFeatSlide) {
+          slide.classList.add('active');
+          slide.style.display = 'block';
+        } else {
+          slide.classList.remove('active');
+          slide.style.display = 'none';
+        }
+      });
+      featDots.forEach((dot, i) => {
+        if (i === currentFeatSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    if (featPrev) {
+      featPrev.addEventListener('click', function(e) {
+        e.preventDefault();
+        showFeatSlide(currentFeatSlide - 1);
+      });
+    }
+    if (featNext) {
+      featNext.addEventListener('click', function(e) {
+        e.preventDefault();
+        showFeatSlide(currentFeatSlide + 1);
+      });
+    }
+    featDots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        const i = parseInt(this.getAttribute('data-i') || '0', 10);
+        showFeatSlide(i);
+      });
+    });
+
+    // ── App Card 'Features' Button Click -> Updates Features Panel dynamically ──
+    const featButtons = document.querySelectorAll('.app-features-btn');
+    const featPanelHeader = document.querySelector('#features .col-lg-4 .panel-header');
+
+    featButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const appKey = this.getAttribute('data-app');
+        const appData = appFeaturesMap[appKey];
+
+        if (appData && featCarousel) {
+          // Update Features panel header
+          if (featPanelHeader) {
+            featPanelHeader.textContent = 'Features — ' + appData.title;
+          }
+
+          // Build custom single slide for selected app
+          const featuresListHtml = appData.features.map(f => '<li>' + f + '</li>').join('');
+          featCarousel.innerHTML = `
+            <div class="features-slide active" style="display: block;">
+              <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">${appData.title}</h5>
+              <ul class="features-list">
+                ${featuresListHtml}
+              </ul>
+              <div style="margin-top: 18px;">
+                <button id="resetFeaturesBtn" style="background:#f6dd0d; border:1px solid #f6dd0d; border-radius:3px; padding:6px 12px; font-size:0.8rem; font-weight:700; color:#16201c; cursor:pointer;">
+                  ← All Features Overview
+                </button>
+              </div>
+            </div>
+          `;
+
+          // Hide carousel dots/arrows during custom app view
+          const featArrows = document.querySelector('.features-arrows');
+          if (featArrows) featArrows.style.display = 'none';
+
+          // Reset button listener
+          const resetBtn = document.getElementById('resetFeaturesBtn');
+          if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+              if (featPanelHeader) featPanelHeader.textContent = 'Why Sugar Farmers choose Synergy Bravo ERP';
+              if (featArrows) featArrows.style.display = 'flex';
+              
+              // Restore original 3 slides
+              featCarousel.innerHTML = `
+                <div class="features-slide active" style="display: block;">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Cane Procurement & Field Operations</h5>
+                  <ul class="features-list">
+                    <li>Digital grower contracting & registration</li>
+                    <li>GPS plot mapping & acreage audit</li>
+                    <li>Harvest scheduling & cutting tickets</li>
+                    <li>Weighbridge gross/tare scale sync</li>
+                    <li>Field lab sucrose testing & quality link</li>
+                    <li>Transporter trip dispatch & tracking</li>
+                    <li>Grower mobile portal & SMS alerts</li>
+                  </ul>
+                </div>
+                <div class="features-slide" style="display: none;">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Sugar Mill & Factory Operations</h5>
+                  <ul class="features-list">
+                    <li>Real-time milling rate (TCH) tracking</li>
+                    <li>Juice extraction & boiler steam balance</li>
+                    <li>Raw cane queue & weighbridge sync</li>
+                    <li>Sugar bag warehouse & batch control</li>
+                    <li>Factory equipment preventive maintenance</li>
+                    <li>Laboratory AI analytics & sucrose yield</li>
+                    <li>Molasses & ethanol output tracking</li>
+                  </ul>
+                </div>
+                <div class="features-slide" style="display: none;">
+                  <h5 class="mb-2" style="color:var(--text-dark); font-weight:700;">Grower Settlements & Financials</h5>
+                  <ul class="features-list">
+                    <li>Automated grower sucrose payout calculations</li>
+                    <li>Harvesting & transport cost deductions</li>
+                    <li>Multi-currency sugar sales invoicing</li>
+                    <li>Seasonal labor & factory payroll</li>
+                    <li>General ledger & cost center accounting</li>
+                    <li>Bank sync & automated payment exports</li>
+                    <li>Audit-ready financial reporting</li>
+                  </ul>
+                </div>
+              `;
+              showFeatSlide(0);
+            });
+          }
+
+          // Smooth scroll to Features Panel
+          const featSection = document.getElementById('features');
+          if (featSection) {
+            featSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  });
+
+
+  // ==========================================================================
+  // HERO CAROUSEL CONTROLLER (AUTO-PLAY, PREV/NEXT ARROWS, DOTS)
+  // ==========================================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    const heroCarousel = document.getElementById('heroCarousel');
+    const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+    const heroPrev = document.getElementById('heroPrev');
+    const heroNext = document.getElementById('heroNext');
+    const heroDots = Array.from(document.querySelectorAll('.hero-dot'));
+
+    if (heroSlides.length === 0) return;
+
+    let currentHeroIdx = 0;
+    let heroTimer = null;
+    const AUTO_PLAY_DELAY = 5000; // 5 seconds per slide
+
+    function gotoHeroSlide(idx) {
+      currentHeroIdx = (idx + heroSlides.length) % heroSlides.length;
+
+      heroSlides.forEach((slide, i) => {
+        if (i === currentHeroIdx) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      heroDots.forEach((dot, i) => {
+        if (i === currentHeroIdx) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    function nextHeroSlide() {
+      gotoHeroSlide(currentHeroIdx + 1);
+    }
+
+    function prevHeroSlide() {
+      gotoHeroSlide(currentHeroIdx - 1);
+    }
+
+    function startHeroTimer() {
+      stopHeroTimer();
+      heroTimer = setInterval(nextHeroSlide, AUTO_PLAY_DELAY);
+    }
+
+    function stopHeroTimer() {
+      if (heroTimer) {
+        clearInterval(heroTimer);
+        heroTimer = null;
+      }
+    }
+
+    // Arrow Click Listeners
+    if (heroPrev) {
+      heroPrev.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        prevHeroSlide();
+        startHeroTimer();
+      });
+    }
+
+    if (heroNext) {
+      heroNext.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        nextHeroSlide();
+        startHeroTimer();
+      });
+    }
+
+    // Dot Click Listeners
+    heroDots.forEach(dot => {
+      dot.addEventListener('click', function(e) {
+        e.preventDefault();
+        const i = parseInt(this.getAttribute('data-i') || '0', 10);
+        gotoHeroSlide(i);
+        startHeroTimer();
+      });
+    });
+
+    // Pause auto-play on mouse enter, resume on mouse leave
+    if (heroCarousel) {
+      heroCarousel.addEventListener('mouseenter', stopHeroTimer);
+      heroCarousel.addEventListener('mouseleave', startHeroTimer);
+    }
+
+    // Start auto-play
+    startHeroTimer();
+  });
+
+
+
+  
+  // ==========================================================================
+  // TOP-LEFT APP SELECT CHECKBOX, TOOLTIP HOVER & APPOINTMENT DATA PASSING
+  // ==========================================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    const selectCheckboxes = document.querySelectorAll('.app-select-checkbox');
+    const clearSelectionsBtn = document.getElementById('clearSelectionsBtn');
+    const selectCountEl = document.getElementById('selectCount');
+    const modulesBar = document.getElementById('landingSelectedModulesBar');
+    const pillsList = document.getElementById('landingSelectedPillsList');
+    const tooltipList = document.getElementById('tooltipModulesList');
+    const clearTooltip = document.getElementById('clearTooltip');
+
+    function updateSelectedModules() {
+      const selected = [];
+      selectCheckboxes.forEach(cb => {
+        const card = cb.closest('.app-card');
+        if (card) {
+          const appName = card.getAttribute('data-name');
+          if (cb.checked) {
+            card.classList.add('selected');
+            if (appName && !selected.includes(appName)) selected.push(appName);
+          } else {
+            card.classList.remove('selected');
+          }
+        }
+      });
+
+      // Update UI Count & Clear Button
+      if (selectCountEl) selectCountEl.textContent = selected.length;
+      if (clearSelectionsBtn) {
+        clearSelectionsBtn.style.display = selected.length > 0 ? 'inline-block' : 'none';
+      }
+
+      // 1. Update Selected Modules Bar directly ABOVE Clear Selections
+      if (modulesBar) {
+        modulesBar.style.display = selected.length > 0 ? 'block' : 'none';
+      }
+      if (pillsList) {
+        pillsList.innerHTML = selected.map(m => `
+          <span style="background: rgba(246, 221, 13, 0.18); border: 1px solid #f6dd0d; color: #f6dd0d; font-size: 0.8rem; font-weight: 700; padding: 3px 10px; border-radius: 14px; display: inline-flex; align-items: center; gap: 4px;">
+            ✓ ${m}
+          </span>
+        `).join('');
+      }
+
+      // 2. Update Tooltip Modules List for hover effect
+      if (tooltipList) {
+        if (selected.length > 0) {
+          tooltipList.innerHTML = selected.map(m => '<li>' + m + '</li>').join('');
+        } else {
+          tooltipList.innerHTML = '<li style="color:#94a3b8;">No modules selected</li>';
+        }
+      }
+
+      // 3. Save to localStorage
+      localStorage.setItem('synergy_selected_modules', JSON.stringify(selected));
+
+      // 4. Update all "Request Demo" links on the page to pass modules parameter
+      const demoLinks = document.querySelectorAll('a[href*="appointment.html"]');
+      demoLinks.forEach(link => {
+        if (selected.length > 0) {
+          const encodedModules = encodeURIComponent(selected.join(','));
+          link.href = 'appointment.html?modules=' + encodedModules;
+        } else {
+          link.href = 'appointment.html';
+        }
+      });
+    }
+
+    // Checkbox Click Listeners
+    selectCheckboxes.forEach(cb => {
+      cb.addEventListener('click', function(e) {
+        e.stopPropagation();
+        updateSelectedModules();
+      });
+    });
+
+    // Clear Selections Button Listener
+    if (clearSelectionsBtn) {
+      clearSelectionsBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        selectCheckboxes.forEach(cb => {
+          cb.checked = false;
+          const card = cb.closest('.app-card');
+          if (card) card.classList.remove('selected');
+        });
+        updateSelectedModules();
+      });
+
+      // Hover Tooltip explicit event listeners
+      if (clearTooltip) {
+        clearSelectionsBtn.addEventListener('mouseenter', function() {
+          clearTooltip.style.opacity = '1';
+          clearTooltip.style.visibility = 'visible';
+          clearTooltip.style.transform = 'translateY(0)';
+        });
+        clearSelectionsBtn.addEventListener('mouseleave', function() {
+          clearTooltip.style.opacity = '0';
+          clearTooltip.style.visibility = 'hidden';
+          clearTooltip.style.transform = 'translateY(6px)';
+        });
+      }
+    }
+
+    // Restore any existing selections from localStorage on page load
+    try {
+      const saved = JSON.parse(localStorage.getItem('synergy_selected_modules') || '[]');
+      if (Array.isArray(saved) && saved.length > 0) {
+        selectCheckboxes.forEach(cb => {
+          const card = cb.closest('.app-card');
+          if (card && saved.includes(card.getAttribute('data-name'))) {
+            cb.checked = true;
+          }
+        });
+        updateSelectedModules();
+      }
+    } catch(err) {}
+  });
+
+</script>
+
 </body>
 </html>
- 
