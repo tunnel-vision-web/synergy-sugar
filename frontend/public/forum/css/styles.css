@@ -11,7 +11,7 @@
   --border: #283a31;
   --radius: 3px !important;
   --shadow-hover: 0 6px 20px rgba(0,0,0,0.4);
-  --headerH: 72px;
+  --headerH: 84px;
 }
 
 body {
@@ -48,10 +48,19 @@ body {
   padding: 0 20px;
 }
 
-.site-header .brand img {
-  height: 48px;
-  width: auto;
+/* 30% LARGER HEADER LOGO (62px height) */
+.site-header .brand img,
+#brandLogo {
+  height: 62px !important;
+  width: auto !important;
   display: block;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.site-header .brand img:hover,
+#brandLogo:hover {
+  transform: scale(1.03);
 }
 
 .site-header .main-nav {
@@ -688,48 +697,39 @@ body {
   font-size: 0.9em;
 }
 
-.answers-section {
-  margin-top: 40px;
+/* RELATED QUESTIONS - DARK CONTRAST FIX */
+.related-questions-box {
+  background: #101915 !important;
+  border: 1px solid #283a31 !important;
+  border-radius: 3px !important;
+  padding: 24px !important;
 }
 
-.answers-header {
-  font-size: 1.3rem;
-  font-weight: 700;
+.related-questions-box a {
   color: #f8fafc !important;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #283a31;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.2s ease;
 }
 
-.answer-item {
+.related-questions-box a:hover {
+  color: #f6dd0d !important;
+}
+
+.login-notice {
   background: #101915 !important;
   border: 1px solid #283a31 !important;
   border-radius: 3px !important;
   padding: 24px;
-  margin-bottom: 20px;
-  display: flex;
-  gap: 20px;
-}
-
-.answer-body {
-  flex: 1;
-  color: #cbd5e1 !important;
-  line-height: 1.6;
-}
-
-.answer-body p, .answer-body li {
+  margin: 30px 0;
+  text-align: center;
   color: #cbd5e1 !important;
 }
 
-.answer-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px dashed #283a31;
-  font-size: 0.88rem;
-  color: #94a3b8 !important;
+.login-notice h3 {
+  margin-top: 0;
+  color: #f6dd0d !important;
 }
 
 /* ASK QUESTION FORM */
@@ -893,21 +893,27 @@ body {
   padding-top: 12px;
 }
 
-/* FOOTER - Matching Main Site 4-Column Layout */
+/* FOOTER - CONSISTENT 4 EQUAL COLUMNS */
 .site-footer {
   background: #2f2f2f !important;
   color: #fff !important;
   margin-top: 56px;
   padding: 40px 20px;
+  width: 100%;
 }
 
 .footer-columns {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 24px !important;
   max-width: 1200px;
   margin: 0 auto;
   text-align: left;
+  width: 100%;
+}
+
+.footer-col {
+  width: 100%;
 }
 
 .footer-col h4 {
@@ -985,14 +991,10 @@ body {
 
 @media(max-width:720px){
   .footer-columns {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     text-align: center;
   }
   .footer-social {
     justify-content: center;
-  }
-  .footer-col-agri {
-    align-items: center !important;
-    text-align: center !important;
   }
 }
