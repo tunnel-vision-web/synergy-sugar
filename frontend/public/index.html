@@ -3305,6 +3305,78 @@ a.btn-request-demo:hover {
   </div>
 </div>
 <script>
+  window.toggleDesktopMegaMenu = function(event, menuId) {
+    if (event) {
+      if (typeof event.preventDefault === 'function') event.preventDefault();
+      if (typeof event.stopPropagation === 'function') event.stopPropagation();
+    }
+    const menu = document.getElementById(menuId);
+    if (!menu) return;
+
+    const isCurrentlyActive = menu.classList.contains('active');
+    window.closeAllMegaMenus();
+
+    if (!isCurrentlyActive) {
+      menu.classList.add('active');
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+      }
+    }
+  };
+
+  window.closeAllMegaMenus = function() {
+    const overlays = document.querySelectorAll('.mega-menu-overlay');
+    overlays.forEach(function(el) {
+      el.classList.remove('active');
+    });
+    const toggles = document.querySelectorAll('.dropdown-toggle');
+    toggles.forEach(function(el) {
+      el.classList.remove('active');
+    });
+  };
+
+  window.toggleMobileDrawer = function(event) {
+    if (event) {
+      if (typeof event.preventDefault === 'function') event.preventDefault();
+      if (typeof event.stopPropagation === 'function') event.stopPropagation();
+    }
+    const btn = document.getElementById('hamburgerBtn') || (event && event.currentTarget);
+    const nav = document.getElementById('mainNav');
+    if (btn) btn.classList.toggle('active');
+    if (nav) nav.classList.toggle('mobile-active');
+  };
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.mega-menu-overlay') && !e.target.closest('.dropdown-toggle')) {
+      window.closeAllMegaMenus();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      window.closeAllMegaMenus();
+    }
+  });
+
+  window.closeMobileDrawer = function() {
+    const nav = document.getElementById('mainNav');
+    const btn = document.getElementById('hamburgerBtn');
+    const drawer = document.getElementById('mobileDrawerOverlay') || document.querySelector('.mobile-drawer-overlay');
+    if (nav) nav.classList.remove('mobile-active', 'active');
+    if (btn) btn.classList.remove('active');
+    if (drawer) drawer.classList.remove('active');
+  };
+
+  window.openMobileSubpanel = function(panelId) {
+    const panel = document.getElementById(panelId);
+    if (panel) panel.classList.add('active');
+  };
+
+  window.closeMobileSubpanel = function(panelId) {
+    const panel = document.getElementById(panelId);
+    if (panel) panel.classList.remove('active');
+  };
+
   window.authMode = 'signin'; // 'signin', 'signup', or 'forgot'
 
   window.handleHeaderScroll = function() {
