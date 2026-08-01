@@ -522,39 +522,42 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="logo">
-        <img class="white-logo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Sugar" style="display:none; height:54px;">
+      <img class="white-logo" src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Sugar" style="display:none; height:54px;">
       <img src="assets/images/Synergy-logo-sugar-web-black.png" alt="Synergy Bravo ERP" class="black">
     </div>
     <nav class="nav">
-      <a href="landing_enhanced.html">Home</a>
-      <a href="landing_enhanced.html#features">Apps</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="help.html">Help</a>
+      <a href="landing_enhanced.html" data-i18n="nav_home">Home</a>
+      <a href="landing_enhanced.html#features" data-i18n="nav_apps">Apps</a>
+      <a href="pricing.html" data-i18n="nav_pricing">Pricing</a>
+      <a href="help.html" data-i18n="nav_help">Help</a>
     </nav>
-    <div class="header-cta">
-      <a href="landing_enhanced.html" class="btn btn-light">Back to Home</a>
-      <!-- Hamburger Menu Button -->
+    <div class="header-cta" style="display:flex; align-items:center; gap:16px;">
+      <div class="auth-left-col" style="display:flex; flex-direction:column; align-items:flex-end; justify-content:center; margin-right:4px;">
+        <div id="synergyLocalizationBar" class="synergy-localization-bar" style="margin-bottom:2px;"></div>
+        <a href="#" class="nav-signin-link" onclick="window.showLoginDialog(); return false;" data-i18n="nav_signin" style="font-size:0.85rem; font-weight:600; text-decoration:none; color:#cbd5e1;">Sign in</a>
+      </div>
+      <a href="landing_enhanced.html" class="btn btn-light" data-i18n-text="Back to Home">Back to Home</a>
       <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
-  </header>
+  </div>
+</header>
 
 <!-- PAGE 1: APPOINTMENT TYPE SELECTION -->
 <div id="page-selection" class="page-view active">
   <section class="hero">
     <div class="hero-content" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
       <div>
-        <h1 style="color: #ffffff !important; font-family: 'Sansation', 'Roboto', sans-serif;">Request a Demo</h1>
-        <p style="font-size: 1.05rem; color: #cbd5e1; margin-top: 6px;">Choose the type of appointment that best fits your needs</p>
+        <h1 style="color: #ffffff !important; font-family: 'Sansation', 'Roboto', sans-serif;" data-i18n-text="Request a Demo">Request a Demo</h1>
+        <p style="font-size: 1.05rem; color: #cbd5e1; margin-top: 6px;" data-i18n-text="Choose the type of appointment that best fits your needs">Choose the type of appointment that best fits your needs</p>
       </div>
-      <!-- Top Right Selected Modules Card -->
       <div id="selectedModulesContainer" style="display: none; background: #16221c; border: 1.5px solid #f6dd0d; border-radius: 8px; padding: 12px 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); text-align: right; max-width: 460px;">
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-bottom: 8px;">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#f6dd0d" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <span style="font-size: 0.85rem; font-weight: 700; color: #f6dd0d; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Sansation', 'Roboto', sans-serif;">Selected Demo Modules:</span>
+          <span style="font-size: 0.85rem; font-weight: 700; color: #f6dd0d; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Sansation', 'Roboto', sans-serif;" data-i18n-text="Selected Demo Modules:">Selected Demo Modules:</span>
         </div>
         <div id="selectedModulesList" style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end;"></div>
       </div>
@@ -562,19 +565,72 @@
   </section>
 
   <div class="page">
-
-
-
     <section class="apps-area">
       <div class="filter-tabs">
-        <button class="filter-tab active" data-filter="all">All Appointments</button>
-        <button class="filter-tab" data-filter="demo">Demos</button>
-        <button class="filter-tab" data-filter="consultation">Consultations</button>
-        <button class="filter-tab" data-filter="technical">Technical</button>
+        <button class="filter-tab active" data-filter="all" data-i18n-text="All Appointments">All Appointments</button>
+        <button class="filter-tab" data-filter="demo" data-i18n-text="Demos">Demos</button>
+        <button class="filter-tab" data-filter="consultation" data-i18n-text="Consultations">Consultations</button>
+        <button class="filter-tab" data-filter="technical" data-i18n-text="Technical">Technical</button>
       </div>
 
       <div class="appointment-grid" id="appointmentGrid">
-        <!-- Cards will be generated by JavaScript -->
+
+        <div class="appointment-card" data-type="demo">
+          <div class="appointment-card-header">
+            <h3 class="appointment-title" data-i18n-text="Live Product Demo">Live Product Demo</h3>
+            <div class="appointment-meta">
+              <div class="meta-item" data-i18n-text="45 min">45 min</div>
+              <div class="meta-item online" data-i18n-text="Online">Online</div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description" data-i18n-text="Get a full walkthrough of Synergy Bravo ERP — from outgrower GPS plot mapping and weighbridge integration to grower settlements and factory analytics.">Get a full walkthrough of Synergy Bravo ERP — from outgrower GPS plot mapping and weighbridge integration to grower settlements and factory analytics.</div>
+            <button class="book-btn" onclick="selectAppointment('Live Product Demo', '45 min')" data-i18n-text="Schedule Appointment">Schedule Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-card" data-type="consultation">
+          <div class="appointment-card-header">
+            <h3 class="appointment-title" data-i18n-text="Sales Consultation">Sales Consultation</h3>
+            <div class="appointment-meta">
+              <div class="meta-item" data-i18n-text="60 min">60 min</div>
+              <div class="meta-item online" data-i18n-text="Online">Online</div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description" data-i18n-text="One-on-one consultation with our sugar ERP specialists to discuss your mill's specific operational needs, pricing, and implementation timeline.">One-on-one consultation with our sugar ERP specialists to discuss your mill's specific operational needs, pricing, and implementation timeline.</div>
+            <button class="book-btn" onclick="selectAppointment('Sales Consultation', '60 min')" data-i18n-text="Schedule Appointment">Schedule Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-card" data-type="technical">
+          <div class="appointment-card-header">
+            <h3 class="appointment-title" data-i18n-text="Technical Setup Session">Technical Setup Session</h3>
+            <div class="appointment-meta">
+              <div class="meta-item" data-i18n-text="30 min">30 min</div>
+              <div class="meta-item online" data-i18n-text="Online">Online</div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description" data-i18n-text="Work with our technical team to review weighbridge hardware integration, API requirements, and system connectivity for your sugar mill environment.">Work with our technical team to review weighbridge hardware integration, API requirements, and system connectivity for your sugar mill environment.</div>
+            <button class="book-btn" onclick="selectAppointment('Technical Setup Session', '30 min')" data-i18n-text="Schedule Appointment">Schedule Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-card" data-type="demo">
+          <div class="appointment-card-header">
+            <h3 class="appointment-title" data-i18n-text="Team Training Workshop">Team Training Workshop</h3>
+            <div class="appointment-meta">
+              <div class="meta-item" data-i18n-text="90 min">90 min</div>
+              <div class="meta-item online" data-i18n-text="Online">Online</div>
+            </div>
+          </div>
+          <div class="appointment-card-body">
+            <div class="description" data-i18n-text="Comprehensive onboarding training covering all modules: outgrower management, weighbridge, milling operations, financial settlements, and reporting.">Comprehensive onboarding training covering all modules: outgrower management, weighbridge, milling operations, financial settlements, and reporting.</div>
+            <button class="book-btn" onclick="selectAppointment('Team Training Workshop', '90 min')" data-i18n-text="Schedule Appointment">Schedule Appointment</button>
+          </div>
+        </div>
+
       </div>
     </section>
   </div>
@@ -585,84 +641,76 @@
   <section class="hero">
     <div class="hero-content">
       <div class="breadcrumb">
-        <a href="#" id="back-to-selection">ΓåÉ Appointments</a>
+        <a href="#" id="back-to-selection" data-i18n-text="Appointments">&#8592; Appointments</a>
         <span>/</span>
-        <span id="appointment-type-title">Select Date & Time</span>
+        <span id="appointment-type-title" data-i18n-text="Select Date &amp; Time">Select Date &amp; Time</span>
       </div>
-      <h1 id="calendar-title">Select Date & Time</h1>
+      <h1 id="calendar-title" data-i18n-text="Select Date &amp; Time">Select Date &amp; Time</h1>
     </div>
   </section>
 
   <div class="page">
     <section class="apps-area">
-      <!-- Requested Appointment Box -->
       <div class="requested-appointment-box" style="max-width:800px;margin:0 auto 24px;">
-        <div class="requested-appointment-label">Requested Appointment:</div>
+        <div class="requested-appointment-label" data-i18n-text="Requested Appointment:">Requested Appointment:</div>
         <div class="requested-appointment-value" id="requested-apt-title">-</div>
         <div class="requested-appointment-duration" id="requested-apt-duration">-</div>
       </div>
-      
+
       <div class="booking-container">
         <div class="calendar-section">
-          <!-- Location Toggle -->
           <div class="location-toggle">
-            <button class="location-option active" data-location="online">
-              <svg viewBox="0 0 24 24" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:4px;fill:currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-              </svg>
+            <button class="location-option active" data-location="online" data-i18n-text="Online">
               Online
             </button>
-            <button class="location-option" data-location="in-person">
-              <svg viewBox="0 0 24 24" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:4px;fill:currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
+            <button class="location-option" data-location="in-person" data-i18n-text="In-Person">
               In-Person
             </button>
           </div>
 
           <div class="calendar-header">
-            <h2 id="current-month">December 2024</h2>
+            <h2 id="current-month">July 2026</h2>
             <div class="calendar-nav">
-              <button id="prev-month">ΓåÉ</button>
-              <button id="next-month">ΓåÆ</button>
+              <button id="prev-month">&#8592;</button>
+              <button id="next-month">&#8594;</button>
             </div>
           </div>
 
           <div class="calendar-grid" id="calendar-grid">
-            <!-- Calendar will be generated by JavaScript -->
+            <!-- Calendar days rendered by JS below -->
           </div>
 
           <div class="time-slots" id="time-slots-container" style="display:none;">
-            <h3>Available Times</h3>
+            <h3 data-i18n-text="Available Times">Available Times</h3>
             <div class="slots-grid" id="time-slots">
-              <!-- Time slots will be generated by JavaScript -->
+              <!-- Time slots rendered by JS below -->
             </div>
           </div>
         </div>
 
         <div class="booking-summary">
-          <h3>Booking Summary</h3>
+          <h3 data-i18n-text="Booking Summary">Booking Summary</h3>
           <div class="summary-item">
-            <div class="summary-label">Appointment Type</div>
+            <div class="summary-label" data-i18n-text="Appointment Type">Appointment Type</div>
             <div class="summary-value" id="summary-type">-</div>
           </div>
           <div class="summary-item">
-            <div class="summary-label">Location</div>
-            <div class="summary-value" id="summary-location">Online</div>
+            <div class="summary-label" data-i18n-text="Location">Location</div>
+            <div class="summary-value" id="summary-location" data-i18n-text="Online">Online</div>
           </div>
           <div class="summary-item">
-            <div class="summary-label">Duration</div>
+            <div class="summary-label" data-i18n-text="Duration">Duration</div>
             <div class="summary-value" id="summary-duration">-</div>
           </div>
           <div class="summary-item">
-            <div class="summary-label">Date</div>
-            <div class="summary-value" id="summary-date">Select a date</div>
+            <div class="summary-label" data-i18n-text="Date">Date</div>
+            <div class="summary-value" id="summary-date" data-i18n-text="Select a date">Select a date</div>
           </div>
           <div class="summary-item">
-            <div class="summary-label">Time</div>
-            <div class="summary-value" id="summary-time">Select a time</div>
+            <div class="summary-label" data-i18n-text="Time">Time</div>
+            <div class="summary-value" id="summary-time" data-i18n-text="Select a time">Select a time</div>
           </div>
-          <button class="btn-confirm" id="btn-next-to-form" disabled>Continue to Details</button>
+          <button class="btn-confirm" id="btn-next-to-form" disabled data-i18n-text="Continue to Details">Continue to Details</button>
         </div>
       </div>
     </section>
@@ -674,48 +722,47 @@
   <section class="hero">
     <div class="hero-content">
       <div class="breadcrumb">
-        <a href="#" id="back-to-calendar">ΓåÉ Back</a>
+        <a href="#" id="back-to-calendar" data-i18n-text="Back">&#8592; Back</a>
         <span>/</span>
-        <span>Your Information</span>
+        <span data-i18n-text="Your Information">Your Information</span>
       </div>
-      <h1>Complete Your Booking</h1>
+      <h1 data-i18n-text="Complete Your Booking">Complete Your Booking</h1>
     </div>
   </section>
 
   <div class="page">
     <section class="apps-area">
-      <!-- Requested Appointment Box -->
       <div class="requested-appointment-box" style="max-width:600px;margin:0 auto 24px;">
-        <div class="requested-appointment-label">Requested Appointment:</div>
+        <div class="requested-appointment-label" data-i18n-text="Requested Appointment:">Requested Appointment:</div>
         <div class="requested-appointment-value" id="requested-apt-title-form">-</div>
         <div class="requested-appointment-duration" id="requested-apt-duration-form">-</div>
       </div>
-      
+
       <div class="form-container">
         <form id="booking-form">
           <div class="form-group">
-            <label for="form-name">Full Name *</label>
+            <label for="form-name" data-i18n-text="Full Name *">Full Name *</label>
             <input type="text" id="form-name" required placeholder="John Doe">
           </div>
           <div class="form-group">
-            <label for="form-email">Email Address *</label>
+            <label for="form-email" data-i18n-text="Email Address *">Email Address *</label>
             <input type="email" id="form-email" required placeholder="john@example.com">
           </div>
           <div class="form-group">
-            <label for="form-phone">Phone Number</label>
+            <label for="form-phone" data-i18n-text="Phone Number">Phone Number</label>
             <input type="tel" id="form-phone" placeholder="+1 (555) 123-4567">
           </div>
           <div class="form-group">
-            <label for="form-organization">Organization</label>
+            <label for="form-organization" data-i18n-text="Organization">Organization</label>
             <input type="text" id="form-organization" placeholder="Your Company Name">
           </div>
           <div class="form-group">
-            <label for="form-notes">Additional Notes</label>
+            <label for="form-notes" data-i18n-text="Additional Notes">Additional Notes</label>
             <textarea id="form-notes" placeholder="Tell us more about your needs..."></textarea>
           </div>
           <div class="form-actions">
-            <button type="button" class="btn btn-back" id="back-to-calendar-btn">Back</button>
-            <button type="submit" class="btn btn-submit">Confirm Booking</button>
+            <button type="button" class="btn btn-back" id="back-to-calendar-btn" data-i18n-text="Back">Back</button>
+            <button type="submit" class="btn btn-submit" data-i18n-text="Confirm Booking">Confirm Booking</button>
           </div>
         </form>
       </div>
@@ -727,7 +774,7 @@
 <div id="page-confirmation" class="page-view">
   <section class="hero">
     <div class="hero-content">
-      <h1 style="text-align:center;">Booking Confirmed!</h1>
+      <h1 style="text-align:center;" data-i18n-text="Booking Confirmed!">Booking Confirmed!</h1>
     </div>
   </section>
 
@@ -735,56 +782,263 @@
     <section class="apps-area">
       <div class="confirmation-container">
         <div class="confirmation-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
         </div>
-        <h2 class="confirmation-title">Thank You!</h2>
-        <p class="confirmation-message">Your appointment has been successfully booked. You will receive a confirmation email shortly with the meeting details and calendar invite.</p>
-        
-        <!-- Requested Appointment Box -->
+        <h2 class="confirmation-title" data-i18n-text="Thank You!">Thank You!</h2>
+        <p class="confirmation-message" data-i18n-text="Your appointment has been successfully booked. You will receive a confirmation email shortly with the meeting details and calendar invite.">Your appointment has been successfully booked. You will receive a confirmation email shortly with the meeting details and calendar invite.</p>
+
         <div class="requested-appointment-box" style="margin:24px 0;">
-          <div class="requested-appointment-label">Requested Appointment:</div>
+          <div class="requested-appointment-label" data-i18n-text="Requested Appointment:">Requested Appointment:</div>
           <div class="requested-appointment-value" id="requested-apt-title-confirm">-</div>
           <div class="requested-appointment-duration" id="requested-apt-duration-confirm">-</div>
         </div>
-        
+
         <div class="confirmation-details">
           <div class="detail-row">
-            <span class="detail-label">Appointment:</span>
+            <span class="detail-label" data-i18n-text="Appointment:">Appointment:</span>
             <span class="detail-value" id="confirm-type">-</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Location:</span>
+            <span class="detail-label" data-i18n-text="Location:">Location:</span>
             <span class="detail-value" id="confirm-location">-</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Duration:</span>
+            <span class="detail-label" data-i18n-text="Duration:">Duration:</span>
             <span class="detail-value" id="confirm-duration">-</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Date:</span>
+            <span class="detail-label" data-i18n-text="Date:">Date:</span>
             <span class="detail-value" id="confirm-date">-</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Time:</span>
+            <span class="detail-label" data-i18n-text="Time:">Time:</span>
             <span class="detail-value" id="confirm-time">-</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Name:</span>
+            <span class="detail-label" data-i18n-text="Name:">Name:</span>
             <span class="detail-value" id="confirm-name">-</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Email:</span>
+            <span class="detail-label" data-i18n-text="Email:">Email:</span>
             <span class="detail-value" id="confirm-email">-</span>
           </div>
         </div>
 
-        <button class="btn" id="btn-book-another">Book Another Appointment</button>
+        <button class="btn" id="btn-book-another" data-i18n-text="Book Another Appointment">Book Another Appointment</button>
       </div>
     </section>
   </div>
 </div>
+
+<script>
+// ---- APPOINTMENT BOOKING FLOW & LOCALIZATION ----
+var currentAppointment = { title: '', duration: '' };
+var selectedDate = null;
+var selectedTime = null;
+var selectedLocation = 'Online';
+var currentCalendarDate = new Date();
+var activeSelectedModules = [];
+
+function getCalendarMonthNames() {
+  var lang = (typeof window.getCurrentSynergyLang === 'function') ? window.getCurrentSynergyLang() : 'en';
+  if (lang === 'sw') {
+    return ['Januari','Februari','Machi','Aprili','Mei','Juni','Julai','Agosti','Septemba','Oktoba','Novemba','Disemba'];
+  }
+  return ['January','February','March','April','May','June','July','August','September','October','November','December'];
+}
+
+function getCalendarDayNames() {
+  var lang = (typeof window.getCurrentSynergyLang === 'function') ? window.getCurrentSynergyLang() : 'en';
+  if (lang === 'sw') {
+    return ['Jpili','Jtatu','Jnne','Jtano','Alh','Ijumaa','Jmosi'];
+  }
+  return ['Su','Mo','Tu','We','Th','Fr','Sa'];
+}
+
+function initSelectedModulesCarryOver() {
+  var stored = localStorage.getItem('selectedSynergyModules');
+  var urlParams = new URLSearchParams(window.location.search);
+  var appParam = urlParams.get('app');
+  
+  if (stored) {
+    try { activeSelectedModules = JSON.parse(stored); } catch(e) { activeSelectedModules = []; }
+  } else if (appParam) {
+    activeSelectedModules = [appParam];
+  }
+
+  var container = document.getElementById('selectedModulesContainer');
+  var listEl = document.getElementById('selectedModulesList');
+  if (container && listEl && activeSelectedModules && activeSelectedModules.length > 0) {
+    container.style.display = 'block';
+    listEl.innerHTML = activeSelectedModules.map(function(m) {
+      return '<span style="background: rgba(246,221,13,0.15); color: #f6dd0d; border: 1px solid rgba(246,221,13,0.3); font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; font-weight: 600;">' + m + '</span>';
+    }).join(' ');
+  }
+}
+
+function getFormattedAppointmentTitle(title) {
+  if (activeSelectedModules && activeSelectedModules.length > 0) {
+    return title + ' (' + activeSelectedModules.join(', ') + ')';
+  }
+  return title;
+}
+
+function selectAppointment(title, duration) {
+  var fullTitle = getFormattedAppointmentTitle(title);
+  currentAppointment = { title: fullTitle, duration: duration };
+  showPage('page-calendar');
+  document.getElementById('appointment-type-title').textContent = title;
+  document.getElementById('requested-apt-title').textContent = fullTitle;
+  document.getElementById('requested-apt-duration').textContent = duration;
+  document.getElementById('summary-type').textContent = fullTitle;
+  document.getElementById('summary-duration').textContent = duration;
+  renderCalendar();
+}
+
+function showPage(pageId) {
+  document.querySelectorAll('.page-view').forEach(function(p) { p.classList.remove('active'); });
+  var p = document.getElementById(pageId);
+  if (p) { p.classList.add('active'); window.scrollTo(0, 0); }
+}
+
+function renderCalendar() {
+  var grid = document.getElementById('calendar-grid');
+  if (!grid) return;
+  var now = currentCalendarDate;
+  var year = now.getFullYear();
+  var month = now.getMonth();
+  var monthNames = getCalendarMonthNames();
+  var dayNames = getCalendarDayNames();
+  document.getElementById('current-month').textContent = monthNames[month] + ' ' + year;
+  var firstDay = new Date(year, month, 1).getDay();
+  var daysInMonth = new Date(year, month + 1, 0).getDate();
+  var today = new Date();
+  var html = dayNames.map(function(d){ return '<div style="text-align:center;font-weight:600;font-size:0.8rem;padding:8px 0;color:#94a3b8;">' + d + '</div>'; }).join('');
+  for (var i = 0; i < firstDay; i++) html += '<div></div>';
+  for (var d = 1; d <= daysInMonth; d++) {
+    var date = new Date(year, month, d);
+    var isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    var isWeekend = date.getDay() === 0 || date.getDay() === 6;
+    var disabled = isPast || isWeekend;
+    html += '<div class="calendar-day' + (disabled ? ' disabled' : '') + '"' +
+            (disabled ? '' : ' onclick="selectDate(' + year + ',' + month + ',' + d + ')"') +
+            '>' + d + '</div>';
+  }
+  grid.innerHTML = html;
+  document.getElementById('time-slots-container').style.display = 'none';
+  selectedDate = null;
+  selectedTime = null;
+  var lang = (typeof window.getCurrentSynergyLang === 'function') ? window.getCurrentSynergyLang() : 'en';
+  document.getElementById('summary-date').textContent = lang === 'sw' ? 'Chagua tarehe' : 'Select a date';
+  document.getElementById('summary-time').textContent = lang === 'sw' ? 'Chagua muda' : 'Select a time';
+  document.getElementById('btn-next-to-form').disabled = true;
+}
+
+function selectDate(year, month, day) {
+  selectedDate = new Date(year, month, day);
+  var monthNames = getCalendarMonthNames();
+  document.getElementById('summary-date').textContent = monthNames[month] + ' ' + day + ', ' + year;
+  document.querySelectorAll('.calendar-day').forEach(function(el) { el.classList.remove('selected'); });
+  if (event && event.target) event.target.classList.add('selected');
+  renderTimeSlots();
+}
+
+function renderTimeSlots() {
+  var slots = ['9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM'];
+  var html = slots.map(function(t){ return '<div class="time-slot" onclick="selectTime(\'' + t + '\')">' + t + '</div>'; }).join('');
+  document.getElementById('time-slots').innerHTML = html;
+  document.getElementById('time-slots-container').style.display = 'block';
+  selectedTime = null;
+  var lang = (typeof window.getCurrentSynergyLang === 'function') ? window.getCurrentSynergyLang() : 'en';
+  document.getElementById('summary-time').textContent = lang === 'sw' ? 'Chagua muda' : 'Select a time';
+  document.getElementById('btn-next-to-form').disabled = true;
+}
+
+function selectTime(time) {
+  selectedTime = time;
+  document.querySelectorAll('.time-slot').forEach(function(el) { el.classList.remove('selected'); });
+  if (event && event.target) event.target.classList.add('selected');
+  document.getElementById('summary-time').textContent = time;
+  document.getElementById('btn-next-to-form').disabled = false;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  initSelectedModulesCarryOver();
+
+  var prevBtn = document.getElementById('prev-month');
+  var nextBtn = document.getElementById('next-month');
+  if (prevBtn) prevBtn.addEventListener('click', function() {
+    currentCalendarDate = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() - 1, 1);
+    renderCalendar();
+  });
+  if (nextBtn) nextBtn.addEventListener('click', function() {
+    currentCalendarDate = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1, 1);
+    renderCalendar();
+  });
+
+  var nextToFormBtn = document.getElementById('btn-next-to-form');
+  if (nextToFormBtn) nextToFormBtn.addEventListener('click', function() {
+    document.getElementById('requested-apt-title-form').textContent = currentAppointment.title;
+    document.getElementById('requested-apt-duration-form').textContent = currentAppointment.duration;
+    showPage('page-form');
+  });
+
+  var backToSelBtn = document.getElementById('back-to-selection');
+  if (backToSelBtn) backToSelBtn.addEventListener('click', function(e) { e.preventDefault(); showPage('page-selection'); });
+
+  var backToCalBtn = document.getElementById('back-to-calendar');
+  if (backToCalBtn) backToCalBtn.addEventListener('click', function(e) { e.preventDefault(); showPage('page-calendar'); });
+
+  var backToCalBtn2 = document.getElementById('back-to-calendar-btn');
+  if (backToCalBtn2) backToCalBtn2.addEventListener('click', function() { showPage('page-calendar'); });
+
+  var bookAnotherBtn = document.getElementById('btn-book-another');
+  if (bookAnotherBtn) bookAnotherBtn.addEventListener('click', function() { showPage('page-selection'); });
+
+  document.querySelectorAll('.location-option').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.location-option').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      var lang = (typeof window.getCurrentSynergyLang === 'function') ? window.getCurrentSynergyLang() : 'en';
+      if (this.dataset.location === 'online') {
+        selectedLocation = (lang === 'sw') ? 'Mtandaoni' : 'Online';
+      } else {
+        selectedLocation = (lang === 'sw') ? 'Ana kwa Ana' : 'In-Person';
+      }
+      document.getElementById('summary-location').textContent = selectedLocation;
+    });
+  });
+
+  document.querySelectorAll('.filter-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      var filter = this.dataset.filter;
+      document.querySelectorAll('.appointment-card').forEach(function(card) {
+        card.style.display = (filter === 'all' || card.dataset.type === filter) ? '' : 'none';
+      });
+    });
+  });
+
+  var bookingForm = document.getElementById('booking-form');
+  if (bookingForm) bookingForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = document.getElementById('form-name').value;
+    var email = document.getElementById('form-email').value;
+    var monthNames = getCalendarMonthNames();
+    document.getElementById('confirm-type').textContent = currentAppointment.title;
+    document.getElementById('confirm-location').textContent = selectedLocation;
+    document.getElementById('confirm-duration').textContent = currentAppointment.duration;
+    document.getElementById('confirm-date').textContent = selectedDate ? (monthNames[selectedDate.getMonth()] + ' ' + selectedDate.getDate() + ', ' + selectedDate.getFullYear()) : '-';
+    document.getElementById('confirm-time').textContent = selectedTime || '-';
+    document.getElementById('confirm-name').textContent = name;
+    document.getElementById('confirm-email').textContent = email;
+    document.getElementById('requested-apt-title-confirm').textContent = currentAppointment.title;
+    document.getElementById('requested-apt-duration-confirm').textContent = currentAppointment.duration;
+    showPage('page-confirmation');
+  });
+});
+</script>
 
 <!-- FOOTER -->
 <footer class="site-footer" style="background: #2f2f2f; color: #fff; margin-top: 56px; padding: 40px 20px;">
@@ -1109,5 +1363,6 @@
     }
   });
 </script>
+<script src="js/localization.js"></script>
 </body>
 </html>

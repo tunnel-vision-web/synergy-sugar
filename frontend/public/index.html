@@ -711,9 +711,19 @@
     .footer-col ul li a{color:#fff;text-decoration:none;font-size:0.9rem;opacity:0.9}
     .footer-col ul li a:hover{opacity:1;text-decoration:underline}
     .footer-social{display:flex;gap:16px;margin-top:16px;justify-content:flex-start}
+    .agri-logo-link {
+      display: inline-block !important;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), filter 0.25s ease !important;
+      text-decoration: none !important;
+    }
+    .agri-logo-link:hover {
+      transform: translateY(-4px) scale(1.04) !important;
+      filter: brightness(1.15) !important;
+    }
     @media(max-width:720px){
       .footer-columns{grid-template-columns:1fr;text-align:center}
       .footer-social{justify-content:center}
+      .footer-col-agri{align-items:center !important; text-align:center !important;}
     }
 
     .footer-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;transition:all 0.3s ease;font-size:18px}
@@ -1687,6 +1697,30 @@ html, body {
   margin-left: auto !important;
   z-index: 2 !important;
 }
+
+/* ── Left column: selector stacked above Sign In ── */
+.auth-left-col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+/* ── Localization bar pill ── */
+#synergyLocalizationBar {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: rgba(16,25,21,0.75) !important;
+  border: 1px solid #364e43 !important;
+  border-radius: 4px !important;
+  padding: 3px 8px !important;
+  font-size: 0.74rem !important;
+  color: #f8fafc !important;
+  white-space: nowrap !important;
+  line-height: 1.3 !important;
+}
+
 .site-header .auth-actions .auth-signin,
 .site-header .auth-signin {
   color: #f8fafc !important;
@@ -2345,8 +2379,6 @@ a.btn-request-demo:hover {
 <body>
 
   <!-- Header -->
-      <!-- Header -->
-    <!-- Header -->
   <header class="site-header" id="siteHeader">
     <div class="inner">
       <div class="brand">
@@ -2359,35 +2391,39 @@ a.btn-request-demo:hover {
       <nav class="main-nav" id="mainNav">
         <div class="nav-item">
           <a href="#" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'appsMegaMenu')">
-            <span>Apps</span> <span class="chevron-icon">▼</span>
+            <span data-i18n="nav_apps">Apps</span> <span class="chevron-icon">▼</span>
           </a>
         </div>
 
         <div class="nav-item">
-          <a href="features.html">Features</a>
+          <a href="features.html" data-i18n="nav_features">Features</a>
         </div>
 
         <div class="nav-item">
           <a href="#" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'usedbyMegaMenu')">
-            <span>Used By</span> <span class="chevron-icon">▼</span>
+            <span data-i18n="nav_usedby">Used By</span> <span class="chevron-icon">▼</span>
           </a>
         </div>
 
         <div class="nav-item">
-          <a href="forum/index.html">Community</a>
+          <a href="forum/index.html" data-i18n="nav_community">Community</a>
         </div>
         <div class="nav-item">
-          <a href="pricing.html">Pricing</a>
+          <a href="pricing.html" data-i18n="nav_pricing">Pricing</a>
         </div>
         <div class="nav-item">
-          <a href="help.html">Help</a>
+          <a href="help.html" data-i18n="nav_help">Help</a>
         </div>
       </nav>
 
-      <!-- Auth Actions -->
+      <!-- Auth Actions: [selector above Sign In] + [Request Demo] -->
       <div class="auth-actions">
-        <a class="auth-signin" href="#" onclick="openSignInModal('signin'); return false;">Sign in</a>
-        <a class="btn-request-demo" href="appointment.html">Request Demo</a>
+        <div class="auth-left-col">
+          <!-- Country/Language selector injected here by localization.js -->
+          <div id="synergyLocalizationBar"></div>
+          <a class="auth-signin" href="#" onclick="openSignInModal('signin'); return false;" data-i18n="nav_signin">Sign in</a>
+        </div>
+        <a class="btn-request-demo" href="appointment.html" data-i18n="hero_cta_1">Request Demo</a>
       </div>
 
       <!-- Hamburger Button (Mobile Only) -->
@@ -2742,13 +2778,13 @@ a.btn-request-demo:hover {
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <div class="hero-titles">
-            <div class="hero-title-1">Intelligent</div>
-            <div class="hero-title-2">Cohesive</div>
-            <div class="hero-title-3">Integrated</div>
+            <div class="hero-title-1" data-i18n-text="Intelligent">Intelligent</div>
+            <div class="hero-title-2" data-i18n-text="Cohesive">Cohesive</div>
+            <div class="hero-title-3" data-i18n-text="Integrated">Integrated</div>
           </div>
         </div>
         <div class="hero-cta">
-          <a href="#features" class="btn-start">Start Today</a>
+          <a href="#features" class="btn-start" data-i18n-text="Start Today">Start Today</a>
         </div>
       </div>
       <!-- Slide 2 -->
@@ -2756,13 +2792,13 @@ a.btn-request-demo:hover {
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <div class="hero-titles">
-            <div class="hero-title-1">A comprehensive platform</div>
-            <div class="hero-title-2">Seamlessly connecting...</div>
-            <div class="hero-title-3">procurement, accounting, sales, and analytics</div>
+            <div class="hero-title-1" data-i18n-text="A comprehensive platform">A comprehensive platform</div>
+            <div class="hero-title-2" data-i18n-text="Seamlessly connecting...">Seamlessly connecting...</div>
+            <div class="hero-title-3" data-i18n-text="procurement, accounting, sales, and analytics">procurement, accounting, sales, and analytics</div>
           </div>
         </div>
         <div class="hero-cta">
-          <a href="#features" class="btn-start">Start Today</a>
+          <a href="#features" class="btn-start" data-i18n-text="Start Today">Start Today</a>
         </div>
       </div>
       <!-- Slide 3 - EASILY COPY THIS BLOCK TO ADD MORE SLIDES -->
@@ -2770,13 +2806,13 @@ a.btn-request-demo:hover {
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <div class="hero-titles">
-            <div class="hero-title-1">Empowering Growth</div>
-            <div class="hero-title-2">With Data-Driven Insights</div>
-            <div class="hero-title-3">Transform your business operations</div>
+            <div class="hero-title-1" data-i18n-text="Empowering Growth">Empowering Growth</div>
+            <div class="hero-title-2" data-i18n-text="With Data-Driven Insights">With Data-Driven Insights</div>
+            <div class="hero-title-3" data-i18n-text="Transform your business operations">Transform your business operations</div>
           </div>
         </div>
         <div class="hero-cta">
-          <a href="#features" class="btn-start">Start Today</a>
+          <a href="#features" class="btn-start" data-i18n-text="Start Today">Start Today</a>
         </div>
       </div>
       <!-- END SLIDE 3 - Copy the above block and change data-i in dots below to add more -->
@@ -3340,32 +3376,83 @@ a.btn-request-demo:hover {
       if (typeof event.preventDefault === 'function') event.preventDefault();
       if (typeof event.stopPropagation === 'function') event.stopPropagation();
     }
-    const btn = document.getElementById('hamburgerBtn') || (event && event.currentTarget);
-    const nav = document.getElementById('mainNav');
-    if (btn) btn.classList.toggle('active');
-    if (nav) nav.classList.toggle('mobile-active');
+    const btn = document.getElementById('hamburgerBtn');
+    const container = document.getElementById('mobileDrawerContainer');
+    const panel = document.getElementById('mobileDrawerPanel');
+    const isActive = container && container.classList.contains('active');
+    
+    if (btn) btn.classList.toggle('active', !isActive);
+    if (container) container.classList.toggle('active', !isActive);
+    if (panel) panel.classList.toggle('active', !isActive);
   };
-
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.mega-menu-overlay') && !e.target.closest('.dropdown-toggle')) {
-      window.closeAllMegaMenus();
-    }
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      window.closeAllMegaMenus();
-    }
-  });
 
   window.closeMobileDrawer = function() {
-    const nav = document.getElementById('mainNav');
     const btn = document.getElementById('hamburgerBtn');
-    const drawer = document.getElementById('mobileDrawerOverlay') || document.querySelector('.mobile-drawer-overlay');
-    if (nav) nav.classList.remove('mobile-active', 'active');
+    const container = document.getElementById('mobileDrawerContainer');
+    const panel = document.getElementById('mobileDrawerPanel');
     if (btn) btn.classList.remove('active');
-    if (drawer) drawer.classList.remove('active');
+    if (container) container.classList.remove('active');
+    if (panel) panel.classList.remove('active');
   };
+
+  // HERO CAROUSEL CONTROLLER (Auto-rotation every 5s + Arrows + Dots)
+  (function initHeroCarousel() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    const prevBtn = document.getElementById('heroPrev');
+    const nextBtn = document.getElementById('heroNext');
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let timer = null;
+
+    function showSlide(index) {
+      if (index >= slides.length) index = 0;
+      if (index < 0) index = slides.length - 1;
+      currentIndex = index;
+
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === currentIndex);
+      });
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      timer = setInterval(() => {
+        showSlide(currentIndex + 1);
+      }, 5000);
+    }
+
+    function stopAutoPlay() {
+      if (timer) clearInterval(timer);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSlide(currentIndex - 1);
+        startAutoPlay();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSlide(currentIndex + 1);
+        startAutoPlay();
+      });
+    }
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        showSlide(idx);
+        startAutoPlay();
+      });
+    });
+
+    startAutoPlay();
+  })();
 
   window.openMobileSubpanel = function(panelId) {
     const panel = document.getElementById(panelId);
@@ -3464,11 +3551,6 @@ a.btn-request-demo:hover {
   };
 
   window.updateModalUI = function() {
-    const title = document.getElementById('modalTitle');
-    const subtitle = document.getElementById('modalSubtitle');
-    const submitBtn = document.getElementById('authSubmitBtn');
-    const toggleText = document.getElementById('authToggleText');
-    const toggleBtn = document.getElementById('authToggleBtn');
     const nameGroup = document.getElementById('authNameGroup');
     const companyGroup = document.getElementById('authCompanyGroup');
     const emailGroup = document.getElementById('authEmailGroup');
@@ -3479,22 +3561,12 @@ a.btn-request-demo:hover {
     if (msg) msg.style.display = 'none';
 
     if (window.authMode === 'signup') {
-      if (title) title.textContent = 'Create an Account';
-      if (subtitle) subtitle.textContent = 'Start onboarding for Synergy Bravo ERP';
-      if (submitBtn) submitBtn.textContent = 'Register & Continue Onboarding';
-      if (toggleText) toggleText.textContent = 'Already have an account?';
-      if (toggleBtn) toggleBtn.textContent = 'Sign In';
       if (nameGroup) nameGroup.style.display = 'block';
       if (companyGroup) companyGroup.style.display = 'block';
       if (emailGroup) emailGroup.style.display = 'block';
       if (passwordGroup) passwordGroup.style.display = 'block';
       if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'block';
     } else if (window.authMode === 'forgot') {
-      if (title) title.textContent = 'Reset Password';
-      if (subtitle) subtitle.textContent = 'Enter your work email address to receive a password reset link';
-      if (submitBtn) submitBtn.textContent = 'Send Reset Link';
-      if (toggleText) toggleText.textContent = 'Remember your password?';
-      if (toggleBtn) toggleBtn.textContent = 'Sign In';
       if (nameGroup) nameGroup.style.display = 'none';
       if (companyGroup) companyGroup.style.display = 'none';
       if (emailGroup) emailGroup.style.display = 'block';
@@ -3502,16 +3574,15 @@ a.btn-request-demo:hover {
       if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
     } else {
       // Sign In mode
-      if (title) title.textContent = 'Welcome Back';
-      if (subtitle) subtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
-      if (submitBtn) submitBtn.textContent = 'Sign In';
-      if (toggleText) toggleText.textContent = "Don't have an account?";
-      if (toggleBtn) toggleBtn.textContent = 'Sign Up';
       if (nameGroup) nameGroup.style.display = 'none';
       if (companyGroup) companyGroup.style.display = 'none';
       if (emailGroup) emailGroup.style.display = 'block';
       if (passwordGroup) passwordGroup.style.display = 'block';
       if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
+    }
+
+    if (window.SynergyLocalization && typeof window.SynergyLocalization.translateModalUI === 'function') {
+      window.SynergyLocalization.translateModalUI();
     }
   };
 
@@ -3580,5 +3651,320 @@ a.btn-request-demo:hover {
     }
   });
 </script>
+<!-- FEATURE DETAILS MODAL -->
+<div id="featureDetailsModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#16221c; border:1px solid #283a31; border-radius:8px; max-width:650px; width:100%; padding:28px; color:#f8fafc; position:relative; box-shadow:0 10px 30px rgba(0,0,0,0.6);">
+    <button onclick="closeFeatureModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; color:#94a3b8; font-size:1.6rem; cursor:pointer; line-height:1;">&times;</button>
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px;">
+      <div id="featModalBadge" style="width:48px; height:48px; border-radius:8px; background:rgba(246,221,13,0.15); display:flex; align-items:center; justify-content:center; color:#f6dd0d; font-size:1.4rem; font-weight:700;">★</div>
+      <div>
+        <h3 id="featModalTitle" style="margin:0; font-size:1.35rem; color:#f6dd0d; font-weight:700;">App Specifications</h3>
+        <div id="featModalCategory" style="font-size:0.85rem; color:#94a3b8; margin-top:2px;">Synergy Bravo ERP — Core Module</div>
+      </div>
+    </div>
+    <div id="featModalBody" style="font-size:0.95rem; line-height:1.6; color:#cbd5e1; margin-bottom:24px; border-top:1px solid #283a31; border-bottom:1px solid #283a31; padding:16px 0;">
+      <!-- Module specs rendered here -->
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+      <button onclick="closeFeatureModal()" style="background:transparent; border:1px solid #283a31; color:#94a3b8; padding:10px 20px; border-radius:4px; font-weight:600; cursor:pointer;">Close</button>
+      <a id="featModalDemoBtn" href="appointment.html" style="background:#f6dd0d; color:#101915; text-decoration:none; padding:10px 22px; border-radius:4px; font-weight:700;">Book Demo with this App</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function initAppSelectorAndFeatures() {
+  const APP_SPECS = {
+    'farmers-recruitment': {
+      title: 'Farmers Recruitment & Cane Management',
+      category: 'Agriculture & Field Operations',
+      badge: '🌾',
+      bullets: [
+        'Outgrower farmer registration, digital contracting, and plot polygon mapping',
+        'GPS acreage audit, crop age tracking, and harvest maturity forecasting',
+        'Cutting ticket generation, cane weigh-in queueing, and transporter assignment',
+        'SMS alerts for grower payout statements and harvesting field dates'
+      ]
+    },
+    'nucleus-operations': {
+      title: 'Nucleus Estate Operations',
+      category: 'Plantation & Field Fleet Management',
+      badge: '🚜',
+      bullets: [
+        'Estate field block planning, cane planting schedules, and fertilizer application log',
+        'Irrigation pump tracking, fuel consumption monitoring, and tractor telemetry',
+        'Harvest yield per hectare analytics and field labor attendance tracking',
+        'Pest control, soil acidity analysis, and harvest machinery dispatch'
+      ]
+    },
+    'harvesting-transport': {
+      title: 'Harvesting & Transport Logistics',
+      category: 'Field Logistics & Fleet Telemetry',
+      badge: '🚛',
+      bullets: [
+        'GPS live tracking for cane haulage tractor trailers and haulers',
+        'Driver trip tickets, cane weight dispatch verification, and turn-around time telemetry',
+        'Transporter rate tariffs, ton-kilometer distance payout calculations',
+        'Road condition logs and automated delay notification to mill gate'
+      ]
+    },
+    'weighbridge': {
+      title: 'Weighbridge Scale Sync',
+      category: 'Factory Gate & Scale Automation',
+      badge: '⚖️',
+      bullets: [
+        'Gross and tare automatic weigh scale indicator integration (RS232/IP)',
+        'Cane quality lab sucrose sampling ticket link (Pol %, Brix, Purity)',
+        'Anti-tamper weight locking, trash deduction capture, and ticket printing',
+        'Direct API integration to grower settlement ledger for immediate ticket posting'
+      ]
+    },
+    'fleet-management': {
+      title: 'Fleet & Heavy Machinery Maintenance',
+      category: 'Asset Management & Maintenance',
+      badge: '🔧',
+      bullets: [
+        'Preventive maintenance schedules for loaders, harvesters, and haulers',
+        'Spare parts inventory auto-deduction and work order cost tracking',
+        'Fuel dispenser RFID sync, mileages, and hour-meter logging',
+        'Tire lifecycle tracking, engine overhaul logs, and downtime diagnostics'
+      ]
+    },
+    'mrp-inventory': {
+      title: 'MRP & Mill Inventory Management',
+      category: 'Factory Supply Chain & Stores',
+      badge: '📦',
+      bullets: [
+        'Raw material, bag storage, chemical re-agent, and spare parts warehouse tracking',
+        'Re-order threshold alerts, multi-warehouse transfer approvals, and vendor POs',
+        'Sugar bag batch serial tracking, bag weight audit, and moisture check',
+        'Warehouse valuation (FIFO/LIFO/Weighted Average) and stock audit logs'
+      ]
+    },
+    'production': {
+      title: 'Sugar Milling & Factory Operations',
+      category: 'Mill Production & Process Engineering',
+      badge: '⚙️',
+      bullets: [
+        'Real-time crushing rate (TCH) telemetry, mill extraction %, and steam balance',
+        'Juice clarification, evaporator pan monitoring, and crystallization tracking',
+        'Bagasse boiler energy balance, ethanol/molasses output logging',
+        'Factory downtime cause coding and shift-by-shift technical performance'
+      ]
+    },
+    'sales-invoicing': {
+      title: 'Sugar Sales & Distribution Invoicing',
+      category: 'Commercial & Order Fulfillment',
+      badge: '🛒',
+      bullets: [
+        'Commercial sugar bag sales orders, distributor credit limits, and delivery notes',
+        'Multi-currency export invoicing, KRA E-TIMS / ETR tax compliance sync',
+        'Warehouse gate-pass release verification and customer account statements',
+        'Molasses and industrial by-product bulk sales contract management'
+      ]
+    },
+    'financial-management': {
+      title: 'Financial Management & General Ledger',
+      category: 'Core Accounting & Settlements',
+      badge: '💼',
+      bullets: [
+        'Outgrower cane payout settlements with automated transport/fertilizer advance deductions',
+        'General ledger, cost center accounting, accounts payable, and bank reconciliation',
+        'Multi-entity mill consolidation, financial statements (P&L, Balance Sheet, Cash Flow)',
+        'Audit-trail logs and direct bank EFT / M-Pesa mobile money payout integration'
+      ]
+    },
+    'hr-payroll': {
+      title: 'HR & Seasonal Mill Payroll',
+      category: 'Human Capital & Workforce Management',
+      badge: '👥',
+      bullets: [
+        'Seasonal cane cutter piece-rate payroll calculation by tonnage',
+        'Permanent factory staff monthly payroll, PAYE, NSSF, and SHA tax deductions',
+        'Biometric time-attendance gate sync for factory shift workers',
+        'Employee leave management, medical cover tracking, and payslip distribution'
+      ]
+    }
+  };
+
+  // 1. App Search Function
+  const searchInput = document.getElementById('appsSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const q = e.target.value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.app-card');
+      cards.forEach(card => {
+        const name = (card.getAttribute('data-name') || '').toLowerCase();
+        const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+        const text = card.textContent.toLowerCase();
+        if (!q || name.includes(q) || tags.includes(q) || text.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  // 2. Selected Modules Bar & Checkboxes
+  function updateSelectedModulesBar() {
+    const checkboxes = document.querySelectorAll('.app-select-checkbox:checked');
+    const bar = document.getElementById('landingSelectedModulesBar');
+    const pillsList = document.getElementById('landingSelectedPillsList');
+    const clearBtn = document.getElementById('clearSelectionsBtn');
+    const countSpan = document.getElementById('selectCount');
+    const tooltipList = document.getElementById('tooltipModulesList');
+
+    const selectedTitles = [];
+    checkboxes.forEach(cb => {
+      const card = cb.closest('.app-card');
+      const title = card ? (card.querySelector('.card-title')?.textContent || card.getAttribute('data-name') || 'Module') : 'Module';
+      selectedTitles.push(title.trim());
+    });
+
+    // Save to localStorage for appointment.html
+    try {
+      localStorage.setItem('selectedSynergyModules', JSON.stringify(selectedTitles));
+    } catch (e) {}
+
+    if (!bar) return;
+
+    if (checkboxes.length > 0) {
+      bar.style.display = 'block';
+      if (clearBtn) clearBtn.style.display = 'inline-block';
+      if (countSpan) countSpan.textContent = checkboxes.length;
+
+      if (pillsList) {
+        pillsList.innerHTML = '';
+        selectedTitles.forEach((title, idx) => {
+          const pill = document.createElement('div');
+          pill.style.cssText = 'display:inline-flex; align-items:center; gap:6px; background:#1f3129; border:1px solid #f6dd0d; color:#f8fafc; font-size:0.78rem; font-weight:600; padding:3px 10px; border-radius:4px;';
+          pill.innerHTML = `<span>${title}</span> <span class="remove-pill" style="cursor:pointer; color:#f6dd0d; font-weight:800; font-size:0.9rem;">&times;</span>`;
+          
+          pill.querySelector('.remove-pill').addEventListener('click', function() {
+            checkboxes[idx].checked = false;
+            updateSelectedModulesBar();
+          });
+          pillsList.appendChild(pill);
+        });
+      }
+
+      if (tooltipList) {
+        tooltipList.innerHTML = '';
+        selectedTitles.forEach(title => {
+          const li = document.createElement('li');
+          li.textContent = '• ' + title;
+          tooltipList.appendChild(li);
+        });
+      }
+    } else {
+      bar.style.display = 'none';
+      if (clearBtn) clearBtn.style.display = 'none';
+    }
+  }
+
+  document.querySelectorAll('.app-select-checkbox').forEach(cb => {
+    cb.addEventListener('change', updateSelectedModulesBar);
+  });
+
+  const clearBtn = document.getElementById('clearSelectionsBtn');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      document.querySelectorAll('.app-select-checkbox').forEach(cb => cb.checked = false);
+      updateSelectedModulesBar();
+    });
+  }
+
+  // 3. Feature Details Modal & Left Panel Switcher Trigger
+  window.closeFeatureModal = function() {
+    const modal = document.getElementById('featureDetailsModal');
+    if (modal) modal.style.display = 'none';
+  };
+
+  document.querySelectorAll('.app-features-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      if (e) e.preventDefault();
+      const appKey = btn.getAttribute('data-app') || 'farmers-recruitment';
+      const spec = APP_SPECS[appKey] || {
+        title: 'Synergy Bravo ERP Module',
+        category: 'Core Enterprise Application',
+        badge: '⚡',
+        bullets: ['Integrated sugar factory module', 'Real-time telemetry and API sync', 'Outgrower and mill management']
+      };
+
+      // Switch left features panel (#featuresCarousel)
+      const featuresCarousel = document.getElementById('featuresCarousel');
+      if (featuresCarousel) {
+        const slides = featuresCarousel.querySelectorAll('.features-slide');
+        let slideIndex = 0;
+        if (['weighbridge', 'production', 'mrp-inventory', 'fleet-management'].includes(appKey)) {
+          slideIndex = 1;
+        } else if (['sales-invoicing', 'financial-management', 'hr-payroll'].includes(appKey)) {
+          slideIndex = 2;
+        }
+
+        slides.forEach((s, idx) => {
+          if (idx === slideIndex) {
+            s.classList.add('active');
+            s.style.display = 'block';
+            const h5 = s.querySelector('h5');
+            const ul = s.querySelector('ul');
+            if (h5) h5.innerHTML = `<span style="color:#f6dd0d;">${spec.badge}</span> ${spec.title}`;
+            if (ul) {
+              ul.innerHTML = spec.bullets.map(b => `<li style="color:#f8fafc; font-weight:500;">${b}</li>`).join('');
+            }
+          } else {
+            s.classList.remove('active');
+            s.style.display = 'none';
+          }
+        });
+
+        const dots = document.querySelectorAll('#featDots .f-dot');
+        dots.forEach((d, idx) => {
+          if (idx === slideIndex) d.classList.add('active');
+          else d.classList.remove('active');
+        });
+
+        const panelCard = featuresCarousel.closest('.panel-card');
+        if (panelCard) {
+          panelCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          panelCard.style.transition = 'all 0.4s ease';
+          panelCard.style.boxShadow = '0 0 25px rgba(246, 221, 13, 0.7)';
+          panelCard.style.borderColor = '#f6dd0d';
+          setTimeout(() => {
+            panelCard.style.boxShadow = '';
+            panelCard.style.borderColor = '';
+          }, 2500);
+        }
+      }
+
+      // Also open Feature Modal
+      const modal = document.getElementById('featureDetailsModal');
+      const badgeEl = document.getElementById('featModalBadge');
+      const titleEl = document.getElementById('featModalTitle');
+      const catEl = document.getElementById('featModalCategory');
+      const bodyEl = document.getElementById('featModalBody');
+      const demoBtn = document.getElementById('featModalDemoBtn');
+
+      if (badgeEl) badgeEl.textContent = spec.badge;
+      if (titleEl) titleEl.textContent = spec.title;
+      if (catEl) catEl.textContent = spec.category;
+      if (demoBtn) demoBtn.href = `appointment.html?app=${appKey}`;
+
+      if (bodyEl) {
+        let html = '<h5 style="margin:0 0 10px 0; color:#f6dd0d; font-weight:700;">Key Operational Capabilities:</h5><ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px;">';
+        spec.bullets.forEach(b => {
+          html += `<li>${b}</li>`;
+        });
+        html += '</ul>';
+        bodyEl.innerHTML = html;
+      }
+
+      if (modal) modal.style.display = 'flex';
+    });
+  });
+})();
+</script>
+<script src="js/localization.js"></script>
 </body>
 </html>

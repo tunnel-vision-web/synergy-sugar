@@ -1688,6 +1688,30 @@ html, body {
   margin-left: auto !important;
   z-index: 2 !important;
 }
+
+/* ── Left column: selector stacked above Sign In ── */
+.auth-left-col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+/* ── Localization bar pill ── */
+#synergyLocalizationBar {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: rgba(16,25,21,0.75) !important;
+  border: 1px solid #364e43 !important;
+  border-radius: 4px !important;
+  padding: 3px 8px !important;
+  font-size: 0.74rem !important;
+  color: #f8fafc !important;
+  white-space: nowrap !important;
+  line-height: 1.3 !important;
+}
+
 .site-header .auth-actions .auth-signin,
 .site-header .auth-signin {
   color: #f8fafc !important;
@@ -3259,7 +3283,7 @@ a.btn-request-demo:hover {
 </head>
 <body>
 
-<header class="site-header" id="siteHeader">
+  <header class="site-header" id="siteHeader">
     <div class="inner">
       <div class="brand">
         <a href="landing_enhanced.html" style="display:flex; align-items:center; text-decoration:none;">
@@ -3271,35 +3295,38 @@ a.btn-request-demo:hover {
       <nav class="main-nav" id="mainNav">
         <div class="nav-item">
           <a href="#" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'appsMegaMenu')">
-            <span>Apps</span> <span class="chevron-icon">▼</span>
+            <span data-i18n="nav_apps">Apps</span> <span class="chevron-icon">▼</span>
           </a>
         </div>
 
         <div class="nav-item">
-          <a href="features.html">Features</a>
+          <a href="features.html" data-i18n="nav_features">Features</a>
         </div>
 
         <div class="nav-item">
           <a href="#" class="dropdown-toggle" onclick="toggleDesktopMegaMenu(event, 'usedbyMegaMenu')">
-            <span>Used By</span> <span class="chevron-icon">▼</span>
+            <span data-i18n="nav_usedby">Used By</span> <span class="chevron-icon">▼</span>
           </a>
         </div>
 
         <div class="nav-item">
-          <a href="forum/index.html">Community</a>
+          <a href="forum/index.html" data-i18n="nav_community">Community</a>
         </div>
         <div class="nav-item">
-          <a href="pricing.html">Pricing</a>
+          <a href="pricing.html" data-i18n="nav_pricing">Pricing</a>
         </div>
         <div class="nav-item">
-          <a href="help.html" class="active">Help</a>
+          <a href="help.html" class="active" data-i18n="nav_help">Help</a>
         </div>
       </nav>
 
-      <!-- Auth Actions -->
+      <!-- Auth Actions: [selector above Sign In] + [Request Demo] -->
       <div class="auth-actions">
-        <a class="auth-signin" href="#" onclick="openSignInModal('signin'); return false;">Sign in</a>
-        <a class="btn-request-demo" href="appointment.html">Request Demo</a>
+        <div class="auth-left-col">
+          <div id="synergyLocalizationBar"></div>
+          <a class="auth-signin" href="#" onclick="openSignInModal('signin'); return false;" data-i18n="nav_signin">Sign in</a>
+        </div>
+        <a class="btn-request-demo" href="appointment.html" data-i18n="hero_cta_1">Request Demo</a>
       </div>
 
       <!-- Hamburger Button (Mobile Only) -->
@@ -3311,8 +3338,6 @@ a.btn-request-demo:hover {
     </div>
   </header>
 
-  <!-- 100% WIDTH & 100% HEIGHT DESKTOP MEGA MENUS (CLICK ONLY) -->
-  <!-- Mega Menu 1: Apps -->
   <div class="mega-menu-overlay" id="appsMegaMenu">
     <div class="mega-menu-content-wrap">
       <button class="mega-menu-close-btn" onclick="closeAllMegaMenus()" aria-label="Close menu">&times;</button>
@@ -3843,14 +3868,14 @@ a.btn-request-demo:hover {
   </div>
 
   <!-- HELP CENTER HEADER IMAGE BANNER -->
-  <section class="page-header-banner" style="background-image: url('assets/images/help_header.jpg'); padding: 60px 20px; background-size: cover; background-position: center; position: relative;">
+  <section class="page-header-banner" style="background-image: url('assets/images/help_header.jpg'); padding: 60px 20px 40px; padding-top: calc(84px + 60px); background-size: cover; background-position: center; position: relative;">
     <div class="page-header-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(16,25,20,0.85);"></div>
     <div class="page-header-content" style="position:relative; z-index:2; max-width:1200px; margin:0 auto; text-align:center; color:#f8fafc;">
-      <h1 style="font-size:2.2rem; font-weight:800; color:#f8fafc; margin-bottom:8px;">Help & Support Center</h1>
+      <h1 style="font-size:2.2rem; font-weight:800; color:#f8fafc; margin-bottom:8px;" data-i18n-text="Help & Support Center">Help & Support Center</h1>
       <div class="page-breadcrumb" style="font-size:0.9rem; color:#94a3b8;">
-        <a href="landing_enhanced.html" style="color:#f6dd0d; text-decoration:none;">Home</a>
+        <a href="landing_enhanced.html" style="color:#f6dd0d; text-decoration:none;" data-i18n="nav_home">Home</a>
         <span class="sep" style="margin:0 6px;">/</span>
-        <span>Help Center</span>
+        <span data-i18n="nav_help_center">Help Center</span>
       </div>
     </div>
   </section>
@@ -3877,46 +3902,46 @@ a.btn-request-demo:hover {
             <aside class="help-sidebar">
               <div class="help-sidebar-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-                Filter & Sort
+                Filter &amp; Sort
               </div>
 
               <div class="help-sort-wrapper">
-                <label class="help-sort-label" for="helpSortSelect">Sort Articles By</label>
+                <label class="help-sort-label" for="helpSortSelect" data-i18n-text="Sort Articles By">Sort Articles By</label>
                 <select id="helpSortSelect" class="help-sort-select">
-                  <option value="popular">Most Popular</option>
-                  <option value="recent">Recently Added</option>
-                  <option value="title">Alphabetical (A-Z)</option>
+                  <option value="popular" data-i18n-text="Most Popular">Most Popular</option>
+                  <option value="recent" data-i18n-text="Recently Added">Recently Added</option>
+                  <option value="title" data-i18n-text="Alphabetical (A-Z)">Alphabetical (A-Z)</option>
                 </select>
               </div>
 
-              <div class="help-sort-label">Categories</div>
+              <div class="help-sort-label" data-i18n-text="Categories">Categories</div>
               <ul class="help-category-list" id="helpCategoryList">
                 <li class="help-category-item active" data-category="all">
-                  <span>All Topics</span>
+                  <span data-i18n-text="All Topics">All Topics</span>
                   <span class="help-cat-count">8</span>
                 </li>
                 <li class="help-category-item" data-category="getting-started">
-                  <span>Getting Started</span>
+                  <span data-i18n-text="Getting Started">Getting Started</span>
                   <span class="help-cat-count">2</span>
                 </li>
                 <li class="help-category-item" data-category="farmer-ops">
-                  <span>Farmer Operations</span>
+                  <span data-i18n-text="Farmer Operations">Farmer Operations</span>
                   <span class="help-cat-count">1</span>
                 </li>
                 <li class="help-category-item" data-category="weighbridge-mill">
-                  <span>Weighbridge & Mill</span>
+                  <span data-i18n-text="Weighbridge &amp; Mill">Weighbridge &amp; Mill</span>
                   <span class="help-cat-count">2</span>
                 </li>
                 <li class="help-category-item" data-category="financials">
-                  <span>Financials & Payroll</span>
+                  <span data-i18n-text="Financials &amp; Payroll">Financials &amp; Payroll</span>
                   <span class="help-cat-count">1</span>
                 </li>
                 <li class="help-category-item" data-category="inventory">
-                  <span>Inventory & Sales</span>
+                  <span data-i18n-text="Inventory &amp; Sales">Inventory &amp; Sales</span>
                   <span class="help-cat-count">1</span>
                 </li>
                 <li class="help-category-item" data-category="troubleshooting">
-                  <span>Troubleshooting</span>
+                  <span data-i18n-text="Troubleshooting">Troubleshooting</span>
                   <span class="help-cat-count">1</span>
                 </li>
               </ul>
@@ -4691,6 +4716,16 @@ a.btn-request-demo:hover {
         <input type="text" id="authCompany" placeholder="Mumias Sugar Company Ltd" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
       </div>
 
+      <div class="form-group payment-mpesa" id="authMpesaGroup" style="display: none; margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;" data-i18n="pay_phone_label">M-PESA Registered Phone Number</label>
+        <input type="tel" id="authMpesaPhone" placeholder="+254 712 345678" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+
+      <div class="form-group payment-card" id="authCardGroup" style="display: none; margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;" data-i18n="pay_card_label">Card Number (Visa / Mastercard)</label>
+        <input type="text" id="authCardNum" placeholder="4532 •••• •••• 8910" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
+      </div>
+
       <div class="form-group" id="authEmailGroup" style="margin-bottom: 16px;">
         <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 6px;">Work Email Address</label>
         <input type="email" id="authEmail" required placeholder="name@company.com" style="width: 100%; background: #101915; border: 1px solid #283a31; color: #f8fafc; padding: 10px 14px; border-radius: 3px !important; font-size: 0.95rem;">
@@ -4779,12 +4814,14 @@ a.btn-request-demo:hover {
     const body = card.querySelector('.help-article-body');
     if (!body) return;
 
+    const isSw = (typeof currentLang !== 'undefined' && currentLang === 'sw') ||
+                 (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.currentLang === 'sw');
     if (body.style.display === 'block') {
       body.style.display = 'none';
-      btn.textContent = 'Read More ▼';
+      btn.textContent = isSw ? 'Soma Zaidi ▼' : 'Read More ▼';
     } else {
       body.style.display = 'block';
-      btn.textContent = 'Collapse Article ▲';
+      btn.textContent = isSw ? 'Funga Makala ▲' : 'Collapse Article ▲';
     }
   };
 
@@ -4916,23 +4953,28 @@ a.btn-request-demo:hover {
 
     if (msg) msg.style.display = 'none';
 
+    // Use Swahili strings if language is SW
+    const isSw = document.documentElement.lang === 'sw' ||
+                 (typeof window._synergyLang !== 'undefined' && window._synergyLang === 'sw') ||
+                 localStorage.getItem('synergy_lang') === 'sw';
+
     if (window.authMode === 'signup') {
-      if (title) title.textContent = 'Create an Account';
-      if (subtitle) subtitle.textContent = 'Start onboarding for Synergy Bravo ERP';
-      if (submitBtn) submitBtn.textContent = 'Register & Continue Onboarding';
-      if (toggleText) toggleText.textContent = 'Already have an account?';
-      if (toggleBtn) toggleBtn.textContent = 'Sign In';
+      if (title) title.textContent = isSw ? 'Fungua Akaunti' : 'Create an Account';
+      if (subtitle) subtitle.textContent = isSw ? 'Anza usajili wa Synergy Bravo ERP' : 'Start onboarding for Synergy Bravo ERP';
+      if (submitBtn) submitBtn.textContent = isSw ? 'Jisajili na Endelea' : 'Register & Continue Onboarding';
+      if (toggleText) toggleText.textContent = isSw ? 'Una akaunti tayari?' : 'Already have an account?';
+      if (toggleBtn) toggleBtn.textContent = isSw ? 'Ingia' : 'Sign In';
       if (nameGroup) nameGroup.style.display = 'block';
       if (companyGroup) companyGroup.style.display = 'block';
       if (emailGroup) emailGroup.style.display = 'block';
       if (passwordGroup) passwordGroup.style.display = 'block';
       if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'block';
     } else if (window.authMode === 'forgot') {
-      if (title) title.textContent = 'Reset Password';
-      if (subtitle) subtitle.textContent = 'Enter your work email address to receive a password reset link';
-      if (submitBtn) submitBtn.textContent = 'Send Reset Link';
-      if (toggleText) toggleText.textContent = 'Remember your password?';
-      if (toggleBtn) toggleBtn.textContent = 'Sign In';
+      if (title) title.textContent = isSw ? 'Weka upya Nenosiri' : 'Reset Password';
+      if (subtitle) subtitle.textContent = isSw ? 'Weka barua pepe yako ya kazi ili kupokea kiungo cha kubadilisha nenosiri' : 'Enter your work email address to receive a password reset link';
+      if (submitBtn) submitBtn.textContent = isSw ? 'Tuma Kiungo cha Kubadilisha' : 'Send Reset Link';
+      if (toggleText) toggleText.textContent = isSw ? 'Kumbuka nenosiri yako?' : 'Remember your password?';
+      if (toggleBtn) toggleBtn.textContent = isSw ? 'Ingia' : 'Sign In';
       if (nameGroup) nameGroup.style.display = 'none';
       if (companyGroup) companyGroup.style.display = 'none';
       if (emailGroup) emailGroup.style.display = 'block';
@@ -4940,11 +4982,11 @@ a.btn-request-demo:hover {
       if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
     } else {
       // Sign In mode
-      if (title) title.textContent = 'Welcome Back';
-      if (subtitle) subtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
-      if (submitBtn) submitBtn.textContent = 'Sign In';
-      if (toggleText) toggleText.textContent = "Don't have an account?";
-      if (toggleBtn) toggleBtn.textContent = 'Sign Up';
+      if (title) title.textContent = isSw ? 'Karibu Tena' : 'Welcome Back';
+      if (subtitle) subtitle.textContent = isSw ? 'Ingia kwenye akaunti yako ya Synergy Bravo ERP' : 'Sign in to your Synergy Bravo ERP account';
+      if (submitBtn) submitBtn.textContent = isSw ? 'Ingia' : 'Sign In';
+      if (toggleText) toggleText.textContent = isSw ? 'Huna akaunti?' : "Don't have an account?";
+      if (toggleBtn) toggleBtn.textContent = isSw ? 'Jisajili' : 'Sign Up';
       if (nameGroup) nameGroup.style.display = 'none';
       if (companyGroup) companyGroup.style.display = 'none';
       if (emailGroup) emailGroup.style.display = 'block';
@@ -5248,6 +5290,10 @@ a.btn-request-demo:hover {
       if (controlsContainer) controlsContainer.innerHTML = '';
       if (paginationWrapper) paginationWrapper.style.display = totalMatching > 0 ? 'flex' : 'none';
     }
+
+    if (window.SynergyLocalization && typeof window.SynergyLocalization.applyLocalization === 'function') {
+      window.SynergyLocalization.applyLocalization();
+    }
   };
 
   window.updateCategoryCounts = function() {
@@ -5345,5 +5391,6 @@ a.btn-request-demo:hover {
   </div>
 </div>
 
+<script src="js/localization.js"></script>
 </body>
 </html>

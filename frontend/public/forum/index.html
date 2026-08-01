@@ -35,16 +35,19 @@
     
     <!-- Desktop Navigation -->
     <nav class="main-nav" id="mainNav">
-      <div class="nav-item"><a href="../landing_enhanced.html">Home</a></div>
-      <div class="nav-item"><a href="../features.html">Features</a></div>
-      <div class="nav-item"><a href="index.html" class="active">Community</a></div>
-      <div class="nav-item"><a href="../pricing.html">Pricing</a></div>
-      <div class="nav-item"><a href="../help.html">Help</a></div>
+      <div class="nav-item"><a href="../landing_enhanced.html" data-i18n="nav_home">Home</a></div>
+      <div class="nav-item"><a href="../features.html" data-i18n="nav_features">Features</a></div>
+      <div class="nav-item"><a href="index.html" class="active" data-i18n="nav_community">Community</a></div>
+      <div class="nav-item"><a href="../pricing.html" data-i18n="nav_pricing">Pricing</a></div>
+      <div class="nav-item"><a href="../help.html" data-i18n="nav_help">Help</a></div>
     </nav>
 
     <!-- Auth Actions -->
     <div class="auth-actions">
-      <a class="auth-signin" href="#" onclick="openSignInModal('signin'); return false;">Sign in</a>
+      <div class="auth-left-col">
+        <div id="synergyLocalizationBar"></div>
+        <a class="auth-signin" href="#" onclick="openSignInModal('signin'); return false;" data-i18n="nav_signin">Sign in</a>
+      </div>
       <a class="btn" href="ask-question.html" style="background:#f6dd0d; color:#101915; font-weight:700; border-radius:3px !important; text-decoration:none; padding:8px 16px;">Ask Question</a>
     </div>
   </div>
@@ -691,5 +694,6 @@
     }
   });
 </script>
+<script src="../js/localization.js"></script>
 </body>
 </html>
