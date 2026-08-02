@@ -487,7 +487,7 @@
         <h3>Hosting</h3>
         <div class="choices" id="hostingChoices">
           <label class="choice"><input type="radio" name="hosting" value="own" checked> Own Servers (no cost)</label>
-          <label class="choice"><input type="radio" name="hosting" value="ep"> Election Pro Hosting</label>
+          <label class="choice"><input type="radio" name="hosting" value="ep"> Synergy Pro Hosting</label>
         </div>
 
         <div id="serverReveal" class="reveal">
@@ -530,22 +530,22 @@
           </div>
         </div>
         <h3>Summary</h3>
-        <div class="line"><span>User type</span><span id="sumType">Standard</span></div>
-        <div class="line"><span>Billing</span><span id="sumBilling">Monthly</span></div>
-        <div class="line"><span>Users</span><span id="sumUsers">1</span></div>
-        <div class="line"><span>Per user</span><span id="sumPerUser">KES 700</span></div>
+        <div class="line"><span data-i18n-text="User type">User type</span><span id="sumType" data-i18n-text="Standard">Standard</span></div>
+        <div class="line"><span data-i18n-text="Billing">Billing</span><span id="sumBilling" data-i18n-text="Monthly">Monthly</span></div>
+        <div class="line"><span data-i18n-text="Users">Users</span><span id="sumUsers">1</span></div>
+        <div class="line"><span data-i18n-text="Per user">Per user</span><span id="sumPerUser">KES 700</span></div>
         <div class="hr"></div>
-        <div class="line"><span>Users total</span><span id="sumUsersTotal">KES 700</span></div>
-        <div class="line"><span>Hosting</span><span id="sumHosting">KES 0</span></div>
-        <div class="line"><span>Installation</span><span id="sumInstall">KES 0</span></div>
+        <div class="line"><span data-i18n-text="Users total">Users total</span><span id="sumUsersTotal">KES 700</span></div>
+        <div class="line"><span data-i18n-text="Hosting">Hosting</span><span id="sumHosting">KES 0</span></div>
+        <div class="line"><span data-i18n-text="Installation">Installation</span><span id="sumInstall">KES 0</span></div>
         <!-- Partner line (conditionally shown) -->
         <div class="line" id="sumPartnerLine" style="display:none;">
-          <span>Partner</span><span id="sumPartner">--</span>
+          <span data-i18n-text="Partner">Partner</span><span id="sumPartner">--</span>
         </div>
         <div class="hr"></div>
         <div class="total" id="sumTotal">KES 700</div>
-        <div class="muted" id="sumNote">Billed monthly</div>
-        <a href="buy2.html" class="btn" style="margin-top:16px">Buy Now</a>
+        <div class="muted" id="sumNote" data-i18n-text="Billed monthly">Billed monthly</div>
+        <a href="buy2.html" class="btn" style="margin-top:16px" data-i18n-text="Buy Now">Buy Now</a>
       </aside>
     </div>
   </section>
@@ -874,6 +874,6 @@
     }
   });
 </script>
-<script src="js/localization.js?v=5"></script>
+<script src="js/localization.js?v=6"></script>
 </body>
 </html>
