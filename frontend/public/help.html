@@ -3929,15 +3929,15 @@ a.btn-request-demo:hover {
                   <span class="help-cat-count">1</span>
                 </li>
                 <li class="help-category-item" data-category="weighbridge-mill">
-                  <span data-i18n-text="Weighbridge &amp; Mill">Weighbridge &amp; Mill</span>
+                  <span data-i18n-text="Weighbridge & Mill">Weighbridge &amp; Mill</span>
                   <span class="help-cat-count">2</span>
                 </li>
                 <li class="help-category-item" data-category="financials">
-                  <span data-i18n-text="Financials &amp; Payroll">Financials &amp; Payroll</span>
+                  <span data-i18n-text="Financials & Payroll">Financials &amp; Payroll</span>
                   <span class="help-cat-count">1</span>
                 </li>
                 <li class="help-category-item" data-category="inventory">
-                  <span data-i18n-text="Inventory &amp; Sales">Inventory &amp; Sales</span>
+                  <span data-i18n-text="Inventory & Sales">Inventory &amp; Sales</span>
                   <span class="help-cat-count">1</span>
                 </li>
                 <li class="help-category-item" data-category="troubleshooting">
@@ -4814,14 +4814,19 @@ a.btn-request-demo:hover {
     const body = card.querySelector('.help-article-body');
     if (!body) return;
 
-    const isSw = (typeof currentLang !== 'undefined' && currentLang === 'sw') ||
-                 (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.currentLang === 'sw');
+    const lang = (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.getLanguage) 
+                 ? window.SynergyLocalization.getLanguage() 
+                 : (localStorage.getItem('synergy_lang') || 'sw');
+    const isSw = (lang === 'sw');
     if (body.style.display === 'block') {
       body.style.display = 'none';
       btn.textContent = isSw ? 'Soma Zaidi ▼' : 'Read More ▼';
     } else {
       body.style.display = 'block';
       btn.textContent = isSw ? 'Funga Makala ▲' : 'Collapse Article ▲';
+      if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+        window.SynergyLocalization.applyLocalization();
+      }
     }
   };
 
@@ -5114,6 +5119,11 @@ a.btn-request-demo:hover {
       if (modalBox) modalBox.classList.add('active');
     }
 
+    // Apply localization to modal content dynamically
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
+    }
+
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
   };
@@ -5391,6 +5401,6 @@ a.btn-request-demo:hover {
   </div>
 </div>
 
-<script src="js/localization.js"></script>
+<script src="js/localization.js?v=4"></script>
 </body>
 </html>

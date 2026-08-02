@@ -787,30 +787,27 @@
   color: #fff;
 }
 
-/* Start Today */
-.btn-start{
-  border: 2px solid var(--primary) !important;   /* enforce 2px border */
-  border-width: 3px !important;
-  border-radius: 8px !important;   /* smaller, still rounded */
-  box-sizing: border-box;
-  background: var(--primary);
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.2s, border-color 0.2s;
-}
-.btn-start:hover{
-  background: var(--secondary);
-  border-color: var(--secondary);
-  color: #fff;
-}
-
-
+/* Start Today - Restored Hero CTA Button Styling */
 .btn-start {
-  border-width: 2px !important;
-  box-sizing: border-box !important;
+  display: inline-block !important;
+  background: #f6dd0d !important;
+  color: #101915 !important;
+  border: 2px solid #f6dd0d !important;
+  border-radius: 50px !important;
+  padding: 12px 32px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 4px 20px rgba(246, 221, 13, 0.4) !important;
+  transition: all 0.25s ease !important;
+}
+.btn-start:hover {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #101915 !important;
+  box-shadow: 0 6px 25px rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(-2px) !important;
 }
 
 .panel, 
@@ -3965,6 +3962,6 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js"></script>
+<script src="js/localization.js?v=4"></script>
 </body>
 </html>

@@ -56,15 +56,15 @@
 <!-- HERO / PAGE BANNER -->
 <section class="page-header-banner" style="background: linear-gradient(180deg, #101915 0%, #16221c 100%); border-bottom: 1px solid #283a31; padding: 100px 20px 30px 20px; text-align: center;">
   <div style="max-width: 1200px; margin: 0 auto;">
-    <h1 style="color: #f8fafc; font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; font-family: 'Sansation', sans-serif;">Community & Knowledge Forum</h1>
-    <p style="color: #94a3b8; font-size: 1rem; max-width: 720px; margin: 0 auto 20px auto; line-height: 1.5;">
+    <h1 style="color: #f8fafc; font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; font-family: 'Sansation', sans-serif;" data-i18n-text="Community & Knowledge Forum">Community & Knowledge Forum</h1>
+    <p style="color: #94a3b8; font-size: 1rem; max-width: 720px; margin: 0 auto 20px auto; line-height: 1.5;" data-i18n-text="Connect with sugar mill engineers, agronomists, ERP specialists, and community members.">
       Connect with sugar mill engineers, agronomists, ERP specialists, and community members.
     </p>
     <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-      <a href="index.html" class="forum-header-subnav-btn active">Help & Discussions</a>
-      <a href="ask-question.html" class="forum-header-subnav-btn">Ask Question</a>
-      <a href="tags.html" class="forum-header-subnav-btn">Topic Tags</a>
-      <a href="users.html" class="forum-header-subnav-btn">Community Members</a>
+      <a href="index.html" class="forum-header-subnav-btn active" data-i18n-text="Help & Discussions">Help & Discussions</a>
+      <a href="ask-question.html" class="forum-header-subnav-btn" data-i18n-text="Ask Question">Ask Question</a>
+      <a href="tags.html" class="forum-header-subnav-btn" data-i18n-text="Topic Tags">Topic Tags</a>
+      <a href="users.html" class="forum-header-subnav-btn" data-i18n-text="Community Members">Community Members</a>
     </div>
   </div>
 </section>
@@ -82,9 +82,9 @@
     
     <!-- Filter Tabs -->
     <div class="forum-tabs">
-      <button class="active" onclick="filterQuestions('all')">All</button>
-      <button onclick="filterQuestions('unanswered')">Unanswered</button>
-      <button onclick="filterQuestions('following')">Following</button>
+      <button class="active" onclick="filterQuestions('all', this)" data-i18n-text="All">All</button>
+      <button onclick="filterQuestions('unanswered', this)" data-i18n-text="Unanswered">Unanswered</button>
+      <button onclick="filterQuestions('following', this)" data-i18n-text="Following">Following</button>
     </div>
     
     <!-- Forum Content -->
@@ -95,11 +95,11 @@
         
         <!-- Sort Controls -->
         <div class="sort-controls">
-          <span class="question-count">15 questions</span>
+          <span class="question-count" data-i18n-text="15 questions">15 questions</span>
           <div class="sort-buttons">
-            <button class="active" onclick="sortQuestions('active')">Active</button>
-            <button onclick="sortQuestions('newest')">Newest</button>
-            <button onclick="sortQuestions('votes')">Most Voted</button>
+            <button class="active" onclick="sortQuestions('active', this)" data-i18n-text="Active">Active</button>
+            <button onclick="sortQuestions('newest', this)" data-i18n-text="Newest">Newest</button>
+            <button onclick="sortQuestions('votes', this)" data-i18n-text="Most Voted">Most Voted</button>
           </div>
         </div>
         
@@ -112,29 +112,29 @@
               <div class="question-stats">
                 <div class="question-stat">
                   <div class="question-stat-number">3</div>
-                  <div class="question-stat-label">votes</div>
+                  <div class="question-stat-label" data-i18n-text="votes">votes</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number answered">2</div>
-                  <div class="question-stat-label">answers</div>
+                  <div class="question-stat-label" data-i18n-text="answers">answers</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number">45</div>
-                  <div class="question-stat-label">views</div>
+                  <div class="question-stat-label" data-i18n-text="views">views</div>
                 </div>
               </div>
               <div class="question-content">
                 <h3 class="question-title">
-                  <a href="question-detail.html?id=1">How to configure email settings for notifications?</a>
+                  <a href="question-detail.html?id=1" data-i18n-text="How to configure email settings for notifications?">How to configure email settings for notifications?</a>
                 </h3>
-                <p class="question-excerpt">I'm trying to set up email notifications but can't find the right configuration options...</p>
+                <p class="question-excerpt" data-i18n-text="I'm trying to set up email notifications but can't find the right configuration options...">I'm trying to set up email notifications but can't find the right configuration options...</p>
                 <div class="question-meta">
                   <div class="question-tags">
-                    <span class="question-tag tag-blue">configuration</span>
-                    <span class="question-tag tag-green">email</span>
+                    <span class="question-tag tag-blue" data-i18n-text="configuration">configuration</span>
+                    <span class="question-tag tag-green" data-i18n-text="email">email</span>
                   </div>
                   <div class="question-author">
-                    <div>asked 2 hours ago</div>
+                    <div data-i18n-text="asked 2 hours ago">asked 2 hours ago</div>
                     <div class="author-name">john_doe</div>
                   </div>
                 </div>
@@ -148,29 +148,29 @@
               <div class="question-stats">
                 <div class="question-stat">
                   <div class="question-stat-number">1</div>
-                  <div class="question-stat-label">votes</div>
+                  <div class="question-stat-label" data-i18n-text="votes">votes</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number unanswered">0</div>
-                  <div class="question-stat-label">answers</div>
+                  <div class="question-stat-label" data-i18n-text="answers">answers</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number">12</div>
-                  <div class="question-stat-label">views</div>
+                  <div class="question-stat-label" data-i18n-text="views">views</div>
                 </div>
               </div>
               <div class="question-content">
                 <h3 class="question-title">
-                  <a href="question-detail.html?id=2">Database backup process failing</a>
+                  <a href="question-detail.html?id=2" data-i18n-text="Database backup process failing">Database backup process failing</a>
                 </h3>
-                <p class="question-excerpt">The automated backup process has been failing with error code 500...</p>
+                <p class="question-excerpt" data-i18n-text="The automated backup process has been failing with error code 500...">The automated backup process has been failing with error code 500...</p>
                 <div class="question-meta">
                   <div class="question-tags">
-                    <span class="question-tag tag-yellow">database</span>
-                    <span class="question-tag tag-red">backup</span>
+                    <span class="question-tag tag-yellow" data-i18n-text="database">database</span>
+                    <span class="question-tag tag-red" data-i18n-text="backup">backup</span>
                   </div>
                   <div class="question-author">
-                    <div>asked 5 hours ago</div>
+                    <div data-i18n-text="asked 5 hours ago">asked 5 hours ago</div>
                     <div class="author-name">admin_user</div>
                   </div>
                 </div>
@@ -184,30 +184,30 @@
               <div class="question-stats">
                 <div class="question-stat">
                   <div class="question-stat-number">7</div>
-                  <div class="question-stat-label">votes</div>
+                  <div class="question-stat-label" data-i18n-text="votes">votes</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number answered">3</div>
-                  <div class="question-stat-label">answers</div>
+                  <div class="question-stat-label" data-i18n-text="answers">answers</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number">89</div>
-                  <div class="question-stat-label">views</div>
+                  <div class="question-stat-label" data-i18n-text="views">views</div>
                 </div>
               </div>
               <div class="question-content">
                 <h3 class="question-title">
-                  <a href="question-detail.html?id=3">Best practices for user permissions setup</a>
+                  <a href="question-detail.html?id=3" data-i18n-text="Best practices for user permissions setup">Best practices for user permissions setup</a>
                 </h3>
-                <p class="question-excerpt">What are the recommended approaches for setting up user permissions in a multi-department organization?</p>
+                <p class="question-excerpt" data-i18n-text="What are the recommended approaches for setting up user permissions in a multi-department organization?">What are the recommended approaches for setting up user permissions in a multi-department organization?</p>
                 <div class="question-meta">
                   <div class="question-tags">
-                    <span class="question-tag tag-blue">permissions</span>
-                    <span class="question-tag tag-purple">security</span>
-                    <span class="question-tag tag-green">users</span>
+                    <span class="question-tag tag-blue" data-i18n-text="permissions">permissions</span>
+                    <span class="question-tag tag-purple" data-i18n-text="security">security</span>
+                    <span class="question-tag tag-green" data-i18n-text="users">users</span>
                   </div>
                   <div class="question-author">
-                    <div>asked 1 day ago</div>
+                    <div data-i18n-text="asked 1 day ago">asked 1 day ago</div>
                     <div class="author-name">sarah_m</div>
                   </div>
                 </div>
@@ -221,30 +221,30 @@
               <div class="question-stats">
                 <div class="question-stat">
                   <div class="question-stat-number">5</div>
-                  <div class="question-stat-label">votes</div>
+                  <div class="question-stat-label" data-i18n-text="votes">votes</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number answered">1</div>
-                  <div class="question-stat-label">answers</div>
+                  <div class="question-stat-label" data-i18n-text="answers">answers</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number">67</div>
-                  <div class="question-stat-label">views</div>
+                  <div class="question-stat-label" data-i18n-text="views">views</div>
                 </div>
               </div>
               <div class="question-content">
                 <h3 class="question-title">
-                  <a href="question-detail.html?id=4">API integration with third-party services</a>
+                  <a href="question-detail.html?id=4" data-i18n-text="API integration with third-party services">API integration with third-party services</a>
                 </h3>
-                <p class="question-excerpt">Having trouble connecting our system with external APIs. Authentication keeps failing...</p>
+                <p class="question-excerpt" data-i18n-text="Having trouble connecting our system with external APIs. Authentication keeps failing...">Having trouble connecting our system with external APIs. Authentication keeps failing...</p>
                 <div class="question-meta">
                   <div class="question-tags">
-                    <span class="question-tag tag-purple">api</span>
-                    <span class="question-tag tag-blue">integration</span>
-                    <span class="question-tag tag-yellow">authentication</span>
+                    <span class="question-tag tag-purple" data-i18n-text="api">api</span>
+                    <span class="question-tag tag-blue" data-i18n-text="integration">integration</span>
+                    <span class="question-tag tag-yellow" data-i18n-text="authentication">authentication</span>
                   </div>
                   <div class="question-author">
-                    <div>asked 2 days ago</div>
+                    <div data-i18n-text="asked 2 days ago">asked 2 days ago</div>
                     <div class="author-name">dev_mike</div>
                   </div>
                 </div>
@@ -258,29 +258,29 @@
               <div class="question-stats">
                 <div class="question-stat">
                   <div class="question-stat-number">2</div>
-                  <div class="question-stat-label">votes</div>
+                  <div class="question-stat-label" data-i18n-text="votes">votes</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number unanswered">0</div>
-                  <div class="question-stat-label">answers</div>
+                  <div class="question-stat-label" data-i18n-text="answers">answers</div>
                 </div>
                 <div class="question-stat">
                   <div class="question-stat-number">28</div>
-                  <div class="question-stat-label">views</div>
+                  <div class="question-stat-label" data-i18n-text="views">views</div>
                 </div>
               </div>
               <div class="question-content">
                 <h3 class="question-title">
-                  <a href="question-detail.html?id=5">System running slow after recent update</a>
+                  <a href="question-detail.html?id=5" data-i18n-text="System running slow after recent update">System running slow after recent update</a>
                 </h3>
-                <p class="question-excerpt">Performance has degraded significantly since the latest version update. Pages take forever to load...</p>
+                <p class="question-excerpt" data-i18n-text="Performance has degraded significantly since the latest version update. Pages take forever to load...">Performance has degraded significantly since the latest version update. Pages take forever to load...</p>
                 <div class="question-meta">
                   <div class="question-tags">
-                    <span class="question-tag tag-red">performance</span>
-                    <span class="question-tag tag-yellow">update</span>
+                    <span class="question-tag tag-red" data-i18n-text="performance">performance</span>
+                    <span class="question-tag tag-yellow" data-i18n-text="update">update</span>
                   </div>
                   <div class="question-author">
-                    <div>asked 3 days ago</div>
+                    <div data-i18n-text="asked 3 days ago">asked 3 days ago</div>
                     <div class="author-name">tech_support</div>
                   </div>
                 </div>
@@ -292,11 +292,11 @@
         
         <!-- Pagination -->
         <div class="pagination">
-          <button onclick="changePage(-1)">← Prev</button>
+          <button onclick="changePage(-1)" data-i18n-text="← Prev">← Prev</button>
           <button class="active">1</button>
           <button onclick="changePage(2)">2</button>
           <button onclick="changePage(3)">3</button>
-          <button onclick="changePage(1)">Next →</button>
+          <button onclick="changePage(1)" data-i18n-text="Next →">Next →</button>
         </div>
         
       </div>
@@ -306,62 +306,62 @@
         
         <!-- Stats Card -->
         <div class="sidebar-section">
-          <h3 class="sidebar-title">Community Stats</h3>
+          <h3 class="sidebar-title" data-i18n-text="Community Stats">Community Stats</h3>
           <div class="stat-row">
-            <span>Questions</span>
+            <span data-i18n-text="Questions">Questions</span>
             <span class="stat-value">1,247</span>
           </div>
           <div class="stat-row">
-            <span>Answers</span>
+            <span data-i18n-text="Answers">Answers</span>
             <span class="stat-value">3,891</span>
           </div>
           <div class="stat-row">
-            <span>Users</span>
+            <span data-i18n-text="Users">Users</span>
             <span class="stat-value">892</span>
           </div>
           <div class="stat-row">
-            <span>Online Now</span>
+            <span data-i18n-text="Online Now">Online Now</span>
             <span class="stat-value online">23</span>
           </div>
         </div>
         
         <!-- Popular Tags -->
         <div class="sidebar-section">
-          <h3 class="sidebar-title">Popular Tags</h3>
+          <h3 class="sidebar-title" data-i18n-text="Popular Tags">Popular Tags</h3>
           <div class="tag-cloud">
-            <span class="tag-item tag-blue" onclick="filterByTag('configuration')">configuration</span>
-            <span class="tag-item tag-green" onclick="filterByTag('email')">email</span>
-            <span class="tag-item tag-yellow" onclick="filterByTag('database')">database</span>
-            <span class="tag-item tag-purple" onclick="filterByTag('security')">security</span>
-            <span class="tag-item tag-green" onclick="filterByTag('users')">users</span>
-            <span class="tag-item tag-blue" onclick="filterByTag('modules')">modules</span>
+            <span class="tag-item tag-blue" onclick="filterByTag('configuration')" data-i18n-text="configuration">configuration</span>
+            <span class="tag-item tag-green" onclick="filterByTag('email')" data-i18n-text="email">email</span>
+            <span class="tag-item tag-yellow" onclick="filterByTag('database')" data-i18n-text="database">database</span>
+            <span class="tag-item tag-purple" onclick="filterByTag('security')" data-i18n-text="security">security</span>
+            <span class="tag-item tag-green" onclick="filterByTag('users')" data-i18n-text="users">users</span>
+            <span class="tag-item tag-blue" onclick="filterByTag('modules')" data-i18n-text="modules">modules</span>
           </div>
         </div>
         
         <!-- Recent Activity -->
         <div class="sidebar-section">
-          <h3 class="sidebar-title">Recent Activity</h3>
+          <h3 class="sidebar-title" data-i18n-text="Recent Activity">Recent Activity</h3>
           <div class="activity-list">
             <div class="activity-item">
-              <div class="activity-text">New answer posted</div>
-              <div class="activity-meta">on "Email configuration issue" • 30 min ago</div>
+              <div class="activity-text" data-i18n-text="New answer posted">New answer posted</div>
+              <div class="activity-meta" data-i18n-text="on &quot;Email configuration issue&quot; • 30 min ago">on "Email configuration issue" • 30 min ago</div>
             </div>
             <div class="activity-item">
-              <div class="activity-text">Question updated</div>
-              <div class="activity-meta">"Database backup process" • 1 hour ago</div>
+              <div class="activity-text" data-i18n-text="Question updated">Question updated</div>
+              <div class="activity-meta" data-i18n-text="&quot;Database backup process&quot; • 1 hour ago">"Database backup process" • 1 hour ago</div>
             </div>
             <div class="activity-item">
-              <div class="activity-text">New user joined</div>
-              <div class="activity-meta">welcome_newbie • 2 hours ago</div>
+              <div class="activity-text" data-i18n-text="New user joined">New user joined</div>
+              <div class="activity-meta" data-i18n-text="welcome_newbie • 2 hours ago">welcome_newbie • 2 hours ago</div>
             </div>
           </div>
         </div>
         
         <!-- Ask Question CTA -->
         <div class="sidebar-section cta-section">
-          <h3 class="sidebar-title">Have a Question?</h3>
-          <p>Can't find what you're looking for? Ask the community!</p>
-          <a href="ask-question.html" class="btn btn-full">Ask Your Question</a>
+          <h3 class="sidebar-title" data-i18n-text="Have a Question?">Have a Question?</h3>
+          <p data-i18n-text="Can't find what you're looking for? Ask the community!">Can't find what you're looking for? Ask the community!</p>
+          <a href="ask-question.html" class="btn btn-full" data-i18n-text="Ask Your Question">Ask Your Question</a>
         </div>
         
       </div>
@@ -693,7 +693,161 @@
       window.closeSignInModal();
     }
   });
+
+  // FORUM FILTER, SORT & PAGINATION ENGINE
+  let currentFilter = 'all';
+  let currentSort = 'active';
+  let currentTag = null;
+  let currentPage = 1;
+  const itemsPerPage = 5;
+
+  window.filterQuestions = function(type, btn) {
+    currentFilter = type;
+    currentTag = null;
+    currentPage = 1;
+    document.querySelectorAll('.forum-tabs button').forEach(b => b.classList.remove('active'));
+    if (btn) {
+      btn.classList.add('active');
+    } else {
+      const b = Array.from(document.querySelectorAll('.forum-tabs button')).find(x => x.getAttribute('onclick')?.includes(`'${type}'`));
+      if (b) b.classList.add('active');
+    }
+    renderForumQuestions();
+  };
+
+  window.sortQuestions = function(sortType, btn) {
+    currentSort = sortType;
+    document.querySelectorAll('.sort-buttons button').forEach(b => b.classList.remove('active'));
+    if (btn) {
+      btn.classList.add('active');
+    } else {
+      const b = Array.from(document.querySelectorAll('.sort-buttons button')).find(x => x.getAttribute('onclick')?.includes(`'${sortType}'`));
+      if (b) b.classList.add('active');
+    }
+    renderForumQuestions();
+  };
+
+  window.filterByTag = function(tag) {
+    currentTag = (currentTag === tag) ? null : tag;
+    currentPage = 1;
+    renderForumQuestions();
+  };
+
+  window.changePage = function(delta) {
+    const filtered = getFilteredQuestions();
+    const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
+    if (typeof delta === 'number' && delta >= -1 && delta <= 1) {
+      currentPage += delta;
+    } else {
+      currentPage = delta;
+    }
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    renderForumQuestions();
+  };
+
+  function getFilteredQuestions() {
+    const list = Array.from(document.querySelectorAll('.question-item'));
+    const searchInput = document.getElementById('searchInput');
+    const searchVal = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+    return list.filter(item => {
+      // Filter tab check
+      const answers = parseInt(item.getAttribute('data-answers') || '0', 10);
+      if (currentFilter === 'unanswered' && answers > 0) return false;
+
+      // Tag cloud check
+      if (currentTag) {
+        const tags = Array.from(item.querySelectorAll('.question-tag')).map(t => t.textContent.toLowerCase().trim());
+        if (!tags.includes(currentTag.toLowerCase())) return false;
+      }
+
+      // Search text check
+      if (searchVal) {
+        const text = item.textContent.toLowerCase();
+        if (!text.includes(searchVal)) return false;
+      }
+
+      return true;
+    });
+  }
+
+  function renderForumQuestions() {
+    const allItems = Array.from(document.querySelectorAll('.question-item'));
+    let filtered = getFilteredQuestions();
+
+    // Sort items
+    filtered.sort((a, b) => {
+      if (currentSort === 'newest') {
+        const idA = parseInt(a.querySelector('a')?.href.split('id=')[1] || '0', 10);
+        const idB = parseInt(b.querySelector('a')?.href.split('id=')[1] || '0', 10);
+        return idB - idA;
+      } else if (currentSort === 'votes') {
+        const votesA = parseInt(a.querySelector('.question-stat-number')?.textContent || '0', 10);
+        const votesB = parseInt(b.querySelector('.question-stat-number')?.textContent || '0', 10);
+        return votesB - votesA;
+      }
+      return 0; // default active
+    });
+
+    // Paginate items
+    const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const startIdx = (currentPage - 1) * itemsPerPage;
+    const endIdx = startIdx + itemsPerPage;
+    const pageItems = filtered.slice(startIdx, endIdx);
+
+    allItems.forEach(item => item.style.display = 'none');
+    pageItems.forEach(item => item.style.display = 'block');
+
+    // Update Pagination UI
+    const paginationContainer = document.querySelector('.pagination');
+    if (paginationContainer) {
+      let html = `<button onclick="changePage(-1)" data-i18n-text="← Prev"${currentPage === 1 ? ' disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>← Prev</button>`;
+      for (let p = 1; p <= totalPages; p++) {
+        html += `<button class="${p === currentPage ? 'active' : ''}" onclick="changePage(${p})">${p}</button>`;
+      }
+      html += `<button onclick="changePage(1)" data-i18n-text="Next →"${currentPage === totalPages ? ' disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Next →</button>`;
+      paginationContainer.innerHTML = html;
+    }
+
+    // Update Question Count display
+    const countEl = document.querySelector('.question-count');
+    if (countEl) {
+      countEl.textContent = `${filtered.length} questions`;
+      countEl.setAttribute('data-i18n-text', `${filtered.length} questions`);
+    }
+
+    // Re-apply localization so newly rendered page elements stay localized
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
+    }
+  }
+
+  // Hook Search input & initial render
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          currentPage = 1;
+          renderForumQuestions();
+        });
+      }
+      renderForumQuestions();
+    });
+  } else {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        currentPage = 1;
+        renderForumQuestions();
+      });
+    }
+    renderForumQuestions();
+  }
 </script>
-<script src="../js/localization.js"></script>
+<script src="../js/localization.js?v=4"></script>
 </body>
 </html>
