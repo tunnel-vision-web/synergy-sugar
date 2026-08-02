@@ -192,30 +192,9 @@ function navigateTo(page) {
 
 // Login/Auth functions
 function showLoginDialog() {
-    const loginHtml = `
-        <div id="loginModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; align-items: center; justify-content: center;">
-            <div style="background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px;">
-                <h3 style="margin-top: 0; color: #333;">Sign In</h3>
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 5px; color: #666;">Email:</label>
-                    <input type="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 5px; color: #666;">Password:</label>
-                    <input type="password" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                </div>
-                <div style="display: flex; gap: 10px;">
-                    <button onclick="closeLoginDialog()" style="flex: 1; padding: 10px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">Cancel</button>
-                    <button onclick="handleLogin()" style="flex: 1; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">Sign In</button>
-                </div>
-                <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.9rem;">
-                    Don't have an account? <a href="#" style="color: var(--secondary);">Sign up</a>
-                </p>
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', loginHtml);
+    if (typeof window.openSignInModal === 'function') {
+        window.openSignInModal('signin');
+    }
 }
 
 function closeLoginDialog() {

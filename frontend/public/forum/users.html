@@ -561,40 +561,48 @@
 
     if (msg) msg.style.display = 'none';
 
+    const lang = (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.getLanguage) 
+                 ? window.SynergyLocalization.getLanguage() 
+                 : (localStorage.getItem('synergy_lang') || 'sw');
+    const isSw = (lang === 'sw');
+
     if (window.authMode === 'signup') {
-      if (title) title.textContent = 'Create an Account';
-      if (subtitle) subtitle.textContent = 'Start onboarding for Synergy Bravo ERP';
-      if (submitBtn) submitBtn.textContent = 'Register & Continue Onboarding';
-      if (toggleText) toggleText.textContent = 'Already have an account?';
-      if (toggleBtn) toggleBtn.textContent = 'Sign In';
+      if (title) title.textContent = isSw ? 'Fungua Akaunti' : 'Create an Account';
+      if (subtitle) subtitle.textContent = isSw ? 'Anza mchakato wa usajili wa Synergy Bravo ERP' : 'Start onboarding for Synergy Bravo ERP';
+      if (submitBtn) submitBtn.textContent = isSw ? 'Jisajili na Endelea' : 'Register & Continue Onboarding';
+      if (toggleText) toggleText.textContent = isSw ? 'Una akaunti tayari?' : 'Already have an account?';
+      if (toggleBtn) toggleBtn.textContent = isSw ? 'Ingia' : 'Sign In';
       if (nameGroup) nameGroup.style.display = 'block';
       if (companyGroup) companyGroup.style.display = 'block';
       if (emailGroup) emailGroup.style.display = 'block';
       if (passwordGroup) passwordGroup.style.display = 'block';
       if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'block';
     } else if (window.authMode === 'forgot') {
-      if (title) title.textContent = 'Reset Password';
-      if (subtitle) subtitle.textContent = 'Enter your work email address to receive a password reset link';
-      if (submitBtn) submitBtn.textContent = 'Send Reset Link';
-      if (toggleText) toggleText.textContent = 'Remember your password?';
-      if (toggleBtn) toggleBtn.textContent = 'Sign In';
+      if (title) title.textContent = isSw ? 'Weka upya Nenosiri' : 'Reset Password';
+      if (subtitle) subtitle.textContent = isSw ? 'Weka barua pepe yako ya kazi ili kupokea kiungo cha kubadilisha nenosiri' : 'Enter your work email address to receive a password reset link';
+      if (submitBtn) submitBtn.textContent = isSw ? 'Tuma Kiungo cha Kubadilisha' : 'Send Reset Link';
+      if (toggleText) toggleText.textContent = isSw ? 'Kumbuka nenosiri yako?' : 'Remember your password?';
+      if (toggleBtn) toggleBtn.textContent = isSw ? 'Ingia' : 'Sign In';
       if (nameGroup) nameGroup.style.display = 'none';
       if (companyGroup) companyGroup.style.display = 'none';
       if (emailGroup) emailGroup.style.display = 'block';
       if (passwordGroup) passwordGroup.style.display = 'none';
       if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
     } else {
-      // Sign In mode
-      if (title) title.textContent = 'Welcome Back';
-      if (subtitle) subtitle.textContent = 'Sign in to your Synergy Bravo ERP account';
-      if (submitBtn) submitBtn.textContent = 'Sign In';
-      if (toggleText) toggleText.textContent = "Don't have an account?";
-      if (toggleBtn) toggleBtn.textContent = 'Sign Up';
+      if (title) title.textContent = isSw ? 'Karibu Tena' : 'Welcome Back';
+      if (subtitle) subtitle.textContent = isSw ? 'Ingia kwenye akaunti yako ya Synergy Bravo ERP' : 'Sign in to your Synergy Bravo ERP account';
+      if (submitBtn) submitBtn.textContent = isSw ? 'Ingia' : 'Sign In';
+      if (toggleText) toggleText.textContent = isSw ? 'Huna akaunti?' : "Don't have an account?";
+      if (toggleBtn) toggleBtn.textContent = isSw ? 'Jisajili' : 'Sign Up';
       if (nameGroup) nameGroup.style.display = 'none';
       if (companyGroup) companyGroup.style.display = 'none';
       if (emailGroup) emailGroup.style.display = 'block';
       if (passwordGroup) passwordGroup.style.display = 'block';
       if (confirmPasswordGroup) confirmPasswordGroup.style.display = 'none';
+    }
+
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
     }
   };
 
@@ -663,6 +671,6 @@
     }
   });
 </script>
-  <script src="../js/localization.js?v=4"></script>
+  <script src="../js/localization.js?v=5"></script>
 </body>
 </html>
