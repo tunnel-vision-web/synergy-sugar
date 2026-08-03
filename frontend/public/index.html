@@ -207,38 +207,49 @@
       transform: none !important;
       filter: none !important;
       opacity: 0;
-      transition: opacity 0.45s ease-in-out;
       will-change: opacity;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Cascade Entry Delays When Slide Active */
+    /* Cascade Entry Animation When Slide Active */
     .hero-slide.active .hero-title-1 {
-      opacity: 1 !important;
-      transition-delay: 150ms;
+      animation: heroTitleFadeCascade 450ms ease-in-out 120ms forwards;
     }
     .hero-slide.active .hero-title-2 {
-      opacity: 1 !important;
-      transition-delay: 300ms;
+      animation: heroTitleFadeCascade 450ms ease-in-out 260ms forwards;
     }
     .hero-slide.active .hero-title-3 {
-      opacity: 1 !important;
-      transition-delay: 450ms;
+      animation: heroTitleFadeCascade 450ms ease-in-out 400ms forwards;
     }
 
-    /* Exit Delays When Slide Inactive */
+    /* Exit Animation When Slide Inactive */
     .hero-slide:not(.active) .hero-title-1 {
-      opacity: 0 !important;
-      transition-delay: 0ms;
+      animation: heroTitleFadeOut 200ms ease-in-out 0ms forwards;
     }
     .hero-slide:not(.active) .hero-title-2 {
-      opacity: 0 !important;
-      transition-delay: 50ms;
+      animation: heroTitleFadeOut 200ms ease-in-out 40ms forwards;
     }
     .hero-slide:not(.active) .hero-title-3 {
-      opacity: 0 !important;
-      transition-delay: 100ms;
+      animation: heroTitleFadeOut 200ms ease-in-out 80ms forwards;
+    }
+
+    @keyframes heroTitleFadeCascade {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes heroTitleFadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
     }
 
     /* RESTORED & PROMINENT HERO CTA BUTTON STYLING */
@@ -4031,6 +4042,6 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=21"></script>
+<script src="js/localization.js?v=22"></script>
 </body>
 </html>
