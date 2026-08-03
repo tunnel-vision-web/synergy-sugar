@@ -671,6 +671,105 @@
     }
   });
 </script>
-  <script src="../js/localization.js?v=7"></script>
+  <script src="../js/localization.js?v=8"></script>
+
+<script>
+  let currentFilter = 'all';
+  let currentPage = 1;
+  const itemsPerPage = 4;
+
+  window.filterUsers = function(filter) {
+    currentFilter = filter;
+    currentPage = 1;
+    const tabBtns = document.querySelectorAll('.forum-tabs button');
+    tabBtns.forEach(btn => {
+      btn.classList.remove('active');
+      const onclickAttr = btn.getAttribute('onclick') || '';
+      if (onclickAttr.includes("'" + filter + "'")) {
+        btn.classList.add('active');
+      }
+    });
+    renderUsers();
+  };
+
+  window.searchUsers = function() {
+    currentPage = 1;
+    renderUsers();
+  };
+
+  window.changePage = function(delta) {
+    const filtered = getFilteredUsers();
+    const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
+    if (typeof delta === 'number' && delta >= -1 && delta <= 1) {
+      currentPage += delta;
+    } else {
+      currentPage = delta;
+    }
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    renderUsers();
+  };
+
+  function getFilteredUsers() {
+    const cards = Array.from(document.querySelectorAll('.user-card'));
+    const searchInput = document.getElementById('userSearch');
+    const searchVal = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+    return cards.filter(card => {
+      if (currentFilter === 'moderators') {
+        const isMod = card.textContent.toLowerCase().includes('moderator') || card.textContent.toLowerCase().includes('administrator');
+        if (!isMod) return false;
+      } else if (currentFilter === 'new') {
+        const isNew = card.textContent.toLowerCase().includes('new') || card.textContent.toLowerCase().includes('2024');
+        if (!isNew) return false;
+      } else if (currentFilter === 'reputation') {
+        const repEl = card.querySelector('.user-stat:nth-child(3) .user-stat-number');
+        const repVal = parseInt(repEl ? repEl.textContent : '0', 10);
+        if (repVal < 1000) return false;
+      }
+
+      if (searchVal) {
+        const text = card.textContent.toLowerCase();
+        if (!text.includes(searchVal)) return false;
+      }
+
+      return true;
+    });
+  }
+
+  function renderUsers() {
+    const allCards = Array.from(document.querySelectorAll('.user-card'));
+    let filtered = getFilteredUsers();
+
+    const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const startIdx = (currentPage - 1) * itemsPerPage;
+    const endIdx = startIdx + itemsPerPage;
+    const pageCards = filtered.slice(startIdx, endIdx);
+
+    allCards.forEach(card => card.style.display = 'none');
+    pageCards.forEach(card => card.style.display = 'block');
+
+    const paginationContainer = document.querySelector('.pagination');
+    if (paginationContainer) {
+      let html = `<button onclick="changePage(-1)" data-i18n-text="← Prev"${currentPage === 1 ? ' disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>← Prev</button>`;
+      for (let p = 1; p <= totalPages; p++) {
+        html += `<button class="${p === currentPage ? 'active' : ''}" onclick="changePage(${p})">${p}</button>`;
+      }
+      html += `<button onclick="changePage(1)" data-i18n-text="Next →"${currentPage === totalPages ? ' disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Next →</button>`;
+      paginationContainer.innerHTML = html;
+    }
+
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderUsers();
+  });
+</script>
+
 </body>
 </html>
