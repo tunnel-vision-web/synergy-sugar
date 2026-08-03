@@ -2951,7 +2951,7 @@ a.btn-request-demo:hover {
                     </button>
                     <!-- Hover Tooltip Popover -->
                     <div id="clearTooltip" class="clear-selections-tooltip">
-                      <div class="tooltip-title">Selected Modules:</div>
+                      <div class="tooltip-title" data-i18n-text="Selected Modules:">Selected Modules:</div>
                       <ul id="tooltipModulesList" class="tooltip-modules-list"></ul>
                     </div>
                   </div>
@@ -2961,7 +2961,7 @@ a.btn-request-demo:hover {
                   <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px;">
                     <div style="display: flex; align-items: center; gap: 6px;">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#f6dd0d" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                      <span style="font-size: 0.75rem; font-weight: 700; color: #f6dd0d; text-transform: uppercase; letter-spacing: 0.5px;">Selected Modules:</span>
+                      <span style="font-size: 0.75rem; font-weight: 700; color: #f6dd0d; text-transform: uppercase; letter-spacing: 0.5px;" data-i18n-text="Selected Modules:">Selected Modules:</span>
                     </div>
                   </div>
                   <div id="landingSelectedPillsList" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
@@ -3889,11 +3889,10 @@ a.btn-request-demo:hover {
     const selectedTitles = [];
     checkboxes.forEach(cb => {
       const card = cb.closest('.app-card');
-      const title = card ? (card.querySelector('.card-title')?.textContent || card.getAttribute('data-name') || 'Module') : 'Module';
+      const title = card ? (card.querySelector('.app-card-name')?.textContent || card.getAttribute('data-name') || 'Module') : 'Module';
       selectedTitles.push(title.trim());
     });
 
-    // Save to localStorage for appointment.html
     try {
       localStorage.setItem('selectedSynergyModules', JSON.stringify(selectedTitles));
     } catch (e) {}
@@ -3910,7 +3909,7 @@ a.btn-request-demo:hover {
         selectedTitles.forEach((title, idx) => {
           const pill = document.createElement('div');
           pill.style.cssText = 'display:inline-flex; align-items:center; gap:6px; background:#1f3129; border:1px solid #f6dd0d; color:#f8fafc; font-size:0.78rem; font-weight:600; padding:3px 10px; border-radius:4px;';
-          pill.innerHTML = `<span>${title}</span> <span class="remove-pill" style="cursor:pointer; color:#f6dd0d; font-weight:800; font-size:0.9rem;">&times;</span>`;
+          pill.innerHTML = `<span data-i18n-text="${title}">${title}</span> <span class="remove-pill" style="cursor:pointer; color:#f6dd0d; font-weight:800; font-size:0.9rem;">&times;</span>`;
           
           pill.querySelector('.remove-pill').addEventListener('click', function() {
             checkboxes[idx].checked = false;
@@ -3924,13 +3923,19 @@ a.btn-request-demo:hover {
         tooltipList.innerHTML = '';
         selectedTitles.forEach(title => {
           const li = document.createElement('li');
-          li.textContent = '• ' + title;
+          li.innerHTML = `• <span data-i18n-text="${title}">${title}</span>`;
           tooltipList.appendChild(li);
         });
       }
     } else {
       bar.style.display = 'none';
       if (clearBtn) clearBtn.style.display = 'none';
+      if (pillsList) pillsList.innerHTML = '';
+      if (tooltipList) tooltipList.innerHTML = '';
+    }
+
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
     }
   }
 
@@ -4016,6 +4021,6 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=10"></script>
+<script src="js/localization.js?v=11"></script>
 </body>
 </html>
