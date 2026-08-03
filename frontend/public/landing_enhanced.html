@@ -3493,6 +3493,42 @@ a.btn-request-demo:hover {
         const isActive = i === currentIndex;
         s.classList.toggle('active', isActive);
       });
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      timer = setInterval(() => {
+        showSlide(currentIndex + 1);
+      }, 5000);
+    }
+
+    function stopAutoPlay() {
+      if (timer) clearInterval(timer);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSlide(currentIndex - 1);
+        startAutoPlay();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSlide(currentIndex + 1);
+        startAutoPlay();
+      });
+    }
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        showSlide(idx);
+        startAutoPlay();
+      });
+    });
 
     startAutoPlay();
   })();
@@ -4017,6 +4053,6 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=16"></script>
+<script src="js/localization.js?v=17"></script>
 </body>
 </html>
