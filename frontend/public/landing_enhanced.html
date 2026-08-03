@@ -177,28 +177,41 @@
       gap: 6px;
       transform: translateY(-4%);
     }
-    .hero-slide .hero-title-1, .hero-slide .hero-title-2, .hero-slide .hero-title-3{
+    .hero-slide .hero-title-1,
+    .hero-slide .hero-title-2,
+    .hero-slide .hero-title-3 {
       opacity: 0;
-      transform: translateX(60px);
+      transform: translateX(90px);
       color: #fff;
       text-shadow: 0 10px 22px rgba(0,0,0,0.35);
       line-height: 1.1;
       letter-spacing: 0.2px;
       animation: none;
+      will-change: opacity, transform;
     }
-    .hero-slide.active .hero-title-1, .hero-slide.active .hero-title-2, .hero-slide.active .hero-title-3{
-      animation: slideInRight 900ms ease forwards;
-      color: #fff;
-      text-shadow: 0 10px 22px rgba(0,0,0,0.35);
-      line-height: 1.1;
-      letter-spacing: 0.2px;
+    .hero-slide.active .hero-title-1 {
+      font-size: clamp(28px, 3.3vw, 44px);
+      animation: slideInRightCascade 850ms cubic-bezier(0.16, 1, 0.3, 1) 250ms forwards;
     }
-    .hero-title-1{ font-size: clamp(28px, 3.3vw, 44px); animation-delay: 400ms; }
-    .hero-title-2{ font-size: clamp(22px, 2.6vw, 34px); animation-delay: 720ms; }
-    .hero-title-3{ font-size: clamp(18px, 2.1vw, 26px); animation-delay: 1020ms; }
+    .hero-slide.active .hero-title-2 {
+      font-size: clamp(22px, 2.6vw, 34px);
+      animation: slideInRightCascade 850ms cubic-bezier(0.16, 1, 0.3, 1) 700ms forwards;
+    }
+    .hero-slide.active .hero-title-3 {
+      font-size: clamp(18px, 2.1vw, 26px);
+      animation: slideInRightCascade 850ms cubic-bezier(0.16, 1, 0.3, 1) 1150ms forwards;
+    }
 
-    @keyframes slideInRight{
-      to{ opacity: 1; transform: translateX(0); }
+    @keyframes slideInRightCascade {
+      0% {
+        opacity: 0;
+        transform: translateX(90px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
     }
 
     .hero-cta{
@@ -3943,14 +3956,14 @@ a.btn-request-demo:hover {
     btn.addEventListener('click', function(e) {
       if (e) e.preventDefault();
       const appKey = btn.getAttribute('data-app') || 'farmers-recruitment';
-      const spec = APP_SPECS[appKey] || {
+      const spec = (typeof APP_SPECS !== 'undefined' && APP_SPECS[appKey]) ? APP_SPECS[appKey] : {
         title: 'Synergy Bravo ERP Module',
         category: 'Core Enterprise Application',
         badge: '⚡',
         bullets: ['Integrated sugar factory module', 'Real-time telemetry and API sync', 'Outgrower and mill management']
       };
 
-      // Switch left features panel (#featuresCarousel)
+      // Switch left features panel (#featuresCarousel) exclusively
       const featuresCarousel = document.getElementById('featuresCarousel');
       if (featuresCarousel) {
         const slides = featuresCarousel.querySelectorAll('.features-slide');
@@ -3995,34 +4008,11 @@ a.btn-request-demo:hover {
           }, 2500);
         }
       }
-
-      // Also open Feature Modal
-      const modal = document.getElementById('featureDetailsModal');
-      const badgeEl = document.getElementById('featModalBadge');
-      const titleEl = document.getElementById('featModalTitle');
-      const catEl = document.getElementById('featModalCategory');
-      const bodyEl = document.getElementById('featModalBody');
-      const demoBtn = document.getElementById('featModalDemoBtn');
-
-      if (badgeEl) badgeEl.textContent = spec.badge;
-      if (titleEl) titleEl.textContent = spec.title;
-      if (catEl) catEl.textContent = spec.category;
-      if (demoBtn) demoBtn.href = `appointment.html?app=${appKey}`;
-
-      if (bodyEl) {
-        let html = '<h5 style="margin:0 0 10px 0; color:#f6dd0d; font-weight:700;">Key Operational Capabilities:</h5><ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px;">';
-        spec.bullets.forEach(b => {
-          html += `<li>${b}</li>`;
-        });
-        html += '</ul>';
-        bodyEl.innerHTML = html;
-      }
-
-      if (modal) modal.style.display = 'flex';
+      // NOT opening any modal as per explicit design request
     });
   });
 })();
 </script>
-<script src="js/localization.js?v=8"></script>
+<script src="js/localization.js?v=9"></script>
 </body>
 </html>
