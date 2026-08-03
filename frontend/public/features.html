@@ -3697,6 +3697,137 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=25"></script>
+<script src="js/localization.js?v=26">
+  // 4. TESTIMONIALS CAROUSEL CONTROLLER (Auto-play 5s + Prev/Next Arrows + Dots)
+  (function initTestimonialsCarousel() {
+    const carousel = document.getElementById('testiCarousel');
+    if (!carousel) return;
+    const slides = carousel.querySelectorAll('.testi-slide');
+    const dots = document.querySelectorAll('#testiDots .t-dot');
+    const prevBtn = document.getElementById('testiPrev');
+    const nextBtn = document.getElementById('testiNext');
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let timer = null;
+
+    function showTestiSlide(index) {
+      if (index >= slides.length) index = 0;
+      if (index < 0) index = slides.length - 1;
+      currentIndex = index;
+
+      slides.forEach((s, i) => {
+        const isActive = i === currentIndex;
+        s.classList.toggle('active', isActive);
+        s.style.display = isActive ? 'block' : 'none';
+      });
+
+      dots.forEach((d, i) => {
+        const isActive = i === currentIndex;
+        d.classList.toggle('active', isActive);
+        d.style.background = isActive ? '#f6dd0d' : '#475569';
+      });
+
+      if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+        window.SynergyLocalization.applyLocalization();
+      }
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      timer = setInterval(() => {
+        showTestiSlide(currentIndex + 1);
+      }, 5000);
+    }
+
+    function stopAutoPlay() {
+      if (timer) clearInterval(timer);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        showTestiSlide(currentIndex - 1);
+        startAutoPlay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        showTestiSlide(currentIndex + 1);
+        startAutoPlay();
+      });
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        showTestiSlide(idx);
+        startAutoPlay();
+      });
+    });
+
+    showTestiSlide(0);
+    startAutoPlay();
+  })();
+
+  // 5. SIDEBAR FEATURES CAROUSEL CONTROLLER (Prev/Next Arrows + Dots)
+  (function initFeaturesCarouselController() {
+    const featuresCarousel = document.getElementById('featuresCarousel');
+    if (!featuresCarousel) return;
+    const slides = featuresCarousel.querySelectorAll('.features-slide');
+    const dots = document.querySelectorAll('#featDots .f-dot');
+    const prevBtn = document.getElementById('featPrev');
+    const nextBtn = document.getElementById('featNext');
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+
+    function showFeatureSlide(index) {
+      if (index >= slides.length) index = 0;
+      if (index < 0) index = slides.length - 1;
+      currentIndex = index;
+
+      slides.forEach((s, i) => {
+        const isActive = i === currentIndex;
+        s.classList.toggle('active', isActive);
+        s.style.display = isActive ? 'block' : 'none';
+      });
+
+      dots.forEach((d, i) => {
+        const isActive = i === currentIndex;
+        d.classList.toggle('active', isActive);
+      });
+
+      if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+        window.SynergyLocalization.applyLocalization();
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        showFeatureSlide(currentIndex - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        showFeatureSlide(currentIndex + 1);
+      });
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        showFeatureSlide(idx);
+      });
+    });
+
+    showFeatureSlide(0);
+  })();
+</script>
 </body>
 </html>
