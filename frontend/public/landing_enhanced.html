@@ -175,64 +175,104 @@
     .hero-titles{
       display: grid;
       gap: 6px;
-      transform: translateY(-4%);
+      transform: translateY(-8%);
     }
     .hero-slide .hero-title-1,
     .hero-slide .hero-title-2,
     .hero-slide .hero-title-3 {
       opacity: 0;
-      transform: translateX(90px);
+      transform: translateX(120px);
+      filter: blur(12px);
       color: #fff;
-      text-shadow: 0 10px 22px rgba(0,0,0,0.35);
-      line-height: 1.1;
+      text-shadow: 0 10px 22px rgba(0,0,0,0.45);
+      line-height: 1.15;
       letter-spacing: 0.2px;
-      animation: none;
-      will-change: opacity, transform;
+      will-change: opacity, transform, filter;
     }
+
+    /* High-Impact Fade Out Transition on Slide Exit */
+    .hero-slide:not(.active) .hero-title-1 {
+      animation: heroTitleFadeOut 320ms cubic-bezier(0.4, 0, 0.2, 1) 0ms forwards;
+    }
+    .hero-slide:not(.active) .hero-title-2 {
+      animation: heroTitleFadeOut 320ms cubic-bezier(0.4, 0, 0.2, 1) 90ms forwards;
+    }
+    .hero-slide:not(.active) .hero-title-3 {
+      animation: heroTitleFadeOut 320ms cubic-bezier(0.4, 0, 0.2, 1) 180ms forwards;
+    }
+
+    /* Dramatic, Smooth Fade In Cascade Transition on Slide Entry */
     .hero-slide.active .hero-title-1 {
       font-size: clamp(28px, 3.3vw, 44px);
-      animation: slideInRightCascade 850ms cubic-bezier(0.16, 1, 0.3, 1) 250ms forwards;
+      animation: heroTitleFadeIn 650ms cubic-bezier(0.16, 1, 0.3, 1) 150ms forwards;
     }
     .hero-slide.active .hero-title-2 {
       font-size: clamp(22px, 2.6vw, 34px);
-      animation: slideInRightCascade 850ms cubic-bezier(0.16, 1, 0.3, 1) 700ms forwards;
+      animation: heroTitleFadeIn 650ms cubic-bezier(0.16, 1, 0.3, 1) 380ms forwards;
     }
     .hero-slide.active .hero-title-3 {
       font-size: clamp(18px, 2.1vw, 26px);
-      animation: slideInRightCascade 850ms cubic-bezier(0.16, 1, 0.3, 1) 1150ms forwards;
+      animation: heroTitleFadeIn 650ms cubic-bezier(0.16, 1, 0.3, 1) 610ms forwards;
     }
 
-    @keyframes slideInRightCascade {
+    @keyframes heroTitleFadeIn {
       0% {
         opacity: 0;
-        transform: translateX(90px);
+        transform: translateX(120px);
+        filter: blur(12px);
       }
       100% {
         opacity: 1;
         transform: translateX(0);
+        filter: blur(0);
       }
     }
+
+    @keyframes heroTitleFadeOut {
+      0% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(-80px);
+        filter: blur(12px);
+      }
     }
 
-    .hero-cta{
+    /* RESTORED & PROMINENT HERO CTA BUTTON STYLING */
+    .hero-cta {
       position: absolute;
-      bottom: 54px; /* close to dots */
+      bottom: 58px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 3;
+      z-index: 10 !important;
+      text-align: center;
     }
-    .btn-start{
-      border: var(--box-border) solid #fff;
-      background: transparent;
-      color: #fff;
-      padding: 8px 18px;
-      border-radius: 999px;
-      font-weight: 600;
-      text-decoration: none;
+    .btn-start {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: #f6dd0d !important;
+      color: #101915 !important;
+      padding: 12px 30px !important;
+      border-radius: 3px !important;
+      font-weight: 800 !important;
+      font-size: 1.05rem !important;
+      text-decoration: none !important;
+      box-shadow: 0 6px 20px rgba(246, 221, 13, 0.5) !important;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      border: 1px solid #f6dd0d !important;
+      cursor: pointer !important;
+      letter-spacing: 0.3px !important;
     }
-    .btn-start:hover{
-      background: rgba(255,255,255,0.14);
-      color: #fff;
+    .btn-start:hover {
+      background: #ffe436 !important;
+      border-color: #ffe436 !important;
+      color: #101915 !important;
+      transform: translateY(-3px) scale(1.04) !important;
+      box-shadow: 0 10px 28px rgba(246, 221, 13, 0.7) !important;
     }
 
     /* Hero Dots */
@@ -241,7 +281,7 @@
       bottom: 22px;
       left: 50%; transform: translateX(-50%);
       display: flex; gap: 8px;
-      z-index: 2;
+      z-index: 10 !important;
     }
     .hero-dot{
       width: 9px; height: 9px;
@@ -4021,6 +4061,6 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=13"></script>
+<script src="js/localization.js?v=14"></script>
 </body>
 </html>
