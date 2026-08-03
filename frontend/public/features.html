@@ -3658,7 +3658,10 @@ a.btn-request-demo:hover {
             const ul = s.querySelector('ul');
             if (h5) h5.innerHTML = `<span style="color:#f6dd0d;">${spec.badge}</span> ${spec.title}`;
             if (ul) {
-              ul.innerHTML = spec.bullets.map(b => `<li style="color:#f8fafc; font-weight:500;">${b}</li>`).join('');
+              ul.innerHTML = spec.bullets.map(b => `<li style="color:#f8fafc; font-weight:500;" data-i18n-text="${b}">${b}</li>`).join('');
+            }
+            if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+              window.SynergyLocalization.applyLocalization();
             }
           } else {
             s.classList.remove('active');
@@ -3689,6 +3692,6 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=9"></script>
+<script src="js/localization.js?v=10"></script>
 </body>
 </html>
