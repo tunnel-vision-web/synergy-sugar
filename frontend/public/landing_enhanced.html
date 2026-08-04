@@ -2468,6 +2468,94 @@ a.btn-request-demo:hover {
   }
 </style>
 
+
+<script>
+  window.currentSidebarFeatureIndex = 0;
+  window.setSidebarFeatureSlide = function(index) {
+    var carousel = document.getElementById('featuresCarousel');
+    if (!carousel) return;
+    var slides = carousel.querySelectorAll('.features-slide');
+    var dots = document.querySelectorAll('#featDots .f-dot');
+    if (!slides.length) return;
+
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    window.currentSidebarFeatureIndex = index;
+
+    slides.forEach(function(s, i) {
+      var isActive = i === window.currentSidebarFeatureIndex;
+      s.classList.toggle('active', isActive);
+      s.style.cssText = isActive ? 'display: block !important;' : 'display: none !important;';
+    });
+
+    dots.forEach(function(d, i) {
+      var isActive = i === window.currentSidebarFeatureIndex;
+      d.classList.toggle('active', isActive);
+    });
+
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
+    }
+  };
+
+  window.navigateSidebarFeatures = function(delta) {
+    window.setSidebarFeatureSlide(window.currentSidebarFeatureIndex + delta);
+  };
+
+  window.currentAppsGridPage = 0;
+  window.setAppsGridPage = function(pageIndex) {
+    var cards = document.querySelectorAll('.apps-carousel-wrapper .app-card');
+    var dots = document.querySelectorAll('#appsPagination .app-dot');
+    var searchInput = document.getElementById('appsSearch');
+    if (!cards.length) return;
+
+    var totalPages = 2;
+    if (pageIndex < 0) pageIndex = totalPages - 1;
+    if (pageIndex >= totalPages) pageIndex = 0;
+
+    window.currentAppsGridPage = pageIndex;
+    var query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+    cards.forEach(function(card) {
+      if (query.length > 0) {
+        var name = (card.getAttribute('data-name') || '').toLowerCase();
+        var tags = (card.getAttribute('data-tags') || '').toLowerCase();
+        var text = card.textContent.toLowerCase();
+        if (name.includes(query) || tags.includes(query) || text.includes(query)) {
+          card.style.cssText = 'display: flex !important;';
+        } else {
+          card.style.cssText = 'display: none !important;';
+        }
+      } else {
+        var cardPage = parseInt(card.getAttribute('data-page') || '0', 10);
+        if (cardPage === window.currentAppsGridPage) {
+          card.style.cssText = 'display: flex !important;';
+        } else {
+          card.style.cssText = 'display: none !important;';
+        }
+      }
+    });
+
+    dots.forEach(function(dot, i) {
+      var isActive = i === window.currentAppsGridPage;
+      dot.classList.toggle('active', isActive);
+    });
+
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
+    }
+  };
+
+  window.navigateAppsGrid = function(delta) {
+    window.setAppsGridPage(window.currentAppsGridPage + delta);
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    window.setSidebarFeatureSlide(0);
+    window.setAppsGridPage(0);
+  });
+</script>
+
 </head>
 <body>
 
@@ -4053,7 +4141,7 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=31">
+<script src="js/localization.js?v=32">
   // 4. TESTIMONIALS CAROUSEL CONTROLLER (Auto-play 5s + Prev/Next Arrows + Dots)
   (function initTestimonialsCarousel() {
     const carousel = document.getElementById('testiCarousel');
