@@ -2963,16 +2963,16 @@ a.btn-request-demo:hover {
                 </div>
               </div>
               <div class="features-arrows">
-                <button class="f-arrow" id="featPrev" aria-label="Previous">
+                <button class="f-arrow" id="featPrev" onclick="window.navigateSidebarFeatures(-1); return false;" aria-label="Previous">
                   <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
                 </button>
-                <button class="f-arrow" id="featNext" aria-label="Next">
+                <button class="f-arrow" id="featNext" onclick="window.navigateSidebarFeatures(1); return false;" aria-label="Next">
                   <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
                 </button>
                 <div class="f-dots" id="featDots">
-                  <span class="f-dot active" data-i="0"></span>
-                  <span class="f-dot" data-i="1"></span>
-                  <span class="f-dot" data-i="2"></span>
+                  <span class="f-dot active" data-i="0" onclick="window.setSidebarFeatureSlide(0); return false;"></span>
+                  <span class="f-dot" data-i="1" onclick="window.setSidebarFeatureSlide(1); return false;"></span>
+                  <span class="f-dot" data-i="2" onclick="window.setSidebarFeatureSlide(2); return false;"></span>
                 </div>
               </div>
             </div>
@@ -3018,10 +3018,10 @@ a.btn-request-demo:hover {
               
               <div class="apps-carousel-wrapper">
                 <!-- Navigation Arrows -->
-                <button class="apps-nav-arrow prev" id="appsNavPrev" aria-label="Previous apps">
+                <button class="apps-nav-arrow prev" id="appsNavPrev" onclick="window.navigateAppsGrid(-1); return false;" aria-label="Previous apps">
                   <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
                 </button>
-                <button class="apps-nav-arrow next" id="appsNavNext" aria-label="Next apps">
+                <button class="apps-nav-arrow next" id="appsNavNext" onclick="window.navigateAppsGrid(1); return false;" aria-label="Next apps">
                   <svg viewBox="0 0 24 24"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
                 </button>
                 
@@ -3184,8 +3184,8 @@ a.btn-request-demo:hover {
                 
                 <!-- Pagination Dots -->
                 <div class="apps-pagination" id="appsPagination">
-                  <span class="app-dot active" data-page="0"></span>
-                  <span class="app-dot" data-page="1"></span>
+                  <span class="app-dot active" data-page="0" onclick="window.setAppsGridPage(0); return false;"></span>
+                  <span class="app-dot" data-page="1" onclick="window.setAppsGridPage(1); return false;"></span>
                 </div>
               </div>
             </div>
@@ -4028,7 +4028,7 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=29">
+<script src="js/localization.js?v=30">
   // 4. TESTIMONIALS CAROUSEL CONTROLLER (Auto-play 5s + Prev/Next Arrows + Dots)
   (function initTestimonialsCarousel() {
     const carousel = document.getElementById('testiCarousel');
