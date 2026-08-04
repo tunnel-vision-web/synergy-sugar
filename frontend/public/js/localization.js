@@ -376,7 +376,7 @@
     "Member since January 2020": "Member since January 2020",
     "A comprehensive platform": "A comprehensive platform",
     "Seamlessly connecting...": "Seamlessly connecting...",
-    "1 Core ERP App of choice": "Programu 1 Kuu ya ERP ya Chaguo",
+    "1 Core ERP App of choice": "Programu 1 Kuu ya ERP ya Chaguo Lako",
     "Book Another Appointment": "Weka Miadi Nyengine",
     "Add sensor device EUI in": "Add sensor device EUI in",
     "SOC 2 Type II compliance": "SOC 2 Type II compliance",
@@ -785,6 +785,17 @@
     "Was this helpful?": "Je, hii ilikuwa ya msaada?",
     "👍 Yes": "👍 Ndio",
     "👎 No": "👎 Hapana",
+    "All 10 Apps Included • Unlimited Users": "Programu Zote 10 Zimejumuishwa • Watumiaji Wasio na Kikomo",
+    "Multi-Site & Dedicated Cloud": "Wingu la Kibinafsi na Maeneo Mengi",
+    "Community forum support": "Msaada wa jukwaa la jamii",
+    "Weighbridge & Field Mobile Sync": "Usawazishaji wa Mizani na Simu za Nyanjani",
+    "Automated Daily Backups": "Hifadhi Nakala za Kila Siku za Kiotomatiki",
+    "Standard SLA & Email Support": "Msaada wa Barua Pepe na SLA ya Kawaida",
+    "Custom Hardware & Lab API Integration": "Ushirikiano wa Vifaa vya Maalum na API ya Maabara",
+    "Dedicated Technical Account Manager": "Meneja Maalum wa Akaunti ya Kiufundi",
+    "24/7 Priority SLA & On-Site Training": "SLA ya Kipao Mbele cha 24/7 na Mafunzo ya Eneo la Kazi",
+    "Most Popular": "Inayopendwa Zaidi",
+    "Yes, you can upgrade, downgrade, or cancel your plan anytime.": "Ndio, unaweza kuboresha, kupunguza, au kughairi mpango wako wakati wowote.",
   };
 
   // ============================================================
