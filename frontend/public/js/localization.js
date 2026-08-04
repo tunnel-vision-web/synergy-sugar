@@ -2426,6 +2426,9 @@
         <div id="marketMenu" style="display:none;position:absolute;top:110%;left:0;background:#16221c;border:1px solid #364e43;border-radius:4px;box-shadow:0 12px 30px rgba(0,0,0,0.85);z-index:50000;min-width:180px;padding:6px 0;">
           <div style="padding:4px 10px;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Region / Market</div>
           <a href="#" onclick="SynergyLocalization.setMarket('KE');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kenya (KSh)</a>
+          <a href="#" onclick="SynergyLocalization.setMarket('US');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇸 United States ($)</a>
+        </div>
+          <a href="#" onclick="SynergyLocalization.setMarket('KE');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kenya (KSh)</a>
           <a href="#" onclick="SynergyLocalization.setMarket('TZ');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇹🇿 Tanzania (TSh)</a>
           <a href="#" onclick="SynergyLocalization.setMarket('UG');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇬 Uganda (USh)</a>
           <a href="#" onclick="SynergyLocalization.setMarket('US');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇸 United States ($)</a>

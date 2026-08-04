@@ -518,7 +518,15 @@
 
     <!-- LEFT: PAYMENT FORM -->
     <section class="card">
-      <h3>Payment Method</h3>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="margin:0;">Payment Method</h3>
+        <div id="paymentLogosHeader" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
+          <img src="assets/images/payments/mpesa.png" alt="M-Pesa" class="pay-logo-img pay-logo-mpesa" style="height:26px; width:auto; display:inline-block; object-fit:contain;" title="M-Pesa">
+          <img src="assets/images/payments/visa.png" alt="Visa" class="pay-logo-img pay-logo-visa" style="height:26px; width:auto; display:inline-block; object-fit:contain;" title="Visa">
+          <img src="assets/images/payments/mastercard.png" alt="Mastercard" class="pay-logo-img pay-logo-mastercard" style="height:26px; width:auto; display:inline-block; object-fit:contain;" title="Mastercard">
+          <img src="assets/images/payments/paypal.png" alt="PayPal" class="pay-logo-img pay-logo-paypal" style="height:26px; width:auto; display:inline-block; object-fit:contain;" title="PayPal">
+        </div>
+      </div>
       <div class="pay-options">
         <label><input type="radio" name="payMethod" value="card" checked> Credit / Debit Card</label>
         <label><input type="radio" name="payMethod" value="mpesa"> M-PESA</label>
@@ -575,15 +583,7 @@
 
     <!-- RIGHT: SUMMARY + TERMS -->
     <aside class="card summary">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <h3 style="margin:0;">Summary</h3>
-        <div id="paymentLogosHeader" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
-          <span class="pay-logo-mpesa" title="M-Pesa" style="padding:2px 6px; background:#10b981; color:#fff; border-radius:4px; font-weight:800; font-size:0.72rem; font-family:sans-serif; letter-spacing:0.3px;">M-PESA</span>
-          <span class="pay-logo-visa" title="Visa" style="padding:2px 6px; background:#1a1f71; color:#fff; border-radius:4px; font-weight:800; font-size:0.72rem; font-style:italic; font-family:sans-serif;">VISA</span>
-          <span class="pay-logo-mastercard" title="Mastercard" style="padding:2px 6px; background:#eb001b; color:#fff; border-radius:4px; font-weight:800; font-size:0.72rem; font-family:sans-serif;">MC</span>
-          <span class="pay-logo-paypal" title="PayPal" style="padding:2px 6px; background:#e6f0fa; color:#003087; border-radius:4px; font-weight:800; font-size:0.72rem; font-family:sans-serif;">PayPal</span>
-        </div>
-      </div>
+      <h3>Summary</h3>
       <div class="line"><span data-i18n-text="Plan">Plan</span><span id="sumPlan" data-i18n-text="Standard">Standard</span></div>
       <div class="line"><span data-i18n-text="Billing">Billing</span><span id="sumBilling" data-i18n-text="Monthly">Monthly</span></div>
       <div class="line"><span data-i18n-text="Users">Users</span><span id="sumUsers">1</span></div>
@@ -938,6 +938,6 @@
     }
   });
 </script>
-<script src="js/localization.js?v=34"></script>
+<script src="js/localization.js?v=35"></script>
 </body>
 </html>
