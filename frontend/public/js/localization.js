@@ -44,7 +44,7 @@
     "/year": "/mwaka",
     "/month": "/mwezi",
     "Generate the standard Kenya Sugar Board outgrower supply agreement. Capture the grower's electronic signature on device and print a Bluetooth thermal copy for the grower's record.": "Generate the standard Kenya Sugar Board outgrower supply agreement. Capture the grower's electronic signature on device and print a Bluetooth thermal copy for the grower's record.",
-    "The GPS polygon auto-walk feature cut down our plot surveying time from 45 minutes to under 10 minutes per farm. Highly recommended for field teams working in large schemes.": "The GPS polygon auto-walk feature cut down our plot surveying time from 45 minutes to under 10 minutes per farm. Highly recommended for field teams working in large schemes.",
+    "The GPS polygon auto-walk feature cut down our plot surveying time from 45 minutes to under 10 minutes per farm. Highly recommended for field teams working in large schemes.": "Kipengele cha kutembea kiotomatiki cha polygon ya GPS kilipunguza muda wetu wa kupima mashamba kutoka dakika 45 hadi chini ya dakika 10 kwa kila shamba. Inapendekezwa sana kwa timu za nyanjani zinazofanya kazi katika miradi mikubwa.",
     "You agree to indemnify and hold harmless Synergy Bravo ERP from any claims, damages, or expenses arising from your use of the Service or violation of these Terms.": "You agree to indemnify and hold harmless Synergy Bravo ERP from any claims, damages, or expenses arising from your use of the Service or violation of these Terms.",
     "If internet connection drops, tickets automatically buffer to SQLite local storage. Do not restart terminal PC until queue reaches 0 after network reconnects.": "If internet connection drops, tickets automatically buffer to SQLite local storage. Do not restart terminal PC until queue reaches 0 after network reconnects.",
     "Record grower full name, National ID number, primary contact number, and payout channel (M-PESA B2C mobile wallet or Kenya Commercial Bank account number).": "Record grower full name, National ID number, primary contact number, and payout channel (M-PESA B2C mobile wallet or Kenya Commercial Bank account number).",
@@ -280,7 +280,7 @@
     "Book Appointment - Synergy Bravo ERP": "Weka Miadi - Synergy Bravo ERP",
     "Automatic deduction offsets applied:": "Automatic deduction offsets applied:",
     "Vendor access monitoring and logging": "Vendor access monitoring and logging",
-    "Laboratory Quality Control Workflow": "Laboratory Quality Control Workflow",
+    "Laboratory Quality Control Workflow": "Mtiririko wa Udhibiti wa Ubora wa Maabara",
     "Multi-factor authentication options": "Multi-factor authentication options",
     "Opt-out of marketing communications": "Opt-out of marketing communications",
     "Financial management and accounting": "Financial management and accounting",
@@ -294,7 +294,7 @@
     "Configure your SMTP settings there": "Configure your SMTP settings there",
     "1. Overview & Operational Context": "1. Muhtasari na Muktadha wa Shughuli",
     "Post a comment as a verified user": "Post a comment as a verified user",
-    "Outgrower Manager — Western Kenya": "Outgrower Manager — Western Kenya",
+    "Outgrower Manager — Western Kenya": "Meneja wa Wakulima — Magharibi mwa Kenya",
     "Thermal Ticket & Barrier Release:": "Thermal Ticket & Barrier Release:",
     "Cooperative development levy (1%)": "Cooperative development levy (1%)",
     "Enterprise Server (KES 25,000/mo)": "Seva ya Shirika (KSh 25,000/mwezi)",
@@ -329,7 +329,7 @@
     "Cloud infrastructure included": "Miundombinu ya wingu imejumuishwa",
     "How does the free trial work?": "Jaribio la bure linafanya kazi vipi?",
     "Select the cane variety (e.g.": "Chagua the cane variety (e.g.",
-    "1. Hardware Integration Setup": "1. Hardware Ushirikiano Setup",
+    "1. Hardware Integration Setup": "1. Mipangilio ya Ushirikiano wa Vifaa",
     "Assisted Install (KES 10,000)": "Uwekaji wa Msaada (KSh 10,000)",
     "Email: privacy@synergyerp.com": "Email: privacy@synergyerp.com",
     "To use our Service, you must:": "To use our Service, you must:",
@@ -341,9 +341,9 @@
     "✅ How to Ask a Good Question": "✅ How to Ask a Good Question",
     "You can check the logs with:": "You can check the logs with:",
     "Everything in Standard plan": "Kila kitu katika mpango wa Kawaida",
-    "Field Officer — Nyando Zone": "Field Officer — Nyando Zone",
+    "Field Officer — Nyando Zone": "Afisa wa Nyanjani — Ukanda wa Nyando",
     "Chief Chemist — Kibos Sugar": "Chief Chemist — Kibos Sugar",
-    "Settlement Calculation Flow": "Settlement Calculation Flow",
+    "Settlement Calculation Flow": "Mtiririko wa Uhesabu wa Malipo",
     "Harvesting gang labor wages": "Harvesting gang labor wages",
     "Finance Accountant — Mumias": "Finance Accountant — Mumias",
     "Customer User (KES 1000/mo)": "Mtumiaji wa Mteja (KSh 1000/mwezi)",
@@ -415,7 +415,7 @@
     "Member since June 2022": "Member since June 2022",
     "Standard (All-in-One)": "Kawaida (Yote-mahali-pamoja)",
     "Complete Your Booking": "Kamilisha Miadi Yako",
-    "Troubleshooting Steps": "Troubleshooting Steps",
+    "Troubleshooting Steps": "Hatua za Kutatua Matatizo",
     "Own Servers (no cost)": "Mavazi Yako Mwenyewe (Bila Gharama)",
     "9. Children's Privacy": "9. Children's Privacy",
     "Single Sign-On (SSO):": "Single Sign-On (SSO):",
@@ -633,8 +633,8 @@
     "Integrated": "Integrated",
     "Thank You!": "Asante!",
     "Categories": "Makundi",
-    "2 days ago": "2 days ago",
-    "5 days ago": "5 days ago",
+    "2 days ago": "siku 2 zilizopita",
+    "5 days ago": "siku 5 zilizopita",
     "3 days ago": "3 days ago",
     "4 days ago": "4 days ago",
     "6 days ago": "6 days ago",
@@ -778,6 +778,7 @@
     "LW": "LW",
     "RG": "RG",
     "TS": "TS",
+    "2. Full Weighbridge Workflow": "2. Mtiririko Kamili wa Shughuli za Mizani",
   };
 
   // ============================================================
@@ -2118,6 +2119,22 @@
       const parent = node.parentElement;
       if (!parent || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA'].includes(parent.tagName)) return;
       if (parent.closest && parent.closest('#synergyLocalizationBar')) return;
+
+      const rawVal = node.nodeValue;
+      const trimmedVal = rawVal.trim();
+      const normalizedVal = trimmedVal.replace(/&amp;/g, '&');
+
+      // Direct Swahili lookup override
+      if (lang === 'sw') {
+        if (T[trimmedVal]) {
+          node.nodeValue = rawVal.replace(trimmedVal, T[trimmedVal]);
+          return;
+        }
+        if (T[normalizedVal]) {
+          node.nodeValue = rawVal.replace(trimmedVal, T[normalizedVal]);
+          return;
+        }
+      }
 
       let origEn = DOM_ENGLISH_NODES.get(node);
       if (!origEn) {
