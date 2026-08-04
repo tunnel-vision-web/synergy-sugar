@@ -3961,10 +3961,10 @@ a.btn-request-demo:hover {
                   Guide to digital outgrower farmer onboarding, high-precision GNSS polygon boundary walking, and sugarcane supply agreements.
                 </p>
                 <div class="help-article-body">
-                  <h4>1. Overview & Operational Context</h4>
+                  <h4 data-i18n-text="1. Overview & Operational Context">1. Overview & Operational Context</h4>
                   <p>Outgrower management is the cornerstone of raw cane supply for sugar mills in Kenya (such as Chemelil, Muhoroni, Sony Sugar, and Mumias). The Synergy Bravo ERP Field Mobile application allows field extension officers to execute 100% digital grower onboarding, block mapping, and contract signing directly on mobile tablets even in remote areas without cellular signal.</p>
                   
-                  <h4>2. Step-by-Step Onboarding & Registration Workflow</h4>
+                  <h4 data-i18n-text="2. Step-by-Step Onboarding & Registration Workflow">2. Step-by-Step Onboarding & Registration Workflow</h4>
                   <ol>
                     <li><strong>Access Officer Module:</strong> Open the Synergy Field App on your Android/iOS tablet and select <em>Grower Management &gt; Register New Outgrower</em>.</li>
                     <li><strong>Grower Identification & Financial KYC:</strong> Record grower full name, National ID number, primary contact number, and payout channel (M-PESA B2C mobile wallet or Kenya Commercial Bank account number).</li>
@@ -3973,7 +3973,7 @@ a.btn-request-demo:hover {
                     <li><strong>Digital E-Signatures & Contract Generation:</strong> Generate the standard Kenya Sugar Board outgrower supply agreement. Capture the grower's electronic signature on device and print a Bluetooth thermal copy for the grower's record.</li>
                   </ol>
 
-                  <h4>3. Offline Queue & Sync Protocol</h4>
+                  <h4 data-i18n-text="3. Offline Queue & Sync Protocol">3. Offline Queue & Sync Protocol</h4>
                   <p>When operating offline in remote field blocks, all GPS polygons, photos, and signed contracts are stored locally in an encrypted SQLite mobile database queue. As soon as the device connects to 3G/4G or Wi-Fi, the background sync engine pushes all pending records to the central ERP database without data loss.</p>
 
                   <div class="article-comments-section">
@@ -4058,10 +4058,10 @@ a.btn-request-demo:hover {
                   Technical setup for connecting load cells, automated gross and tare weight locking, driver RFID trip tickets, and weight calculation formulas.
                 </p>
                 <div class="help-article-body">
-                  <h4>1. Hardware Integration Setup</h4>
+                  <h4 data-i18n-text="1. Hardware Integration Setup">1. Hardware Integration Setup</h4>
                   <p>The Weighbridge Gateway software interfaces directly with Avery Weigh-Tronix, Mettler Toledo, and Rice Lake weight indicators via serial COM ports or TCP/IP socket listeners.</p>
                   
-                  <h4>2. Full Weighbridge Workflow</h4>
+                  <h4 data-i18n-text="2. Full Weighbridge Workflow">2. Full Weighbridge Workflow</h4>
                   <ol>
                     <li><strong>Gate Entry & Trip Authorization:</strong> Driver taps RFID card or scans barcode at Gate 1. System verifies active harvest permit and truck license plate.</li>
                     <li><strong>Gross Scale Measurement:</strong> Vehicle moves onto Scale Platform 1. Click <em>Lock Gross Weight</em>. The system records gross tonnage from the load cell sensors.</li>
@@ -4139,7 +4139,7 @@ a.btn-request-demo:hover {
                   Walkthrough for logging Brix %, Pol %, purity, fiber %, and calculating Estimated Recoverable Crystal (ERC) for quality bonuses.
                 </p>
                 <div class="help-article-body">
-                  <h4>Laboratory Quality Control Workflow</h4>
+                  <h4 data-i18n-text="Laboratory Quality Control Workflow">Laboratory Quality Control Workflow</h4>
                   <p>Juice samples collected at first expressor roller are tagged with the corresponding delivery batch number.</p>
                   <ul>
                     <li>Enter Brix hydrometer reading and refractometer temperature corrections into the <strong>Lab Quality Module</strong>.</li>
@@ -4217,7 +4217,7 @@ a.btn-request-demo:hover {
                   Calculate grower gross earnings from delivered cane tonnage and automatically net against fertilizer advances and transport deductions.
                 </p>
                 <div class="help-article-body">
-                  <h4>Settlement Calculation Flow</h4>
+                  <h4 data-i18n-text="Settlement Calculation Flow">Settlement Calculation Flow</h4>
                   <ol>
                     <li>Go to <strong>Financials &gt; Grower Payroll & Settlements</strong>.</li>
                     <li>Select billing cycle date range (e.g. 1st - 15th of the month).</li>
@@ -4302,7 +4302,7 @@ a.btn-request-demo:hover {
                   Manage 50kg bag production output, warehouse stack bin locations, wholesale dispatches, and delivery note generation.
                 </p>
                 <div class="help-article-body">
-                  <h4>Inventory Management Steps</h4>
+                  <h4 data-i18n-text="Inventory Management Steps">Inventory Management Steps</h4>
                   <p>Track brown, white, and industrial sugar bag counts in real time across main and regional distribution depots.</p>
                   <ul>
                     <li>Log daily production batch outputs from bagging machinery into <strong>Production & Inventory</strong>.</li>
@@ -4379,7 +4379,7 @@ a.btn-request-demo:hover {
                   Setup guide for telemetry moisture sensors, weather stations, and predictive AI machine learning models for yield forecasting.
                 </p>
                 <div class="help-article-body">
-                  <h4>IoT & AI Setup Guide</h4>
+                  <h4 data-i18n-text="IoT & AI Setup Guide">IoT & AI Setup Guide</h4>
                   <p>Synergy Sugar integrates with LoRaWAN and cellular telemetry sensors to monitor soil moisture, sucrose accumulation, and micro-climate risk factors.</p>
                   <ol>
                     <li>Add sensor device EUI in <strong>AI Traceability &gt; Device Management</strong>.</li>
@@ -4532,7 +4532,7 @@ a.btn-request-demo:hover {
                   Configure administrator roles, weighbridge clerk privileges, field officer scopes, and review immutable audit logs.
                 </p>
                 <div class="help-article-body">
-                  <h4>Role Configuration</h4>
+                  <h4 data-i18n-text="Role Configuration">Role Configuration</h4>
                   <p>Ensure strict separation of duties between weighbridge clerks, lab technicians, finance officers, and executive managers.</p>
                   <ul>
                     <li>Go to <strong>System Settings &gt; Roles & Permissions</strong>.</li>
@@ -5111,6 +5111,7 @@ a.btn-request-demo:hover {
     `;
 
     // Ensure full body is visible inside modal
+    /* MODAL_APPLY_LOC_HOOK */ if (typeof SynergyLocalization !== 'undefined' && SynergyLocalization.applyLocalization) { SynergyLocalization.applyLocalization(); }
     const modalBody = container.querySelector('.help-article-body');
     if (modalBody) modalBody.style.display = 'block';
 
@@ -5404,6 +5405,6 @@ a.btn-request-demo:hover {
   </div>
 </div>
 
-<script src="js/localization.js?v=36"></script>
+<script src="js/localization.js?v=37"></script>
 </body>
 </html>
