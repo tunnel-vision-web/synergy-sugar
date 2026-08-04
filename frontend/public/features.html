@@ -2321,6 +2321,12 @@ a.btn-request-demo:hover {
   </style>
 
 </style>
+<style>
+    .features-slide:not(.active) { display: none !important; }
+    .features-slide.active { display: block !important; }
+    .testi-slide:not(.active) { display: none !important; }
+    .testi-slide.active { display: block !important; }
+    </style>
 </head>
 <body>
 
@@ -3697,7 +3703,7 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=26">
+<script src="js/localization.js?v=27">
   // 4. TESTIMONIALS CAROUSEL CONTROLLER (Auto-play 5s + Prev/Next Arrows + Dots)
   (function initTestimonialsCarousel() {
     const carousel = document.getElementById('testiCarousel');
@@ -3827,6 +3833,86 @@ a.btn-request-demo:hover {
     });
 
     showFeatureSlide(0);
+  })();
+
+  // 6. MODULES GRID PAGINATION & ARROWS CONTROLLER
+  (function initAppsGridPagination() {
+    const prevBtn = document.getElementById('appsNavPrev');
+    const nextBtn = document.getElementById('appsNavNext');
+    const dots = document.querySelectorAll('#appsPagination .app-dot');
+    const cards = document.querySelectorAll('.apps-carousel-wrapper .app-card');
+    const searchInput = document.getElementById('appsSearch');
+
+    if (!cards.length) return;
+
+    let currentPage = 0;
+    const totalPages = 2; // Page 0 and Page 1
+
+    function setPage(pageIndex) {
+      if (pageIndex < 0) pageIndex = totalPages - 1;
+      if (pageIndex >= totalPages) pageIndex = 0;
+      currentPage = pageIndex;
+
+      const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+      cards.forEach(card => {
+        if (query.length > 0) {
+          const name = (card.getAttribute('data-name') || '').toLowerCase();
+          const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+          const text = card.textContent.toLowerCase();
+          if (name.includes(query) || tags.includes(query) || text.includes(query)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        } else {
+          const cardPage = parseInt(card.getAttribute('data-page') || '0', 10);
+          if (cardPage === currentPage) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === currentPage) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+
+      if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+        window.SynergyLocalization.applyLocalization();
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        setPage(currentPage - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        setPage(currentPage + 1);
+      });
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', (e) => {
+        if (e) e.preventDefault();
+        setPage(i);
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        setPage(currentPage);
+      });
+    }
+
+    setPage(0);
   })();
 </script>
 </body>
