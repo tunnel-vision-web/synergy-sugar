@@ -451,7 +451,7 @@
     .apps-slider{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
+      grid-template-rows: auto;
       gap: 20px;
       min-height: 500px;
     }
@@ -3103,7 +3103,7 @@ a.btn-request-demo:hover {
                       <a href="#pricing" class="app-btn">Pricing</a>
                     </div>
                   </div>
-                  <div class="app-card" data-page="0" data-name="MRP & Inventory" data-tags="mrp procurement stores inventory control materials">
+                  <div class="app-card" data-page="1" style="display: none;" data-name="MRP & Inventory" data-tags="mrp procurement stores inventory control materials">
                     <div class="app-select-wrapper">
                       <input type="checkbox" class="app-select-checkbox" title="Select app for demo" aria-label="Select app for demo">
                     </div>
@@ -3118,7 +3118,7 @@ a.btn-request-demo:hover {
                       <a href="#pricing" class="app-btn">Pricing</a>
                     </div>
                   </div>
-                  <div class="app-card" data-page="0" data-name="Production" data-tags="production manufacturing operations processing plant">
+                  <div class="app-card" data-page="1" style="display: none;" data-name="Production" data-tags="production manufacturing operations processing plant">
                     <div class="app-select-wrapper">
                       <input type="checkbox" class="app-select-checkbox" title="Select app for demo" aria-label="Select app for demo">
                     </div>
@@ -3133,7 +3133,7 @@ a.btn-request-demo:hover {
                       <a href="#pricing" class="app-btn">Pricing</a>
                     </div>
                   </div>
-                  <div class="app-card" data-page="0" data-name="Sales & Invoicing" data-tags="sales invoicing billing payments revenue customers">
+                  <div class="app-card" data-page="1" style="display: none;" data-name="Sales & Invoicing" data-tags="sales invoicing billing payments revenue customers">
                     <div class="app-select-wrapper">
                       <input type="checkbox" class="app-select-checkbox" title="Select app for demo" aria-label="Select app for demo">
                     </div>
@@ -3148,7 +3148,7 @@ a.btn-request-demo:hover {
                       <a href="#pricing" class="app-btn">Pricing</a>
                     </div>
                   </div>
-                  <div class="app-card" data-page="0" data-name="Financial Management" data-tags="financial management accounting finance money budget">
+                  <div class="app-card" data-page="1" style="display: none;" data-name="Financial Management" data-tags="financial management accounting finance money budget">
                     <div class="app-select-wrapper">
                       <input type="checkbox" class="app-select-checkbox" title="Select app for demo" aria-label="Select app for demo">
                     </div>
@@ -4009,30 +4009,7 @@ a.btn-request-demo:hover {
           slideIndex = 2;
         }
 
-        slides.forEach((s, idx) => {
-          if (idx === slideIndex) {
-            s.classList.add('active');
-            s.style.display = 'block';
-            const h5 = s.querySelector('h5');
-            const ul = s.querySelector('ul');
-            if (h5) h5.innerHTML = `<span style="color:#f6dd0d;">${spec.badge}</span> ${spec.title}`;
-            if (ul) {
-              ul.innerHTML = spec.bullets.map(b => `<li style="color:#f8fafc; font-weight:500;" data-i18n-text="${b}">${b}</li>`).join('');
-            }
-            if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
-              window.SynergyLocalization.applyLocalization();
-            }
-          } else {
-            s.classList.remove('active');
-            s.style.display = 'none';
-          }
-        });
-
-        const dots = document.querySelectorAll('#featDots .f-dot');
-        dots.forEach((d, idx) => {
-          if (idx === slideIndex) d.classList.add('active');
-          else d.classList.remove('active');
-        });
+        window.setSidebarFeatureSlide(slideIndex);
 
         const panelCard = featuresCarousel.closest('.panel-card');
         if (panelCard) {
@@ -4051,7 +4028,7 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=28">
+<script src="js/localization.js?v=29">
   // 4. TESTIMONIALS CAROUSEL CONTROLLER (Auto-play 5s + Prev/Next Arrows + Dots)
   (function initTestimonialsCarousel() {
     const carousel = document.getElementById('testiCarousel');
@@ -4392,6 +4369,148 @@ a.btn-request-demo:hover {
     window.setAppsGridPage(0);
   });
 
+
+// GLOBAL CAROUSEL & PAGINATION CONTROLLERS (Reworked)
+  window.currentSidebarFeatureIndex = 0;
+  window.setSidebarFeatureSlide = function(index) {
+    const carousel = document.getElementById('featuresCarousel');
+    if (!carousel) return;
+    const slides = carousel.querySelectorAll('.features-slide');
+    const dots = document.querySelectorAll('#featDots .f-dot');
+    if (!slides.length) return;
+
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    window.currentSidebarFeatureIndex = index;
+
+    slides.forEach((s, i) => {
+      const isActive = i === window.currentSidebarFeatureIndex;
+      s.classList.toggle('active', isActive);
+      s.style.display = isActive ? 'block' : 'none';
+    });
+
+    dots.forEach((d, i) => {
+      const isActive = i === window.currentSidebarFeatureIndex;
+      d.classList.toggle('active', isActive);
+    });
+
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
+    }
+  };
+
+  window.navigateSidebarFeatures = function(delta) {
+    window.setSidebarFeatureSlide(window.currentSidebarFeatureIndex + delta);
+  };
+
+  window.currentAppsGridPage = 0;
+  window.setAppsGridPage = function(pageIndex) {
+    const cards = document.querySelectorAll('.apps-carousel-wrapper .app-card');
+    const dots = document.querySelectorAll('#appsPagination .app-dot');
+    const searchInput = document.getElementById('appsSearch');
+    if (!cards.length) return;
+
+    const totalPages = 2;
+    if (pageIndex < 0) pageIndex = totalPages - 1;
+    if (pageIndex >= totalPages) pageIndex = 0;
+
+    window.currentAppsGridPage = pageIndex;
+    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+    cards.forEach(card => {
+      if (query.length > 0) {
+        const name = (card.getAttribute('data-name') || '').toLowerCase();
+        const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+        const text = card.textContent.toLowerCase();
+        if (name.includes(query) || tags.includes(query) || text.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      } else {
+        const cardPage = parseInt(card.getAttribute('data-page') || '0', 10);
+        if (cardPage === window.currentAppsGridPage) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      const isActive = i === window.currentAppsGridPage;
+      dot.classList.toggle('active', isActive);
+    });
+
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
+    }
+  };
+
+  window.navigateAppsGrid = function(delta) {
+    window.setAppsGridPage(window.currentAppsGridPage + delta);
+  };
+
+  // Attach global click event delegation
+  document.addEventListener('click', function(e) {
+    const featPrevBtn = e.target.closest('#featPrev');
+    const featNextBtn = e.target.closest('#featNext');
+    const featDot = e.target.closest('#featDots .f-dot');
+
+    if (featPrevBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.navigateSidebarFeatures(-1);
+      return;
+    }
+    if (featNextBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.navigateSidebarFeatures(1);
+      return;
+    }
+    if (featDot) {
+      e.preventDefault();
+      e.stopPropagation();
+      const idx = parseInt(featDot.getAttribute('data-i') || '0', 10);
+      window.setSidebarFeatureSlide(idx);
+      return;
+    }
+
+    const appsPrevBtn = e.target.closest('#appsNavPrev');
+    const appsNextBtn = e.target.closest('#appsNavNext');
+    const appDot = e.target.closest('#appsPagination .app-dot');
+
+    if (appsPrevBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.navigateAppsGrid(-1);
+      return;
+    }
+    if (appsNextBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.navigateAppsGrid(1);
+      return;
+    }
+    if (appDot) {
+      e.preventDefault();
+      e.stopPropagation();
+      const page = parseInt(appDot.getAttribute('data-page') || '0', 10);
+      window.setAppsGridPage(page);
+      return;
+    }
+  }, true);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      window.setSidebarFeatureSlide(0);
+      window.setAppsGridPage(0);
+    });
+  } else {
+    window.setSidebarFeatureSlide(0);
+    window.setAppsGridPage(0);
+  }
 </script>
 </body>
 </html>
