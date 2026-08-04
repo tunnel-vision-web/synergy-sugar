@@ -2600,6 +2600,97 @@ a.btn-request-demo:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
   }
 </style>
+
+<script>
+  window.currentBillingPeriod = 'monthly';
+
+  window.toggleBillingPeriod = function(period) {
+    window.currentBillingPeriod = period;
+    const monthlyBtn = document.getElementById('monthlyBtn');
+    const yearlyBtn = document.getElementById('yearlyBtn');
+    const slider = document.getElementById('billingSlider');
+
+    if (monthlyBtn && yearlyBtn) {
+      if (period === 'yearly') {
+        monthlyBtn.classList.remove('active');
+        yearlyBtn.classList.add('active');
+        if (slider) slider.style.left = '50%';
+      } else {
+        yearlyBtn.classList.remove('active');
+        monthlyBtn.classList.add('active');
+        if (slider) slider.style.left = '4px';
+      }
+    }
+
+    const priceEls = document.querySelectorAll('.price');
+    const market = (typeof SynergyLocalization !== 'undefined' && SynergyLocalization.getCurrentMarket) ? SynergyLocalization.getCurrentMarket() : 'KE';
+    const isUSD = market === 'US';
+    const isSw = (typeof SynergyLocalization !== 'undefined' && SynergyLocalization.getCurrentLanguage) ? (SynergyLocalization.getCurrentLanguage() === 'sw') : false;
+
+    priceEls.forEach(function(el) {
+      const monthlyVal = parseFloat(el.getAttribute('data-monthly') || '0');
+      const yearlyVal = parseFloat(el.getAttribute('data-yearly') || '0');
+
+      if (monthlyVal === 0 && yearlyVal === 0) {
+        el.innerHTML = isSw ? 'Bure' : 'Free';
+        return;
+      }
+
+      if (isUSD) {
+        const usdMonthly = Math.round(monthlyVal / 100);
+        const usdYearly = Math.round(yearlyVal / 100);
+        if (period === 'yearly') {
+          el.innerHTML = '$' + usdYearly.toLocaleString() + '<span style="font-size:1rem; font-weight:500;">/year</span>';
+        } else {
+          el.innerHTML = '$' + usdMonthly.toLocaleString() + '<span style="font-size:1rem; font-weight:500;">/month</span>';
+        }
+      } else {
+        if (period === 'yearly') {
+          el.innerHTML = 'KSH ' + yearlyVal.toLocaleString() + '<span style="font-size:1rem; font-weight:500;">/year</span>';
+        } else {
+          el.innerHTML = 'KSH ' + monthlyVal.toLocaleString() + '<span style="font-size:1rem; font-weight:500;">/month</span>';
+        }
+      }
+    });
+  };
+
+  // Single-Collapse FAQ Accordion Logic
+  document.addEventListener('click', function(e) {
+    const faqQ = e.target.closest('.faq-question, .accordion-header');
+    if (faqQ) {
+      const parentItem = faqQ.closest('.faq-item, .accordion-item');
+      if (!parentItem) return;
+      const answer = parentItem.querySelector('.faq-answer, .accordion-collapse, div[style*="display"]');
+      const isCurrentlyOpen = answer && answer.style.display === 'block';
+
+      // Close all FAQ items
+      document.querySelectorAll('.faq-item, .accordion-item').forEach(function(item) {
+        item.classList.remove('active', 'open');
+        const ans = item.querySelector('.faq-answer, .accordion-collapse');
+        if (ans) ans.style.display = 'none';
+        const arr = item.querySelector('.faq-arrow');
+        if (arr) arr.textContent = '▼';
+      });
+
+      // If clicked item was closed, open it
+      if (!isCurrentlyOpen && answer) {
+        parentItem.classList.add('active', 'open');
+        answer.style.display = 'block';
+        const arrow = parentItem.querySelector('.faq-arrow');
+        if (arrow) arrow.textContent = '▲';
+      }
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const mBtn = document.getElementById('monthlyBtn');
+    const yBtn = document.getElementById('yearlyBtn');
+    if (mBtn) mBtn.addEventListener('click', function() { window.toggleBillingPeriod('monthly'); });
+    if (yBtn) yBtn.addEventListener('click', function() { window.toggleBillingPeriod('yearly'); });
+    window.toggleBillingPeriod('monthly');
+  });
+</script>
+
 </head>
 <body>
 
@@ -3681,6 +3772,6 @@ a.btn-request-demo:hover {
     });
   });
 </script>
-<script src="js/localization.js?v=32"></script>
+<script src="js/localization.js?v=33"></script>
 </body>
 </html>
