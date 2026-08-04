@@ -2406,11 +2406,8 @@
 
   // Render Country Selector & Language Selector Bar in Header
   window.renderLocalizationHeaderBar = function() {
-    // The bar element is already embedded in the HTML above the Sign In link.
-    // We just populate its inner HTML and wire up the dropdowns.
     const bar = document.getElementById('synergyLocalizationBar');
     if (!bar) return;
-    // Avoid double-init
     if (bar.dataset.initialized) return;
     bar.dataset.initialized = 'true';
 
@@ -2428,12 +2425,6 @@
           <a href="#" onclick="SynergyLocalization.setMarket('KE');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kenya (KSh)</a>
           <a href="#" onclick="SynergyLocalization.setMarket('US');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇸 United States ($)</a>
         </div>
-          <a href="#" onclick="SynergyLocalization.setMarket('KE');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kenya (KSh)</a>
-          <a href="#" onclick="SynergyLocalization.setMarket('TZ');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇹🇿 Tanzania (TSh)</a>
-          <a href="#" onclick="SynergyLocalization.setMarket('UG');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇬 Uganda (USh)</a>
-          <a href="#" onclick="SynergyLocalization.setMarket('US');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇸 United States ($)</a>
-          <a href="#" onclick="SynergyLocalization.setMarket('EU');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇪🇺 Europe / Global (€)</a>
-        </div>
       </div>
       <span style="color:#364e43;padding:0 2px;line-height:1;">|</span>
       <div style="position:relative;display:inline-block;">
@@ -2450,7 +2441,6 @@
       </div>
     `;
 
-    // Wire up dropdown toggle events
     const marketBtn = bar.querySelector('#marketSelectorBtn');
     const marketMenu = bar.querySelector('#marketMenu');
     const langBtn = bar.querySelector('#langSelectorBtn');
