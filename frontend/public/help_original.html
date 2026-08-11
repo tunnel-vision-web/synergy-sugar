@@ -215,7 +215,7 @@
     body.panel-active .panel-area { width:340px; }
 
     .apps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:40px; }
-    @media(max-width:1024px){ .apps-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:1024px){ .apps-grid{ grid-template-columns: 1fr !important; } }
     @media(max-width:720px){ .page{ flex-direction:column; } .panel-area{ width:100%!important; } .apps-grid{ grid-template-columns:1fr; } }
 
     /* App Card */
@@ -607,6 +607,114 @@
 </style>
 
 
+<style id="phoneResponsiveStyle">
+/* ═══════════════════════════════════════════════════════
+   PHONE VIEWPORT (<= 768px) — DEFINITIVE RESPONSIVE CSS
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Header shell */
+  .site-header {
+    height: 56px !important;
+    min-height: 56px !important;
+    padding: 0 !important;
+  }
+
+  /* Inner flex row: logo left, hamburger right */
+  .site-header .inner {
+    padding: 0 14px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 56px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  /* Logo */
+  .site-header .brand img {
+    height: 32px !important;
+  }
+  .site-header.scrolled .brand img {
+    height: 28px !important;
+  }
+
+  /* Nav: hidden on phone */
+  .site-header .main-nav {
+    display: none !important;
+  }
+
+  /* Right-side group: simple row, hugging the right */
+  .header-right-group {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0 !important;
+    margin-left: auto !important;
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Auth actions: hidden on phone (country, sign in, yellow button all hidden) */
+  .site-header .auth-actions {
+    display: none !important;
+  }
+
+  /* ---- HAMBURGER: ALWAYS VISIBLE on phone ---- */
+  /* Override the base .hamburger-menu { display: none !important } with higher specificity */
+  .site-header .hamburger-menu,
+  .header-right-group .hamburger-menu,
+  body .site-header .hamburger-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    width: 28px !important;
+    height: 28px !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    z-index: 10005 !important;
+    flex-shrink: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 0 !important;
+  }
+  .site-header .hamburger-menu span,
+  .header-right-group .hamburger-menu span,
+  body .site-header .hamburger-menu span {
+    display: block !important;
+    width: 22px !important;
+    height: 2px !important;
+    background: #f8fafc !important;
+    border-radius: 2px !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* App Sorter Grid: single column */
+  .apps-grid,
+  .apps-slider,
+  #appsSlider {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .apps-carousel-wrapper {
+    padding: 0 34px !important;
+  }
+  .apps-nav-arrow.prev { left: 2px !important; }
+  .apps-nav-arrow.next { right: 2px !important; }
+  .app-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+</style>
 </head>
 <body>
   <header class="site-header" id="siteHeader">
