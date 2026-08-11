@@ -4008,7 +4008,7 @@ a.btn-request-demo:hover {
 
 <script>
 (function initAppSelectorAndFeatures() {
-  const APP_SPECS = {
+  window.APP_SPECS = {
     'farmers-recruitment': {
       title: 'Farmers Recruitment & Cane Management',
       category: 'Agriculture & Field Operations',
@@ -4221,42 +4221,64 @@ a.btn-request-demo:hover {
   };
 
   // Global delegated listener for App Card "Features" button clicks
+  window.updateSidebarFeaturesPanel = function(appKey) {
+    const spec = (window.APP_SPECS && window.APP_SPECS[appKey]) ? window.APP_SPECS[appKey] : null;
+    const featuresCarousel = document.getElementById('featuresCarousel');
+    if (!featuresCarousel) return;
+
+    let slideIndex = 0;
+    if (['weighbridge', 'production', 'mrp-inventory', 'fleet-management'].includes(appKey)) {
+      slideIndex = 1;
+    } else if (['sales-invoicing', 'financial-management', 'hr-payroll'].includes(appKey)) {
+      slideIndex = 2;
+    }
+
+    if (typeof window.setSidebarFeatureSlide === 'function') {
+      window.setSidebarFeatureSlide(slideIndex);
+    }
+
+    // Populate active slide with exact corresponding app module spec details
+    const activeSlide = featuresCarousel.querySelector('.features-slide.active') || featuresCarousel.querySelectorAll('.features-slide')[slideIndex];
+    if (activeSlide && spec) {
+      const h5 = activeSlide.querySelector('h5');
+      if (h5) {
+        h5.innerHTML = `${spec.badge || ''} ${spec.title}`;
+        h5.setAttribute('data-i18n-text', spec.title);
+      }
+      
+      const ul = activeSlide.querySelector('.features-list');
+      if (ul && Array.isArray(spec.bullets)) {
+        ul.innerHTML = spec.bullets.map(b => `<li data-i18n-text="${b}">${b}</li>`).join('');
+      }
+    }
+
+    const panelCard = featuresCarousel.closest('.panel-card');
+    if (panelCard) {
+      panelCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      panelCard.style.transition = 'all 0.4s ease';
+      panelCard.style.boxShadow = '0 0 25px rgba(246, 221, 13, 0.7)';
+      panelCard.style.borderColor = '#f6dd0d';
+      setTimeout(() => {
+        panelCard.style.boxShadow = '';
+        panelCard.style.borderColor = '';
+      }, 2500);
+    }
+
+    if (typeof window.SynergyLocalization !== 'undefined' && window.SynergyLocalization.applyLocalization) {
+      window.SynergyLocalization.applyLocalization();
+    }
+  };
+
   document.addEventListener('click', function(e) {
     const btn = e.target.closest('.app-features-btn');
     if (!btn) return;
     if (e) e.preventDefault();
     const appKey = btn.getAttribute('data-app') || 'farmers-recruitment';
-
-    // Switch left features panel (#featuresCarousel)
-    const featuresCarousel = document.getElementById('featuresCarousel');
-    if (featuresCarousel) {
-      let slideIndex = 0;
-      if (['weighbridge', 'production', 'mrp-inventory', 'fleet-management'].includes(appKey)) {
-        slideIndex = 1;
-      } else if (['sales-invoicing', 'financial-management', 'hr-payroll'].includes(appKey)) {
-        slideIndex = 2;
-      }
-
-      if (typeof window.setSidebarFeatureSlide === 'function') {
-        window.setSidebarFeatureSlide(slideIndex);
-      }
-
-      const panelCard = featuresCarousel.closest('.panel-card');
-      if (panelCard) {
-        panelCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        panelCard.style.transition = 'all 0.4s ease';
-        panelCard.style.boxShadow = '0 0 25px rgba(246, 221, 13, 0.7)';
-        panelCard.style.borderColor = '#f6dd0d';
-        setTimeout(() => {
-          panelCard.style.boxShadow = '';
-          panelCard.style.borderColor = '';
-        }, 2500);
-      }
-    }
+    window.updateSidebarFeaturesPanel(appKey);
   });
 })();
 </script>
-<script src="js/localization.js?v=42"></script>
+<script src="js/localization.js?v=43"></script>
 <script>
   // 4. TESTIMONIALS CAROUSEL CONTROLLER (Auto-play 5s + Prev/Next Arrows + Dots)
   (function initTestimonialsCarousel() {
