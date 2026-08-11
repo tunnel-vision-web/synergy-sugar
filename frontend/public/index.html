@@ -4179,33 +4179,40 @@ a.btn-request-demo:hover {
     if (modal) modal.style.display = 'none';
   };
 
-  document.querySelectorAll('.app-features-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      if (e) e.preventDefault();
-      const appKey = btn.getAttribute('data-app') || 'farmers-recruitment';
-      const spec = (typeof APP_SPECS !== 'undefined' && APP_SPECS[appKey]) ? APP_SPECS[appKey] : {
-        title: 'Synergy Bravo ERP Module',
-        category: 'Core Enterprise Application',
-        badge: '⚡',
-        bullets: ['Integrated sugar factory module', 'Real-time telemetry and API sync', 'Outgrower and mill management']
-      };
+  // Global delegated listener for App Card "Features" button clicks
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.app-features-btn');
+    if (!btn) return;
+    if (e) e.preventDefault();
+    const appKey = btn.getAttribute('data-app') || 'farmers-recruitment';
 
-      // Switch left features panel (#featuresCarousel) exclusively
-      const featuresCarousel = document.getElementById('featuresCarousel');
-      if (featuresCarousel) {
-        const slides = featuresCarousel.querySelectorAll('.features-slide');
-        let slideIndex = 0;
-        if (['weighbridge', 'production', 'mrp-inventory', 'fleet-management'].includes(appKey)) {
-          slideIndex = 1;
-        } else if (['sales-invoicing', 'financial-management', 'hr-payroll'].includes(appKey)) {
-          slideIndex = 2;
-        }
+    // Switch left features panel (#featuresCarousel)
+    const featuresCarousel = document.getElementById('featuresCarousel');
+    if (featuresCarousel) {
+      let slideIndex = 0;
+      if (['weighbridge', 'production', 'mrp-inventory', 'fleet-management'].includes(appKey)) {
+        slideIndex = 1;
+      } else if (['sales-invoicing', 'financial-management', 'hr-payroll'].includes(appKey)) {
+        slideIndex = 2;
+      }
 
+      if (typeof window.setSidebarFeatureSlide === 'function') {
         window.setSidebarFeatureSlide(slideIndex);
+      }
 
-        const panelCard = featuresCarousel.closest('.panel-card');
-        if (panelCard) {
-          panelCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const panelCard = featuresCarousel.closest('.panel-card');
+      if (panelCard) {
+        panelCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        panelCard.style.transition = 'all 0.4s ease';
+        panelCard.style.boxShadow = '0 0 25px rgba(246, 221, 13, 0.7)';
+        panelCard.style.borderColor = '#f6dd0d';
+        setTimeout(() => {
+          panelCard.style.boxShadow = '';
+          panelCard.style.borderColor = '';
+        }, 2500);
+      }
+    }
+  });
           panelCard.style.transition = 'all 0.4s ease';
           panelCard.style.boxShadow = '0 0 25px rgba(246, 221, 13, 0.7)';
           panelCard.style.borderColor = '#f6dd0d';
@@ -4220,7 +4227,8 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=41">
+<script src="js/localization.js?v=42"></script>
+<script>
   // 4. TESTIMONIALS CAROUSEL CONTROLLER (Auto-play 5s + Prev/Next Arrows + Dots)
   (function initTestimonialsCarousel() {
     const carousel = document.getElementById('testiCarousel');
