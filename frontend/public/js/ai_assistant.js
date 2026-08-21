@@ -1,6 +1,6 @@
 /**
  * Synergy Sugar ERP — AI Copilot & Chat Assistant Widget
- * Version: 2.2.0 — Dynamic Welcome Greeting Localization Engine
+ * Version: 2.3.0 — Clean Professional Typography (Icons & Wave Emoji Removed)
  * Adheres strictly to Synergy Sugar UI/UX Design System Specification:
  * - Surface: #101915 / #1e2b25
  * - Accent: #f6dd0d (gold)
@@ -309,10 +309,10 @@
   `;
   document.head.appendChild(style);
 
-  // Extensible Multi-Language Dictionary
+  // Extensible Multi-Language Dictionary (Clean Typography)
   const I18N = {
     en: {
-      toastTitle: '🤖 Synergy AI Assistant',
+      toastTitle: 'Synergy AI Assistant',
       toastBody: 'Hello! Welcome to Synergy Sugar ERP. Need help selecting outgrower modules, checking weighbridge scale sync, or starting onboarding?',
       toastBtn: 'Chat with AI Assistant',
       chatTitle: 'Synergy AI Copilot',
@@ -320,14 +320,14 @@
       sendBtn: 'Send',
       inputPhKe: 'Ask about modules, KSh pricing, or onboarding...',
       inputPhUs: 'Ask about modules, $ USD pricing, or onboarding...',
-      welcomeGreeting: 'Jambo! 👋 I am your <strong>Synergy Sugar AI Assistant</strong>.<br><br>How can I help you transform your agribusiness or outgrower operations today?',
-      chipOutgrowers: '🌾 Outgrower Modules',
-      chipWeighbridge: '⚖️ Weighbridge Sync',
-      chipOnboarding: '🚀 Start Onboarding',
-      chipDemo: '📅 Book Demo'
+      welcomeGreeting: 'Jambo! I am your <strong>Synergy Sugar AI Assistant</strong>.<br><br>How can I help you transform your agribusiness or outgrower operations today?',
+      chipOutgrowers: 'Outgrower Modules',
+      chipWeighbridge: 'Weighbridge Sync',
+      chipOnboarding: 'Start Onboarding',
+      chipDemo: 'Book Demo'
     },
     sw: {
-      toastTitle: '🤖 Msaidizi wa Synergy AI',
+      toastTitle: 'Msaidizi wa Synergy AI',
       toastBody: 'Jambo! Karibu Synergy Sugar ERP. Unahitaji msaada kuchagua moduli za wakulima, kuunganisha mizani, au kuanza usajili?',
       toastBtn: 'Zungumza na Msaidizi wa AI',
       chatTitle: 'Msaidizi wa Synergy AI',
@@ -335,11 +335,11 @@
       sendBtn: 'Tuma',
       inputPhKe: 'Uliza kuhusu moduli, bei za KSh, au usajili...',
       inputPhUs: 'Uliza kuhusu moduli, bei za USD $, au usajili...',
-      welcomeGreeting: 'Jambo! 👋 Mimi ni <strong>Msaidizi wako wa Synergy Sugar AI</strong>.<br><br>Nawezaje kukusaidia kukuza kilimo-biashara na shughuli zako za kiwanda leo?',
-      chipOutgrowers: '🌾 Moduli za Wakulima',
-      chipWeighbridge: '⚖️ Mizani ya Kiwanda',
-      chipOnboarding: '🚀 Anza Usajili',
-      chipDemo: '📅 Weka Miadi'
+      welcomeGreeting: 'Jambo! Mimi ni <strong>Msaidizi wako wa Synergy Sugar AI</strong>.<br><br>Nawezaje kukusaidia kukuza kilimo-biashara na shughuli zako za kiwanda leo?',
+      chipOutgrowers: 'Moduli za Wakulima',
+      chipWeighbridge: 'Mizani ya Kiwanda',
+      chipOnboarding: 'Anza Usajili',
+      chipDemo: 'Weka Miadi'
     }
   };
 
@@ -366,7 +366,7 @@
   proactiveToast.id = 'synergy-ai-proactive-toast';
   proactiveToast.innerHTML = `
     <div class="toast-header">
-      <span class="toast-title">🤖 Synergy AI Assistant</span>
+      <span class="toast-title">Synergy AI Assistant</span>
       <span class="toast-close" id="synergy-toast-close">&times;</span>
     </div>
     <div id="toast-body-text">Hello! Welcome to Synergy Sugar ERP. Need help selecting outgrower modules, checking weighbridge scale sync, or starting onboarding?</div>
@@ -432,7 +432,7 @@
   // Dynamic Bi-Directional Localization Engine
   function updateCopilotLocalization() {
     const rawLang = getLang();
-    const lang = I18N[rawLang] ? rawLang : 'en'; // Extensible fallback to English
+    const lang = I18N[rawLang] ? rawLang : 'en';
     const dict = I18N[lang];
     const market = getMarket();
 
@@ -576,26 +576,26 @@
     setTimeout(() => {
       if (action === 'outgrowers') {
         const reply = (lang === 'sw')
-          ? '🌾 <strong>Moduli ya Wakulima na Miwa</strong> inatoa usajili wa dijiti wa wakulima, ramani za GPS za mashamba, kufuatilia ukomavu wa miwa, na malipo ya haraka ya M-PESA.'
-          : '🌾 <strong>Farmers Recruitment & Outgrower Module</strong> provides digital farmer registration, GPS plot mapping, crop maturity tracking, and direct payout settlements.';
+          ? '<strong>Moduli ya Wakulima na Miwa</strong> inatoa usajili wa dijiti wa wakulima, ramani za GPS za mashamba, kufuatilia ukomavu wa miwa, na malipo ya haraka ya M-PESA.'
+          : '<strong>Farmers Recruitment & Outgrower Module</strong> provides digital farmer registration, GPS plot mapping, crop maturity tracking, and direct payout settlements.';
         const chips = [{ label: dict.chipOnboarding, action: 'onboarding' }, { label: dict.chipDemo, action: 'demo' }];
         addMessage(reply, 'bot', chips);
       } else if (action === 'weighbridge') {
         const reply = (lang === 'sw')
-          ? '⚖️ <strong>Mizani ya Kiwanda</strong> inaunganisha moja kwa moja mizani ya RS232, inafunga uzito dhidi ya wizi, na kurekodi sampuli za maabara ya sukari kwa wakati halisi.'
-          : '⚖️ <strong>Weighbridge Scale Sync</strong> connects directly to indicator scales (RS232/IP), locks tare/gross weights to prevent tampering, and records sucrose quality lab samples in real time.';
+          ? '<strong>Mizani ya Kiwanda</strong> inaunganisha moja kwa moja mizani ya RS232, inafunga uzito dhidi ya wizi, na kurekodi sampuli za maabara ya sukari kwa wakati halisi.'
+          : '<strong>Weighbridge Scale Sync</strong> connects directly to indicator scales (RS232/IP), locks tare/gross weights to prevent tampering, and records sucrose quality lab samples in real time.';
         const chips = [{ label: dict.chipOnboarding, action: 'onboarding' }];
         addMessage(reply, 'bot', chips);
       } else if (action === 'onboarding') {
         const reply = (lang === 'sw')
-          ? '🚀 Inafungua <strong>Mchawi wa Usajili</strong> sasa! Inakupeleka kusanidi hali ya kiwanda chako...'
-          : '🚀 Launching our smooth <strong>Onboarding Wizard</strong> now! Redirecting you to set up your mill profile...';
+          ? 'Inafungua <strong>Mchawi wa Usajili</strong> sasa! Inakupeleka kusanidi hali ya kiwanda chako...'
+          : 'Launching our smooth <strong>Onboarding Wizard</strong> now! Redirecting you to set up your mill profile...';
         addMessage(reply, 'bot');
         setTimeout(() => { window.location.href = 'onboarding.html'; }, 1200);
       } else if (action === 'demo') {
         const reply = (lang === 'sw')
-          ? '📅 Inakupeleka kuweka miadi na wataalamu wetu wa kilimo-biashara...'
-          : '📅 Redirecting to schedule your live demo with our agribusiness specialists...';
+          ? 'Inakupeleka kuweka miadi na wataalamu wetu wa kilimo-biashara...'
+          : 'Redirecting to schedule your live demo with our agribusiness specialists...';
         addMessage(reply, 'bot');
         setTimeout(() => { window.location.href = 'appointment.html'; }, 1200);
       } else {
