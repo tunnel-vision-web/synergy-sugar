@@ -227,15 +227,15 @@ if (/^[A-Za-z0-9_-]+$/.test(enPhrase)) {
 
 ### 5.1 Pre-Rendered Bar Architecture
 
-The selector bar (`#synergyLocalizationBar`) is **fully pre-rendered in HTML** across all pages for instant display with zero JavaScript dependency. The bar appears as soon as the browser parses the HTML — no waiting for scripts to load.
+The selector bar (`#synergyLocalizationBar`) is **fully pre-rendered in HTML** across all pages for instant display with zero JavaScript dependency. The bar focuses on **Kenya (KE)** and **United States (US)** markets.
 
 ```html
 <div id="synergyLocalizationBar"
      data-prerendered="true"
      style="display:inline-flex;align-items:center;gap:6px;...">
-  <!-- Market dropdown (🇰🇪 KE ▾) -->
+  <!-- Market dropdown (🇰🇪 KE ▾ / 🇺🇸 US ▾) -->
   <!-- Divider (|) -->
-  <!-- Language dropdown (SW ▾) -->
+  <!-- Language dropdown (EN ▾ / SW ▾) -->
 </div>
 ```
 
