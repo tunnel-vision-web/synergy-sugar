@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary
 
-This document provides a comprehensive technical specification of the **Synergy Localization & Market Adaptation Engine** ([localization.js](file:///c:/BOCM/Clients/Synergy/Sugar/frontend/public/js/localization.js)). 
+This document provides a comprehensive technical specification of the **Synergy Localization & Market Adaptation Engine** ([localization.js](file:///c:/BOCM/Clients/Synergy/Sugar/frontend/public/js/localization.js)).
 
 Designed for low-latency, zero-dependency client-side execution, the engine delivers bi-directional dynamic translation (English ↔ Kiswahili), multi-currency formatting, regional feature flags, and real-time DOM translation. It is engineered to seamlessly integrate with enterprise Content Management Systems (CMS), Headless CMS architectures, and single-page or multi-page applications.
 
@@ -36,6 +36,7 @@ Designed for low-latency, zero-dependency client-side execution, the engine deli
 - **Immutable Source Preservation**: Employs an in-memory `WeakMap` (`DOM_ENGLISH_NODES`) to retain exact original English DOM node values. This prevents translation erosion or cumulative corruption during rapid toggle cycles.
 - **Dynamic Node Onboarding**: Automatically registers newly injected HTML elements (e.g., CMS articles, modal bodies, dynamic search filters, AJAX responses) without requiring hard refreshes.
 - **Entity & Substring Normalization**: Handles HTML entity decoding (`&amp;` ↔ `&`), exact dictionary lookup, and fallback substring replacement sorted by key length to prevent partial word corruption.
+- **Pre-Rendered Bar Support**: The Country/Language selector bar is fully pre-rendered in HTML for instant, zero-JS-dependency display. The engine detects pre-rendered bars via `data-prerendered="true"` and avoids attaching duplicate event listeners.
 
 ---
 
@@ -132,6 +133,12 @@ for (const en in T) {
 }
 ```
 
+> [!CAUTION]
+> **Dictionary Syntax Rule — Mandatory Trailing Commas**: Every entry in the `T` dictionary **must** have a trailing comma. A missing comma anywhere in the object literal causes a `SyntaxError` that crashes the entire `localization.js` IIFE before `init()` is reached. This prevents ALL translation, bar rendering, and market-switching from functioning. Always validate after dictionary edits:
+> ```
+> node --check frontend/public/js/localization.js
+> ```
+
 ### 3.3 Static WeakMap Engine (`DOM_ENGLISH_NODES`)
 To guarantee that text nodes are never double-translated or irreversibly altered, the engine tracks text nodes via a DOM `WeakMap`:
 
@@ -143,12 +150,30 @@ const DOM_ENGLISH_NODES = new WeakMap();
 
 ## 4. Execution Pipeline & Algorithms
 
-### 4.1 Node Translation Algorithm (`translateTextNode`)
+### 4.1 Initialization Sequence
+
+When `localization.js` is loaded (placed just before `</body>`), it runs an IIFE that fires `init()` synchronously:
+
+```
+1. captureOriginalEnglish(document.body)   — snapshot all English text nodes into DOM_ENGLISH_NODES
+2. renderLocalizationHeaderBar()           — inject global CSS, populate or hook into the selector bar
+3. SynergyLocalization.applyLocalization() — translate document to active lang/market from localStorage
+4. SynergyLocalization.autoDetectRegion()  — async IP geolocation (skipped if market already in localStorage)
+```
+
+### 4.2 Node Translation Algorithm (`translateTextNode`)
 
 When evaluating a text node, the engine executes the following logic flow:
 
 ```
 [DOM Text Node Visited]
+        │
+        ▼
+Skip if: parent is SCRIPT/STYLE/NOSCRIPT/TEXTAREA, or inside #synergyLocalizationBar
+        │
+        ▼
+lang === 'sw'?
+  └── Direct Swahili lookup (T[trimmedVal] || T[normalizedVal]) ──► Replace & RETURN
         │
         ▼
 Is node in DOM_ENGLISH_NODES?
@@ -169,67 +194,100 @@ Direct Match Check (T[trimmedEn] || T[normalizedEn])?
   ├── YES ──► Replace trimmed text with Swahili value. RETURN.
   │
   └── NO  ──► Execute Substring Replacement (Sorted by key length desc).
+               Single-word keys use word-boundary regex (\b) to prevent
+               corrupting Swahili sub-word sequences (e.g. "api" inside "uchapishe").
                Set node.nodeValue = updated text. RETURN.
 ```
 
-#### Code Implementation:
+#### Word-Boundary Regex for Single-Word Keys
+Single-word English keys (alphanumeric only) use `\b` word boundaries during substring replacement to prevent partial-word corruption in Swahili:
+
 ```javascript
-translateTextNode: function(node, lang) {
-  if (!node || node.nodeType !== Node.TEXT_NODE) return;
-  if (!node.nodeValue || !node.nodeValue.trim()) return;
-
-  const parent = node.parentElement;
-  if (!parent || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA'].includes(parent.tagName)) return;
-  if (parent.closest && parent.closest('#synergyLocalizationBar')) return;
-
-  let origEn = DOM_ENGLISH_NODES.get(node);
-  if (!origEn) {
-    // Dynamic Registration for Newly Rendered CMS/AJAX Nodes
-    const rawText = node.nodeValue;
-    const trimmedRaw = rawText.trim();
-    origEn = T_REVERSE[trimmedRaw] || rawText;
-    DOM_ENGLISH_NODES.set(node, origEn);
-  }
-
-  if (!origEn || !origEn.trim()) return;
-
-  if (lang === 'en') {
-    node.nodeValue = origEn;
-    return;
-  }
-
-  const trimmedEn = origEn.trim();
-  const normalizedEn = trimmedEn.replace(/&amp;/g, '&');
-
-  // 1. Direct Match Optimization
-  if (T[trimmedEn]) {
-    node.nodeValue = origEn.replace(trimmedEn, T[trimmedEn]);
-    return;
-  }
-  if (T[normalizedEn]) {
-    node.nodeValue = origEn.replace(trimmedEn, T[normalizedEn]);
-    return;
-  }
-
-  // 2. Substring Replacement Strategy
-  let text = origEn;
-  const keys = Object.keys(T).sort((a, b) => b.length - a.length);
-  for (const enPhrase of keys) {
-    if (enPhrase.length > 1 && text.includes(enPhrase)) {
-      text = text.split(enPhrase).join(T[enPhrase]);
-    }
-  }
-  node.nodeValue = text;
+if (/^[A-Za-z0-9_-]+$/.test(enPhrase)) {
+  const regex = new RegExp('\\b' + escapeRegExp(enPhrase) + '\\b', 'g');
+  text = text.replace(regex, T[enPhrase]);
+} else {
+  text = text.split(enPhrase).join(T[enPhrase]);
 }
 ```
 
 ---
 
-## 5. Enterprise CMS Integration Patterns
+## 5. Country/Language Selector Bar
 
-To integrate this frontend engine into an Enterprise CMS (e.g., Strapi, WordPress, AEM, Drupal, or custom micro-frontends), follow these standard integration directives:
+### 5.1 Pre-Rendered Bar Architecture
 
-### 5.1 HTML Attribute Contract
+The selector bar (`#synergyLocalizationBar`) is **fully pre-rendered in HTML** across all pages for instant display with zero JavaScript dependency. The bar appears as soon as the browser parses the HTML — no waiting for scripts to load.
+
+```html
+<div id="synergyLocalizationBar"
+     data-prerendered="true"
+     style="display:inline-flex;align-items:center;gap:6px;...">
+  <!-- Market dropdown (🇰🇪 KE ▾) -->
+  <!-- Divider (|) -->
+  <!-- Language dropdown (SW ▾) -->
+</div>
+```
+
+**Required attributes:**
+- `id="synergyLocalizationBar"` — required for engine to locate the bar
+- `data-prerendered="true"` — signals to `renderLocalizationHeaderBar()` that inline `onclick` handlers already manage toggling; prevents duplicate `addEventListener` attachment
+
+The bar's inline `onclick` handlers call `SynergyLocalization.setMarket()` / `SynergyLocalization.setLanguage()` directly (guarded with `if(window.SynergyLocalization)` to handle the pre-JS-load window).
+
+### 5.2 Selector Bar Rendering Logic
+
+`window.renderLocalizationHeaderBar()` runs on every page load and handles both pre-rendered and JS-injected bars:
+
+```
+renderLocalizationHeaderBar()
+  │
+  ├── Inject #synergyLocalizationGlobalStyle into <head> (once)
+  │     — Ensures pill styling and mobile visibility on every page
+  │
+  ├── bar = document.getElementById('synergyLocalizationBar')
+  │   └── If missing: auto-create and prepend into .auth-left-col / .auth-actions / header
+  │
+  ├── if (bar.dataset.initialized && bar.children.length > 0) → RETURN (already done)
+  │
+  ├── if (bar.children.length === 0)
+  │   └── Inject full innerHTML (market + lang dropdowns)
+  │       Then wire up addEventListener click toggles
+  │
+  └── else (pre-rendered bar, bar.dataset.prerendered === 'true')
+      ├── Update #selectedMarketText and #selectedLangText from localStorage
+      └── Skip addEventListener — inline onclick already handles toggling
+          (avoids double-toggle bug: none→block→none on single click)
+```
+
+### 5.3 Double-Toggle Prevention
+
+> [!WARNING]
+> **Never add `addEventListener('click', ...)` to buttons that already have inline `onclick` handlers.** Both fire on the same click event. Since each toggles `display: none ↔ block`, the net result is the menu opens and immediately closes — appearing broken to the user.
+>
+> The engine detects pre-rendered bars via `bar.dataset.prerendered === 'true'` and skips attaching JS click listeners to those buttons.
+
+### 5.4 Document-Level Dismiss Listener
+
+The document-level click listener that closes open menus is **always** registered, but guards against closing when the click originated inside the bar itself:
+
+```javascript
+document.addEventListener('click', (e) => {
+  if (bar.contains(e.target)) return; // click was inside bar — do not dismiss
+  if (marketMenu) marketMenu.style.display = 'none';
+  if (langMenu) langMenu.style.display = 'none';
+});
+```
+
+### 5.5 Mobile Visibility
+
+The bar is visible across all viewport widths. On mobile (≤ 768px), the engine's injected `#synergyLocalizationGlobalStyle` overrides any page-level `display: none` applied to `.auth-actions` or `.auth-left-col`, ensuring the country/language selector is always accessible regardless of screen size.
+
+---
+
+## 6. Enterprise CMS Integration Patterns
+
+### 6.1 HTML Attribute Contract
 
 | Attribute | Purpose | Example |
 | :--- | :--- | :--- |
@@ -237,13 +295,13 @@ To integrate this frontend engine into an Enterprise CMS (e.g., Strapi, WordPres
 | `data-price-ksh="Amount"` | Dynamic multi-currency conversion target. | `<span data-price-ksh="150000">KSh 150,000</span>` |
 | `data-img-ke="Path"` | Regional image switcher for East Africa. | `<img data-img-ke="img_ke.jpg" data-img-west="img_west.jpg">` |
 | `data-i18n="Key"` | Legacy lookup for navigation buttons. | `<a data-i18n="nav_pricing">Pricing</a>` |
+| `data-prerendered="true"` | Marks selector bars with pre-rendered HTML; prevents duplicate JS event listener attachment. | `<div id="synergyLocalizationBar" data-prerendered="true">` |
 
-### 5.2 Dynamic CMS Content Injection Lifecycle
+### 6.2 Dynamic CMS Content Injection Lifecycle
 
-When the CMS injects content into the DOM asynchronously (e.g., pagination, search results, full article reader modals, or live comment feeds), trigger the localization pass immediately after inserting the HTML:
+When the CMS injects content into the DOM asynchronously, trigger the localization pass immediately after inserting HTML:
 
 ```javascript
-// Example: CMS Article Loader / Dynamic Modal Hydration
 function renderCmsArticle(articleData) {
   const container = document.getElementById('articleContainer');
   container.innerHTML = `
@@ -258,16 +316,11 @@ function renderCmsArticle(articleData) {
 }
 ```
 
-### 5.3 Event Listener Hook (`synergyLocalizationChanged`)
-
-The localization engine dispatches a global `CustomEvent` whenever the market or language changes. The CMS can subscribe to this event to update server-side state or trigger analytics logging:
+### 6.3 Event Listener Hook (`synergyLocalizationChanged`)
 
 ```javascript
 window.addEventListener('synergyLocalizationChanged', function(event) {
   const { market, lang } = event.detail;
-  console.log(`[CMS Hook] Locale changed to Language: ${lang}, Market: ${market.code}`);
-  
-  // Example: Persist preference to CMS User Profile API
   fetch('/api/v1/user/preferences', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -276,19 +329,18 @@ window.addEventListener('synergyLocalizationChanged', function(event) {
 });
 ```
 
-### 5.4 CMS Cache Busting Directives
-
-When updating script references across CMS templates, append the cache-busting query parameter to guarantee fresh dictionary deployment:
+### 6.4 Cache Busting
 
 ```html
-<script src="/public/js/localization.js?v=4"></script>
+<script src="/public/js/localization.js?v=44"></script>
 ```
+
+> [!NOTE]
+> Current deployed version is `?v=44`. Increment after every `localization.js` update.
 
 ---
 
-## 6. Schema JSON Export Format for CMS Synchronization
-
-To allow an Enterprise CMS admin panel to manage, edit, and push translations to `localization.js`, the CMS dictionary export schema adheres to the following JSON structure:
+## 7. Schema JSON Export Format for CMS Synchronization
 
 ```json
 {
@@ -296,16 +348,11 @@ To allow an Enterprise CMS admin panel to manage, edit, and push translations to
   "title": "SynergyLocalizationDictionary",
   "type": "object",
   "properties": {
-    "version": { "type": "string", "example": "4.0.0" },
+    "version": { "type": "string", "example": "44.0.0" },
     "targetLanguage": { "type": "string", "example": "sw" },
     "translations": {
       "type": "object",
-      "additionalProperties": { "type": "string" },
-      "example": {
-        "Farmer Operations": "Uendeshaji wa Wakulima",
-        "Financials & Payroll": "Fedha na Mipango ya Mishahara",
-        "permissions": "ruhusa"
-      }
+      "additionalProperties": { "type": "string" }
     }
   },
   "required": ["version", "targetLanguage", "translations"]
@@ -314,13 +361,27 @@ To allow an Enterprise CMS admin panel to manage, edit, and push translations to
 
 ---
 
-## 7. Public API Methods Reference
+## 8. Public API Methods Reference
 
 | Method | Parameters | Returns | Description |
 | :--- | :--- | :--- | :--- |
 | `SynergyLocalization.getLanguage()` | None | `'en' \| 'sw'` | Returns currently active language code. |
-| `SynergyLocalization.setLanguage(lang)` | `lang: 'en' \| 'sw'` | `void` | Sets language, persists preference in `localStorage`, and runs `applyLocalization()`. |
-| `SynergyLocalization.getMarket()` | None | `Object` | Returns active Market configuration object from `MARKETS`. |
-| `SynergyLocalization.setMarket(code)` | `code: 'KE'\|'TZ'\|'UG'\|'US'\|'EU'` | `void` | Sets active market, converts currency values, toggles regional features, and runs `applyLocalization()`. |
-| `SynergyLocalization.formatCurrency(ksh)`| `ksh: Number` | `String` | Converts base KES amount to target market currency with proper symbol and formatting (e.g. `$1,250`, `TSh 2,775,000`). |
-| `SynergyLocalization.applyLocalization()` | None | `void` | Executes complete document traversal, updates dynamic text nodes, imagery, currency badges, and auth modals. |
+| `SynergyLocalization.setLanguage(lang)` | `lang: 'en' \| 'sw'` | `void` | Sets language, persists to `localStorage`, runs `applyLocalization()`. |
+| `SynergyLocalization.getMarket()` | None | `Object` | Returns active Market config object from `MARKETS`. |
+| `SynergyLocalization.setMarket(code)` | `code: 'KE'\|'TZ'\|'UG'\|'US'\|'EU'` | `void` | Sets active market, converts currency values, toggles regional features, runs `applyLocalization()`. |
+| `SynergyLocalization.formatCurrency(ksh)` | `ksh: Number` | `String` | Converts base KES amount to target market currency (e.g. `$1,250`, `TSh 2,775,000`). |
+| `SynergyLocalization.applyLocalization()` | None | `void` | Full document traversal: translates text nodes, updates currency badges, auth modals, data-i18n elements. |
+| `SynergyLocalization.autoDetectRegion()` | None | `void` | Async IP geolocation via ipapi.co. No-op if `synergy_market` already in localStorage. |
+| `window.renderLocalizationHeaderBar()` | None | `void` | Renders or hydrates the Country/Language selector bar. Idempotent — safe to call multiple times. |
+
+---
+
+## 9. Known Issues & Mitigations
+
+| Issue | Root Cause | Mitigation |
+| :--- | :--- | :--- |
+| **Blank gray pill bar** | Bar container had CSS styling but empty `innerHTML` because JS crashed before populating it | Bar is now fully pre-rendered in HTML — visible immediately with zero JS dependency |
+| **All localization broken (silent)** | Missing trailing comma in `T` dictionary caused `SyntaxError` crashing the entire IIFE | Validate with `node --check frontend/public/js/localization.js` after any dictionary edit |
+| **Dropdown opens and immediately closes** | Pre-rendered bar's inline `onclick` + JS `addEventListener` both fired on same click, double-toggling `display` | Engine checks `bar.dataset.prerendered === 'true'` and skips `addEventListener` for pre-rendered bars |
+| **Swahili word corruption** (e.g. `uchapishe` → `uchAPIishe`) | Single-word keys like `"api"` matched as plain substrings inside longer Swahili words | Single-word keys use `\b` word-boundary regex, leaving non-word-boundary occurrences untouched |
+| **Selector hidden on mobile** | `@media (max-width: 768px)` applied `display: none` to `.auth-actions` hiding the entire bar | Engine injects `#synergyLocalizationGlobalStyle` with `!important` mobile override on every page load |

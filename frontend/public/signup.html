@@ -456,9 +456,24 @@
     overflow: visible !important;
   }
 
-  /* Auth actions: hidden on phone (country, sign in, yellow button all hidden) */
+    /* Auth actions: keep country/language bar & sign in visible on phone */
   .site-header .auth-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  .site-header .auth-actions .btn,
+  .site-header .auth-actions .btn-request-demo {
     display: none !important;
+  }
+  .auth-left-col {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+  #synergyLocalizationBar {
+    display: inline-flex !important;
   }
 
   /* ---- HAMBURGER: ALWAYS VISIBLE on phone ---- */
@@ -907,5 +922,6 @@
     }
   });
 </script>
+  <script src="js/localization.js?v=44"></script>
 </body>
 </html>

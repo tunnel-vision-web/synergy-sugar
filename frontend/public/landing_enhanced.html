@@ -2617,9 +2617,24 @@ a.btn-request-demo:hover {
     overflow: visible !important;
   }
 
-  /* Auth actions: hidden on phone (country, sign in, yellow button all hidden) */
+    /* Auth actions: keep country/language bar & sign in visible on phone */
   .site-header .auth-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  .site-header .auth-actions .btn,
+  .site-header .auth-actions .btn-request-demo {
     display: none !important;
+  }
+  .auth-left-col {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+  #synergyLocalizationBar {
+    display: inline-flex !important;
   }
 
   /* ---- HAMBURGER: ALWAYS VISIBLE on phone ---- */
@@ -2727,7 +2742,34 @@ a.btn-request-demo:hover {
         <div class="auth-actions">
           <div class="auth-left-col">
             <!-- Country/Language selector injected here by localization.js -->
-            <div id="synergyLocalizationBar"></div>
+            <div id="synergyLocalizationBar" data-prerendered="true" style="display:inline-flex;align-items:center;gap:6px;background:rgba(16,25,21,0.85);border:1px solid #364e43;border-radius:4px;padding:3px 8px;font-size:0.74rem;color:#f8fafc;white-space:nowrap;line-height:1.3;cursor:pointer;position:relative;">
+        <div style="position:relative;display:inline-block;">
+          <button type="button" id="marketSelectorBtn" onclick="(function(e){e.stopPropagation();var m=document.getElementById('marketMenu'),l=document.getElementById('langMenu');if(l)l.style.display='none';m.style.display=m.style.display==='none'?'block':'none';})(event)" style="background:none;border:none;color:#f8fafc;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:0.74rem;font-family:inherit;line-height:1.3;">
+            <span id="selectedMarketText">🇰🇪 KE</span>
+            <span style="font-size:0.56rem;color:#f6dd0d;">&#9660;</span>
+          </button>
+          <div id="marketMenu" style="display:none;position:absolute;top:110%;left:0;background:#16221c;border:1px solid #364e43;border-radius:4px;box-shadow:0 12px 30px rgba(0,0,0,0.85);z-index:50000;min-width:190px;padding:6px 0;">
+            <div style="padding:4px 10px;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Region / Market</div>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setMarket('KE');document.getElementById('marketMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kenya (KSh)</a>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setMarket('TZ');document.getElementById('marketMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇹🇿 Tanzania (TSh)</a>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setMarket('UG');document.getElementById('marketMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇬 Uganda (USh)</a>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setMarket('US');document.getElementById('marketMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇸 United States ($)</a>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setMarket('EU');document.getElementById('marketMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇪🇺 European Union (€)</a>
+          </div>
+        </div>
+        <span style="color:#364e43;padding:0 2px;line-height:1;">|</span>
+        <div style="position:relative;display:inline-block;">
+          <button type="button" id="langSelectorBtn" onclick="(function(e){e.stopPropagation();var l=document.getElementById('langMenu'),m=document.getElementById('marketMenu');if(m)m.style.display='none';l.style.display=l.style.display==='none'?'block':'none';})(event)" style="background:none;border:none;color:#f6dd0d;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:0.74rem;font-family:inherit;line-height:1.3;">
+            <span id="selectedLangText">SW</span>
+            <span style="font-size:0.56rem;color:#f6dd0d;">&#9660;</span>
+          </button>
+          <div id="langMenu" style="display:none;position:absolute;top:110%;right:0;background:#16221c;border:1px solid #364e43;border-radius:4px;box-shadow:0 12px 30px rgba(0,0,0,0.85);z-index:50000;min-width:140px;padding:6px 0;">
+            <div style="padding:4px 10px;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Language</div>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setLanguage('sw');document.getElementById('langMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kiswahili</a>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setLanguage('en');document.getElementById('langMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇬🇧 English</a>
+          </div>
+        </div>
+      </div>
             <a class="auth-signin" href="#" onclick="openSignInModal('signin'); return false;" data-i18n="nav_signin">Sign in</a>
           </div>
           <a class="btn-request-demo" href="appointment.html" data-i18n="hero_cta_1">Request Demo</a>
@@ -4278,7 +4320,7 @@ a.btn-request-demo:hover {
   });
 })();
 </script>
-<script src="js/localization.js?v=43"></script>
+<script src="js/localization.js?v=44"></script>
 <script>
   // 4. TESTIMONIALS CAROUSEL CONTROLLER (Auto-play 5s + Prev/Next Arrows + Dots)
   (function initTestimonialsCarousel() {

@@ -22,7 +22,33 @@
       isEastAfrica: true,
       hasMpesa: true,
       defaultLang: 'sw',
-      payoutLabel: 'M-PESA B2C & Bank Direct',
+      payoutLabel: 'M-PESA B2C & KITS Direct Bank Payout',
+      paymentTypes: ['mpesa', 'card']
+    },
+    TZ: {
+      code: 'TZ',
+      name: 'Tanzania 🇹🇿',
+      flag: '🇹🇿',
+      currency: 'TZS',
+      currencySymbol: 'TSh',
+      rate: 18.5,
+      isEastAfrica: true,
+      hasMpesa: true,
+      defaultLang: 'sw',
+      payoutLabel: 'Vodacom M-Pesa & TZS Bank Payout',
+      paymentTypes: ['mpesa', 'card']
+    },
+    UG: {
+      code: 'UG',
+      name: 'Uganda 🇺🇬',
+      flag: '🇺🇬',
+      currency: 'UGX',
+      currencySymbol: 'USh',
+      rate: 28.2,
+      isEastAfrica: true,
+      hasMpesa: true,
+      defaultLang: 'sw',
+      payoutLabel: 'MTN Mobile Money & UGX Bank Payout',
       paymentTypes: ['mpesa', 'card']
     },
     US: {
@@ -37,6 +63,19 @@
       defaultLang: 'en',
       payoutLabel: 'Credit Card / Stripe / SWIFT Wire',
       paymentTypes: ['card', 'paypal']
+    },
+    EU: {
+      code: 'EU',
+      name: 'European Union 🇪🇺',
+      flag: '🇪🇺',
+      currency: 'EUR',
+      currencySymbol: '€',
+      rate: 0.0071,
+      isEastAfrica: false,
+      hasMpesa: false,
+      defaultLang: 'en',
+      payoutLabel: 'SEPA Credit Transfer & Wire',
+      paymentTypes: ['card', 'wire']
     }
   };
 
@@ -854,7 +893,7 @@
     "2 Answers": "Majibu 2",
     "2 answers • 23 views": "majibu 2 • mitazamo 23",
     "2 days ago": "siku 2 zilizopita",
-    "2 hours ago": "saa 2 zilizopita",
+    "2 hours ago": "masaa 2 yaliyopita",
     "2. Access Controls": "2. Access Controls",
     "2. Description of Service": "2. Description of Service",
     "2. Full Weighbridge Workflow": "2. Mtiririko Kamili wa Kazi wa Mizani",
@@ -883,7 +922,7 @@
     "3. Offline Queue & Sync Protocol": "3. Mstari wa Nje ya Mtandao na Itifaki ya Usawazishaji",
     "30 min": "Daq 30",
     "30 min ago": "dakika 30 zilizopita",
-    "30 minutes ago": "30 minutes ago",
+    "30 minutes ago": "dakika 30 zilizopita",
     "31 followers": "31 followers",
     "31 questions": "31 questions",
     "32 questions": "32 questions",
@@ -899,7 +938,7 @@
     "45 times": "mara 45",
     "5 answers • 78 views": "majibu 5 • mitazamo 78",
     "5 days ago": "siku 5 zilizopita",
-    "5 hours ago": "saa 5 zilizopita",
+    "5 hours ago": "masaa 5 yaliyopita",
     "5. Data Sharing and Disclosure": "5. Data Sharing and Disclosure",
     "5. Subscription and Payment": "5. Subscription and Payment",
     "6 days ago": "siku 6 zilizopita",
@@ -930,7 +969,7 @@
     "AO": "AO",
     "API Integration Guide for External ERP & Factory Hardware": "Mwongozo wa Kuunganisha API na Mfumo wa ERP na Vifaa vya Kiwanda",
     "API integration with third-party services": "Uunganishaji wa API na huduma za nje",
-    "API integration, development, and third-party connections": "API integration, development, and third-party connections",
+    "API integration, development, and third-party connections": "Ushirikiano wa API, maendeleo, na viunganishi vya watu wa tatu",
     "AU": "AU",
     "Ability to restore data to any point within the last 30 days": "Ability to restore data to any point within the last 30 days",
     "Accept answers": "Accept answers",
@@ -944,7 +983,7 @@
     "Active": "Yuko Hai",
     "Active Sugar Mills": "Viwanda vya Sukari Vinavyotumia",
     "Add comment": "Weka maoni",
-    "Add relevant tags to help others find your question": "Ongeza lebo husika ili kusaidia wengine kupata swali lako",
+    "Add relevant tags to help others find your question": "Ongeza lebo zinazohusika kusaidia wengine kupata swali lako",
     "Add sensor device EUI in": "Ongeza EUI ya kifaa cha kihisi kwenye",
     "Add up to 5 tags to describe what your question is about. Start typing for suggestions.": "Ongeza hadi lebo 5 kuelezea swali lako linahusu nini. Anza kuandika kwa mapendekezo.",
     "Additional Notes": "Maelezo Zaidi",
@@ -1012,7 +1051,7 @@
     "Bank sync & automated payment exports": "Usawazishaji wa benki na usafirishaji wa malipo ya otomatiki",
     "Basic Server": "Seva ya Msingi",
     "Basic Server (KES 5,000/mo)": "Seva ya Msingi (KSh 5,000/mwezi)",
-    "Be descriptive. Include what you're trying to achieve and what's going wrong.": "Uwe wa kuelezea. Jumuisha kile unachojaribu kufikia na kile kinachoenda vibaya.",
+    "Be descriptive. Include what you're trying to achieve and what's going wrong.": "Weka maelezo ya kina. Weka kile unachojaribu kufikia na kile kinachoenda vibaya.",
     "Be patient": "Uwe na subira",
     "Be specific and clear in your title": "Uwe maalum na wazi katika kichwa chako",
     "Be specific and imagine you": "Be specific and imagine you",
@@ -1129,7 +1168,7 @@
     "Crop &amp; Variety Assignment:": "Ugawaji wa Zao na Aina:",
     "Custom / Enterprise": "Kawaida / Shughuli Kubwa",
     "Custom Hardware & Lab API Integration": "Ushirikiano wa Vifaa Maalum na API ya Maabara",
-    "Custom development, themes, and platform modifications": "Uundaji maalum, mandhari, na marekebisho ya jukwaa",
+    "Custom development, themes, and platform modifications": "Maendeleo ya kibinafsi, mandhari, na mabadiliko ya jukwaa",
     "Customer User": "Mtumiaji wa Mteja",
     "Customer User (KES 1000/mo)": "Mtumiaji wa Mteja (KSh 1000/mwezi)",
     "Customer relationship management": "Customer relationship management",
@@ -1141,7 +1180,7 @@
     "Data-Driven Outgrower Insights": "Mawazo ya Data ya Wakulima wa Nje",
     "Database Specialist": "Mtaalamu wa Hifadhidata",
     "Database backup process failing": "Mchakato wa kuhifadhi nakala ya hifadhidata unafeli",
-    "Database management, queries, backup, and troubleshooting": "Database management, queries, backup, and troubleshooting",
+    "Database management, queries, backup, and troubleshooting": "Usimamizi wa hifadhidata, maswali, nakala rudufu, na utatuzi wa matatizo",
     "Date": "Tarehe",
     "Date & Time": "Tarehe na Wakati",
     "Date:": "Tarehe:",
@@ -1154,7 +1193,7 @@
     "Delete your personal information (subject to legal exceptions)": "Delete your personal information (subject to legal exceptions)",
     "Demos": "Maonyesho",
     "Dependency Management:": "Dependency Usimamizi:",
-    "Deployment strategies, server setup, and production environments": "Mbinu za uwekaji, usanidi wa seva, na mazingira ya uzalishaji",
+    "Deployment strategies, server setup, and production environments": "Mbinu za usambazaji, kuweka seva, na mazingira ya uzalishaji",
     "Describe your problem in detail": "Eleza tatizo lako kwa undani",
     "Designed for enterprise sugar producers, cooperatives, logistics fleets, and commodity exporters.": "Imeundwa kwa wazalishaji wa sukari wa biashara, vyama vya ushirika, mafundi ya usafirishaji, na wasafirishaji wa bidhaa.",
     "Detecting and preventing fraud, security threats, and technical issues": "Detecting and preventing fraud, security threats, and technical issues",
@@ -1182,7 +1221,7 @@
     "Email Settings": "Mipangilio ya Barua Pepe",
     "Email notifications not working after upgrade": "Arifa za barua pepe hazifanyi kazi baada ya usasisho",
     "Email provider requiring authentication": "Mtoa huduma wa barua pepe anayehitaji uthibitishaji",
-    "Email-related issues, SMTP configuration, and notification settings": "Email-related issues, SMTP configuration, and notification settings",
+    "Email-related issues, SMTP configuration, and notification settings": "Maswali kuhusiana na barua pepe, usanidi wa SMTP, na mipangilio ya arifa",
     "Email:": "Barua Pepe:",
     "Email: legal@synergyerp.com": "Email: legal@synergyerp.com",
     "Email: privacy@synergyerp.com": "Email: privacy@synergyerp.com",
@@ -1297,7 +1336,7 @@
     "Go Now": "Nenda Sasa",
     "Go to": "Nenda kwa",
     "Go to Apps → Email Settings": "Nenda kwa Programu → Mipangilio ya Barua Pepe",
-    "Good answers take time. Check back periodically and be ready to provide more details if needed.": "Good answers take time. Check back periodically and be ready to provide more details if needed.",
+    "Good answers take time. Check back periodically and be ready to provide more details if needed.": "Majibu mazuri yanachukua muda. Angalia tena mara kwa mara na uwe tayari kutoa maelezo zaidi ikihitajika.",
     "Grace M. — Financial Controller, Rift Valley Sugar Syndicate": "Grace M. — Mthibiti wa Fedha, Rift Valley Sugar Syndicate",
     "Granular permissions to control who can access specific data and features": "Granular permissions to control who can access specific data and features",
     "Gross & tare automation, tickets": "Otomatiki ya jumla na chombo, tiketi",
@@ -1432,7 +1471,7 @@
     "Log daily production batch outputs from bagging machinery into": "Rekodi matokeo ya kundi la uzalishaji la kila siku kutoka kwa mashine za kufungasha hadi",
     "Login Inahitajika": "Kuingia Kunahitajika",
     "Login Required": "Kuingia Kunahitajika",
-    "Login systems, SSO, OAuth, and user authentication methods": "Login systems, SSO, OAuth, and user authentication methods",
+    "Login systems, SSO, OAuth, and user authentication methods": "Mifumo ya kuingia, SSO, OAuth, na mbinu za uthibitishaji wa watumiaji",
     "Logistics & Commodity Trade": "Logistiki na Biashara ya Bidhaa",
     "Logistics & Transport GPS": "Logistiki na GPS ya Usafirishaji",
     "Looked in the Email Configuration menu": "Niliona kwenye menyu ya Usanidi wa Barua Pepe",
@@ -1467,10 +1506,10 @@
     "Mill Production & Process Engineering": "Uzalishaji wa Kiwanda na Uhandisi wa Mchakato",
     "Milling rate, juice extraction, boiler energy, lab quality": "Kasi ya kusaga, uchujaji wa juisi, nishati ya boila, ubora wa maabara",
     "Milling rate, juice extraction, lab quality": "Kasi ya kusaga, uchujaji wa juisi, ubora wa maabara",
-    "Mobile applications, responsive design, and mobile-specific issues": "Programu za simu, muundo unaoweza kubadilika, na maswala maalum ya simu",
+    "Mobile applications, responsive design, and mobile-specific issues": "Programu za simu, muundo unaoweza kubadilika, na masuala mahususi ya simu",
     "Moderator": "Msimamizi",
     "Moderators": "Wanaosimamia",
-    "Module installation, configuration, and customization": "Module installation, configuration, and customization",
+    "Module installation, configuration, and customization": "Ufungaji wa moduli, usanidi, na ubinafsishaji",
     "Molasses & ethanol output tracking": "Ufuatiliaji wa uzalishaji wa molasi na ethanol",
     "Molasses and industrial by-product bulk sales contract management": "Usimamizi wa mikataba ya mauzo ya jumla ya molasi na bidhaa za viwandani",
     "Monthly": "Kila Mwezi",
@@ -1548,7 +1587,7 @@
     "Penetration Testing:": "Penetration Testing:",
     "Per user": "Kwa kila mtumiaji",
     "Performance has degraded significantly since the latest version update. Pages take forever to load...": "Utendaji umepungua sana tangu sasisho la toleo la hivi karibuni. Kurasa zinachukua muda mrefu kupakia...",
-    "Performance optimization, troubleshooting, and system efficiency": "Uboreshaji wa utendaji, kutatua matatizo, na ufanisi wa mfumo",
+    "Performance optimization, troubleshooting, and system efficiency": "Uboreshaji wa utendaji, utatuzi wa matatizo, na ufanisi wa mfumo",
     "Permanent factory staff monthly payroll, PAYE, NSSF, and SHA tax deductions": "Mishahara ya kila mwezi ya wafanyakazi wa kudumu wa kiwanda, makato ya kodi ya PAYE, NSSF, na SHA",
     "Pest control, soil acidity analysis, and harvest machinery dispatch": "Udhibiti wa wadudu, uchanganuzi wa tindikali ya udongo, na upelekaji wa mitambo ya kuvuna",
     "Peter Omondi": "Peter Omondi",
@@ -1598,7 +1637,7 @@
     "Question Details": "Maelezo ya Swali",
     "Question updated": "Swali limesasishwa",
     "Questions": "Maswali",
-    "Questions about system configuration, setup, and settings management": "Questions about system configuration, setup, and settings management",
+    "Questions about system configuration, setup, and settings management": "Maswali kuhusu usanidi wa mfumo, kuweka, na usimamizi wa mipangilio",
     "Quick steps to resolve serial COM port disconnections, local database queue backlog, and network reconnection sync.": "Hatua za haraka za kutatua kukatika kwa COM port, mlundikano wa hifadhidata ya ndani, na usawazishaji baada ya mtandao kurudi.",
     "RG": "RG",
     "RW": "Rwanda 🇷🇼",
@@ -1640,7 +1679,7 @@
     "Reliability": "Kuaminika",
     "Remember your password?": "Kumbuka nenosiri yako?",
     "Report suspicious activity immediately": "Report suspicious activity immediately",
-    "Reports, analytics, dashboards, and data visualization": "Ripoti, uchanganuzi, mabaraza ya data, na taswira za data",
+    "Reports, analytics, dashboards, and data visualization": "Ripoti, uchambuzi, dashibodi, na kuona data",
     "Reputation": "Sifa",
     "Request Demo": "Omba Jaribio",
     "Request Demo with Selected": "Omba Onyesho na Vilivyochaguliwa",
@@ -1724,7 +1763,7 @@
     "Settlement Calculation Flow": "Mtiririko wa Hesabu za Malipo",
     "Setup guide for telemetry moisture sensors, weather stations, and predictive AI machine learning models for yield forecasting.": "Mwongozo wa kuweka sensori za unyevu, vituo vya hali ya hewa, na mifano ya AI kwa utabiri wa mavuno.",
     "Share Knowledge": "Shiriki Maarifa",
-    "Show appreciation for helpful answers by voting up and leaving comments.": "Show appreciation for helpful answers by voting up and leaving comments.",
+    "Show appreciation for helpful answers by voting up and leaving comments.": "Onyesha shukrani kwa majibu yenye manufaa kwa kupigia kura ya kuunga mkono na kuacha maoni.",
     "Showing 1–4 of 12 articles": "Inaonyesha 1–4 kati ya makala 12",
     "Showing 1–5 of 8 articles": "Inaonyesha 1–5 kati ya makala 8",
     "Sign In": "Ingia",
@@ -1796,7 +1835,7 @@
     "System Administrator": "Msimamizi wa Mfumo",
     "System Settings &gt; Roles & Permissions": "Mfumo Settings &gt; Roles & Permissions",
     "System automatically aggregates all weighbills delivered by the grower during the period.": "Mfumo automatically aggregates all weighbills delivered by the grower during the period.",
-    "System integrations, connectors, and workflow automation": "Mfumo integrations, connectors, and workflow automation",
+    "System integrations, connectors, and workflow automation": "Uunganishaji wa mfumo, viunganishi, na otomatiki ya utendaji kazi",
     "System running slow after recent update": "Mfumo unafanya kazi kwa polepole baada ya sasisho la hivi karibuni",
     "TO THE MAXIMUM EXTENT PERMITTED BY LAW:": "TO THE MAXIMUM EXTENT PERMITTED BY LAW:",
     "TS": "TS",
@@ -1828,7 +1867,7 @@
     "The automated backup process has been failing with error code 500...": "Mchakato wa kiotomatiki wa kuhifadhi nakala umekuwa ukifeli na nambari ya kosa 500...",
     "The automatic temperature correction for refractometer Brix readings saved our lab technicians substantial calculation time during shift changes.": "Urekebishaji wa joto wa kiotomati wa masomo ya refractometer Brix uliokoa mafundi wetu wa maabara wakati mkubwa wa hesabu wakati wa mabadiliko ya zamu.",
     "The emails are not being sent when users perform certain actions. Has anyone encountered this issue before? What am I missing?": "Barua pepe hazitumwi wakati watumiaji wanapotekeleza vitendo fulani. Je, kuna mtu yeyote aliyekumbana na tatizo hili awali? Ni nini ninachokosa?",
-    "The more details you provide, the better answers you'll receive. Include code, error messages, and steps you've already taken.": "The more details you provide, the better answers you'll receive. Include code, error messages, and steps you've already taken.",
+    "The more details you provide, the better answers you'll receive. Include code, error messages, and steps you've already taken.": "Kipimo cha maelezo unayotoa ndivyo utakavyopata majibu bora. Weka msimbo, jumbe za makosa, na hatua ambazo tayari umechukua.",
     "The multi-scale tare balancing prevented weight tampering effectively during peak crushing season. Essential read for scale engineers.": "Ulinganishaji wa tare ya mizani mingi ulizuia uchezaji wa uzito kwa ufanisi wakati wa msimu wa kilele wa kusaga. Kusoma muhimu kwa wahandisi wa mizani.",
     "Thermal Ticket & Barrier Release:": "Tiketi ya Joto na Ufunguzi wa Lango:",
     "Thermal Ticket &amp; Barrier Release:": "Tiketi ya Joto na Ufunguzi wa Lango:",
@@ -1875,7 +1914,7 @@
     "User Access Roles, SSO & Audit Trails Setup": "Majukumu ya Watumiaji, SSO na Usanidi wa Historia ya Ukaguzi",
     "User Role Permissions, Audit Trails & Multi-Site Access Control": "Ruhusa za Jukumu la Mtumiaji, Njia za Ukaguzi na Udhibiti wa Ufikiaji wa Maeneo Mengi",
     "User Type": "Aina ya Mtumiaji",
-    "User management, accounts, profiles, and permissions": "User management, accounts, profiles, and permissions",
+    "User management, accounts, profiles, and permissions": "Usimamizi wa watumiaji, akaunti, Wasifu, na ruhusa",
     "User type": "Aina ya mtumiaji",
     "Users": "Watumiaji",
     "Users total": "Jumla ya Watumiaji",
@@ -1892,7 +1931,7 @@
     "Vote and comment": "Piga kura na uweke maoni",
     "Vulnerability Scanning:": "Vulnerability Scanning:",
     "Walkthrough for logging Brix %, Pol %, purity, fiber %, and calculating Estimated Recoverable Crystal (ERC) for quality bonuses.": "Mwongozo wa kuingiza Brix %, Pol %, usafi %, nyuzinyuzi %, na kukokotoa Kioo Kinachoweza Kurejeshwa (ERC) kwa marupurupu ya ubora.",
-    "Want to join the discussion or ask a question?": "Unataka kujiunge na majadiliano au kuuliza swali?",
+    "Want to join the discussion or ask a question?": "Unataka kujiunga na majadiliano au kuuliza swali?",
     "Warehouse Controller": "Msimamizi wa Ghorofa",
     "Warehouse Stock Tracking, Bagging Inventory & Delivery Notes": "Ufuatiliaji wa Hifadhi ya Ghorofa, Hifadhi ya Ufungaji na Vidokezo vya Uwasilishaji",
     "Warehouse Stock Tracking, Bagging Inventory &amp; Delivery Notes": "Ufuatiliaji wa Hifadhi ya Ghorofa, Hifadhi ya Ufungaji na Vidokezo vya Uwasilishaji",
@@ -1945,7 +1984,7 @@
     "When dispatching customer sales orders, generate dispatch tickets with gate pass verification.": "Wakati wa kutoa maagizo ya mauzo ya wateja, tengeneza tiketi za utoaji zenye uthibitisho wa pasi ya lango.",
     "When operating offline in remote field blocks, all GPS polygons, photos, and signed contracts are stored locally in an encrypted SQLite mobile database queue. As soon as the device connects to 3G/4G or Wi-Fi, the background sync engine pushes all pending records to the central ERP database without data loss.": "Wakati wa kufanya kazi bila mtandao katika vitalu vya mbali vya mashamba, poligoni zote za GPS, picha, na mikataba iliyosainiwa huhifadhiwa ndani katika foleni ya hifadhidata ya simu ya SQLite iliyosimbwa. Mara tu kifaa kinapounganishwa kwenye 3G/4G au Wi-Fi, injini ya usawazishaji ya nyuma inasukuma rekodi zote zinazosubiri kwenye hifadhidata kuu ya ERP bila kupoteza data.",
     "When required by law, court order, or governmental authority": "When required by law, court order, or governmental authority",
-    "When someone solves your problem, accept their answer to help future users with similar issues.": "When someone solves your problem, accept their answer to help future users with similar issues.",
+    "When someone solves your problem, accept their answer to help future users with similar issues.": "Mtu anapotatua tatizo lako, kubali jibu lao ili kusaidia watumiaji wa baadaye wenye matatizo yanayofanana.",
     "When you explicitly authorize us to share specific information": "When you explicitly authorize us to share specific information",
     "White-glove onboarding and success partners, every step.": "Usajili wa ubora wa juu na washirika wa mafanikio, kila hatua.",
     "Why Sugar Farmers choose Synergy Bravo ERP": "Kwa Nini Wakulima wa Sukari Wanachagua Synergy Bravo ERP",
@@ -1974,17 +2013,17 @@
     "Your Information": "Taarifa Zako",
     "Your Name": "Jina Lako",
     "Your appointment has been successfully booked. You will receive a confirmation email shortly with the meeting details and calendar invite.": "Miadi yako imewekwa kikamilifu. Utapokea barua pepe ya uthibitisho hivi karibuni ikiwa na maelezo ya mkutano na mwaliko wa kalenda.",
-    "Your question might already be answered. Use the search bar to check existing questions.": "Swali lako linaweza kuwa tayari limejibiwa. Tumia baraza la utafutaji kuangalia maswali yaliyopo.",
+    "Your question might already be answered. Use the search bar to check existing questions.": "Swali lako linaweza kuwa tayari limejibiwa. Tumia pau ya utafutaji kuangalia maswali yaliyopo.",
     "You’ll be asked to pick a plan to continue using the service. Your data will be preserved.": "Utaombwa kuchagua mpango ili kuendelea kutumia huduma. Data yako itahifadhiwa.",
     "admin_user": "admin_user",
     "answered 1 hour ago": "ilijibiwa saa 1 iliyopita",
-    "answered 30 min ago": "answered 30 min ago",
+    "answered 30 min ago": "ilijibiwa dakika 30 zilizopita",
     "answers": "majibu",
     "api": "API",
     "asked 1 day ago": "iliulizwa siku 1 iliyopita",
     "asked 2 days ago": "iliulizwa siku 2 zilizopita",
     "asked 2 hours ago": "iliulizwa masaa 2 yaliyopita",
-    "asked 2 hours ago by": "asked 2 hours ago by",
+    "asked 2 hours ago by": "iliulizwa masaa 2 yaliyopita na",
     "asked 3 days ago": "iliulizwa siku 3 zilizopita",
     "asked 5 hours ago": "iliulizwa masaa 5 yaliyopita",
     "authentication": "uthibitishaji",
@@ -2022,8 +2061,8 @@
     "security": "usalama",
     "sudo tail -f /var/log/mail.log": "sudo tail -f /var/log/mail.log",
     "tech_support": "tech_support",
-    "to join our community!": "ili kujiunga na jamii wetu!",
-    "to post answers, vote on questions, or add comments.": "to post answers, vote on questions, or add comments.",
+    "to join our community!": "ili kujiunga na jamii yetu!",
+    "to post answers, vote on questions, or add comments.": "ili uchapishe majibu, kupigia kura maswali, au kuongeza maoni.",
     "to push payments via M-PESA B2C API or direct KITS bank transfer.": "ili kusukuma malipo kupitia API ya M-PESA B2C au uhamisho wa moja kwa moja wa benki ya KITS.",
     "update": "usasisho",
     "users": "watumiaji",
@@ -2053,8 +2092,24 @@
     "💬 Community Discussion (3 Comments)": "💬 Majadiliano ya Jamii (Maoni 3)",
     "🔍": "🔍",
     "🔒 Login Required": "🔒 Kuingia Kunahitajika",
-    "🔒 Secure Payment": "🔒 Malipo Salama"
-  };
+    "🔒 Secure Payment": "🔒 Malipo Salama",
+    "Please log in to post answers, vote on questions, or add comments.": "Tafadhali ingia ili uchapishe majibu, kupigia kura maswali, au kuongeza maoni.",
+    "Sign in here to join our community!": "Ingia hapa ili kujiunga na jamii yetu!",
+    "asked 5 hours ago by": "iliulizwa masaa 5 yaliyopita na",
+    "asked 1 day ago by": "iliulizwa siku 1 iliyopita na",
+    "asked 2 days ago by": "iliulizwa siku 2 zilizopita na",
+    "asked 3 days ago by": "iliulizwa siku 3 zilizopita na",
+    "asked 30 min ago by": "iliulizwa dakika 30 zilizopita na",
+    "asked 30 minutes ago by": "iliulizwa dakika 30 zilizopita na",
+    "asked 1 hour ago by": "iliulizwa saa 1 iliyopita na",
+    "answered 30 minutes ago": "ilijibiwa dakika 30 zilizopita",
+    "answered 2 hours ago": "ilijibiwa masaa 2 yaliyopita",
+    "answered 5 hours ago": "ilijibiwa masaa 5 yaliyopita",
+    "answered 1 day ago": "ilijibiwa siku 1 iliyopita",
+    "answered 2 days ago": "ilijibiwa siku 2 zilizopita",
+    "Asked 2 hours ago": "Iliulizwa masaa 2 yaliyopita",
+    "Active 30 minutes ago": "Ilitenda kazi dakika 30 zilizopita",
+    "Viewed 45 times": "Imeangaliwa mara 45",};
 
   // Build reverse map (Swahili -> English) for back-translation
   const T_REVERSE = {};
@@ -2188,7 +2243,12 @@
       const keys = Object.keys(T).sort((a, b) => b.length - a.length);
       for (const enPhrase of keys) {
         if (enPhrase.length > 1 && text.includes(enPhrase)) {
-          text = text.split(enPhrase).join(T[enPhrase]);
+          if (/^[A-Za-z0-9_-]+$/.test(enPhrase)) {
+            const regex = new RegExp('\\b' + escapeRegExp(enPhrase) + '\\b', 'g');
+            text = text.replace(regex, T[enPhrase]);
+          } else {
+            text = text.split(enPhrase).join(T[enPhrase]);
+          }
         }
       }
       node.nodeValue = text;
@@ -2442,63 +2502,140 @@
 
   // Render Country Selector & Language Selector Bar in Header
   window.renderLocalizationHeaderBar = function() {
-    const bar = document.getElementById('synergyLocalizationBar');
-    if (!bar) return;
-    if (bar.dataset.initialized) return;
+    if (!document.getElementById('synergyLocalizationGlobalStyle')) {
+      const style = document.createElement('style');
+      style.id = 'synergyLocalizationGlobalStyle';
+      style.textContent = `
+        #synergyLocalizationBar {
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 6px !important;
+          background: rgba(16,25,21,0.85) !important;
+          border: 1px solid #364e43 !important;
+          border-radius: 4px !important;
+          padding: 3px 8px !important;
+          font-size: 0.74rem !important;
+          color: #f8fafc !important;
+          white-space: nowrap !important;
+          line-height: 1.3 !important;
+          z-index: 10000 !important;
+          margin-bottom: 2px !important;
+        }
+        .auth-left-col {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          gap: 4px !important;
+        }
+        @media (max-width: 768px) {
+          .site-header .auth-actions {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+          }
+          .auth-left-col {
+            flex-direction: row !important;
+            gap: 6px !important;
+          }
+          #synergyLocalizationBar {
+            display: inline-flex !important;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    let bar = document.getElementById('synergyLocalizationBar');
+    if (!bar) {
+      const container = document.querySelector('.auth-left-col') || document.querySelector('.auth-actions') || document.querySelector('.site-header .inner') || document.querySelector('header .inner') || document.querySelector('header');
+      if (container) {
+        bar = document.createElement('div');
+        bar.id = 'synergyLocalizationBar';
+        if (container.firstElementChild) {
+          container.insertBefore(bar, container.firstElementChild);
+        } else {
+          container.appendChild(bar);
+        }
+      } else {
+        return;
+      }
+    }
+    if (bar.dataset.initialized && bar.children.length > 0) return;
     bar.dataset.initialized = 'true';
 
     const market = MARKETS[currentMarket] || MARKETS.KE;
 
-    bar.innerHTML = `
-      <div style="position:relative; display:inline-block;">
-        <button type="button" id="marketSelectorBtn" title="Change Region / Market"
-          style="background:none;border:none;color:#f8fafc;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:0.74rem;font-family:inherit;line-height:1.3;">
-          <span id="selectedMarketText">${market.flag} ${market.code}</span>
-          <span style="font-size:0.56rem;color:#f6dd0d;">&#9660;</span>
-        </button>
-        <div id="marketMenu" style="display:none;position:absolute;top:110%;left:0;background:#16221c;border:1px solid #364e43;border-radius:4px;box-shadow:0 12px 30px rgba(0,0,0,0.85);z-index:50000;min-width:180px;padding:6px 0;">
-          <div style="padding:4px 10px;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Region / Market</div>
-          <a href="#" onclick="SynergyLocalization.setMarket('KE');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kenya (KSh)</a>
-          <a href="#" onclick="SynergyLocalization.setMarket('US');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇸 United States ($)</a>
+    // Only inject HTML if the bar is empty (not pre-rendered in HTML)
+    if (bar.children.length === 0) {
+      bar.innerHTML = `
+        <div style="position:relative; display:inline-block;">
+          <button type="button" id="marketSelectorBtn" title="Change Region / Market"
+            style="background:none;border:none;color:#f8fafc;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:0.74rem;font-family:inherit;line-height:1.3;">
+            <span id="selectedMarketText">${market.flag} ${market.code}</span>
+            <span style="font-size:0.56rem;color:#f6dd0d;">&#9660;</span>
+          </button>
+          <div id="marketMenu" style="display:none;position:absolute;top:110%;left:0;background:#16221c;border:1px solid #364e43;border-radius:4px;box-shadow:0 12px 30px rgba(0,0,0,0.85);z-index:50000;min-width:190px;padding:6px 0;">
+            <div style="padding:4px 10px;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Region / Market</div>
+            <a href="#" onclick="SynergyLocalization.setMarket('KE');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kenya (KSh)</a>
+            <a href="#" onclick="SynergyLocalization.setMarket('TZ');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇹🇿 Tanzania (TSh)</a>
+            <a href="#" onclick="SynergyLocalization.setMarket('UG');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇬 Uganda (USh)</a>
+            <a href="#" onclick="SynergyLocalization.setMarket('US');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇸 United States ($)</a>
+            <a href="#" onclick="SynergyLocalization.setMarket('EU');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇪🇺 European Union (€)</a>
+          </div>
         </div>
-      </div>
-      <span style="color:#364e43;padding:0 2px;line-height:1;">|</span>
-      <div style="position:relative;display:inline-block;">
-        <button type="button" id="langSelectorBtn" title="Change Language"
-          style="background:none;border:none;color:#f6dd0d;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:0.74rem;font-family:inherit;line-height:1.3;">
-          <span id="selectedLangText">${currentLang.toUpperCase()}</span>
-          <span style="font-size:0.56rem;color:#f6dd0d;">&#9660;</span>
-        </button>
-        <div id="langMenu" style="display:none;position:absolute;top:110%;right:0;background:#16221c;border:1px solid #364e43;border-radius:4px;box-shadow:0 12px 30px rgba(0,0,0,0.85);z-index:50000;min-width:140px;padding:6px 0;">
-          <div style="padding:4px 10px;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Language</div>
-          <a href="#" onclick="SynergyLocalization.setLanguage('sw');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kiswahili</a>
-          <a href="#" onclick="SynergyLocalization.setLanguage('en');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇬🇧 English</a>
+        <span style="color:#364e43;padding:0 2px;line-height:1;">|</span>
+        <div style="position:relative;display:inline-block;">
+          <button type="button" id="langSelectorBtn" title="Change Language"
+            style="background:none;border:none;color:#f6dd0d;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:0.74rem;font-family:inherit;line-height:1.3;">
+            <span id="selectedLangText">${currentLang.toUpperCase()}</span>
+            <span style="font-size:0.56rem;color:#f6dd0d;">&#9660;</span>
+          </button>
+          <div id="langMenu" style="display:none;position:absolute;top:110%;right:0;background:#16221c;border:1px solid #364e43;border-radius:4px;box-shadow:0 12px 30px rgba(0,0,0,0.85);z-index:50000;min-width:140px;padding:6px 0;">
+            <div style="padding:4px 10px;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;">Language</div>
+            <a href="#" onclick="SynergyLocalization.setLanguage('sw');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kiswahili</a>
+            <a href="#" onclick="SynergyLocalization.setLanguage('en');return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇬🇧 English</a>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    } else {
+      // Pre-rendered: just update the text to reflect current market/lang from localStorage
+      const selMarket = bar.querySelector('#selectedMarketText');
+      if (selMarket) selMarket.innerHTML = `${market.flag} ${market.code}`;
+      const selLang = bar.querySelector('#selectedLangText');
+      if (selLang) selLang.textContent = currentLang.toUpperCase();
+    }
 
     const marketBtn = bar.querySelector('#marketSelectorBtn');
     const marketMenu = bar.querySelector('#marketMenu');
     const langBtn = bar.querySelector('#langSelectorBtn');
     const langMenu = bar.querySelector('#langMenu');
 
-    if (marketBtn && marketMenu) {
-      marketBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (langMenu) langMenu.style.display = 'none';
-        marketMenu.style.display = marketMenu.style.display === 'none' ? 'block' : 'none';
-      });
+    // Only wire up JS toggle listeners when bar was NOT pre-rendered in HTML.
+    // Pre-rendered bars already have inline onclick handlers — adding addEventListener
+    // here would cause a double-toggle (open→close in same click) making menus appear broken.
+    const wasPreRendered = bar.dataset.prerendered === 'true';
+
+    if (!wasPreRendered) {
+      if (marketBtn && marketMenu) {
+        marketBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (langMenu) langMenu.style.display = 'none';
+          marketMenu.style.display = marketMenu.style.display === 'none' ? 'block' : 'none';
+        });
+      }
+
+      if (langBtn && langMenu) {
+        langBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (marketMenu) marketMenu.style.display = 'none';
+          langMenu.style.display = langMenu.style.display === 'none' ? 'block' : 'none';
+        });
+      }
     }
 
-    if (langBtn && langMenu) {
-      langBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (marketMenu) marketMenu.style.display = 'none';
-        langMenu.style.display = langMenu.style.display === 'none' ? 'block' : 'none';
-      });
-    }
-
-    document.addEventListener('click', () => {
+    // Always: clicking anywhere outside closes both menus
+    document.addEventListener('click', (e) => {
+      if (bar.contains(e.target)) return;
       if (marketMenu) marketMenu.style.display = 'none';
       if (langMenu) langMenu.style.display = 'none';
     });
