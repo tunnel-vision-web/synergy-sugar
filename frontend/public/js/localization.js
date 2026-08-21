@@ -2144,7 +2144,7 @@
 
   // State Management
   let currentMarket = localStorage.getItem('synergy_market') || 'KE';
-  let currentLang = localStorage.getItem('synergy_lang') || 'sw';
+  let currentLang = localStorage.getItem('synergy_lang') || 'en';
 
   window.SynergyLocalization = {
     getMarket: () => MARKETS[currentMarket] || MARKETS.KE,

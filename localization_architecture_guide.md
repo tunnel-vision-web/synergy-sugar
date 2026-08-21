@@ -139,7 +139,17 @@ for (const en in T) {
 > node --check frontend/public/js/localization.js
 > ```
 
-### 3.3 Static WeakMap Engine (`DOM_ENGLISH_NODES`)
+### 3.3 State Defaults
+
+```javascript
+let currentMarket = localStorage.getItem('synergy_market') || 'KE';
+let currentLang   = localStorage.getItem('synergy_lang')   || 'en'; // English on first visit
+```
+
+> [!NOTE]
+> **English is the default language** on a user's first visit (before any preference is stored in `localStorage`). Once the user explicitly selects Kiswahili via the language dropdown, the choice is persisted to `localStorage` and remembered on subsequent visits.
+
+### 3.4 Static WeakMap Engine (`DOM_ENGLISH_NODES`)
 To guarantee that text nodes are never double-translated or irreversibly altered, the engine tracks text nodes via a DOM `WeakMap`:
 
 ```javascript
