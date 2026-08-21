@@ -1,6 +1,6 @@
 /**
  * Synergy Sugar ERP — AI Copilot & Chat Assistant Widget
- * Version: 2.1.0 — Extensible Multi-Language & Multi-Market Localization Engine
+ * Version: 2.2.0 — Dynamic Welcome Greeting Localization Engine
  * Adheres strictly to Synergy Sugar UI/UX Design System Specification:
  * - Surface: #101915 / #1e2b25
  * - Accent: #f6dd0d (gold)
@@ -320,6 +320,7 @@
       sendBtn: 'Send',
       inputPhKe: 'Ask about modules, KSh pricing, or onboarding...',
       inputPhUs: 'Ask about modules, $ USD pricing, or onboarding...',
+      welcomeGreeting: 'Jambo! 👋 I am your <strong>Synergy Sugar AI Assistant</strong>.<br><br>How can I help you transform your agribusiness or outgrower operations today?',
       chipOutgrowers: '🌾 Outgrower Modules',
       chipWeighbridge: '⚖️ Weighbridge Sync',
       chipOnboarding: '🚀 Start Onboarding',
@@ -334,6 +335,7 @@
       sendBtn: 'Tuma',
       inputPhKe: 'Uliza kuhusu moduli, bei za KSh, au usajili...',
       inputPhUs: 'Uliza kuhusu moduli, bei za USD $, au usajili...',
+      welcomeGreeting: 'Jambo! 👋 Mimi ni <strong>Msaidizi wako wa Synergy Sugar AI</strong>.<br><br>Nawezaje kukusaidia kukuza kilimo-biashara na shughuli zako za kiwanda leo?',
       chipOutgrowers: '🌾 Moduli za Wakulima',
       chipWeighbridge: '⚖️ Mizani ya Kiwanda',
       chipOnboarding: '🚀 Anza Usajili',
@@ -441,6 +443,7 @@
     const chatSub = document.getElementById('ai-chat-sub');
     const inputEl = document.getElementById('synergy-ai-input');
     const sendBtn = document.getElementById('synergy-ai-send-btn');
+    const greetingTextEl = document.getElementById('synergy-initial-greeting-text');
 
     if (toastTitle) toastTitle.textContent = dict.toastTitle;
     if (toastText) toastText.textContent = dict.toastBody;
@@ -449,8 +452,9 @@
     if (chatSub) chatSub.textContent = dict.chatSub;
     if (sendBtn) sendBtn.textContent = dict.sendBtn;
     if (inputEl) inputEl.placeholder = (market.code === 'US') ? dict.inputPhUs : dict.inputPhKe;
+    if (greetingTextEl) greetingTextEl.innerHTML = dict.welcomeGreeting;
 
-    // Dynamically update chip labels when language switches back & forth
+    // Dynamically update chip labels & greeting text EVERY TIME language switches
     if (lastActiveLang !== lang) {
       document.querySelectorAll('.chat-chip[data-query="outgrowers"]').forEach(el => el.textContent = dict.chipOutgrowers);
       document.querySelectorAll('.chat-chip[data-query="weighbridge"]').forEach(el => el.textContent = dict.chipWeighbridge);
@@ -467,9 +471,7 @@
     const lang = getLang();
     const dict = I18N[lang] || I18N.en;
 
-    let text = (lang === 'sw')
-      ? `Jambo! 👋 Mimi ni <strong>Msaidizi wako wa Synergy Sugar AI</strong>.<br><br>Nawezaje kukusaidia kukuza kilimo-biashara na shughuli zako za kiwanda leo?`
-      : `Jambo! 👋 I am your <strong>Synergy Sugar AI Assistant</strong>.<br><br>How can I help you transform your agribusiness or outgrower operations today?`;
+    let text = `<div id="synergy-initial-greeting-text">${dict.welcomeGreeting}</div>`;
 
     let chips = [
       { label: dict.chipOutgrowers, action: 'outgrowers' },
@@ -478,7 +480,7 @@
       { label: dict.chipDemo, action: 'demo' }
     ];
 
-    addMessage(text, 'bot', chips);
+    addMessage(text, 'bot', chips, 'synergy-initial-greeting-box');
   }
 
   function openChat() {
@@ -486,6 +488,7 @@
     chatWindow.style.display = 'flex';
     isOpen = true;
     initChatGreeting();
+    updateCopilotLocalization();
     const inputEl = document.getElementById('synergy-ai-input');
     if (inputEl) inputEl.focus();
   }
@@ -524,9 +527,10 @@
   const inputEl = document.getElementById('synergy-ai-input');
   const msgContainer = document.getElementById('synergy-chat-msg-container');
 
-  function addMessage(text, sender = 'bot', chips = null) {
+  function addMessage(text, sender = 'bot', chips = null, boxId = null) {
     const msgDiv = document.createElement('div');
     msgDiv.className = `synergy-msg ${sender}`;
+    if (boxId) msgDiv.id = boxId;
     let html = text;
     if (chips && chips.length > 0) {
       html += `<div class="chat-chips">`;
