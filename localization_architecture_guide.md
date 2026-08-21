@@ -143,11 +143,11 @@ for (const en in T) {
 
 ```javascript
 let currentMarket = localStorage.getItem('synergy_market') || 'KE';
-let currentLang   = localStorage.getItem('synergy_lang')   || 'en'; // English on first visit
+let currentLang   = localStorage.getItem('synergy_lang')   || 'en'; // Defaults to English on first visit
 ```
 
 > [!NOTE]
-> **English is the default language** on a user's first visit (before any preference is stored in `localStorage`). Once the user explicitly selects Kiswahili via the language dropdown, the choice is persisted to `localStorage` and remembered on subsequent visits.
+> **First-time visitors default to English** (`en`) if `synergy_lang` is not yet set in `localStorage`. Once a user explicitly chooses a language (English or Kiswahili) via the selector dropdown, `setLanguage()` persists their choice to `localStorage` (`synergy_lang`), maintaining their selection seamlessly across page navigations (e.g. from Help to Pricing).
 
 ### 3.4 Static WeakMap Engine (`DOM_ENGLISH_NODES`)
 To guarantee that text nodes are never double-translated or irreversibly altered, the engine tracks text nodes via a DOM `WeakMap`:
