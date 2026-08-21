@@ -1078,6 +1078,31 @@
         if (e.key === 'Enter') handleUserAISubmission();
       });
 
+      function syncOnboardingLocalization() {
+        if (!window.SynergyLocalization) return;
+        const market = window.SynergyLocalization.getMarket();
+        const lang = window.SynergyLocalization.getLanguage();
+
+        const regionSelect = document.getElementById('ob-region');
+        const currencySelect = document.getElementById('ob-currency');
+
+        if (market.code === 'US') {
+          if (currencySelect && currencySelect.value.includes('KSh')) {
+            currencySelect.value = 'USD ($)';
+          }
+        } else if (market.code === 'KE') {
+          if (currencySelect && currencySelect.value.includes('USD')) {
+            currencySelect.value = 'KSh (Kenya Shillings)';
+          }
+        }
+
+        if (window.SynergyLocalization.applyLocalization) {
+          window.SynergyLocalization.applyLocalization();
+        }
+      }
+
+      setInterval(syncOnboardingLocalization, 1000);
+      syncOnboardingLocalization();
       updateStepView();
     })();
   </script>
