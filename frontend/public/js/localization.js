@@ -2143,8 +2143,13 @@
   }
 
   // State Management
+  // Language always starts as English on every page load — not read from localStorage.
+  // Market preference IS remembered across visits via localStorage.
   let currentMarket = localStorage.getItem('synergy_market') || 'KE';
-  let currentLang = localStorage.getItem('synergy_lang') || 'en';
+  let currentLang = 'en';
+
+  // Clear any stale synergy_lang value so it can't interfere
+  localStorage.removeItem('synergy_lang');
 
   window.SynergyLocalization = {
     getMarket: () => MARKETS[currentMarket] || MARKETS.KE,
@@ -2155,11 +2160,6 @@
       if (MARKETS[marketCode]) {
         currentMarket = marketCode;
         localStorage.setItem('synergy_market', marketCode);
-        const market = MARKETS[marketCode];
-        if (market.defaultLang && (!localStorage.getItem('synergy_lang') || marketCode === 'US' || marketCode === 'EU')) {
-          currentLang = market.defaultLang;
-          localStorage.setItem('synergy_lang', currentLang);
-        }
         this.applyLocalization();
       }
     },
@@ -2167,7 +2167,7 @@
     setLanguage: function(langCode) {
       if (langCode === 'en' || langCode === 'sw') {
         currentLang = langCode;
-        localStorage.setItem('synergy_lang', langCode);
+        // Not persisted to localStorage — resets to English on next page load
         this.applyLocalization();
       }
     },
