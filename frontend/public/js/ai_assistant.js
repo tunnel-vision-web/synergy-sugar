@@ -1,6 +1,6 @@
 /**
  * Synergy Sugar ERP — AI Copilot & Chat Assistant Widget
- * Version: 2.0.0 — Fully Localized (Multi-Language & Multi-Market Aware)
+ * Version: 2.1.0 — Extensible Multi-Language & Multi-Market Localization Engine
  * Adheres strictly to Synergy Sugar UI/UX Design System Specification:
  * - Surface: #101915 / #1e2b25
  * - Accent: #f6dd0d (gold)
@@ -309,6 +309,38 @@
   `;
   document.head.appendChild(style);
 
+  // Extensible Multi-Language Dictionary
+  const I18N = {
+    en: {
+      toastTitle: '🤖 Synergy AI Assistant',
+      toastBody: 'Hello! Welcome to Synergy Sugar ERP. Need help selecting outgrower modules, checking weighbridge scale sync, or starting onboarding?',
+      toastBtn: 'Chat with AI Assistant',
+      chatTitle: 'Synergy AI Copilot',
+      chatSub: 'Active & Ready',
+      sendBtn: 'Send',
+      inputPhKe: 'Ask about modules, KSh pricing, or onboarding...',
+      inputPhUs: 'Ask about modules, $ USD pricing, or onboarding...',
+      chipOutgrowers: '🌾 Outgrower Modules',
+      chipWeighbridge: '⚖️ Weighbridge Sync',
+      chipOnboarding: '🚀 Start Onboarding',
+      chipDemo: '📅 Book Demo'
+    },
+    sw: {
+      toastTitle: '🤖 Msaidizi wa Synergy AI',
+      toastBody: 'Jambo! Karibu Synergy Sugar ERP. Unahitaji msaada kuchagua moduli za wakulima, kuunganisha mizani, au kuanza usajili?',
+      toastBtn: 'Zungumza na Msaidizi wa AI',
+      chatTitle: 'Msaidizi wa Synergy AI',
+      chatSub: 'Yupo Tayari',
+      sendBtn: 'Tuma',
+      inputPhKe: 'Uliza kuhusu moduli, bei za KSh, au usajili...',
+      inputPhUs: 'Uliza kuhusu moduli, bei za USD $, au usajili...',
+      chipOutgrowers: '🌾 Moduli za Wakulima',
+      chipWeighbridge: '⚖️ Mizani ya Kiwanda',
+      chipOnboarding: '🚀 Anza Usajili',
+      chipDemo: '📅 Weka Miadi'
+    }
+  };
+
   // Create Elements
   const launcher = document.createElement('button');
   launcher.id = 'synergy-ai-launcher';
@@ -362,9 +394,7 @@
       </div>
       <button class="chat-close-btn" id="synergy-chat-close">&times;</button>
     </div>
-    <div class="chat-messages" id="synergy-chat-msg-container">
-      <!-- Initial greeting injected dynamically -->
-    </div>
+    <div class="chat-messages" id="synergy-chat-msg-container"></div>
     <div class="chat-input-area">
       <input type="text" id="synergy-ai-input" placeholder="Ask about modules, pricing, or onboarding..." />
       <button id="synergy-ai-send-btn">Send</button>
@@ -378,6 +408,7 @@
   // State
   let isOpen = false;
   let hasAutoOpened = false;
+  let lastActiveLang = null;
 
   function getLang() {
     return (window.SynergyLocalization && window.SynergyLocalization.getLanguage) 
@@ -396,9 +427,11 @@
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
-  // Dynamic Localization Engine for AI Assistant
+  // Dynamic Bi-Directional Localization Engine
   function updateCopilotLocalization() {
-    const lang = getLang();
+    const rawLang = getLang();
+    const lang = I18N[rawLang] ? rawLang : 'en'; // Extensible fallback to English
+    const dict = I18N[lang];
     const market = getMarket();
 
     const toastTitle = document.querySelector('#synergy-ai-proactive-toast .toast-title');
@@ -409,22 +442,21 @@
     const inputEl = document.getElementById('synergy-ai-input');
     const sendBtn = document.getElementById('synergy-ai-send-btn');
 
-    if (lang === 'sw') {
-      if (toastTitle) toastTitle.textContent = '🤖 Msaidizi wa Synergy AI';
-      if (toastText) toastText.textContent = 'Jambo! Karibu Synergy Sugar ERP. Unahitaji msaada kuchagua moduli za wakulima, kuunganisha mizani, au kuanza usajili?';
-      if (toastBtn) toastBtn.textContent = 'Zungumza na Msaidizi wa AI';
-      if (chatTitle) chatTitle.textContent = 'Msaidizi wa Synergy AI';
-      if (chatSub) chatSub.textContent = 'Yupo Tayari';
-      if (inputEl) inputEl.placeholder = (market.code === 'US') ? 'Uliza kuhusu moduli, bei za USD $, au usajili...' : 'Uliza kuhusu moduli, bei za KSh, au usajili...';
-      if (sendBtn) sendBtn.textContent = 'Tuma';
-    } else {
-      if (toastTitle) toastTitle.textContent = '🤖 Synergy AI Assistant';
-      if (toastText) toastText.textContent = 'Hello! Welcome to Synergy Sugar ERP. Need help selecting outgrower modules, checking weighbridge scale sync, or starting onboarding?';
-      if (toastBtn) toastBtn.textContent = 'Chat with AI Assistant';
-      if (chatTitle) chatTitle.textContent = 'Synergy AI Copilot';
-      if (chatSub) chatSub.textContent = 'Active & Ready';
-      if (inputEl) inputEl.placeholder = (market.code === 'US') ? 'Ask about modules, $ USD pricing, or onboarding...' : 'Ask about modules, KSh pricing, or onboarding...';
-      if (sendBtn) sendBtn.textContent = 'Send';
+    if (toastTitle) toastTitle.textContent = dict.toastTitle;
+    if (toastText) toastText.textContent = dict.toastBody;
+    if (toastBtn) toastBtn.textContent = dict.toastBtn;
+    if (chatTitle) chatTitle.textContent = dict.chatTitle;
+    if (chatSub) chatSub.textContent = dict.chatSub;
+    if (sendBtn) sendBtn.textContent = dict.sendBtn;
+    if (inputEl) inputEl.placeholder = (market.code === 'US') ? dict.inputPhUs : dict.inputPhKe;
+
+    // Dynamically update chip labels when language switches back & forth
+    if (lastActiveLang !== lang) {
+      document.querySelectorAll('.chat-chip[data-query="outgrowers"]').forEach(el => el.textContent = dict.chipOutgrowers);
+      document.querySelectorAll('.chat-chip[data-query="weighbridge"]').forEach(el => el.textContent = dict.chipWeighbridge);
+      document.querySelectorAll('.chat-chip[data-query="onboarding"]').forEach(el => el.textContent = dict.chipOnboarding);
+      document.querySelectorAll('.chat-chip[data-query="demo"]').forEach(el => el.textContent = dict.chipDemo);
+      lastActiveLang = lang;
     }
   }
 
@@ -433,23 +465,18 @@
     if (!msgContainer || msgContainer.children.length > 0) return;
 
     const lang = getLang();
-    let text = `Jambo! 👋 I am your <strong>Synergy Sugar AI Assistant</strong>.<br><br>How can I help you transform your agribusiness or outgrower operations today?`;
-    let chips = [
-      { label: '🌾 Outgrower Modules', action: 'outgrowers' },
-      { label: '⚖️ Weighbridge Sync', action: 'weighbridge' },
-      { label: '🚀 Start Onboarding', action: 'onboarding' },
-      { label: '📅 Book Demo', action: 'demo' }
-    ];
+    const dict = I18N[lang] || I18N.en;
 
-    if (lang === 'sw') {
-      text = `Jambo! 👋 Mimi ni <strong>Msaidizi wako wa Synergy Sugar AI</strong>.<br><br>Nawezaje kukusaidia kukuza kilimo-biashara na shughuli zako za kiwanda leo?`;
-      chips = [
-        { label: '🌾 Moduli za Wakulima', action: 'outgrowers' },
-        { label: '⚖️ Mizani ya Kiwanda', action: 'weighbridge' },
-        { label: '🚀 Anza Usajili', action: 'onboarding' },
-        { label: '📅 Weka Miadi', action: 'demo' }
-      ];
-    }
+    let text = (lang === 'sw')
+      ? `Jambo! 👋 Mimi ni <strong>Msaidizi wako wa Synergy Sugar AI</strong>.<br><br>Nawezaje kukusaidia kukuza kilimo-biashara na shughuli zako za kiwanda leo?`
+      : `Jambo! 👋 I am your <strong>Synergy Sugar AI Assistant</strong>.<br><br>How can I help you transform your agribusiness or outgrower operations today?`;
+
+    let chips = [
+      { label: dict.chipOutgrowers, action: 'outgrowers' },
+      { label: dict.chipWeighbridge, action: 'weighbridge' },
+      { label: dict.chipOnboarding, action: 'onboarding' },
+      { label: dict.chipDemo, action: 'demo' }
+    ];
 
     addMessage(text, 'bot', chips);
   }
@@ -540,21 +567,20 @@
   function handleChipQuery(action, label) {
     addMessage(label, 'user');
     const lang = getLang();
+    const dict = I18N[lang] || I18N.en;
 
     setTimeout(() => {
       if (action === 'outgrowers') {
         const reply = (lang === 'sw')
           ? '🌾 <strong>Moduli ya Wakulima na Miwa</strong> inatoa usajili wa dijiti wa wakulima, ramani za GPS za mashamba, kufuatilia ukomavu wa miwa, na malipo ya haraka ya M-PESA.'
           : '🌾 <strong>Farmers Recruitment & Outgrower Module</strong> provides digital farmer registration, GPS plot mapping, crop maturity tracking, and direct payout settlements.';
-        const chips = (lang === 'sw')
-          ? [{ label: '🚀 Anza Usajili Sasa', action: 'onboarding' }, { label: '📅 Weka Miadi', action: 'demo' }]
-          : [{ label: '🚀 Start Onboarding Wizard', action: 'onboarding' }, { label: '📅 Book Demo', action: 'demo' }];
+        const chips = [{ label: dict.chipOnboarding, action: 'onboarding' }, { label: dict.chipDemo, action: 'demo' }];
         addMessage(reply, 'bot', chips);
       } else if (action === 'weighbridge') {
         const reply = (lang === 'sw')
           ? '⚖️ <strong>Mizani ya Kiwanda</strong> inaunganisha moja kwa moja mizani ya RS232, inafunga uzito dhidi ya wizi, na kurekodi sampuli za maabara ya sukari kwa wakati halisi.'
           : '⚖️ <strong>Weighbridge Scale Sync</strong> connects directly to indicator scales (RS232/IP), locks tare/gross weights to prevent tampering, and records sucrose quality lab samples in real time.';
-        const chips = [{ label: (lang === 'sw' ? '🚀 Anza Usajili' : '🚀 Start Onboarding'), action: 'onboarding' }];
+        const chips = [{ label: dict.chipOnboarding, action: 'onboarding' }];
         addMessage(reply, 'bot', chips);
       } else if (action === 'onboarding') {
         const reply = (lang === 'sw')
@@ -577,29 +603,30 @@
   function respondToQuery(q) {
     const lang = getLang();
     const market = getMarket();
+    const dict = I18N[lang] || I18N.en;
 
     if (q.includes('onboard') || q.includes('buy') || q.includes('sajili') || q.includes('nunua') || q.includes('try')) {
       const reply = (lang === 'sw')
         ? 'Uzuri kabisa! Unaweza kukamilisha Mchawi wetu wa Usajili wa hatua 4 ili kusanidi kiwanda chako, kuchagua moduli, na kufungua Cloud ERP Sandbox.'
         : 'Great! You can complete our smooth 4-step onboarding wizard to configure your mill, pick modules, and launch your test Cloud ERP Sandbox.';
-      addMessage(reply, 'bot', [{ label: (lang === 'sw' ? '🚀 Anza Usajili Sasa' : '🚀 Launch Onboarding Wizard Now'), action: 'onboarding' }]);
+      addMessage(reply, 'bot', [{ label: dict.chipOnboarding, action: 'onboarding' }]);
     } else if (q.includes('price') || q.includes('ksh') || q.includes('cost') || q.includes('bei') || q.includes('usd') || q.includes('$')) {
       const priceStr = (market.code === 'US') ? '$650/mo' : 'KSh 85,000/mo';
       const reply = (lang === 'sw')
         ? `Synergy Sugar ERP inatoa bei nafuu kulingana na ukubwa wa kiwanda na mashamba, kuanzia ${priceStr} hadi usambazaji wa viwanda vingi.`
         : `Synergy Sugar ERP offers flexible pricing tailored to mill capacity & outgrower acreage, starting from ${priceStr} up to Enterprise multi-factory deployments.`;
-      addMessage(reply, 'bot', [{ label: (lang === 'sw' ? '🚀 Anza Usajili' : '🚀 Start Onboarding Wizard'), action: 'onboarding' }]);
+      addMessage(reply, 'bot', [{ label: dict.chipOnboarding, action: 'onboarding' }]);
     } else {
       const reply = (lang === 'sw')
         ? 'Asante kwa kuuliza! Synergy Sugar ERP ni mfumo mkuu wa mabadiliko ya dijiti katika sekta ya sukari Afrika Mashariki na Kimataifa. Unapenda kufungua mchawi wa usajili?'
         : 'Thank you for asking! Synergy Sugar ERP is the leading sugar industry digital transformation platform in East Africa & globally. Would you like to launch the onboarding wizard?';
-      addMessage(reply, 'bot', [{ label: (lang === 'sw' ? '🚀 Anza Usajili' : '🚀 Launch Onboarding Wizard'), action: 'onboarding' }]);
+      addMessage(reply, 'bot', [{ label: dict.chipOnboarding, action: 'onboarding' }]);
     }
   }
 
-  // Periodically sync localization changes & initial setup
+  // Periodically sync localization & initial setup
   updateCopilotLocalization();
-  setInterval(updateCopilotLocalization, 1000);
+  setInterval(updateCopilotLocalization, 500);
 
   // Global API object to trigger copilot programmatically
   window.SynergyAICopilot = {
