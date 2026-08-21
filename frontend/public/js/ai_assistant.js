@@ -1,0 +1,579 @@
+/**
+ * Synergy Sugar ERP — AI Copilot & Chat Assistant Widget
+ * Version: 1.0.0
+ * Adheres strictly to Synergy Sugar UI/UX Design System Specification:
+ * - Surface: #101915 / #1e2b25
+ * - Accent: #f6dd0d (gold)
+ * - Border: #283a31 / #364e43
+ * - Border-radius: 3px !important (containers/buttons/inputs)
+ * - Position: Fixed bottom right (bottom: 24px; right: 24px)
+ * - Proactive Trigger: 20 seconds after browsing starts (best practice)
+ */
+
+(function () {
+  'use strict';
+
+  // Prevent duplicate initialization
+  if (window.SynergyAICopilot) return;
+
+  const AUTO_POPUP_DELAY_MS = 20000; // 20 seconds best-practice interval
+
+  // Inject Styles
+  const style = document.createElement('style');
+  style.id = 'synergy-ai-copilot-styles';
+  style.textContent = `
+    @import url('https://fonts.cdnfonts.com/css/sansation');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+    /* Floating Launcher Square Button */
+    #synergy-ai-launcher {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 15000;
+      width: 54px;
+      height: 54px;
+      border-radius: 3px !important;
+      background: #101915;
+      color: #f6dd0d;
+      border: 1px solid #f6dd0d;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    #synergy-ai-launcher:hover {
+      transform: scale(1.06) translateY(-2px);
+      background: #1e2b25;
+      border-color: #ffffff;
+      box-shadow: 0 12px 32px rgba(246, 221, 13, 0.35);
+    }
+    #synergy-ai-launcher .badge-pulse {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      width: 12px;
+      height: 12px;
+      background: #10b981;
+      border: 2px solid #101915;
+      border-radius: 2px !important;
+      animation: synergyPulse 2s infinite;
+    }
+
+    @keyframes synergyPulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Proactive Greeting Bubble */
+    #synergy-ai-proactive-toast {
+      position: fixed;
+      bottom: 92px;
+      right: 24px;
+      z-index: 14999;
+      background: #101915;
+      border: 1px solid #364e43;
+      border-radius: 3px !important;
+      padding: 14px 16px;
+      width: 290px;
+      color: #f8fafc;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      display: none;
+      animation: toastSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #synergy-ai-proactive-toast .toast-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    #synergy-ai-proactive-toast .toast-title {
+      font-family: 'Sansation', sans-serif;
+      font-weight: 700;
+      color: #f6dd0d;
+      font-size: 0.88rem;
+    }
+    #synergy-ai-proactive-toast .toast-close {
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 16px;
+    }
+    #synergy-ai-proactive-toast .toast-close:hover { color: #f8fafc; }
+    #synergy-ai-proactive-toast .toast-action-btn {
+      margin-top: 10px;
+      background: #f6dd0d;
+      color: #101915;
+      border: none;
+      border-radius: 3px !important;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: background 0.2s ease;
+    }
+    #synergy-ai-proactive-toast .toast-action-btn:hover { background: #e5cd0c; }
+
+    @keyframes toastSlideUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Main Chat Modal Window */
+    #synergy-ai-window {
+      position: fixed;
+      bottom: 92px;
+      right: 24px;
+      z-index: 15001;
+      width: 370px;
+      max-width: calc(100vw - 32px);
+      height: 530px;
+      max-height: calc(100vh - 120px);
+      background: #101915;
+      border: 1px solid #364e43;
+      border-radius: 3px !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Roboto', sans-serif;
+      animation: chatWindowPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes chatWindowPop {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Chat Header */
+    #synergy-ai-window .chat-header {
+      background: #1e2b25;
+      border-bottom: 1px solid #283a31;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #synergy-ai-window .chat-title-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    #synergy-ai-window .chat-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50% !important;
+      background: #f6dd0d;
+      color: #101915;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    #synergy-ai-window .chat-title {
+      font-family: 'Sansation', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #f8fafc;
+      margin: 0;
+      line-height: 1.2;
+    }
+    #synergy-ai-window .chat-subtitle {
+      font-size: 0.73rem;
+      color: #10b981;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    #synergy-ai-window .chat-subtitle::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50% !important;
+    }
+    #synergy-ai-window .chat-close-btn {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+    }
+    #synergy-ai-window .chat-close-btn:hover { color: #f8fafc; }
+
+    /* Chat Messages Container */
+    #synergy-ai-window .chat-messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #101915;
+    }
+
+    /* Message Bubbles */
+    .synergy-msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      border-radius: 3px !important;
+      word-wrap: break-word;
+    }
+    .synergy-msg.bot {
+      background: #1e2b25;
+      border: 1px solid #283a31;
+      color: #f8fafc;
+      align-self: flex-start;
+    }
+    .synergy-msg.user {
+      background: #f6dd0d;
+      color: #101915;
+      font-weight: 500;
+      align-self: flex-end;
+    }
+    .synergy-msg-time {
+      font-size: 0.65rem;
+      color: #94a3b8;
+      margin-top: 4px;
+      text-align: right;
+    }
+    .synergy-msg.user .synergy-msg-time { color: rgba(16, 25, 21, 0.65); }
+
+    /* Chips Container */
+    #synergy-ai-window .chat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .chat-chip {
+      background: rgba(40, 58, 49, 0.6);
+      border: 1px solid #364e43;
+      color: #f6dd0d;
+      font-size: 0.74rem;
+      padding: 5px 10px;
+      border-radius: 3px !important;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .chat-chip:hover {
+      background: #364e43;
+      border-color: #f6dd0d;
+      color: #ffffff;
+    }
+
+    /* Chat Input Area */
+    #synergy-ai-window .chat-input-area {
+      background: #1e2b25;
+      border-top: 1px solid #283a31;
+      padding: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    #synergy-ai-input {
+      flex: 1;
+      background: #101915 !important;
+      border: 1px solid #283a31 !important;
+      color: #f8fafc !important;
+      padding: 9px 12px;
+      border-radius: 3px !important;
+      font-size: 0.85rem;
+      font-family: 'Roboto', sans-serif;
+    }
+    #synergy-ai-input:focus {
+      outline: none;
+      border-color: #364e43 !important;
+      box-shadow: 0 0 0 2px rgba(246, 221, 13, 0.2);
+    }
+    #synergy-ai-send-btn {
+      background: #f6dd0d !important;
+      color: #101915 !important;
+      border: none !important;
+      border-radius: 3px !important;
+      padding: 9px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s ease;
+    }
+    #synergy-ai-send-btn:hover { background: #e5cd0c !important; }
+
+    /* Scrollbar styling */
+    #synergy-ai-window .chat-messages::-webkit-scrollbar { width: 4px; }
+    #synergy-ai-window .chat-messages::-webkit-scrollbar-thumb { background: #364e43; border-radius: 2px; }
+  `;
+  document.head.appendChild(style);
+
+  // Create Elements
+  const launcher = document.createElement('button');
+  launcher.id = 'synergy-ai-launcher';
+  launcher.setAttribute('aria-label', 'Open AI Copilot Chat');
+  launcher.innerHTML = `
+    <span class="badge-pulse"></span>
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 3V7" stroke="#f6dd0d" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="16" cy="3" r="2" fill="#f6dd0d"/>
+      <rect x="5" y="7" width="22" height="18" rx="3" fill="#1e2b25" stroke="#f6dd0d" stroke-width="2"/>
+      <rect x="8" y="10" width="16" height="7" rx="2" fill="#101915" stroke="#364e43" stroke-width="1.2"/>
+      <circle cx="12" cy="13.5" r="1.8" fill="#f6dd0d"/>
+      <circle cx="20" cy="13.5" r="1.8" fill="#f6dd0d"/>
+      <path d="M12 20C13.5 21.5 18.5 21.5 20 20" stroke="#f6dd0d" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="2" y="12" width="3" height="8" rx="1" fill="#f6dd0d"/>
+      <rect x="27" y="12" width="3" height="8" rx="1" fill="#f6dd0d"/>
+    </svg>
+  `;
+
+  const proactiveToast = document.createElement('div');
+  proactiveToast.id = 'synergy-ai-proactive-toast';
+  proactiveToast.innerHTML = `
+    <div class="toast-header">
+      <span class="toast-title">🤖 Synergy AI Assistant</span>
+      <span class="toast-close" id="synergy-toast-close">&times;</span>
+    </div>
+    <div>Hello! Welcome to Synergy Sugar ERP. Need help selecting outgrower modules, checking weighbridge scale sync, or starting onboarding?</div>
+    <button class="toast-action-btn" id="synergy-toast-action">Chat with AI Assistant</button>
+  `;
+
+  const chatWindow = document.createElement('div');
+  chatWindow.id = 'synergy-ai-window';
+  chatWindow.innerHTML = `
+    <div class="chat-header">
+      <div class="chat-title-box">
+        <div class="chat-avatar" style="background:none; border:none; display:flex; align-items:center; justify-content:center;">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 3V7" stroke="#f6dd0d" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="16" cy="3" r="2" fill="#f6dd0d"/>
+            <rect x="5" y="7" width="22" height="18" rx="3" fill="#101915" stroke="#f6dd0d" stroke-width="2"/>
+            <rect x="8" y="10" width="16" height="7" rx="2" fill="#1e2b25" stroke="#364e43" stroke-width="1.2"/>
+            <circle cx="12" cy="13.5" r="1.8" fill="#f6dd0d"/>
+            <circle cx="20" cy="13.5" r="1.8" fill="#f6dd0d"/>
+            <path d="M12 20C13.5 21.5 18.5 21.5 20 20" stroke="#f6dd0d" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="chat-title">Synergy AI Copilot</h4>
+          <p class="chat-subtitle">Active & Ready</p>
+        </div>
+      </div>
+      <button class="chat-close-btn" id="synergy-chat-close">&times;</button>
+    </div>
+    <div class="chat-messages" id="synergy-chat-msg-container">
+      <div class="synergy-msg bot">
+        Jambo! 👋 I am your <strong>Synergy Sugar AI Assistant</strong>.
+        <br><br>
+        How can I help you transform your agribusiness or outgrower operations today?
+        <div class="chat-chips" id="synergy-initial-chips">
+          <span class="chat-chip" data-query="outgrowers">🌾 Outgrower Modules</span>
+          <span class="chat-chip" data-query="weighbridge">⚖️ Weighbridge Sync</span>
+          <span class="chat-chip" data-query="onboarding">🚀 Start Onboarding</span>
+          <span class="chat-chip" data-query="demo">📅 Book Demo</span>
+        </div>
+        <div class="synergy-msg-time">${getCurrentTimeStr()}</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="synergy-ai-input" placeholder="Ask about modules, KSh pricing, or onboarding..." />
+      <button id="synergy-ai-send-btn">Send</button>
+    </div>
+  `;
+
+  document.body.appendChild(launcher);
+  document.body.appendChild(proactiveToast);
+  document.body.appendChild(chatWindow);
+
+  // State
+  let isOpen = false;
+  let hasAutoOpened = false;
+
+  function getCurrentTimeStr() {
+    const d = new Date();
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function openChat() {
+    proactiveToast.style.display = 'none';
+    chatWindow.style.display = 'flex';
+    isOpen = true;
+    const inputEl = document.getElementById('synergy-ai-input');
+    if (inputEl) inputEl.focus();
+  }
+
+  function closeChat() {
+    chatWindow.style.display = 'none';
+    isOpen = false;
+  }
+
+  function toggleChat() {
+    if (isOpen) closeChat();
+    else openChat();
+  }
+
+  // Auto Pop-up Timer (20 Seconds Best Practice)
+  setTimeout(() => {
+    if (!hasAutoOpened && !isOpen && !sessionStorage.getItem('synergy_ai_dismissed')) {
+      proactiveToast.style.display = 'block';
+      hasAutoOpened = true;
+    }
+  }, AUTO_POPUP_DELAY_MS);
+
+  // Event Listeners
+  launcher.addEventListener('click', toggleChat);
+
+  document.getElementById('synergy-toast-close').addEventListener('click', () => {
+    proactiveToast.style.display = 'none';
+    sessionStorage.setItem('synergy_ai_dismissed', 'true');
+  });
+
+  document.getElementById('synergy-toast-action').addEventListener('click', openChat);
+  document.getElementById('synergy-chat-close').addEventListener('click', closeChat);
+
+  // Handle Input Send
+  const sendBtn = document.getElementById('synergy-ai-send-btn');
+  const inputEl = document.getElementById('synergy-ai-input');
+  const msgContainer = document.getElementById('synergy-chat-msg-container');
+
+  function addMessage(text, sender = 'bot', chips = null) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `synergy-msg ${sender}`;
+    let html = text;
+    if (chips && chips.length > 0) {
+      html += `<div class="chat-chips">`;
+      chips.forEach(chip => {
+        html += `<span class="chat-chip" data-query="${chip.action}">${chip.label}</span>`;
+      });
+      html += `</div>`;
+    }
+    html += `<div class="synergy-msg-time">${getCurrentTimeStr()}</div>`;
+    msgDiv.innerHTML = html;
+    msgContainer.appendChild(msgDiv);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+
+    // Attach click event to newly created chips
+    msgDiv.querySelectorAll('.chat-chip').forEach(chipEl => {
+      chipEl.addEventListener('click', () => {
+        const query = chipEl.getAttribute('data-query');
+        handleChipQuery(query, chipEl.textContent);
+      });
+    });
+  }
+
+  function handleUserSubmit() {
+    const text = inputEl.value.trim();
+    if (!text) return;
+    addMessage(text, 'user');
+    inputEl.value = '';
+
+    // Show typing effect
+    setTimeout(() => {
+      respondToQuery(text.toLowerCase());
+    }, 450);
+  }
+
+  sendBtn.addEventListener('click', handleUserSubmit);
+  inputEl.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleUserSubmit();
+  });
+
+  function handleChipQuery(action, label) {
+    addMessage(label, 'user');
+    setTimeout(() => {
+      if (action === 'outgrowers') {
+        addMessage(
+          '🌾 <strong>Farmers Recruitment & Outgrower Module</strong> provides digital farmer registration, GPS plot mapping, crop maturity tracking, and M-PESA payout settlements.',
+          'bot',
+          [{ label: '🚀 Start Onboarding Wizard', action: 'onboarding' }, { label: '📅 Book Demo', action: 'demo' }]
+        );
+      } else if (action === 'weighbridge') {
+        addMessage(
+          '⚖️ <strong>Weighbridge Scale Sync</strong> connects directly to indicator scales (RS232/IP), locks tare/gross weights to prevent tampering, and records sucrose quality lab samples in real time.',
+          'bot',
+          [{ label: '🚀 Start Onboarding Wizard', action: 'onboarding' }, { label: '💡 Ask Question', action: 'question' }]
+        );
+      } else if (action === 'onboarding') {
+        addMessage(
+          '🚀 Launching our smooth <strong>Onboarding Wizard</strong> now! Redirecting you to set up your mill profile...',
+          'bot'
+        );
+        setTimeout(() => {
+          window.location.href = 'onboarding.html';
+        }, 1200);
+      } else if (action === 'demo') {
+        addMessage('📅 Redirecting to schedule your live demo with our agribusiness specialists...', 'bot');
+        setTimeout(() => {
+          window.location.href = 'appointment.html';
+        }, 1200);
+      } else {
+        respondToQuery(action);
+      }
+    }, 400);
+  }
+
+  // Attach chip listeners for initial chips
+  document.querySelectorAll('#synergy-initial-chips .chat-chip').forEach(chipEl => {
+    chipEl.addEventListener('click', () => {
+      const query = chipEl.getAttribute('data-query');
+      handleChipQuery(query, chipEl.textContent);
+    });
+  });
+
+  function respondToQuery(q) {
+    if (q.includes('onboard') || q.includes('buy') || q.includes('purchase') || q.includes('try') || q.includes('start')) {
+      addMessage(
+        'Great! You can complete our smooth 4-step onboarding wizard to configure your mill, pick modules, and launch your test Cloud ERP Sandbox.',
+        'bot',
+        [{ label: '🚀 Launch Onboarding Wizard Now', action: 'onboarding' }]
+      );
+    } else if (q.includes('price') || q.includes('ksh') || q.includes('cost') || q.includes('tier')) {
+      addMessage(
+        'Synergy Sugar ERP offers flexible pricing tailored to mill capacity & outgrower acreage, starting from KSh 85,000/mo up to Enterprise multi-factory deployments.',
+        'bot',
+        [{ label: '🚀 Start Onboarding Wizard', action: 'onboarding' }, { label: '📅 Schedule Demo', action: 'demo' }]
+      );
+    } else if (q.includes('weighbridge') || q.includes('scale') || q.includes('gross') || q.includes('tare')) {
+      addMessage(
+        'Our Weighbridge Scale Sync module guarantees 100% anti-tamper security, integrates with sucrose lab polarimeters, and automatically updates outgrower accounts.',
+        'bot'
+      );
+    } else if (q.includes('farmer') || q.includes('outgrower') || q.includes('contract')) {
+      addMessage(
+        'Manage thousands of outgrower contracts, cutting tickets, tractor transport dispatch, and instant M-PESA grower settlements effortlessly.',
+        'bot'
+      );
+    } else {
+      addMessage(
+        `Thank you for asking! Synergy Sugar ERP is East Africa's leading sugar industry digital transformation platform. Would you like to launch the onboarding wizard to explore the live Cloud ERP sandbox?`,
+        'bot',
+        [{ label: '🚀 Launch Onboarding Wizard', action: 'onboarding' }, { label: '📅 Book Demo', action: 'demo' }]
+      );
+    }
+  }
+
+  // Global API object to trigger copilot programmatically
+  window.SynergyAICopilot = {
+    open: openChat,
+    close: closeChat,
+    toggle: toggleChat,
+    ask: function (prompt) {
+      openChat();
+      addMessage(prompt, 'user');
+      setTimeout(() => respondToQuery(prompt.toLowerCase()), 500);
+    }
+  };
+})();

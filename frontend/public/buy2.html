@@ -689,18 +689,30 @@
         </div>
 
         <div class="actions">
-          <a href="address.html" class="link-like">Back</a>
+          <a href="buy1.html" class="link-like">Back</a>
           <button type="submit" id="payBtn" class="btn" data-i18n-text="Pay Now">Pay Now</button>
           <div class="secure-note">🔒 Secure Payment</div>
         </div>
       </form>
 
+      <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          this.style.display = 'none';
+          const sp = document.getElementById('successPanel');
+          if (sp) sp.style.display = 'block';
+          setTimeout(function() {
+            window.location.href = 'onboarding.html';
+          }, 1500);
+        });
+      </script>
+
       <!-- SUCCESS PANEL -->
       <div id="successPanel" class="reveal" style="text-align:center; padding:20px;">
-        <div style="font-size:48px; color:green; margin-bottom:10px;">✔</div>
-        <h3 style="color:#555; margin-bottom:10px;">Payment Successful!</h3>
-        <p style="margin-bottom:20px;">Redirecting you to the software configurator…</p>
-        <button id="goNowBtn" class="btn">Go Now</button>
+        <div style="font-size:48px; color:#10b981; margin-bottom:10px;">✔</div>
+        <h3 style="color:#f8fafc; margin-bottom:10px;">Payment Successful!</h3>
+        <p style="margin-bottom:20px; color:#cbd5e1;">Redirecting you to the Onboarding Wizard to configure your mill…</p>
+        <button id="goNowBtn" class="btn" onclick="window.location.href='onboarding.html'" style="background:#f6dd0d; color:#101915; font-weight:700;">Go Now</button>
       </div>
     </section>
 
@@ -1062,5 +1074,6 @@
   });
 </script>
 <script src="js/localization.js?v=44"></script>
+<script src="js/ai_assistant.js"></script>
 </body>
 </html>

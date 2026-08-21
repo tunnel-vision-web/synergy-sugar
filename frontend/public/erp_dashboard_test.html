@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud ERP Sandbox Dashboard — Synergy Bravo ERP</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/sansation">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+
+  <style>
+    :root {
+      --bg: #16221c;
+      --card-bg: #101915;
+      --surface-elevated: #1e2b25;
+      --primary: #f6dd0d;
+      --primary-hover: #e5cd0c;
+      --border: #283a31;
+      --border-active: #364e43;
+      --text-strong: #f8fafc;
+      --text: #cbd5e1;
+      --header-gray: #94a3b8;
+      --radius: 3px !important;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Navigation Header */
+    .dashboard-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 10000;
+      height: 74px;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand-logo {
+      height: 48px;
+    }
+
+    .mill-badge {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-active);
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .status-pill {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10b981;
+      color: #10b981;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50% !important;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-strong);
+    }
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50% !important;
+      background: var(--primary);
+      color: var(--card-bg);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Main Content Area */
+    .dashboard-layout {
+      padding-top: 100px;
+      padding-bottom: 60px;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* Welcome Banner */
+    .welcome-banner {
+      background: linear-gradient(135deg, #101915 0%, #1e2b25 100%);
+      border: 1px solid var(--border-active);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .welcome-title {
+      font-family: 'Sansation', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      margin-bottom: 6px;
+    }
+    .welcome-desc {
+      font-size: 0.9rem;
+      color: var(--header-gray);
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .metric-card:hover {
+      border-color: var(--border-active);
+      transform: translateY(-2px);
+    }
+    .metric-label {
+      font-size: 0.78rem;
+      color: var(--header-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .metric-val {
+      font-family: 'Sansation', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      margin-bottom: 4px;
+    }
+    .metric-val.highlight {
+      color: var(--primary);
+    }
+    .metric-sub {
+      font-size: 0.76rem;
+      color: #10b981;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-family: 'Sansation', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Active Modules Launcher Grid */
+    .modules-launcher {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .app-launcher-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .app-launcher-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .app-icon-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .app-icon {
+      font-size: 24px;
+    }
+    .app-name {
+      font-family: 'Sansation', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-strong);
+    }
+    .app-desc {
+      font-size: 0.82rem;
+      color: var(--header-gray);
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+    .app-launch-btn {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-active);
+      color: var(--primary);
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .app-launch-btn:hover {
+      background: var(--primary);
+      color: var(--card-bg);
+    }
+
+    /* Live Activity Table */
+    .activity-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--header-gray);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(40, 58, 49, 0.5);
+      color: var(--text);
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-tag {
+      padding: 3px 8px;
+      border-radius: var(--radius);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-tag.paid { background: rgba(16,185,129,0.2); color: #10b981; }
+    .badge-tag.weighed { background: rgba(246,221,13,0.2); color: #f6dd0d; }
+
+    @media (max-width: 1024px) {
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .modules-launcher { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .modules-launcher { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Dashboard Header -->
+  <header class="dashboard-header">
+    <div class="header-left">
+      <a href="landing_enhanced.html">
+        <img src="assets/images/Synergy-logo-sugar-web-white.png" alt="Synergy Sugar" class="brand-logo">
+      </a>
+      <div class="mill-badge">
+        <span>🏭</span>
+        <span id="header-mill-name">Mumias Sugar Complex</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="status-pill">
+        <span>Cloud ERP Active</span>
+      </div>
+
+      <!-- Pre-rendered Localization Bar -->
+      <div id="synergyLocalizationBar" data-prerendered="true" style="display:inline-flex;align-items:center;gap:6px;background:rgba(16,25,21,0.85);border:1px solid #364e43;border-radius:4px;padding:3px 8px;font-size:0.74rem;color:#f8fafc;white-space:nowrap;line-height:1.3;cursor:pointer;position:relative;">
+        <div style="position:relative;display:inline-block;">
+          <button type="button" id="marketSelectorBtn" onclick="(function(e){e.stopPropagation();var m=document.getElementById('marketMenu');m.style.display=m.style.display==='none'?'block':'none';})(event)" style="background:none;border:none;color:#f8fafc;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;padding:2px 4px;font-size:0.74rem;font-family:inherit;">
+            <span id="selectedMarketText">🇰🇪 KE</span>
+            <span style="font-size:0.56rem;color:#f6dd0d;">&#9660;</span>
+          </button>
+          <div id="marketMenu" style="display:none;position:absolute;top:110%;left:0;background:#16221c;border:1px solid #364e43;border-radius:4px;box-shadow:0 12px 30px rgba(0,0,0,0.85);z-index:50000;min-width:190px;padding:6px 0;">
+            <div style="padding:4px 10px;font-size:0.68rem;font-weight:700;color:#64748b;text-transform:uppercase;">Region / Market</div>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setMarket('KE');document.getElementById('marketMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇰🇪 Kenya (KSh)</a>
+            <a href="#" onclick="if(window.SynergyLocalization)SynergyLocalization.setMarket('US');document.getElementById('marketMenu').style.display='none';return false;" style="display:flex;align-items:center;gap:8px;padding:6px 12px;color:#f8fafc;text-decoration:none;font-size:0.8rem;">🇺🇸 United States ($)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-profile">
+        <div class="avatar" id="header-avatar">JW</div>
+        <div>
+          <div style="font-weight:700;" id="header-user-name">Jane Wanjiku</div>
+          <div style="font-size:0.72rem; color:var(--header-gray);" id="header-user-role">Mill Administrator</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dashboard Main Layout -->
+  <main class="dashboard-layout">
+
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <div>
+        <h2 class="welcome-title">🎉 Onboarding Complete & Cloud ERP Initialized</h2>
+        <p class="welcome-desc">Your mill workspace <strong id="banner-mill-name" style="color:var(--primary);">Mumias Sugar Complex</strong> is live in Sandbox mode. AI Copilot is active to monitor outgrower haulage & weighbridge scale sync.</p>
+      </div>
+      <a href="onboarding.html" style="background:var(--surface-elevated); border:1px solid var(--border-active); color:var(--text-strong); text-decoration:none; padding:10px 18px; border-radius:var(--radius); font-weight:600; font-size:0.85rem;">
+        ⚙️ Edit Setup
+      </a>
+    </div>
+
+    <!-- Metrics Grid -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Registered Outgrowers</div>
+        <div class="metric-val highlight" id="card-farmer-val">5,500</div>
+        <div class="metric-sub">▲ 100% Polygon GPS Mapped</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">Milling Capacity (TCD)</div>
+        <div class="metric-val" id="card-tcd-val">3,480 TCD</div>
+        <div class="metric-sub">▲ 99.4% Operational Rate</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">Weighbridge Scale Net</div>
+        <div class="metric-val">2,840.5 Tons</div>
+        <div class="metric-sub">▲ RS232 Scale Sync Active</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">M-PESA Grower Payouts</div>
+        <div class="metric-val highlight">KSh 14.25M</div>
+        <div class="metric-sub">▲ Settled Today</div>
+      </div>
+    </div>
+
+    <!-- Active ERP Apps Grid -->
+    <h3 class="section-title">🚀 Active Cloud ERP Applications</h3>
+    <div class="modules-launcher" id="modules-launcher-grid">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Live Activity Table -->
+    <h3 class="section-title">📊 Live Outgrower & Weighbridge Activity Stream</h3>
+    <div class="activity-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Ticket #</th>
+            <th>Outgrower Farmer</th>
+            <th>Cane Delivery Plot</th>
+            <th>Gross / Net Weight</th>
+            <th>Sucrose Pol %</th>
+            <th>Payout Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700; color:var(--text-strong);">#WB-98421</td>
+            <td>Peter Wafula (ID: 4892)</td>
+            <td>Plot B-412 (Mumias West)</td>
+            <td>24.8 / 18.2 Tons</td>
+            <td>14.2% (Brix 18.5)</td>
+            <td><span class="badge-tag paid">M-PESA PAID (KSh 109,200)</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700; color:var(--text-strong);">#WB-98422</td>
+            <td>Grace Otieno (ID: 3104)</td>
+            <td>Plot C-109 (Sony South)</td>
+            <td>32.1 / 23.5 Tons</td>
+            <td>13.8% (Brix 17.9)</td>
+            <td><span class="badge-tag weighed">WEIGHED IN - PENDING LAB</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700; color:var(--text-strong);">#WB-98423</td>
+            <td>Joseph Kiptoo (ID: 7521)</td>
+            <td>Plot A-085 (Nzoia Sector)</td>
+            <td>28.5 / 21.0 Tons</td>
+            <td>14.6% (Brix 19.1)</td>
+            <td><span class="badge-tag paid">M-PESA PAID (KSh 126,000)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script src="js/ai_assistant.js"></script>
+  <script src="js/localization.js?v=44"></script>
+  <script>
+    (function loadDashboardData() {
+      // Load saved onboarding details if available
+      const rawData = localStorage.getItem('synergy_onboarding_data');
+      let obData = {
+        millName: 'Mumias Sugar Complex',
+        contactName: 'Jane Wanjiku',
+        farmerCount: '5,500 Farmers (5,000 - 15,000 Ha)',
+        capacity: '3,500 TCD (Tons Cane / Day)',
+        modules: [
+          'Farmers Recruitment & Cane',
+          'Weighbridge Scale Sync',
+          'Harvesting & Transport',
+          'Sales & M-PESA Invoicing'
+        ],
+        enableAI: true
+      };
+
+      if (rawData) {
+        try {
+          obData = Object.assign(obData, JSON.parse(rawData));
+        } catch (e) { console.error('Failed parsing onboarding data', e); }
+      }
+
+      // Populate Header & Profile
+      document.getElementById('header-mill-name').textContent = obData.millName;
+      document.getElementById('banner-mill-name').textContent = obData.millName;
+      document.getElementById('header-user-name').textContent = obData.contactName;
+
+      // Initials for avatar
+      const initials = obData.contactName.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+      document.getElementById('header-avatar').textContent = initials || 'JW';
+
+      // KPI Metrics
+      document.getElementById('card-farmer-val').textContent = obData.farmerCount.split(' ')[0] || '5,500';
+      document.getElementById('card-tcd-val').textContent = obData.capacity.split(' ')[0] + ' TCD' || '3,500 TCD';
+
+      // Render Active Apps
+      const grid = document.getElementById('modules-launcher-grid');
+      grid.innerHTML = '';
+
+      const allApps = [
+        { name: 'Farmers Recruitment & Cane', icon: '🌾', desc: 'Outgrower farmer registration, digital contracts & plot GPS polygons' },
+        { name: 'Weighbridge Scale Sync', icon: '⚖️', desc: 'RS232 scale indicators, anti-tamper weight lock & sucrose lab ticket sync' },
+        { name: 'Harvesting & Transport', icon: '🚛', desc: 'Tractor haulage fleet GPS tracking, trip tickets & turn-around telemetry' },
+        { name: 'Sales & M-PESA Invoicing', icon: '💰', desc: 'Instant M-PESA outgrower grower settlements & commercial sugar billing' },
+        { name: 'Fleet Maintenance', icon: '🔧', desc: 'Machinery preventive servicing schedules & fuel telemetry alerts' },
+        { name: 'HR & Field Labor Payroll', icon: '👥', desc: 'Biometric field attendance & cane cutter piece-rate automated payroll' }
+      ];
+
+      allApps.forEach(app => {
+        const isSelected = obData.modules.includes(app.name);
+        const card = document.createElement('div');
+        card.className = 'app-launcher-card';
+        card.style.opacity = isSelected ? '1' : '0.55';
+        card.innerHTML = `
+          <div>
+            <div class="app-icon-title">
+              <span class="app-icon">${app.icon}</span>
+              <div class="app-name">${app.name}</div>
+            </div>
+            <div class="app-desc">${app.desc}</div>
+          </div>
+          <button class="app-launch-btn" onclick="alert('Launching ${app.name} Sandbox module...')">
+            ${isSelected ? 'Open Module &#8594;' : 'Activate Module'}
+          </button>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Auto-open AI Copilot if enabled in onboarding
+      if (obData.enableAI && window.SynergyAICopilot) {
+        setTimeout(() => {
+          window.SynergyAICopilot.open();
+        }, 1500);
+      }
+    })();
+  </script>
+</body>
+</html>

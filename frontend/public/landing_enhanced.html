@@ -4003,7 +4003,10 @@ a.btn-request-demo:hover {
 
     setTimeout(() => {
       window.closeSignInModal();
-    }, 1800);
+      if (window.authMode === 'signup') {
+        window.location.href = 'onboarding.html';
+      }
+    }, 1200);
   };
 
   window.showLoginDialog = function() {
@@ -4533,5 +4536,6 @@ a.btn-request-demo:hover {
 
   
 </script>
+<script src="js/ai_assistant.js"></script>
 </body>
 </html>
